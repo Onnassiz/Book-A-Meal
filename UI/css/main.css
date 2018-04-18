@@ -13,12 +13,8 @@ html {
 }
 
 
-body {
-
-}
-
 #container{
-
+	width: 100%;
 }
 
 header {
@@ -46,9 +42,6 @@ header .nav a {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
-header .nav a:hover {
-	text-decoration: underline;
-}
 
 header .nav li:not(:last-child){
 	list-style: none;
@@ -64,7 +57,7 @@ header .nav li#signIn {
 	padding-top: 22px;
 }
 
-header .nav li#signIn button {
+button {
     background-color: #7E9C18; /* Green */
     border: none;
     color: white;
@@ -74,6 +67,9 @@ header .nav li#signIn button {
     display: inline-block;
     font-size: 17px;
     border-radius: 3px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    outline: none;
+    cursor: pointer;
 }
 
 #banner {
@@ -87,10 +83,11 @@ header .nav li#signIn button {
 }
 
 #content {
-	width: 95%;
+	width: 86%;
 	position: relative;
 	top: 550px;
 	background-color: #dbdfdf;
-	min-height: 1500px;
-	padding: 40px 40px 40px 40px;
+	min-height: 800px;
+	padding: 40px 100px 40px 100px;
 }
+
