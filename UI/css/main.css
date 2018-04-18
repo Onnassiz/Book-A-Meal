@@ -12,6 +12,10 @@ html {
     height: 100%;
 }
 
+body{
+	background-color: #dbdfdf;
+}
+
 
 #container{
 	width: 100%;
@@ -23,6 +27,12 @@ header {
 	width: 100%;
 	z-index: 10;
 	position: fixed;
+}
+
+a{
+	text-decoration: none;
+	font-size: 14px;
+	color:  #4f6607;
 }
 
 header .nav {
@@ -90,4 +100,40 @@ button {
 	min-height: 800px;
 	padding: 40px 100px 40px 100px;
 }
+
+#content #right-column {
+	position: relative;
+	margin-left: 10px;
+	width: 20%;
+	float: left;
+}
+
+#content #left-column {
+	position: relative;
+	width: 78%;
+	float: left;
+}
+
+#content #right-column .side-panel {
+	width: 100%;
+	min-height: 100px;
+	min-width: 200px;
+	border-radius: 3px;
+	background: #D7D7D7;
+}
+
+#content #right-column .side-panel h3 {
+	color: white;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	background: #B7471B;
+	text-align: center;
+	padding: 20px;
+}
+
+#content #right-column .side-panel li {
+	list-style: none;
+	padding: 6px 10px 6px 10px;
+	border-bottom: 2px #979797 solid;
+}
+
 
