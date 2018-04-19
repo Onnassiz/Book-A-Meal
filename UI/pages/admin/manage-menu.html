@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="../../css/main.css">
+	<link rel="stylesheet" type="text/css" href="../../css/sub.css">
+	<link rel="stylesheet" type="text/css" href="../../css/form.css">
+	<link rel="stylesheet" type="text/css" href="../../css/accordion.css">
+	<link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+	<title>Just Eat</title>
+</head>
+<body>
+	<div id="container">
+		<header>
+			<h1 class="logo"><a href="../../index.html"><img src="../../images/logo.png"></a></h1>
+
+			<div class="nav">
+				<ul>
+					<li><a href="../../index.html">Home</a></li>
+					<li><a href="#">Menu</a></li>
+					<li><a href="#">Orders</a></li>
+					<li><a href="#"><i class="material-icons">shopping_cart</i>
+					</a></li>
+					<li id="signIn"><a href="../signIn.html"><button>Sign In</button></a></li>
+				</ul>
+			</div>
+		</header>
+
+		<div id="content">
+			<div id="left-column">
+				<div>
+					<button onclick="toggle_form()"><i style="font-size: 15px" class="material-icons">add_circle</i> Add Menu</button>
+				</div>
+				<div id="meal_form_div" hidden="">
+					<div style="width: 90%" class="box">
+						<div class="heading">
+							<h3>Add New Menu</h2>
+						</div>
+						<div id="body">
+							<form id="meal_form">
+								<div id="meal_options">
+								
+								</div>
+								<div class="inputBox">
+									<label for="date">Menu Date:</label>
+									<input style="width: 30%" autocomplete="off" type="date" name="date" value="2018-04-24" required="" id="date">
+								</div>
+								<div id="buttons">
+									<button onclick="toggle_form()" class="button-error" type="submit">Close</button>
+									<button style="float: right;" class="button-default" type="submit">Add</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<h1 style="margin-top: 20px; color: #4D4D4D">Click date to view menu</h2>
+				<div id="menus">
+					
+				</div>
+			</div>
+			<div id="right-column">
+				<div class="side-panel">
+					<h3>Admin panel</h2>
+						<ul>
+							<li><a href="manage-meal.html"><i class="material-icons" style="font-size: 13px">settings</i> Manage Meal</a></li>
+							<li><a style="color: #7a604a" href="manage-menu.html"><i class="material-icons" style="font-size: 13px">developer_board</i> Manage Menu</a></li>
+							<li><a href="#"><i class="material-icons" style="font-size: 13px">report</i> Reports</a></li>
+							<li><a href="#">Etc</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../js/meals.js"></script>
+		<script type="text/javascript" src="../../js/manage-menu.js"></script>
+	</body>
+	</html>
