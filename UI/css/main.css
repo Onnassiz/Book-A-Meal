@@ -134,6 +134,7 @@ button {
 	min-width: 200px;
 	border-radius: 5px;
 	background: #D7D7D7;
+	position: relative;
 }
 
 #content #right-column .side-panel h3 {
@@ -189,8 +190,50 @@ table tbody td span {
 	margin: 5px;
 }
 
+.arrowBox {
+	width: 200px;
+	height: 120px;
+	background: #afafaf;
+	border-radius: 5px;
+	position: absolute;
+	top: -5.0em;
+	left: 75px;
+	padding: 10px;
+	font-size: 13px;
+	line-height: 22px;
+	text-align: center;
+}
+
+.arrowBox:after {
+	content: ' ';
+	width: 0px;
+	height: 0px;
+	border-top: 10px solid transparent;
+	border-left: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-right: 10px solid #afafaf;
+	position: absolute;
+	right: 100%;
+	top: 50%;
+	margin-top: -10px;
+}
+
 .material-icons {
 	font-size: 15px;
+}
+
+.tooltips {
+	position: relative;
+	z-index: 1;
+}
+
+.tooltips div {
+	display: none;
+}
+
+.tooltips:hover div {
+	display: block;
+	color: #4D4D4D;
 }
 
 
