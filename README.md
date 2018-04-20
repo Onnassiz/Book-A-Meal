@@ -8,7 +8,6 @@ This is a simple UI design for Book-A-Meal application. This UI has the followin
 	<li><b>Admin Panel:</b> with the assumtion that the signed user is an admin, every page (except signin/signup) has an Admin panel floated to the right. These panels contain links to admin pages</li>
 	<li><b>Signin/SignUp Pages:</b> contains sign in and sign up forms respectively. Sigup page can only be accessed through the Signin page</li>
 	<li><b>Menu page:</b> Contains menu for the current day, a datepicker input box to let users choose a date, and a next and prev button to let user navigate throug dates.</li>
-	
 	<li><b>Manage meals:</b> contains a table of all meals and a form to allow an admin add new meal. This form is hanlde in a js file and adds meals to the table.</li>
 	<li><b>Manage menu:</b> contains menu for all days and a form through which an admin can add menu</li>
 	<li><b>Report:</b> contains applications daily reports</li>
