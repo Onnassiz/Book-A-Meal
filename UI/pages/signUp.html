@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<link rel="stylesheet" type="text/css" href="../css/sub.css">
+	<link rel="stylesheet" type="text/css" href="../css/signIn.css">
+	<link rel="stylesheet" type="text/css" href="../css/signUp.css">
+	<link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+	<meta name="viewport" content="width=divice-width, initial-scale=1.0"/>
+	<title>Just Eat</title>
+</head>
+<body>
+	<div id="container">
+		<header>
+			<h1 class="logo"><a href="../index.html"><img src="../images/logo.png"></a></h1>
+
+			<div class="nav">
+				<ul>
+					<li><a href="../index.html">Home</a></li>
+					<li><a href="menu.html">Menu</a></li>
+					<li><a href="orders.html">Orders</a></li>
+					<li><a href="cart.html"><i class="material-icons">shopping_cart</i>
+					</a></li>
+					<li id="signIn"><a href="signIn.html"><button>Sign In</button></a></li>
+				</ul>
+			</div>
+		</header>
+
+		<div id="content">
+			<div class="box">
+				<h2>Sign Up</h2>
+				<form>
+					<div class="inputBox">
+						<label for="name">Full name:</label>
+						<input type="text" name="name" required="" id="name">
+					</div>
+					<div class="inputBox">
+						<label for="email">Email:</label>
+						<input type="text" name="email" required="" id="email">
+					</div>
+					<div class="inputBox">
+						<label for="password">Password</label>
+						<input type="password" name="password" required="" id="password">
+					</div>
+					<div class="inputBox">
+						<label for="password">Confirm Password</label>
+						<input type="password" name="password" required="" id="password">
+					</div>
+					<div id="forgotPassword">
+						<a href="#">Forgot Password?</a>
+					</div>
+					<div id="submit">
+						<input type="submit" value="Sign In">
+					</div>
+				</form>
+			</div>
+			<div class="register">
+				<div class="strike">
+				   <span>or</span>
+				</div>
+			</div>
+			<div class="register-button">
+				<a href="signIn.html"><button>Sign In</button></a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
