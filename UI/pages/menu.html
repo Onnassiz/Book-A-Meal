@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<link rel="stylesheet" type="text/css" href="../css/sub.css">
+	<link rel="stylesheet" type="text/css" href="../css/menu.css">
+	<link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+	<title>Just Eat</title>
+</head>
+<body>
+	<div id="container">
+		<header>
+			<h1 class="logo"><a href="../index.html"><img src="../images/logo.png"></a></h1>
+			<div class="nav">
+				<ul>
+					<li><a href="../index.html">Home</a></li>
+					<li><a style="border-bottom: 1px solid white" href="menu.html">Menu</a></li>
+					<li><a href="orders.html">Orders</a></li>
+					<li><a href="cart.html"><i class="material-icons">shopping_cart</i>
+					</a></li>
+					<li id="signIn"><a href="signIn.html"><button>Sign In</button></a></li>
+				</ul>
+			</div>
+		</header>
+
+		<div id="content">
+			<div id="left-column">
+				<h2>Today's menu</h2>
+				<div class="inputBox">
+					<a href="#" title="back"><i class="material-icons">navigate_before</i></a>
+					<input autocomplete="off" type="date" name="date" value="2018-04-24" required="" id="date">
+					<a href="#" title="next day"><i class="material-icons">navigate_next</i></a>
+				</div>
+				<div id="card_container">
+					
+				</div>
+			</div>
+			<div id="right-column">
+				<div class="side-panel">
+					<h3>Admin panel</h2>
+						<ul>
+							<li><a href="admin/manage-meal.html"><i class="material-icons" style="font-size: 13px">settings</i> Manage Meal</a></li>
+							<li><a href="admin/manage-menu.html"><i class="material-icons" style="font-size: 13px">developer_board</i> Manage Menu</a></li>
+							<li><a href="admin/reports.html"><i class="material-icons" style="font-size: 13px">report</i> Reports</a></li>
+							<li><a href="admin/manage-users.html"><i class="material-icons" style="font-size: 13px">people</i> Manage Users</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../js/meals.js"></script>
+		<script type="text/javascript" src="../js/menu.js"></script>
+	</body>
+	</html>

@@ -1,0 +1,14 @@
+.box {
+	top: 34%;
+}
+
+.register {
+	top: 67%;
+}
+
+.register-button {
+    position: absolute;
+    margin-top: 50px;
+    top: 70%;
+    left: 47%
+}
