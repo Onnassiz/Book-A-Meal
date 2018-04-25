@@ -6,6 +6,16 @@
 # Book-A-Meal
 Book-A-Meal is an application that allows customers to make food orders and helps the food vendor know what the customers want to eat. The custom name for this app is <b>Just Eat</b>
 This is a simple UI design for Book-A-Meal application. This UI has the following features.
+<h1>API Setup</h1>
+This app's uses and node express api with the following testing kits:
+<ul>
+  <li>Mocha</li>
+  <li>request</li>
+  <li>chai</li>
+  <li>TravisCI</li>
+  <li>Coveralls</li>
+</ul>
+All api files (model, controllers, routes) goes in the <b>api</b> directory and all test files goes in the <b>test</b> directory.
 <h1>UI Features</h1>
 <ul>
   <li><b>Top Nav:</b> contains links basic client pages (menu, orders, cart) and a signin button</li>
