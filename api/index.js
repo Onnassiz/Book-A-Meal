@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 
 const app = express();
 
+
 app.use(bodyParser.json());
 
 app.get('/api', (req, res) => res.send('Welcome to Book-A-Meal'));

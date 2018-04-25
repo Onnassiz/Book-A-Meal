@@ -25,11 +25,19 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "body-parser": "^1.18.2",
+    "eslint": "^4.19.1",
     "express": "^4.16.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "nodemon": "^1.17.3"
+    "chai": "^4.1.2",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.3",
+    "request": "^2.85.0"
   }
 }
