@@ -1,5 +1,8 @@
 <a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=setup-api" alt="travis"></a>
 
+<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=setup-api'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=setup-api' alt='Coverage Status' /></a>
+
+
 # Book-A-Meal
 Book-A-Meal is an application that allows customers to make food orders and helps the food vendor know what the customers want to eat. The custom name for this app is <b>Just Eat</b>
 This is a simple UI design for Book-A-Meal application. This UI has the following features.
