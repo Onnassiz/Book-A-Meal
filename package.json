@@ -4,7 +4,8 @@
   "description": "Aoi for Book-A-Meal",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon api/index.js --exec babel-node api/index.js --presets env"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,15 @@
   "bugs": {
     "url": "https://github.com/Onnassiz/Book-A-Meal/issues"
   },
-  "homepage": "https://github.com/Onnassiz/Book-A-Meal#readme"
+  "homepage": "https://github.com/Onnassiz/Book-A-Meal#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "nodemon": "^1.17.3"
+  }
 }
