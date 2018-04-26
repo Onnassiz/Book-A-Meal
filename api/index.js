@@ -17,8 +17,10 @@ app.get('/api', (req, res) => res.send('Welcome to Book-A-Meal'));
 app.use('/api/v1', apiRouter);
 
 const UsersController = require('./controllers/UsersController');
+const MealsController = require('./controllers/MealsController');
 
 const usersEndpoints = new UsersController(apiRouter);
+const mealsEndpoints = new MealsController(apiRouter);
 
 
 app.listen(3002, () => console.log('App running at port 3002.'));
