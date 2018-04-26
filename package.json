@@ -28,7 +28,9 @@
     "babel-core": "^6.26.0",
     "body-parser": "^1.18.2",
     "eslint": "^4.19.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
