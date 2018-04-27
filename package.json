@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --require babel-core/register --exit",
-    "start": "nodemon api/index.js --exec babel-node api/index.js --presets env",
+    "start": "nodemon server.js --exec babel-node server.js --presets env",
     "lint": "eslint api",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },

@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const { describe, it } = require('mocha');
 
 
-const baseUrl = 'http://localhost:3002/api/v1';
+const baseUrl = 'http://localhost:3001/api/v1';
 
 describe('Meals Controller', () => {
   describe('Test get /meals', () => {
