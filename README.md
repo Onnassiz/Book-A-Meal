@@ -1,5 +1,5 @@
-<a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=manage-menus" alt="travis"></a>
-<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=manage-menus'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=manage-menus' alt='Coverage Status' /></a>
+<a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=manage-orders" alt="travis"></a>
+<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=manage-orders'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=manage-orders' alt='Coverage Status' /></a>
 
 
 # Book-A-Meal
