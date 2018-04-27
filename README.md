@@ -1,5 +1,5 @@
-<a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=manage-menus" alt="travis"></a>
-<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=manage-menus'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=manage-menus' alt='Coverage Status' /></a>
+<a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=manage-orders" alt="travis"></a>
+<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=manage-orders'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=manage-orders' alt='Coverage Status' /></a> <a href="https://codeclimate.com/github/Onnassiz/Book-A-Meal/maintainability"><img src="https://api.codeclimate.com/v1/badges/219224f1c0c06ec8fb79/maintainability" /></a>
 
 
 # Book-A-Meal
@@ -14,7 +14,11 @@ This app's uses and node express api with the following testing kits:
   <li>TravisCI</li>
   <li>Coveralls</li>
 </ul>
-All api files (model, controllers, routes) goes in the <b>api</b> directory and all test files goes in the <b>test</b> directory.
+All api files (models, controllers) goes in the <b>api</b> directory and all test files goes in the <b>test</b> directory.
+
+This app will at this stage use json mock data for api endpoint testing.
+
+This app also have CI badges obtained from <b>Travis, Coveralls, and Code Climate</b> as shown above.
 <h1>UI Features</h1>
 <ul>
   <li><b>Top Nav:</b> contains links basic client pages (menu, orders, cart) and a signin button</li>

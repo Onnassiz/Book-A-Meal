@@ -4,9 +4,9 @@ const { expect } = require('chai');
 const { describe, it } = require('mocha');
 
 
-const baseUrl = 'http://localhost:3002/api';
+const baseUrl = 'http://localhost:3001/api';
 
-require('../api/index.js');
+require('../server.js');
 
 
 describe('Index Route', () => {
