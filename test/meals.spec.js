@@ -36,7 +36,7 @@ describe('Meal Model', () => {
     });
   });
 
-  describe('Add to meal', () => {
+  describe('Add to meals', () => {
     it('should increase the meals size by one', () => {
       const mealsLength = MealsServices.getAllMeals().length;
       const meal = {

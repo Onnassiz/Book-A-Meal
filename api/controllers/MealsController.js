@@ -48,7 +48,7 @@ class MealsController {
     if (MealsServices.updateMeal(id, meal)) {
       res.sendStatus(200);
     } else {
-      res.sendStatus(404).send('Meal not found');
+      res.status(404).send('Meal not found');
     }
   }
 
@@ -57,7 +57,7 @@ class MealsController {
     if (MealsServices.deleteMeal(id)) {
       res.sendStatus(200);
     } else {
-      res.sendStatus(404).send('Meal not found');
+      res.status(404).send('Meal not found');
     }
   }
 }

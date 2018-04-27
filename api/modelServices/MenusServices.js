@@ -1,5 +1,6 @@
 
 const menus = require('../mockups/menus');
+const _ = require('lodash');
 
 class MenusServices {
   constructor(_menus) {
@@ -15,8 +16,8 @@ class MenusServices {
   }
 
   addMenu(menu) {
-    if (menu) {
-      const index = this.menus.findIndex(x => x.timestamp === menu.timestamp);
+    if (!_.isEmpty(menu)) {
+      const index = this.menus.findIndex(x => x.timestamp === parseInt(menu.timestamp, 10));
       if (index === -1) {
         this.menus.push(menu);
         return true;
@@ -27,8 +28,8 @@ class MenusServices {
   }
 
   updateMenu(timestamp, menu) {
-    if (menu) {
-      const index = this.menus.findIndex(x => x.timestamp === menu.timestamp);
+    if (!_.isEmpty(menu)) {
+      const index = this.menus.findIndex(x => x.timestamp === timestamp);
       if (index !== -1) {
         this.menus[index] = menu;
         return true;

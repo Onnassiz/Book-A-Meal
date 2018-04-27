@@ -11,33 +11,33 @@ class MenusController {
   }
 
   registerRoutes() {
-    this.router.get('/meals', this.getMenus.bind(this));
-    this.router.get('/meals/:timeStamp', this.getMenuByTimeStamp.bind(this));
-    this.router.post('/meals', this.postMenu.bind(this));
-    this.router.put('/meals/:timeStamp', this.putMenu.bind(this));
+    this.router.get('/menus', this.getMenus.bind(this));
+    this.router.get('/menus/:timeStamp', this.getMenuByTimeStamp.bind(this));
+    this.router.post('/menus', this.postMenu.bind(this));
+    this.router.put('/menus/:timeStamp', this.putMenu.bind(this));
   }
 
   getMenus(req, res) {
-    res.send(MenusServices.getMeals());
+    res.send(MenusServices.getMenus());
   }
 
   getMenuByTimeStamp(req, res) {
     const timeStamp = parseInt(req.params.timeStamp, 10);
-    const menu = MenusServices.getMealByTimeStamp(timeStamp);
+    const menu = MenusServices.getMenuByTimeStamp(timeStamp);
 
     if (menu) {
       res.send(menu);
     } else {
-      res.sendStatus(404).send('Menu not found');
+      res.status(404).send('Menu not found');
     }
   }
 
   postMenu(req, res) {
-    const meal = req.body;
-    if (MenusServices.addMeal(meal)) {
+    const menu = req.body;
+    if (MenusServices.addMenu(menu)) {
       res.sendStatus(200);
     } else {
-      res.sendStatus(400).send('Error adding menu');
+      res.status(400).send('Error adding menu');
     }
   }
 
@@ -45,10 +45,11 @@ class MenusController {
     const timeStamp = parseInt(req.params.timeStamp, 10);
     const menu = req.body;
 
+
     if (MenusServices.updateMenu(timeStamp, menu)) {
       res.sendStatus(200);
     } else {
-      res.sendStatus(400).send('Error updating menu');
+      res.status(400).send('Error updating menu');
     }
   }
 }
