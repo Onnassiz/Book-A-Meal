@@ -3,8 +3,8 @@ const orders = require('../mockups/orders');
 const _ = require('lodash');
 
 class OrdersServices {
-  constructor(_orders) {
-    this.orders = _orders;
+  constructor() {
+    this.orders = orders;
   }
 
   getAllOrders() {
@@ -16,12 +16,14 @@ class OrdersServices {
   }
 
   getUserOrders(userId) {
-    return this.orders.find(x => x.user.id === userId);
+    const userOrders = this.orders.filter(x => x.user.id === userId);
+    return userOrders;
   }
 
   addOrder(order) {
     if (!_.isEmpty(order)) {
       this.orders.push(order);
+      return true;
     }
     return false;
   }
@@ -40,4 +42,4 @@ class OrdersServices {
   }
 }
 
-module.exports = new OrdersServices(orders);
+module.exports = new OrdersServices();

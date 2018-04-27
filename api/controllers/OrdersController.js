@@ -12,9 +12,9 @@ class OrdersController {
   registerRoutes() {
     this.router.get('/orders', this.getAllOrders.bind(this));
     this.router.get('/orders/:id', this.getOrderById.bind(this));
-    this.router.get('/orders/user/:id', this.getOrdersByUserId.bind(this));
+    this.router.get('/orders/user/:userId', this.getOrdersByUserId.bind(this));
     this.router.post('/orders', this.postOrder.bind(this));
-    this.router.put('/orders?:id', this.putOrder.bind(this));
+    this.router.put('/orders/:id', this.putOrder.bind(this));
   }
 
   getAllOrders(req, res) {
@@ -37,7 +37,7 @@ class OrdersController {
   }
 
   postOrder(req, res) {
-    const { order } = req.body;
+    const order = req.body;
     if (OrdersServices.addOrder(order)) {
       res.sendStatus(200);
     } else {
@@ -46,7 +46,7 @@ class OrdersController {
   }
 
   putOrder(req, res) {
-    const { order } = req.body;
+    const order  = req.body;
     const id = parseInt(req.params.id, 10);
 
     if (OrdersServices.updateOrder(id, order)) {

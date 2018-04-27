@@ -144,7 +144,7 @@ describe('Menus Controller', () => {
       };
 
       request.put({ url: `${baseUrl}/menus/1524960000`, form: menu }, (error, response) => {
-        expect(response.statusCode).to.equal(200);g
+        expect(response.statusCode).to.equal(200);
         done();
       });
     });
