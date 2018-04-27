@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
-app.get('/api', (req, res) => res.send('Welcome to Book-A-Meal'));
+app.get('/api/v1', (req, res) => res.send('Welcome to Book-A-Meal'));
 
 app.use('/api/v1', apiRouter);
 

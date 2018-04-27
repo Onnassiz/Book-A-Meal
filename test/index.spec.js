@@ -4,7 +4,7 @@ const { expect } = require('chai');
 const { describe, it } = require('mocha');
 
 
-const baseUrl = 'http://localhost:3001/api';
+const baseUrl = 'http://localhost:3001/api/v1';
 
 require('../server.js');
 
