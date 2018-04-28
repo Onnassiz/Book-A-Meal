@@ -3,8 +3,8 @@ const users = require('../mockups/users');
 
 
 class UsersServices {
-  constructor(_users) {
-    this.users = _users;
+  constructor() {
+    this.users = users;
   }
 
   getUsers() {
@@ -68,5 +68,5 @@ class UsersServices {
   }
 }
 
-module.exports = new UsersServices(users);
+module.exports = new UsersServices();
 
