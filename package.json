@@ -1,0 +1,52 @@
+{
+  "name": "book-a-meal",
+  "version": "1.0.0",
+  "description": "Aoi for Book-A-Meal",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha --require babel-core/register --exit",
+    "start": "nodemon server.js --exec babel-node server.js --presets env",
+    "lint": "eslint api",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Onnassiz/Book-A-Meal.git"
+  },
+  "keywords": [
+    "api",
+    "book-a-meal",
+    "tdd"
+  ],
+  "author": "onnassiz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Onnassiz/Book-A-Meal/issues"
+  },
+  "homepage": "https://github.com/Onnassiz/Book-A-Meal#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.3",
+    "nyc": "^11.7.1",
+    "request": "^2.85.0"
+  },
+  "engines": {
+      "node": "6.10.3"
+    }
+}

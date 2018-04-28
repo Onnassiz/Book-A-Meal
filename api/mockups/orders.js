@@ -1,0 +1,111 @@
+const orders = [
+  {
+    id: 1,
+    dateTime: '2018-04-24 : 06:00',
+    meals: [
+      {
+        id: 3,
+        name: 'Vegetable Fried Rice (Khao Phat Phak)',
+        description: 'Stir Fried with Eggs, Chinese Broccoli, Tofu and Onion. Served with Cucumber and Lime.',
+        price: 1500,
+        category: 'Snack',
+        image: '3.jpg',
+      },
+      {
+        id: 4,
+        name: 'Shrimp Frid Rice',
+        description: 'Stir Fried Rice with Shrimp, Egg, Peas, Corn, Bean, Carrots, Onion. Topped with Cucumber and Lime.',
+        price: 2000,
+        category: 'Snack',
+        image: '4.jpg',
+      },
+    ],
+    amount: 2000,
+    user: {
+      id: 1,
+      username: 'onnassiz@gmail.com',
+      password: 'password',
+      name: 'Onah Benjamin',
+      role: 'manager',
+      active: true,
+    },
+  },
+  {
+    id: 2,
+    dateTime: '2018-04-25 : 16:00',
+    meals: [
+      {
+        id: 1,
+        name: 'Chicken Pa-Naeng - Beef',
+        description: 'Red Curry with Peanut Sauce, Bamboo Shoot, Ginger, Bell Pepper, Green Bean, Galanga and Lemon Leaves. Choice of Chicken, Beef, Pork, Tofu or Shrimp.',
+        price: 2300,
+        category: 'Hot Meal',
+        image: '1.jpg',
+      },
+    ],
+    amount: 4000,
+    user: {
+      id: 1,
+      username: 'onnassiz@gmail.com',
+      password: 'password',
+      name: 'Onah Benjamin',
+      role: 'manager',
+      active: true,
+    },
+  },
+  {
+    id: 3,
+    dateTime: '2018-04-25 : 16:23',
+    meals: [
+      {
+        id: 1,
+        name: 'Chicken Pa-Naeng - Beef',
+        description: 'Red Curry with Peanut Sauce, Bamboo Shoot, Ginger, Bell Pepper, Green Bean, Galanga and Lemon Leaves. Choice of Chicken, Beef, Pork, Tofu or Shrimp.',
+        price: 2300,
+        category: 'Hot Meal',
+        image: '1.jpg',
+      },
+    ],
+    amount: 3800,
+    user: {
+      id: 2,
+      username: 'ifyben4me@gmail.com',
+      password: 'password',
+      name: 'Onah Ifeanyi',
+      role: 'caterer',
+      active: true,
+    },
+  },
+  {
+    id: 4,
+    dateTime: '2018-04-25 : 19:23',
+    meals: [
+      {
+        id: 3,
+        name: 'Vegetable Fried Rice (Khao Phat Phak)',
+        description: 'Stir Fried with Eggs, Chinese Broccoli, Tofu and Onion. Served with Cucumber and Lime.',
+        price: 1500,
+        category: 'Snack',
+        image: '3.jpg',
+      },
+      {
+        id: 4,
+        name: 'Shrimp Frid Rice',
+        description: 'Stir Fried Rice with Shrimp, Egg, Peas, Corn, Bean, Carrots, Onion. Topped with Cucumber and Lime.',
+        price: 2000,
+        category: 'Snack',
+        image: '4.jpg',
+      },
+    ],
+    amount: 3500,
+    user: {
+      id: 2,
+      username: 'ifyben4me@gmail.com',
+      password: 'password',
+      name: 'Onah Ifeanyi',
+      role: 'caterer',
+      active: true,
+    },
+  },
+];
+module.exports = orders;

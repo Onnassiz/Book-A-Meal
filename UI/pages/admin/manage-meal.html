@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="../../css/main.css">
+	<link rel="stylesheet" type="text/css" href="../../css/sub.css">
+	<link rel="stylesheet" type="text/css" href="../../css/form.css">
+	<link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+	<title>Just Eat</title>
+</head>
+<body>
+	<div id="container">
+		<header>
+			<h1 class="logo"><a href="../../index.html"><img src="../../images/logo.png"></a></h1>
+
+			<div class="nav">
+				<ul>
+					<li><a href="../../index.html">Home</a></li>
+					<li><a href="../menu.html">Menu</a></li>
+					<li><a href="../orders.html">Orders</a></li>
+					<li><a href="../cart.html"><i class="material-icons">shopping_cart</i>
+</a></li>
+					<li id="signIn"><a href="../signIn.html"><button>Sign In</button></a></li>
+				</ul>
+			</div>
+		</header>
+
+		<div id="content">
+			<div id="left-column">
+				<div>
+					<button onclick="toggle_form()"><i style="font-size: 15px" class="material-icons">add_circle</i> Add Meal</button>
+				</div>
+				<div id="meal_form_div" hidden="">
+					<div class="box">
+						<div class="heading">
+							<h3>Add New Meal</h2>
+						</div>
+						<div id="body">
+							<form id="meal_form">
+								<div class="inputBox">
+									<label for="meal_name">Meal Name:</label>
+									<input autocomplete="off" type="text" name="meal_name" required="" id="meal_name">
+								</div>
+								<div class="inputBox">
+									<label for="category">Category:</label>
+									<input autocomplete="off" type="text" name="category" required="" id="category">
+								</div>
+								<div class="inputBox">
+									<label for="price">Unit Price:</label>
+									<input autocomplete="off" type="text" name="price" required="" id="price">
+								</div>
+								<div class="inputBox">
+									<label for="description">Description</label>
+									<textarea name="description" id="description" cols="30" rows="10"></textarea>
+								</div>
+								<div id="buttons">
+									<button onclick="toggle_form()" class="button-error" type="submit">Close</button>
+									<button style="float: right;" class="button-default" type="submit">Add</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div id="table">
+					<table>
+						<thead>
+							<tr>
+								<th>S/N</th>
+								<th>Meal Name</th>
+								<th>Category</th>
+								<th>Price</th>
+								<th style="width: 130px">Actions</th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="right-column">
+				<div class="side-panel">
+					<h3>Admin panel</h2>
+					<ul>
+						<li><a href="manage-meal.html" style="color: #7a604a"><i class="material-icons" style="font-size: 13px">settings</i> Manage Meal</a></li>
+						<li><a href="manage-menu.html"><i class="material-icons" style="font-size: 13px">developer_board</i> Manage Menu</a></li>
+						<li><a href="reports.html"><i class="material-icons" style="font-size: 13px">report</i> Reports</a></li>
+						<li><a href="manage-users.html"><i class="material-icons" style="font-size: 13px">people</i> Manage Users</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="../../js/meals.js"></script>
+	<script type="text/javascript" src="../../js/manage_meal.js"></script>
+</body>
+</html>
