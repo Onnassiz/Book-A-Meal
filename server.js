@@ -17,15 +17,8 @@ app.get('/api/v1', (req, res) => res.send('Welcome to Book-A-Meal'));
 
 app.use('/api/v1', apiRouter);
 
-const UsersController = require('./api/controllers/UsersController');
-const MealsController = require('./api/controllers/MealsController');
-const MenusController = require('./api/controllers/MenusController');
-const OrdersController = require('./api/controllers/OrdersController');
-
-const usersEndpoints = new UsersController(apiRouter);
-const mealsEndpoints = new MealsController(apiRouter);
-const menusEndpoints = new MenusController(apiRouter);
-const ordersEndpoints = new OrdersController(apiRouter);
+// app.use('/api', router);
+require('./api/routes')(apiRouter);
 
 
 app.listen(app.get('port'), () => console.log('App running at port', app.get('port')));
