@@ -4,22 +4,9 @@
 const MealsServices = require('../modelServices/MealsServices');
 
 class MealsController {
-  constructor(router) {
-    this.router = router;
-    this.registerRoutes();
-  }
-
-  registerRoutes() {
-    this.router.get('/meals', this.getMeals.bind(this));
-    this.router.get('/meals/:id', this.getMealById.bind(this));
-    this.router.post('/meals', this.postMeal.bind(this));
-    this.router.put('/meals/:id', this.putMeal.bind(this));
-    this.router.delete('/meals/:id', this.deleteMeal.bind(this));
-  }
-
   getMeals(req, res) {
     const meals = MealsServices.getAllMeals();
-    res.send(meals);
+    res.status(200).send(meals);
   }
 
   getMealById(req, res) {
@@ -27,16 +14,16 @@ class MealsController {
     const meal = MealsServices.getSingleMeal(id);
 
     if (meal) {
-      res.send(meal);
+      res.status(200).send(meal);
     } else {
-      res.sendStatus(404);
+      res.status(404).send('Meal not found');
     }
   }
 
   postMeal(req, res) {
     const meal = req.body;
     if (MealsServices.addMeal(meal)) {
-      res.sendStatus(200);
+      res.status(200).send('Meal successfully added');
     } else {
       res.status(400).send('No meal supplied');
     }
@@ -46,7 +33,7 @@ class MealsController {
     const id = parseInt(req.params.id, 10);
     const meal = req.body;
     if (MealsServices.updateMeal(id, meal)) {
-      res.sendStatus(200);
+      res.status(200).send('Meal successfully updated');
     } else {
       res.status(404).send('Meal not found');
     }
@@ -55,11 +42,11 @@ class MealsController {
   deleteMeal(req, res) {
     const id = parseInt(req.params.id, 10);
     if (MealsServices.deleteMeal(id)) {
-      res.sendStatus(200);
+      res.status(200).send('Meal successfully deleted');
     } else {
       res.status(404).send('Meal not found');
     }
   }
 }
 
-module.exports = MealsController;
+module.exports = new MealsController();

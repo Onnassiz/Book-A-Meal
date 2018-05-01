@@ -3,10 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" type="text/css" href="../../css/main.css">
-	<link rel="stylesheet" type="text/css" href="../../css/sub.css">
-	<link rel="stylesheet" type="text/css" href="../../css/form.css">
-	<link rel="stylesheet" type="text/css" href="../../css/accordion.css">
+	<link rel="stylesheet" type="text/css" href="../../css/styles.css">
 	<link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
 	<title>Just Eat</title>
 </head>
@@ -17,33 +14,31 @@
 
 			<div class="nav">
 				<ul>
-					<li><a href="../../index.html">Home</a></li>
-					<li><a href="../menu.html">Menu</a></li>
-					<li><a href="../orders.html">Orders</a></li>
-					<li><a href="../cart.html"><i class="material-icons">shopping_cart</i>
-					</a></li>
-					<li id="signIn"><a href="../signIn.html"><button>Sign In</button></a></li>
-				</ul>
+          <li><a href="../menu.html">Menu</a></li>
+          <li><a href="../orders.html">Orders</a></li>
+          <li><a href="../cart.html"><i class="material-icons">shopping_cart</i>
+          </a></li>
+          <li>
+            <div class="dropdown">
+              <a style="border-bottom: 1px solid white" href="#">Caterer</a>
+              <div class="dropdown-content">
+                <a href="manage-meal.html"><i class="material-icons" style="font-size: 13px">settings</i> Manage Meal</a>
+                <a href="manage-menu.html"><i class="material-icons" style="font-size: 13px">developer_board</i> Manage Menu</a>
+                <a href="reports.html"><i class="material-icons" style="font-size: 13px">report</i> Reports</a>
+                <a href="manage-users.html"><i class="material-icons" style="font-size: 13px">people</i> Manage Users</a>
+              </div>
+            </div>
+          </li>
+          <li id="signIn"><a href="../signIn.html"><button class="button">Sign In</button></a></li>
+        </ul>
 			</div>
 		</header>
 
-		<div id="content">
-			<div id="left-column">
+		<div id="content2">
+			<div class="col-10">
 				<h2 style="margin-top: 20px; color: #4D4D4D">Click date to view daily report</h2>
 				<div id="menus">
 					
-				</div>
-			</div>
-			<div id="right-column">
-				<div class="side-panel">
-					<h3>Admin panel</h2>
-						<ul>
-							<li><a href="manage-meal.html"><i class="material-icons" style="font-size: 13px">settings</i> Manage Meal</a></li>
-							<li><a href="manage-menu.html"><i class="material-icons" style="font-size: 13px">developer_board</i> Manage Menu</a></li>
-							<li><a style="color: #7a604a" href="reports.html"><i class="material-icons" style="font-size: 13px">report</i> Reports</a></li>
-							<li><a href="manage-users.html"><i class="material-icons" style="font-size: 13px">people</i> Manage Users</a></li>
-						</ul>
-					</div>
 				</div>
 			</div>
 		</div>

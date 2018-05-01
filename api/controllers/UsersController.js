@@ -4,21 +4,6 @@
 const UsersServices = require('../modelServices/UsersServices');
 
 class UsersController {
-  constructor(router) {
-    this.router = router;
-    this.registerRoutes();
-  }
-
-  registerRoutes() {
-    this.router.get('/users', this.getUsers.bind(this));
-    this.router.get('/users/:id', this.getSingleUser.bind(this));
-    this.router.post('/users', this.postUser.bind(this));
-    this.router.put('/users/:id', this.putUser.bind(this));
-    this.router.put('/users/role/:id', this.changeRole.bind(this));
-    this.router.delete('/users/:id', this.deleteUser.bind(this));
-    this.router.put('/users/block/:id', this.blockUser.bind(this));
-  }
-
   getUsers(req, res) {
     const users = UsersServices.getUsers();
     res.send(users);
@@ -33,7 +18,7 @@ class UsersController {
     } else {
       const { username, password, name } = req.body;
       UsersServices.updateUser(id, username, password, name);
-      res.sendStatus(200);
+      res.status(200).send('user successfully updated');
     }
   }
 
@@ -42,9 +27,9 @@ class UsersController {
     const user = UsersServices.getSingleUser(id);
 
     if (!user) {
-      res.sendStatus(404);
+      res.status(404).send('user not found');
     } else {
-      res.send(user);
+      res.status(200).send(user);
     }
   }
 
@@ -52,7 +37,7 @@ class UsersController {
     const { id, username, password, name } = req.body;
 
     UsersServices.addUser(id, username, password, name);
-    res.sendStatus(200);
+    res.status(200).send('user successfully added');
   }
 
   changeRole(req, res) {
@@ -63,7 +48,7 @@ class UsersController {
     } else {
       const { role } = req.body;
       UsersServices.changeUserRole(id, role);
-      res.sendStatus(200);
+      res.status(200).send('user role successfully changed');
     }
   }
 
@@ -86,4 +71,5 @@ class UsersController {
   }
 }
 
-module.exports = UsersController;
+module.exports = new UsersController();
+

@@ -1,5 +1,6 @@
 const meals = require('../mockups/meals');
-const _ = require('lodash');
+const util = require('./util');
+
 
 class MealsServices {
   constructor(_meals) {
@@ -15,7 +16,7 @@ class MealsServices {
   }
 
   addMeal(meal) {
-    if (_.isEmpty(meal)) {
+    if (util.isEmpty(meal)) {
       return false;
     }
     this.meals.push(meal);

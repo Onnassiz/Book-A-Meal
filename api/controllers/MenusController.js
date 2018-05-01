@@ -5,18 +5,6 @@
 const MenusServices = require('../modelServices/MenusServices');
 
 class MenusController {
-  constructor(router) {
-    this.router = router;
-    this.registerRoutes();
-  }
-
-  registerRoutes() {
-    this.router.get('/menus', this.getMenus.bind(this));
-    this.router.get('/menus/:timeStamp', this.getMenuByTimeStamp.bind(this));
-    this.router.post('/menus', this.postMenu.bind(this));
-    this.router.put('/menus/:timeStamp', this.putMenu.bind(this));
-  }
-
   getMenus(req, res) {
     res.send(MenusServices.getMenus());
   }
@@ -35,7 +23,7 @@ class MenusController {
   postMenu(req, res) {
     const menu = req.body;
     if (MenusServices.addMenu(menu)) {
-      res.sendStatus(200);
+      res.status(200).send('Menu successfully added');
     } else {
       res.status(400).send('Error adding menu');
     }
@@ -47,11 +35,11 @@ class MenusController {
 
 
     if (MenusServices.updateMenu(timeStamp, menu)) {
-      res.sendStatus(200);
+      res.status(200).send('Menu successfully updated');
     } else {
       res.status(400).send('Error updating menu');
     }
   }
 }
 
-module.exports = MenusController;
+module.exports = new MenusController();
