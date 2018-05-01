@@ -21,10 +21,10 @@ body{
 #container{
 	width: 100%;
 }
+
 header {
 	height: 80px;
 	background: #7a604a;
-	/*background: #B7471B;*/
 	width: 100%;
 	z-index: 10;
 	position: fixed;
