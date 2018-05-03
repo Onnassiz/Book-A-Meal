@@ -1,5 +1,3 @@
-/* eslint class-methods-use-this: ["off"] */
-/* eslint object-curly-newline: ["off"] */
 
 const OrdersServices = require('../modelServices/OrdersServices');
 

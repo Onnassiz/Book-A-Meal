@@ -1,32 +1,37 @@
+const auth = require('./middlewares/auth');
+const meal = require('./middlewares/meal');
+const menu = require('./middlewares/menu');
+
 const UsersController = require('./controllers/UsersController');
 const MealsController = require('./controllers/MealsController');
 const MenusController = require('./controllers/MenusController');
 const OrdersController = require('./controllers/OrdersController');
+const AuthController = require('./controllers/AuthController');
 
 module.exports = (app) => {
-  app.get('/meals', MealsController.getMeals);
-  app.get('/meals/:id', MealsController.getMealById);
-  app.post('/meals', MealsController.postMeal);
-  app.put('/meals/:id', MealsController.putMeal);
-  app.delete('/meals/:id', MealsController.deleteMeal);
+	app.get('/meals', MealsController.getMeals);
+	app.get('/meals/:id', MealsController.getMealById);
+	app.post('/meals', meal.validateMealFormData, MealsController.postMeal);
+	app.put('/meals/:id', meal.validateMealFormData, MealsController.putMeal);
+	app.put('/meals/image/:id', meal.validateAddImageData, MealsController.putImage);
+	app.delete('/meals/:id', MealsController.deleteMeal);
 
-  app.get('/menus', MenusController.getMenus);
-  app.get('/menus/:timeStamp', MenusController.getMenuByTimeStamp);
-  app.post('/menus', MenusController.postMenu);
-  app.put('/menus/:timeStamp', MenusController.putMenu);
+	app.get('/menus/:id', MenusController.getMenusByUserId);
+	app.get('/menus/unixTime/:timeStamp', MenusController.getMenusByTimeStamp);
+	app.get('/menus/meals/:id', MenusController.getMenuAndMeals);
+	app.post('/menus', menu.validateMenuFormData, MenusController.postMenu);
+	app.put('/menus/:id', menu.validateMenuFormData, MenusController.putMenu);
+	app.delete('/menus/:id', MenusController.deleteMenu);
 
-  app.get('/orders', OrdersController.getAllOrders);
-  app.get('/orders/:id', OrdersController.getOrderById);
-  app.get('/orders/user/:userId', OrdersController.getOrdersByUserId);
-  app.post('/orders', OrdersController.postOrder);
-  app.put('/orders/:id', OrdersController.putOrder);
+	app.get('/orders', OrdersController.getAllOrders);
+	app.get('/orders/:id', OrdersController.getOrderById);
+	app.get('/orders/user/:userId', OrdersController.getOrdersByUserId);
+	app.post('/orders', OrdersController.postOrder);
+	app.put('/orders/:id', OrdersController.putOrder);
 
-  app.get('/users', UsersController.getUsers);
-  app.get('/users/:id', UsersController.getSingleUser);
-  app.post('/users', UsersController.postUser);
-  app.put('/users/:id', UsersController.putUser);
-  app.put('/users/role/:id', UsersController.changeRole);
-  app.delete('/users/:id', UsersController.deleteUser);
-  app.put('/users/block/:id', UsersController.blockUser);
+	app.get('/meals/user/:id', UsersController.getUserAndMeals);
+
+	app.post('/auth/signUp', auth.validateSignUpFormData, AuthController.signUp);
+	app.post('/auth/signIn', auth.validateSignInFormData, AuthController.signIn);
 };
 
