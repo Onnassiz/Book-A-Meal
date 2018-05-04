@@ -30,7 +30,10 @@
     "eslint": "^4.19.1",
     "express": "^4.16.3",
     "lodash": "^4.17.10",
-    "uuid": "^3.2.1"
+    "password-hash": "^1.2.2",
+    "sequelize": "^4.37.6",
+    "uuid": "^3.2.1",
+    "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -47,6 +50,6 @@
     "request": "^2.85.0"
   },
   "engines": {
-      "node": "6.10.3"
-    }
+    "node": "6.10.3"
+  }
 }
