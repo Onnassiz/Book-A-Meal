@@ -10,8 +10,8 @@ class MealsController {
 	}
 
 	getMealById(req, res) {
-		meal.findById(req.params.id).then((meal) => {
-			res.status(200).send(meal);
+		meal.findById(req.params.id).then((ml) => {
+			res.status(200).send(ml);
 		});
 	}
 
@@ -65,7 +65,7 @@ class MealsController {
 		meal.destroy({
 			where: { id: req.params.id },
 		}).then(() => {
-			res.status(200).send('Meal successfully delete');
+			res.status(200).send('Meal successfully deleted');
 		});
 	}
 }

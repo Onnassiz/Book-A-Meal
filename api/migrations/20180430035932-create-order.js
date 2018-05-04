@@ -7,9 +7,6 @@ module.exports = {
 				type: Sequelize.UUID,
 				defaultValue: Sequelize.UUIDV4,
 			},
-			status: {
-				type: Sequelize.ENUM('placed', 'dispatched', 'delivered'),
-			},
 			userId: {
 				type: Sequelize.UUID,
 				references: {

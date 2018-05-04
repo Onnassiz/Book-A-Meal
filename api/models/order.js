@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
 		},
-		status: DataTypes.ENUM('placed', 'dispatched', 'delivered'),
 	}, {});
 	Order.associate = (models) => {
 		Order.belongsTo(models.user);

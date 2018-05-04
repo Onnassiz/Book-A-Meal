@@ -1,11 +1,7 @@
 
 /* eslint class-methods-use-this: ["off"] */
 /* eslint object-curly-newline: ["off"] */
-import { menu } from '../models';
-import { meal } from '../models';
-import { menuMeal } from '../models';
-
-
+import { menu, meal, menuMeal } from '../models';
 
 class MenusController {
 	getMenusByUserId(req, res) {
@@ -22,7 +18,7 @@ class MenusController {
 				include: [{
 					model: meal,
 				}],
-				where: { id: req.params.id } 
+				where: { id: req.params.id },
 			},
 		).then((responseData) => {
 			res.status(200).send(responseData);
@@ -69,9 +65,9 @@ class MenusController {
 
 				newMenu.save().then(() => {
 					menuMeal.bulkCreate(newMealMenus).then(() => {
-						res.send('inserted');
+						res.status(200).send('Menu successfully created');
 					}).catch((err) => {
-						res.send(err);
+						res.status(400).send(err);
 					});
 				});
 			}
@@ -80,7 +76,6 @@ class MenusController {
 
 	putMenu(req, res) {
 		const { unixTime, userId } = req.body;
-
 		menu.update(
 			{
 				id: req.params.id,
@@ -88,7 +83,7 @@ class MenusController {
 				unixTime,
 				userId,
 			},
-			{ where: { id: req.params.id  }, returning: true },
+			{ where: { id: req.params.id }, returning: true },
 		).then((updated) => {
 			menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
 				const newMealMenus = [];
@@ -100,9 +95,9 @@ class MenusController {
 				});
 
 				menuMeal.bulkCreate(newMealMenus).then(() => {
-					res.send(updated);
+					res.status(200).send(updated[1][0]);
 				}).catch((err) => {
-					res.send(err);
+					res.status(400).send(err);
 				});
 			});
 		});
@@ -112,7 +107,7 @@ class MenusController {
 		menu.destroy({
 			where: { id: req.params.id },
 		}).then(() => {
-			res.status(200).send('Menu successfully delete');
+			res.status(200).send('Menu successfully deleted');
 		});
 	}
 }

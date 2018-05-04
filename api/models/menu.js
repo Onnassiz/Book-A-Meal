@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	Menu.associate = (models) => {
 		Menu.belongsTo(models.user);
-		Menu.belongsToMany(models.meal, { through: 'menuMeals', unique: true });
+		Menu.belongsToMany(models.meal, { through: 'menuMeals'});
 	};
 
 	return Menu;

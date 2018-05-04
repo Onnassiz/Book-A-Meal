@@ -1,6 +1,7 @@
 const auth = require('./middlewares/auth');
 const meal = require('./middlewares/meal');
 const menu = require('./middlewares/menu');
+const order = require('./middlewares/order');
 
 const UsersController = require('./controllers/UsersController');
 const MealsController = require('./controllers/MealsController');
@@ -25,9 +26,9 @@ module.exports = (app) => {
 
 	app.get('/orders', OrdersController.getAllOrders);
 	app.get('/orders/:id', OrdersController.getOrderById);
-	app.get('/orders/user/:userId', OrdersController.getOrdersByUserId);
-	app.post('/orders', OrdersController.postOrder);
-	app.put('/orders/:id', OrdersController.putOrder);
+	app.get('/orders/caterer/:id', OrdersController.getOrdersByCatererId);
+	app.post('/orders', order.validateOrder, OrdersController.postOrder);
+	app.put('/orders/:id', order.validateOrder, OrdersController.putOrder);
 
 	app.get('/meals/user/:id', UsersController.getUserAndMeals);
 
