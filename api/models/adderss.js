@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 		streetAddress: DataTypes.STRING,
 		city: DataTypes.STRING,
 		state: DataTypes.STRING,
-		userId: DataTypes.UUID,
 	}, {});
 	Address.associate = (models) => {
 		Address.belongsTo(models.user);
