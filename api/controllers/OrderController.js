@@ -1,16 +1,12 @@
 const { order, meal, mealOrder } = require('../models');
 
-const OrdersServices = require('../modelServices/OrdersServices');
-
 class OrdersController {
 	getAllOrders(req, res) {
-		order.findAll(
-			{
-				include: [{
-					model: meal,
-				}],
-			}
-		).then((orders) => {
+		order.findAll({
+			include: [{
+				model: meal,
+			}],
+		}).then((orders) => {
 			res.status(200).send(orders);
 		}).catch((errors) => {
 			res.status(400).send(errors);
@@ -18,14 +14,11 @@ class OrdersController {
 	}
 
 	getOrdersByCatererId(req, res) {
-		order.findAll(
-			{
-				include: [{
-					model: meal,
-					where: { userId: req.params.id }
-				}],
-			}
-		).then((orders) => {
+		order.findAll({
+			include: [{
+				model: meal,
+				where: { userId: req.params.id },
+			}] }).then((orders) => {
 			res.status(200).send(orders);
 		}).catch((errors) => {
 			res.status(400).send(errors);
@@ -33,14 +26,12 @@ class OrdersController {
 	}
 
 	getOrderById(req, res) {
-		order.findOne(
-			{
-				include: [{
-					model: meal,
-				}],
-				where: { id: req.params.id }
-			}
-		).then((orders) => {
+		order.findOne({
+			include: [{
+				model: meal,
+			}],
+			where: { id: req.params.id },
+		}).then((orders) => {
 			res.status(200).send(orders);
 		}).catch((errors) => {
 			res.status(400).send(errors);
@@ -48,7 +39,7 @@ class OrdersController {
 	}
 
 	postOrder(req, res) {
-		const { amount, userId } = req.body;
+		const { userId } = req.body;
 		const newOrder = order.build({
 			userId,
 		});
@@ -71,7 +62,7 @@ class OrdersController {
 	}
 
 	putOrder(req, res) {
-		const { amount, userId } = req.body;
+		const { userId } = req.body;
 		order.findOne({ where: { id: req.params.id } }).then((ord) => {
 			if (ord.status === 'placed') {
 				order.update(

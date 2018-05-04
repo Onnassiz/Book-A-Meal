@@ -1,6 +1,4 @@
 
-/* eslint class-methods-use-this: ["off"] */
-/* eslint object-curly-newline: ["off"] */
 import { menu, meal, menuMeal } from '../models';
 
 class MenusController {
@@ -13,14 +11,12 @@ class MenusController {
 	}
 
 	getMenuAndMeals(req, res) {
-		menu.findOne(
-			{
-				include: [{
-					model: meal,
-				}],
-				where: { id: req.params.id },
-			},
-		).then((responseData) => {
+		menu.findOne({
+			include: [{
+				model: meal,
+			}],
+			where: { id: req.params.id },
+		}).then((responseData) => {
 			res.status(200).send(responseData);
 		}).catch((errors) => {
 			res.status(400).send(errors);
@@ -29,14 +25,12 @@ class MenusController {
 
 	getMenusByTimeStamp(req, res) {
 		const timeStamp = parseInt(req.params.timeStamp, 10);
-		menu.findAll(
-			{
-				include: [{
-					model: meal,
-				}],
-				where: { unixTime: timeStamp }
-			},
-		).then((responseData) => {
+		menu.findAll({
+			include: [{
+				model: meal,
+			}],
+			where: { unixTime: timeStamp },
+		}).then((responseData) => {
 			res.status(200).send(responseData);
 		}).catch((errors) => {
 			res.status(400).send(errors);

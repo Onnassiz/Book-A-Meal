@@ -1,14 +1,15 @@
 import { user } from '../models';
 
-const ControllerUtil = require('./ControllerUtil');
-
 const passwordHash = require('password-hash');
 
-class AuthController extends ControllerUtil {
-	constructor() {
-		super();
-	}
+function getErrorMessage(error) {
+	const message = error.errors[0];
+	return {
+		[message.path]: message.message,
+	};
+}
 
+class AuthController {
 	signUp(req, res) {
 		const newUser = user.build({
 			email: req.body.email,
@@ -19,7 +20,7 @@ class AuthController extends ControllerUtil {
 		newUser.save().then(() => {
 			res.status(200).send('User successfully created.');
 		}).catch((error) => {
-			res.status(400).send(super.getErrorMessage(error));
+			res.status(400).send(getErrorMessage(error));
 		});
 	}
 

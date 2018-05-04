@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 			defaultValue: DataTypes.UUIDV4,
 		},
 		name: DataTypes.STRING,
-		unixTime: DataTypes.BIGINT(11),
+		unixTime: DataTypes.BIGINT(),
 	}, {});
 
 	Menu.associate = (models) => {

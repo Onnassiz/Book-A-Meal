@@ -1,6 +1,5 @@
-/* eslint class-methods-use-this: ["off"] */
-/* eslint object-curly-newline: ["off"] */
-import { meal } from '../models';
+
+import { meal, user } from '../models';
 
 class MealsController {
 	getMeals(req, res) {
@@ -12,6 +11,18 @@ class MealsController {
 	getMealById(req, res) {
 		meal.findById(req.params.id).then((ml) => {
 			res.status(200).send(ml);
+		});
+	}
+
+	getUserAndMeals(req, res) {
+		user.findOne({
+			include: [{
+				model: meal,
+			}],
+			where: { id: req.params.id },
+		}).then((responseData) => {
+			responseData.passwordHash = null;
+			res.send(responseData);
 		});
 	}
 
