@@ -3,7 +3,12 @@ import { menu, meal, menuMeal } from '../models';
 
 class MenusController {
 	getMenusByUserId(req, res) {
-		menu.findAll({ where: { userId: req.params.id } }).then((menus) => {
+		menu.findAll({
+			include: [{
+				model: meal,
+			}],
+			where: { userId: req.params.id },
+		}).then((menus) => {
 			res.status(200).send(menus);
 		}).catch((errors) => {
 			res.status(400).send(errors);
@@ -16,6 +21,18 @@ class MenusController {
 				model: meal,
 			}],
 			where: { id: req.params.id },
+		}).then((responseData) => {
+			res.status(200).send(responseData);
+		}).catch((errors) => {
+			res.status(400).send(errors);
+		});
+	}
+
+	getMenus(req, res) {
+		menu.findAll({
+			include: [{
+				model: meal,
+			}],
 		}).then((responseData) => {
 			res.status(200).send(responseData);
 		}).catch((errors) => {

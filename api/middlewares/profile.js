@@ -17,6 +17,9 @@ exports.validateProfile = (req, res, next) => {
 				allowEmpty: false,
 			},
 		},
+		email: {
+			email: true,
+		},
 	};
 	const errors = validate(req.body, constraints);
 	if (errors == null) {
