@@ -7,6 +7,7 @@ module.exports = {
 				type: Sequelize.UUID,
 				defaultValue: Sequelize.UUIDV4,
 			},
+			amount: Sequelize.DECIMAL,
 			userId: {
 				type: Sequelize.UUID,
 				references: {

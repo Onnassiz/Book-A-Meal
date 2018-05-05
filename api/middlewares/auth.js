@@ -1,9 +1,16 @@
+
 import validate from 'validate.js';
+import jwt from 'jsonwebtoken';
 
-const jwt = require('jsonwebtoken');
+export function cleanUpErrorMessages(errors) {
+	const newErrors = {};
+	for (const key in errors) {
+		newErrors[key] = errors[key][0];
+	}
+	return newErrors;
+}
 
-
-exports.validateSignInFormData = (req, res, next) => {
+export function validateSignInFormData(req, res, next) {
 	const constraints = {
 		email: {
 			presence: {
@@ -21,11 +28,11 @@ exports.validateSignInFormData = (req, res, next) => {
 	if (errors == null) {
 		next();
 	} else {
-		res.status(400).send(errors);
+		res.status(400).send(cleanUpErrorMessages(errors));
 	}
-};
+}
 
-exports.validateSignUpFormData = (req, res, next) => {
+export function validateSignUpFormData(req, res, next) {
 	const constraints = {
 		email: {
 			presence: {
@@ -34,28 +41,33 @@ exports.validateSignUpFormData = (req, res, next) => {
 			email: true,
 		},
 		password: {
-			presence: {
-				allowEmpty: false,
-			},
 			length: {
 				minimum: 6,
+			},
+			presence: {
+				allowEmpty: false,
 			},
 		},
 		fullName: {
 			presence: {
 				allowEmpty: false,
 			},
+			length: {
+				minimum: 1,
+				message: 'must be a string',
+			},
 		},
 	};
+
 	const errors = validate(req.body, constraints);
 	if (errors == null) {
 		next();
 	} else {
-		res.status(400).send(errors);
+		res.status(400).send(cleanUpErrorMessages(errors));
 	}
-};
+}
 
-exports.verifyAuthToken = (req, res, next) => {
+export function verifyAuthToken(req, res, next) {
 	const bearerHeader = req.headers.authorization;
 	if (typeof bearerHeader !== 'undefined') {
 		const token = bearerHeader.split(' ')[1];
@@ -64,9 +76,9 @@ exports.verifyAuthToken = (req, res, next) => {
 	} else {
 		res.status(403).send('Forbidden');
 	}
-};
+}
 
-exports.validateToken = (req, res, next) => {
+export function validateToken(req, res, next) {
 	jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
 		if (err) {
 			res.status(403).send('Forbidden');
@@ -75,9 +87,9 @@ exports.validateToken = (req, res, next) => {
 			next();
 		}
 	});
-};
+}
 
-exports.validateCatererToken = (req, res, next) => {
+export function validateCatererToken(req, res, next) {
 	jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
 		if (err) {
 			res.status(403).send('Forbidden');
@@ -91,5 +103,5 @@ exports.validateCatererToken = (req, res, next) => {
 			}
 		}
 	});
-};
+}
 

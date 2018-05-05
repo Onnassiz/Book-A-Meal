@@ -1,10 +1,16 @@
 import validate from 'validate.js';
+import { cleanUpErrorMessages } from './auth';
 
-exports.validateProfile = (req, res, next) => {
+
+export default function validateProfile(req, res, next) {
 	const constraints = {
 		businessName: {
 			presence: {
 				allowEmpty: false,
+			},
+			length: {
+				minimum: 1,
+				message: 'must be a string',
 			},
 		},
 		contact: {
@@ -16,6 +22,10 @@ exports.validateProfile = (req, res, next) => {
 			presence: {
 				allowEmpty: false,
 			},
+			length: {
+				minimum: 1,
+				message: 'must be a string',
+			},
 		},
 		email: {
 			email: true,
@@ -25,6 +35,7 @@ exports.validateProfile = (req, res, next) => {
 	if (errors == null) {
 		next();
 	} else {
-		res.status(400).send(errors);
+		res.status(400).send(cleanUpErrorMessages(errors));
 	}
-};
+}
+

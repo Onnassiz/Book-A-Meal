@@ -64,7 +64,9 @@ class MenusController {
 
 		menu.findOne({ where: { userId, unixTime } }).then((mn) => {
 			if (mn) {
-				res.status(400).send('You have already created menu for the selected date. You can still modify the already created menu');
+				res.status(400).send({
+					message: 'You have already created menu for the selected date. You can still modify the already created menu',
+				});
 			} else {
 				const newMealMenus = [];
 				req.body.meals.forEach((ml) => {
@@ -76,7 +78,9 @@ class MenusController {
 
 				newMenu.save().then(() => {
 					menuMeal.bulkCreate(newMealMenus).then(() => {
-						res.status(200).send('Menu successfully created');
+						res.status(200).send({
+							message: 'Menu successfully created',
+						});
 					}).catch((err) => {
 						res.status(400).send(err);
 					});
@@ -118,9 +122,11 @@ class MenusController {
 		menu.destroy({
 			where: { id: req.params.id },
 		}).then(() => {
-			res.status(200).send('Menu successfully deleted');
+			res.status(200).send({
+				message: 'Menu successfully deleted',
+			});
 		});
 	}
 }
 
-module.exports = new MenusController();
+export default new MenusController();

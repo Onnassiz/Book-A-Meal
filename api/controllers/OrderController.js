@@ -54,7 +54,9 @@ class OrdersController {
 
 		newOrder.save().then(() => {
 			mealOrder.bulkCreate(newMealOrders).then(() => {
-				res.status(200).send('Order successfully created');
+				res.status(200).send({
+					message: 'Order successfully created',
+				});
 			}).catch((err) => {
 				res.status(400).send(err);
 			});
@@ -88,10 +90,12 @@ class OrdersController {
 					});
 				});
 			} else {
-				res.status(400).send('This order has been placed and can no longer be changed');
+				res.status(400).send({
+					message: 'This order has been placed and can no longer be changed',
+				});
 			}
 		});
 	}
 }
 
-module.exports = new OrdersController();
+export default new OrdersController();
