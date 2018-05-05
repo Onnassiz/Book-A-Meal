@@ -1,20 +1,33 @@
 import validate from 'validate.js';
+import { cleanUpErrorMessages } from './auth';
 
-exports.validateAddress = (req, res, next) => {
+export default function validateAddress(req, res, next) {
 	const constraints = {
 		streetAddress: {
 			presence: {
 				allowEmpty: false,
+			},
+			length: {
+				minimum: 1,
+				message: 'must be a string',
 			},
 		},
 		city: {
 			presence: {
 				allowEmpty: false,
 			},
+			length: {
+				minimum: 1,
+				message: 'must be a string',
+			},
 		},
 		state: {
 			presence: {
 				allowEmpty: false,
+			},
+			length: {
+				minimum: 1,
+				message: 'must be a string',
 			},
 		},
 		userId: {
@@ -27,6 +40,7 @@ exports.validateAddress = (req, res, next) => {
 	if (errors == null) {
 		next();
 	} else {
-		res.status(400).send(errors);
+		res.status(400).send(cleanUpErrorMessages(errors));
 	}
-};
+}
+

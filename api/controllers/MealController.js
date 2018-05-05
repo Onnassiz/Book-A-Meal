@@ -49,8 +49,8 @@ class MealsController {
 
 		newMeal.save().then((response) => {
 			res.status(200).send(response);
-		}).catch(() => {
-			res.status(400).send('An error has been detected while creating a new meal. Please try again.');
+		}).catch((error) => {
+			res.status(400).send(error);
 		});
 	}
 
@@ -67,8 +67,8 @@ class MealsController {
 			{ where: { id: req.params.id }, returning: true },
 		).then((updated) => {
 			res.status(200).send(updated[1][0]);
-		}).catch(() => {
-			res.status(400).send('An error has been detected while updating a new meal. Please try again.');
+		}).catch((error) => {
+			res.status(400).send(error);
 		});
 	}
 
@@ -76,9 +76,11 @@ class MealsController {
 		meal.destroy({
 			where: { id: req.params.id },
 		}).then(() => {
-			res.status(200).send('Meal successfully deleted');
+			res.status(200).send({
+				message: 'Meal successfully deleted',
+			});
 		});
 	}
 }
 
-module.exports = new MealsController();
+export default new MealsController();

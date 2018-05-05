@@ -1,11 +1,16 @@
 import validate from 'validate.js';
+import { cleanUpErrorMessages } from './auth';
 
 
-exports.validateMealFormData = (req, res, next) => {
+export function validateMealFormData(req, res, next) {
 	const constraints = {
 		name: {
 			presence: {
 				allowEmpty: false,
+			},
+			length: {
+				minimum: 1,
+				message: 'must be a string',
 			},
 		},
 		price: {
@@ -20,17 +25,21 @@ exports.validateMealFormData = (req, res, next) => {
 				allowEmpty: false,
 				message: ' not verified',
 			},
+			length: {
+				minimum: 1,
+				message: 'must be a string',
+			},
 		},
 	};
 	const errors = validate(req.body, constraints);
 	if (errors == null) {
 		next();
 	} else {
-		res.status(400).send(errors);
+		res.status(400).send(cleanUpErrorMessages(errors));
 	}
-};
+}
 
-exports.validateAddImageData = (req, res, next) => {
+export function validateAddImageData(req, res, next) {
 	const constraints = {
 		imageUrl: {
 			presence: {
@@ -44,6 +53,7 @@ exports.validateAddImageData = (req, res, next) => {
 	if (errors == null) {
 		next();
 	} else {
-		res.status(400).send(errors);
+		res.status(400).send(cleanUpErrorMessages(errors));
 	}
-};
+}
+

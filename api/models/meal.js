@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 	}, {});
 	Meal.associate = (models) => {
 		Meal.belongsTo(models.user);
-		Meal.belongsToMany(models.menu, { through: 'menuMeals', unique: true });
+		Meal.belongsToMany(models.menu, { through: 'menuMeals' });
 		Meal.belongsToMany(models.order, { through: 'mealOrders' });
 	};
 	return Meal;

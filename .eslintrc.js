@@ -6,6 +6,8 @@ module.exports = {
 		"indent": ["error", "tab"],
 		"no-tabs": ["off"],
 		"no-useless-constructor": ["off"],
-		"arrow-body-style": ["off"]
+		"arrow-body-style": ["off"],
+		"guard-for-in": ["off"],
+		"no-restricted-syntax": ["off"]
 	}
 };

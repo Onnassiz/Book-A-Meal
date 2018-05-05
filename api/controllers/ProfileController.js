@@ -40,4 +40,4 @@ class ProfileController {
 	}
 }
 
-module.exports = new ProfileController();
+export default new ProfileController();

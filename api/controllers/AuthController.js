@@ -1,24 +1,19 @@
 import { user } from '../models';
+import { signJsonWebToken, getErrorMessage } from './Util';
 
 const passwordHash = require('password-hash');
-
-function getErrorMessage(error) {
-	const message = error.errors[0];
-	return {
-		[message.path]: message.message,
-	};
-}
 
 class AuthController {
 	signUp(req, res) {
 		const newUser = user.build({
 			email: req.body.email,
 			fullName: req.body.fullName,
+			role: req.body.role,
 			passwordHash: passwordHash.generate(req.body.password),
 		});
 
-		newUser.save().then(() => {
-			res.status(200).send('User successfully created.');
+		newUser.save().then((usr) => {
+			res.status(200).send(signJsonWebToken(usr));
 		}).catch((error) => {
 			res.status(400).send(getErrorMessage(error));
 		});
@@ -35,14 +30,16 @@ class AuthController {
 			} else {
 				const hashedPassword = usr.passwordHash;
 				if (passwordHash.verify(req.body.password, hashedPassword)) {
-					res.status(200).send('User signed in.');
+					res.status(200).send(signJsonWebToken(usr));
 				} else {
-					res.status(404).send('User not found.');
+					res.status(404).send({
+						message: 'User not found.',
+					});
 				}
 			}
 		});
 	}
 }
 
-module.exports = new AuthController();
+export default new AuthController();
 

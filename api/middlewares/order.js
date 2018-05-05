@@ -1,6 +1,7 @@
 import validate from 'validate.js';
+import { cleanUpErrorMessages } from './auth';
 
-exports.validateOrder = (req, res, next) => {
+export default function validateOrder(req, res, next) {
 	const constraints = {
 		meals: {
 			presence: true,
@@ -11,7 +12,11 @@ exports.validateOrder = (req, res, next) => {
 			numericality: { noStrings: true },
 		},
 		userId: {
-			presence: { allowEmpty: false, message: ' verification failed' },
+			presence: { allowEmpty: false, message: 'verification failed' },
+			length: {
+				minimum: 1,
+				message: 'must be a string',
+			},
 		},
 	};
 
@@ -19,6 +24,7 @@ exports.validateOrder = (req, res, next) => {
 	if (errors == null) {
 		next();
 	} else {
-		res.status(400).send(errors);
+		res.status(400).send(cleanUpErrorMessages(errors));
 	}
-};
+}
+
