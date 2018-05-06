@@ -1,153 +1,129 @@
-/* eslint object-curly-newline: ["off"] */
+import request from 'request';
+import { expect } from 'chai';
+import { describe, it, after, before } from 'mocha';
 
-const request = require('request');
-const { expect } = require('chai');
-const { describe, it } = require('mocha');
-
+import TestUil from '../testUtil/TestUtil';
 
 const baseUrl = 'http://localhost:3001/api/v1';
 
-describe('Orders Controller', () => {
-  describe('Test get /orders', () => {
-    it('It should return status(200)', (done) => {
-      request.get({ url: `${baseUrl}/orders` }, (error, response) => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-    });
+let tokenR = '';
 
-    it('It should return an array', (done) => {
-      request.get({ url: `${baseUrl}/orders` }, (error, response, body) => {
-        expect(Array.isArray(JSON.parse(body))).to.equal(true);
-        done();
-      });
-    });
-  });
+const userFormData = {
+	email: 'caterer@gmail.com',
+	password: 'password',
+};
 
-  describe('Test get /orders/:id', () => {
-    it('It should return status(200)', (done) => {
-      request.get({ url: `${baseUrl}/orders/1` }, (error, response) => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-    });
+request.post({ url: `${baseUrl}/auth/signIn`, form: userFormData }, (error, response, body) => {
+	const { token } = JSON.parse(body);
+	tokenR = token;
+});
 
-    it('It should return status(404) if wrong index is used', (done) => {
-      request.get({ url: `${baseUrl}/orders/13` }, (error, response) => {
-        expect(response.statusCode).to.equal(404);
-        done();
-      });
-    });
+describe('Order Controller', () => {
+	describe('Get Orders', () => {
+		before((done) => {
+			TestUil.insertOrders(done);
+		});
 
-    it('It should return an object', (done) => {
-      request.get({ url: `${baseUrl}/orders/1` }, (error, response, body) => {
-        expect(typeof JSON.parse(body)).to.equal('object');
-        done();
-      });
-    });
-  });
+		after((done) => {
+			TestUil.deleteOrders(done);
+		});
 
-  describe('Test get /orders/user/:userId', () => {
-    it('It should return status(200)', (done) => {
-      request.get({ url: `${baseUrl}/orders/user/1` }, (error, response) => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-    });
+		it('should return status (200) and array of size 2 if request is made with auth token', (done) => {
+			request.get({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response, body) => {
+				expect(response.statusCode).to.equal(200);
+				expect(JSON.parse(body)).to.have.lengthOf(2);
+				done();
+			});
+		});
 
-    it('It should return an array of size 2 for user 1', (done) => {
-      request.get({ url: `${baseUrl}/orders/user/1` }, (error, response, body) => {
-        expect(JSON.parse(body).length).to.equal(2);
-        done();
-      });
-    });
-  });
+		it('should return status (200) if request is made with order id', (done) => {
+			TestUil.getOrderId().then((id) => {
+				request.get({ url: `${baseUrl}/orders/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response, body) => {
+					expect(response.statusCode).to.equal(200);
+					expect(typeof JSON.parse(body)).to.equal('object');
+					done();
+				});
+			});
+		});
 
-  describe('Test post /orders', () => {
-    it('It should return status(200)', (done) => {
-      const order = {
-        id: 6,
-        dateTime: '2018-04-29 : 16:23',
-        meals: [
-          {
-            id: 1,
-            name: 'Chicken Pa-Naeng - Beef',
-            description: 'Red Curry with Peanut Sauce, Bamboo Shoot, Ginger, Bell Pepper, Green Bean, Galanga and Lemon Leaves. Choice of Chicken, Beef, Pork, Tofu or Shrimp.',
-            price: 2300,
-            category: 'Hot Meal',
-            image: '1.jpg',
-          },
-        ],
-        amount: 5800,
-        user: {
-          id: 2,
-          username: 'ifyben4me@gmail.com',
-          password: 'password',
-          name: 'Onah Ifeanyi',
-          role: 'caterer',
-          active: true,
-        },
-      };
+		it('should return status (200) if request is made with caterer id', (done) => {
+			TestUil.getUserId().then((id) => {
+				request.get({ url: `${baseUrl}/orders/caterer/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+					expect(response.statusCode).to.equal(200);
+					done();
+				});
+			});
+		});
+	});
 
-      request.post({ url: `${baseUrl}/orders`, form: order }, (error, response) => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-    });
+	describe('Post and Put Orders', () => {
+		before((done) => {
+			TestUil.insertOrders(done);
+		});
 
-    it('It should return status(400) if order is not supplied', (done) => {
-      const order = {};
+		after((done) => {
+			TestUil.deleteOrders(done);
+		});
 
-      request.post({ url: `${baseUrl}/orders`, form: order }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
-        done();
-      });
-    });
-  });
+		it('should return status (400) if form validation fails', (done) => {
+			const formData = {
+				amount: 1525,
+				userId: '',
+				meals: [
 
-  describe('Test put /orders', () => {
-    it('It should return status(200)', (done) => {
-      const order = {
-        id: 9,
-        dateTime: '2018-04-29 : 16:23',
-        meals: [
-          {
-            id: 1,
-            name: 'Chicken Pa-Naeng - Beef',
-            description: 'Red Curry with Peanut Sauce, Bamboo Shoot, Ginger, Bell Pepper, Green Bean, Galanga and Lemon Leaves. Choice of Chicken, Beef, Pork, Tofu or Shrimp.',
-            price: 2300,
-            category: 'Hot Meal',
-            image: '1.jpg',
-          },
-        ],
-        amount: 5800,
-        user: {
-          id: 2,
-          username: 'ifyben4me@gmail.com',
-          password: 'password',
-          name: 'Onah Ifeanyi',
-          role: 'caterer',
-          active: true,
-        },
-      };
-      request.put({ url: `${baseUrl}/orders/3`, form: order }, (error, response) => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-    });
+				],
+			};
 
-    it('It should return status(400) if order is not found', (done) => {
-      request.put({ url: `${baseUrl}/orders/19`, form: {} }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
-        done();
-      });
-    });
+			request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
+				expect(response.statusCode).to.equal(400);
+				done();
+			});
+		});
 
-    it('It should return status(400) if order is empty', (done) => {
-      request.put({ url: `${baseUrl}/orders/2`, form: {} }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
-        done();
-      });
-    });
-  });
+		it('should return status (200) if form validation checks out', (done) => {
+			TestUil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					amount: 1525,
+					userId: res.id,
+					meals: JSON.stringify([
+						{
+							mealId: res.meal_1_Id,
+						},
+						{
+							mealId: res.meal_2_Id,
+						},
+					]),
+				};
+
+				request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(200);
+					done();
+				});
+			});
+		});
+
+		it('should return status (200) when updating menu with correct validation', (done) => {
+			TestUil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					amount: 1525,
+					userId: res.id,
+					meals: JSON.stringify([
+						{
+							mealId: res.meal_1_Id,
+						},
+						{
+							mealId: res.meal_2_Id,
+						},
+					]),
+				};
+
+				TestUil.getOrderId().then((id) => {
+					request.put({ url: `${baseUrl}/orders/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response, body) => {
+						expect(response.statusCode).to.equal(200);
+						done();
+					});
+				});
+			});
+		});
+	});
 });

@@ -9,7 +9,7 @@ export default function validateOrder(req, res, next) {
 		},
 		amount: {
 			presence: true,
-			numericality: { noStrings: true },
+			numericality: true,
 		},
 		userId: {
 			presence: { allowEmpty: false, message: 'verification failed' },

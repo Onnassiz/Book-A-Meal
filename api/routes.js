@@ -13,7 +13,7 @@ import validateAddress from './middlewares/address';
 import validateProfile from './middlewares/profile';
 
 
-module.exports = (app) => {
+export default function routes(app) {
 	app.post('/auth/signUp', validateSignUpFormData, AuthController.signUp);
 	app.post('/auth/signIn', validateSignInFormData, AuthController.signIn);
 
@@ -26,7 +26,8 @@ module.exports = (app) => {
 	app.get('/meals/user/:id', verifyAuthToken, validateCatererToken, MealController.getUserAndMeals);
 
 	app.get('/menus', verifyAuthToken, validateCatererToken, MenuController.getMenus);
-	app.get('/menus/:id', verifyAuthToken, validateCatererToken, MenuController.getMenusByUserId);
+	app.get('/menus/:id', verifyAuthToken, validateCatererToken, MenuController.getMenuAndMeals);
+	app.get('/menus/user/:id', verifyAuthToken, validateCatererToken, MenuController.getMenusByUserId);
 	app.get('/menus/unixTime/:timeStamp', verifyAuthToken, validateToken, MenuController.getMenusByTimeStamp);
 	app.post('/menus', validateMenuFormData, verifyAuthToken, validateCatererToken, MenuController.postMenu);
 	app.put('/menus/:id', validateMenuFormData, verifyAuthToken, validateCatererToken, MenuController.putMenu);
@@ -35,8 +36,8 @@ module.exports = (app) => {
 	app.get('/orders', verifyAuthToken, validateCatererToken, OrderController.getAllOrders);
 	app.get('/orders/:id', verifyAuthToken, validateToken, OrderController.getOrderById);
 	app.get('/orders/caterer/:id', verifyAuthToken, validateCatererToken, OrderController.getOrdersByCatererId);
-	app.post('/orders', verifyAuthToken, validateCatererToken, validateOrder, OrderController.postOrder);
-	app.put('/orders/:id', verifyAuthToken, validateCatererToken, validateOrder, OrderController.putOrder);
+	app.post('/orders', verifyAuthToken, validateToken, validateOrder, OrderController.postOrder);
+	app.put('/orders/:id', verifyAuthToken, validateToken, validateOrder, OrderController.putOrder);
 
 	app.get('/address/user/:userId', verifyAuthToken, validateToken, AddressController.getUserAddresses);
 	app.get('/address/:id', verifyAuthToken, validateToken, AddressController.getAddress);
@@ -46,5 +47,5 @@ module.exports = (app) => {
 	app.get('/profile/:id', verifyAuthToken, validateCatererToken, ProfileController.getProfile);
 	app.post('/profile', verifyAuthToken, validateCatererToken, validateProfile, ProfileController.postProfile);
 	app.put('/profile/:id', verifyAuthToken, validateCatererToken, validateProfile, ProfileController.putProfile);
-};
+}
 

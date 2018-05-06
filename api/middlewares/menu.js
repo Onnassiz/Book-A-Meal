@@ -6,10 +6,10 @@ export default function validateMenuFormData(req, res, next) {
 	const constraints = {
 		unixTime: {
 			presence: true,
-			numericality: { noStrings: true },
+			numericality: true,
 		},
 		meals: {
-			presence: true,
+			// presence: true,
 			length: { minimum: 1, message: ' are empty. At least one meal is needed' },
 		},
 		userId: {

@@ -15,7 +15,7 @@ export function validateMealFormData(req, res, next) {
 		},
 		price: {
 			presence: true,
-			numericality: { noStrings: true },
+			numericality: true,
 		},
 		imageUrl: {
 			url: true,
