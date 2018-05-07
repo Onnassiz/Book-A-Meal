@@ -13,7 +13,6 @@
     "database": "book_a_meal_test",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "seederStorage": "json",
     "logging": false
   },
   "production": {
