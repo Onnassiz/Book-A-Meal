@@ -4,7 +4,7 @@
   "description": "Aoi for Book-A-Meal",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --require babel-core/register --exit",
+    "test": "sequelize db:migrate:undo:all --env test&& sequelize db:migrate --env test&& sequelize db:seed:all --env test&& NODE_ENV=test nyc mocha --compilers js:babel-register --recursive ./test/ --exit",
     "start": "nodemon server.js --exec babel-node server.js --presets env",
     "lint": "eslint api",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
@@ -27,10 +27,18 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "body-parser": "^1.18.2",
+    "dotenv": "^5.0.1",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
     "lodash": "^4.17.10",
-    "uuid": "^3.2.1"
+    "password-hash": "^1.2.2",
+    "pg": "^7.4.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.6",
+    "sequelize-cli": "^4.0.0",
+    "uuid": "^3.2.1",
+    "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -47,6 +55,6 @@
     "request": "^2.85.0"
   },
   "engines": {
-      "node": "6.10.3"
-    }
+    "node": "6.10.3"
+  }
 }

@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "ben",
+    "password": "ben",
+    "database": "book_a_meal_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "seederStorage": "json"
+  },
+  "test": {
+    "username": "ben",
+    "password": "ben",
+    "database": "book_a_meal_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "production": {
+    "username": "demo",
+    "password": "demo",
+    "database": "book_a_meal_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

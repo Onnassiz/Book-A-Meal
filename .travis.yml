@@ -1,4 +1,16 @@
 language: node_js
 node_js:
   - "stable"
+services:
+  - postgresql
+
+env:
+  - JWT_SECRET=secrett
+
+before_script:
+  - psql -c 'create database book_a_meal_test;' -U postgres
+  - psql -c "CREATE USER ben WITH PASSWORD 'ben';" -U postgres
+script:
+  - npm run test
+
 after_success: npm run coverage
