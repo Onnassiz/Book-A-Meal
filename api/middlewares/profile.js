@@ -19,9 +19,6 @@ export default function validateProfile(req, res, next) {
 			},
 		},
 		userId: {
-			presence: {
-				allowEmpty: false,
-			},
 			length: {
 				minimum: 1,
 				message: 'must be a string',

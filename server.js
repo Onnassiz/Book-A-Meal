@@ -1,8 +1,9 @@
 /* eslint-disable */
 
 require('dotenv').config();
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
+import routes from './api/routes';
 
 
 const apiRouter = express.Router();
@@ -22,7 +23,10 @@ app.get('/api/v1', (req, res) => res.send('Welcome to Book-A-Meal'));
 app.use('/api/v1', apiRouter);
 
 // app.use('/api', router);
-require('./api/routes')(apiRouter);
+// require('./api/routes')(apiRouter);
+// 
+
+routes(apiRouter);
 
 
 app.listen(app.get('port'), () => console.log('App running at port', app.get('port')));

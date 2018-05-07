@@ -11,7 +11,7 @@ class MenusController {
 		}).then((menus) => {
 			res.status(200).send(menus);
 		}).catch((errors) => {
-			res.status(400).send(errors);
+			res.status(404).send(errors);
 		});
 	}
 
@@ -23,8 +23,6 @@ class MenusController {
 			where: { id: req.params.id },
 		}).then((responseData) => {
 			res.status(200).send(responseData);
-		}).catch((errors) => {
-			res.status(400).send(errors);
 		});
 	}
 
@@ -35,8 +33,6 @@ class MenusController {
 			}],
 		}).then((responseData) => {
 			res.status(200).send(responseData);
-		}).catch((errors) => {
-			res.status(400).send(errors);
 		});
 	}
 
@@ -49,8 +45,6 @@ class MenusController {
 			where: { unixTime: timeStamp },
 		}).then((responseData) => {
 			res.status(200).send(responseData);
-		}).catch((errors) => {
-			res.status(400).send(errors);
 		});
 	}
 
@@ -69,8 +63,9 @@ class MenusController {
 				});
 			} else {
 				const newMealMenus = [];
-				req.body.meals.forEach((ml) => {
-					return newMealMenus.push({
+				const meals = JSON.parse(req.body.meals);
+				meals.forEach((ml) => {
+					newMealMenus.push({
 						menuId: newMenu.id,
 						mealId: ml.mealId,
 					});
@@ -81,8 +76,6 @@ class MenusController {
 						res.status(200).send({
 							message: 'Menu successfully created',
 						});
-					}).catch((err) => {
-						res.status(400).send(err);
 					});
 				});
 			}
@@ -102,8 +95,10 @@ class MenusController {
 		).then((updated) => {
 			menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
 				const newMealMenus = [];
-				req.body.meals.forEach((ml) => {
-					return newMealMenus.push({
+				const meals = JSON.parse(req.body.meals);
+	
+				meals.forEach((ml) => {
+					newMealMenus.push({
 						menuId: req.params.id,
 						mealId: ml.mealId,
 					});
@@ -111,8 +106,6 @@ class MenusController {
 
 				menuMeal.bulkCreate(newMealMenus).then(() => {
 					res.status(200).send(updated[1][0]);
-				}).catch((err) => {
-					res.status(400).send(err);
 				});
 			});
 		});

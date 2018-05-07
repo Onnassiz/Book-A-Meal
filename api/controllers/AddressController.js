@@ -4,8 +4,6 @@ class AddressController {
 	getUserAddresses(req, res) {
 		address.findAll({ where: { userId: req.params.userId } }).then((addr) => {
 			res.status(200).send(addr);
-		}).catch((error) => {
-			res.status(400).send(error);
 		});
 	}
 

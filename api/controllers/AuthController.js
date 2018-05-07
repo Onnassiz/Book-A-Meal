@@ -13,7 +13,10 @@ class AuthController {
 		});
 
 		newUser.save().then((usr) => {
-			res.status(200).send(signJsonWebToken(usr));
+			res.status(200).send({
+				message: 'User successfully created',
+				token: signJsonWebToken(usr),
+			});
 		}).catch((error) => {
 			res.status(400).send(getErrorMessage(error));
 		});
@@ -30,7 +33,10 @@ class AuthController {
 			} else {
 				const hashedPassword = usr.passwordHash;
 				if (passwordHash.verify(req.body.password, hashedPassword)) {
-					res.status(200).send(signJsonWebToken(usr));
+					res.status(200).send({
+						message: 'User successfully created',
+						token: signJsonWebToken(usr),
+					});
 				} else {
 					res.status(404).send({
 						message: 'User not found.',

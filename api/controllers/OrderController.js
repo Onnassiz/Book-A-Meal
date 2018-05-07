@@ -8,8 +8,6 @@ class OrdersController {
 			}],
 		}).then((orders) => {
 			res.status(200).send(orders);
-		}).catch((errors) => {
-			res.status(400).send(errors);
 		});
 	}
 
@@ -20,8 +18,6 @@ class OrdersController {
 				where: { userId: req.params.id },
 			}] }).then((orders) => {
 			res.status(200).send(orders);
-		}).catch((errors) => {
-			res.status(400).send(errors);
 		});
 	}
 
@@ -33,8 +29,6 @@ class OrdersController {
 			where: { id: req.params.id },
 		}).then((orders) => {
 			res.status(200).send(orders);
-		}).catch((errors) => {
-			res.status(400).send(errors);
 		});
 	}
 
@@ -45,8 +39,10 @@ class OrdersController {
 		});
 
 		const newMealOrders = [];
-		req.body.meals.forEach((ml) => {
-			return newMealOrders.push({
+		const meals = JSON.parse(req.body.meals);
+
+		meals.forEach((ml) => {
+			newMealOrders.push({
 				orderId: newOrder.id,
 				mealId: ml.mealId,
 			});
@@ -57,43 +53,35 @@ class OrdersController {
 				res.status(200).send({
 					message: 'Order successfully created',
 				});
-			}).catch((err) => {
-				res.status(400).send(err);
 			});
 		});
 	}
 
 	putOrder(req, res) {
 		const { userId } = req.body;
-		order.findOne({ where: { id: req.params.id } }).then((ord) => {
-			if (ord.status === 'placed') {
-				order.update(
-					{
-						userId,
-					},
-					{ where: { id: req.params.id }, returning: true },
-				).then((updated) => {
-					mealOrder.destroy({ where: { orderId: req.params.id } }).then(() => {
-						const newMealOrders = [];
-						req.body.meals.forEach((ml) => {
-							return newMealOrders.push({
-								orderId: req.params.id,
-								mealId: ml.mealId,
-							});
-						});
+		order.findOne({ where: { id: req.params.id } }).then(() => {
+			order.update(
+				{
+					userId,
+				},
+				{ where: { id: req.params.id }, returning: true },
+			).then((updated) => {
+				mealOrder.destroy({ where: { orderId: req.params.id } }).then(() => {
+					const newMealOrders = [];
+					const meals = JSON.parse(req.body.meals);
 
-						mealOrder.bulkCreate(newMealOrders).then(() => {
-							res.status(200).send(updated[1][0]);
-						}).catch((err) => {
-							res.status(400).send(err);
+					meals.forEach((ml) => {
+						newMealOrders.push({
+							orderId: req.params.id,
+							mealId: ml.mealId,
 						});
 					});
+
+					mealOrder.bulkCreate(newMealOrders).then(() => {
+						res.status(200).send(updated[1][0]);
+					});
 				});
-			} else {
-				res.status(400).send({
-					message: 'This order has been placed and can no longer be changed',
-				});
-			}
+			});
 		});
 	}
 }
