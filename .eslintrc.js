@@ -8,6 +8,9 @@ module.exports = {
 		"no-useless-constructor": ["off"],
 		"arrow-body-style": ["off"],
 		"guard-for-in": ["off"],
-		"no-restricted-syntax": ["off"]
+		"no-restricted-syntax": ["off"],
+		"react/jsx-filename-extension": ["off"],
+		"react/jsx-indent": ["off"],
+		"react/jsx-indent-props": ["off"]
 	}
 };
