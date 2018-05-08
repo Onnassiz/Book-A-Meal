@@ -1,7 +1,7 @@
 {
   "name": "book-a-meal",
   "version": "1.0.0",
-  "description": "Aoi for Book-A-Meal",
+  "description": "API for Book-A-Meal",
   "main": "index.js",
   "scripts": {
     "test": "sequelize db:migrate:undo:all --env test&& sequelize db:migrate --env test&& sequelize db:seed:all --env test&& NODE_ENV=test nyc mocha --compilers js:babel-register --recursive ./test/ --exit",
