@@ -1,4 +1,4 @@
-const { order, meal, mealOrder } = require('../models');
+import { order, meal, mealOrder } from '../models';
 
 class OrdersController {
 	getAllOrders(req, res) {
@@ -33,8 +33,9 @@ class OrdersController {
 	}
 
 	postOrder(req, res) {
-		const { userId } = req.body;
+		const { userId, amount } = req.body;
 		const newOrder = order.build({
+			amount,
 			userId,
 		});
 

@@ -1,1 +1,1 @@
-web: node server.js --exec babel-node server.js --presets env
+web: babel-node server.js --presets env NODE_ENV=production

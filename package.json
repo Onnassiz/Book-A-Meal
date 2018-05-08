@@ -1,7 +1,7 @@
 {
   "name": "book-a-meal",
   "version": "1.0.0",
-  "description": "Aoi for Book-A-Meal",
+  "description": "API for Book-A-Meal",
   "main": "index.js",
   "scripts": {
     "test": "sequelize db:migrate:undo:all --env test&& sequelize db:migrate --env test&& sequelize db:seed:all --env test&& NODE_ENV=test nyc mocha --compilers js:babel-register --recursive ./test/ --exit",
@@ -27,7 +27,11 @@
   },
   "homepage": "https://github.com/Onnassiz/Book-A-Meal#readme",
   "dependencies": {
-    "babel-core": "^6.26.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "eslint": "^4.19.1",
