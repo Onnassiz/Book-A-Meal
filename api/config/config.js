@@ -22,3 +22,6 @@ module.exports = {
 		dialect: 'postgres',
 	},
 };
+
+
+// heroku run sequelize db:migrate --env production -m --app production-app-name.

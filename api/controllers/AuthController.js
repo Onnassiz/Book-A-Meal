@@ -18,7 +18,7 @@ class AuthController {
 				token: signJsonWebToken(usr),
 			});
 		}).catch((error) => {
-			res.status(400).send(error);
+			res.status(400).send(getErrorMessage(error));
 		});
 	}
 
