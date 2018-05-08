@@ -27,7 +27,9 @@
   },
   "homepage": "https://github.com/Onnassiz/Book-A-Meal#readme",
   "dependencies": {
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "eslint": "^4.19.1",
