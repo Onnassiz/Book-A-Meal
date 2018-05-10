@@ -22,7 +22,7 @@ const orderFormConstraints = [
 			});
 			return !error;
 		})
-		.withMessage('at least one of the objects in the array does not have the \'mealId\' and it must contain a valid UUID4 id')
+		.withMessage('at least one of the objects in the array does not have the \'mealId\' and it must contain a valid UUID4 id. It is also possible a unit has not been supplied or has been supplied in error')
 		.trim(),
 ];
 

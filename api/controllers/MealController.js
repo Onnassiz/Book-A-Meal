@@ -60,8 +60,18 @@ class MealsController {
 			imageUrl: req.body.imageUrl,
 		});
 
-		newMeal.save().then((response) => {
-			res.status(200).send(response);
+		meal.findOne({ where: { name: newMeal.name, userId: newMeal.userId } }).then((existingMeal) => {
+			if (existingMeal) {
+				res.status(400).send({
+					message: 'You have already created a meal with this name',
+				});
+			} else {
+				newMeal.save().then((response) => {
+					res.status(201).send(response);
+				}).catch((error) => {
+					res.status(400).send(error);
+				});
+			}
 		}).catch((error) => {
 			res.status(400).send(error);
 		});

@@ -85,10 +85,11 @@ class MenusController {
 					});
 				});
 
-				newMenu.save().then(() => {
+				newMenu.save().then((createdMenu) => {
 					menuMeal.bulkCreate(newMealMenus).then(() => {
-						res.status(200).send({
+						res.status(201).send({
 							message: 'Menu successfully created',
+							menu: createdMenu,
 						});
 					});
 				});

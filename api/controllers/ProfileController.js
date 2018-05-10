@@ -23,7 +23,7 @@ class ProfileController {
 
 
 		newProfile.save().then((prf) => {
-			res.status(200).send(prf);
+			res.status(201).send(prf);
 		});
 	}
 

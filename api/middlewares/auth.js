@@ -8,8 +8,7 @@ export const signInConstraints = [
 		.withMessage('email is required')
 		.isEmail()
 		.withMessage('must be an email')
-		.trim()
-		.normalizeEmail(),
+		.trim(),
 
 	check('password').exists(),
 ];
@@ -20,16 +19,14 @@ export const signUpConstraints = [
 		.withMessage('email is require')
 		.isEmail()
 		.withMessage('must be an email')
-		.trim()
-		.normalizeEmail(),
+		.trim(),
 
 	check('fullName')
 		.exists()
 		.withMessage('the name field is require')
 		.isString()
 		.withMessage('the name must be a string')
-		.trim()
-		.normalizeEmail(),
+		.trim(),
 
 	check('password')
 		.exists()
@@ -46,14 +43,18 @@ export function verifyAuthToken(req, res, next) {
 		req.token = token;
 		next();
 	} else {
-		res.status(403).send('Forbidden');
+		res.status(401).send({
+			message: 'Unauthorized',
+		});
 	}
 }
 
 export function validateToken(req, res, next) {
 	jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
 		if (err) {
-			res.status(403).send('Forbidden');
+			res.status(401).send({
+				message: 'Unauthorized',
+			});
 		} else {
 			req.user = authData.data;
 			next();
@@ -64,7 +65,9 @@ export function validateToken(req, res, next) {
 export function validateCatererToken(req, res, next) {
 	jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
 		if (err) {
-			res.status(403).send('Forbidden');
+			res.status(401).send({
+				message: 'Unauthorized',
+			});
 		} else {
 			const { role } = authData.data;
 			if (role === 'caterer') {

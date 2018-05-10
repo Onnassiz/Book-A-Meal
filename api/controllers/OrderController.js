@@ -102,7 +102,7 @@ class OrdersController {
 							});
 
 							mealOrder.bulkCreate(newMealOrders).then(() => {
-								res.status(200).send(update);
+								res.status(201).send(update);
 							});
 						});
 					});

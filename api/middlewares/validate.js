@@ -30,7 +30,6 @@ export const validParamId = [
 export function validateFormData(req, res, next) {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log(req.headers);
 		return res.status(400).send(cleanUpErrorMessages(errors.mapped()));
 	}
 	return next();
