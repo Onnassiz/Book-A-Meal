@@ -31,7 +31,10 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+<<<<<<< HEAD
     "babel-preset-react": "^6.24.1",
+=======
+>>>>>>> 2f081ae02bdf863dcf547466cbe29f11a1ccdb97
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "eslint": "^4.19.1",

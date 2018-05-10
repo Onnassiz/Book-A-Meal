@@ -48,6 +48,7 @@ class OrdersController {
 	postOrder(req, res) {
 		const { amount, createdAt } = req.body;
 		const userId = req.user.id;
+
 		const newOrder = order.build({
 			amount,
 			userId,
