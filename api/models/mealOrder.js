@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		orderId: DataTypes.STRING,
 		mealId: DataTypes.STRING,
+		units: DataTypes.INTEGER,
 	}, {});
 	MealOrder.associate = (models) => {
 		

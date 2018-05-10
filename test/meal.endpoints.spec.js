@@ -127,22 +127,6 @@ describe('Meal Controller', () => {
 			});
 		});
 
-		it('should return status (400) when userId is invalid', (done) => {
-			TestUil.getUserId().then(() => {
-				const formData = {
-					name: 'Eba and Sweet',
-					price: 2000,
-					category: 'Hot meal',
-					userId: 'id',
-					imageUrl: 'http://seri.com',
-				};
-				request.post({ url: `${baseUrl}/meals`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
-					expect(response.statusCode).to.equal(400);
-					done();
-				});
-			});
-		});
-
 		it('should return status (200) when modifying meal', (done) => {
 			TestUil.getUserId().then((id) => {
 				const formData = {

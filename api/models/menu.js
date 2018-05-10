@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		name: DataTypes.STRING,
 		unixTime: DataTypes.BIGINT(),
+		expiry: DataTypes.DATE,
 	}, {});
 
 	Menu.associate = (models) => {

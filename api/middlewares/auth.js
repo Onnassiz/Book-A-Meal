@@ -1,71 +1,43 @@
-
-import validate from 'validate.js';
 import jwt from 'jsonwebtoken';
 
-export function cleanUpErrorMessages(errors) {
-	const newErrors = {};
-	for (const key in errors) {
-		newErrors[key] = errors[key][0];
-	}
-	return newErrors;
-}
+const { check } = require('express-validator/check');
 
-export function validateSignInFormData(req, res, next) {
-	const constraints = {
-		email: {
-			presence: {
-				allowEmpty: false,
-			},
-			email: true,
-		},
-		password: {
-			presence: {
-				allowEmpty: false,
-			},
-		},
-	};
-	const errors = validate(req.body, constraints);
-	if (errors == null) {
-		next();
-	} else {
-		res.status(400).send(cleanUpErrorMessages(errors));
-	}
-}
+export const signInConstraints = [
+	check('email')
+		.exists()
+		.withMessage('email is required')
+		.isEmail()
+		.withMessage('must be an email')
+		.trim()
+		.normalizeEmail(),
 
-export function validateSignUpFormData(req, res, next) {
-	const constraints = {
-		email: {
-			presence: {
-				allowEmpty: false,
-			},
-			email: true,
-		},
-		password: {
-			length: {
-				minimum: 6,
-			},
-			presence: {
-				allowEmpty: false,
-			},
-		},
-		fullName: {
-			presence: {
-				allowEmpty: false,
-			},
-			length: {
-				minimum: 1,
-				message: 'must be a string',
-			},
-		},
-	};
+	check('password').exists(),
+];
 
-	const errors = validate(req.body, constraints);
-	if (errors == null) {
-		next();
-	} else {
-		res.status(400).send(cleanUpErrorMessages(errors));
-	}
-}
+export const signUpConstraints = [
+	check('email')
+		.exists()
+		.withMessage('email is require')
+		.isEmail()
+		.withMessage('must be an email')
+		.trim()
+		.normalizeEmail(),
+
+	check('fullName')
+		.exists()
+		.withMessage('the name field is require')
+		.isString()
+		.withMessage('the name must be a string')
+		.trim()
+		.normalizeEmail(),
+
+	check('password')
+		.exists()
+		.withMessage('password is required')
+		.isLength({ min: 6 })
+		.withMessage('password must contain at least 6 characters'),
+];
+
 
 export function verifyAuthToken(req, res, next) {
 	const bearerHeader = req.headers.authorization;
@@ -104,4 +76,3 @@ export function validateCatererToken(req, res, next) {
 		}
 	});
 }
-

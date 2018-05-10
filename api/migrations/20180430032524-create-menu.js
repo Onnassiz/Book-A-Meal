@@ -14,6 +14,10 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.BIGINT(11),
 			},
+			expiry: {
+				allowNull: true,
+				type: Sequelize.DATE,
+			},
 			userId: {
 				type: Sequelize.UUID,
 				references: {

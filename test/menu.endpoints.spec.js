@@ -139,38 +139,30 @@ describe('Menu Controller', () => {
 			});
 		});
 
-		it('should return status (400) if form validation fails', (done) => {
-			const formData = {
-				name: '',
-				unixTime: '',
-				meals: [
 
-				],
-			};
-
-			request.post({ url: `${baseUrl}/menus`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
-				expect(response.statusCode).to.equal(400);
-				done();
-			});
-		});
-
-		it('should return status (200) if form validation checks out', (done) => {
+		it('should return status (200) if form validation passes', (done) => {
 			TestUil.getCustomerIdAndMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525545800,
-					userId: res.id,
-					meals: JSON.stringify([
+					meals: [
 						{
 							mealId: res.meal_1_Id,
 						},
 						{
 							mealId: res.meal_2_Id,
 						},
-					]),
+					],
 				};
 
-				request.post({ url: `${baseUrl}/menus`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
+				const header = {
+					Authorization: `Bearer ${tokenR}`,
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+				};
+
+				request.post({ url: `${baseUrl}/menus`, headers: header, form: formData }, (error, response, body) => {
+					console.log(body);
 					expect(response.statusCode).to.equal(200);
 					done();
 				});

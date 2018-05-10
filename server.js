@@ -10,7 +10,7 @@ const apiRouter = express.Router();
 const app = express();
 
 
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT);
 
 app.use(bodyParser.urlencoded({
 	extended: false,

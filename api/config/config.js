@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
 	development: {
 		username: process.env.DB_USERNAME_DEV,
@@ -12,6 +14,7 @@ module.exports = {
 		database: process.env.DB_NAME_TEST,
 		host: '127.0.0.1',
 		dialect: 'postgres',
+		logging: false,
 	},
 	production: {
 		use_env_variable: 'DATABASE_URL',
@@ -23,5 +26,4 @@ module.exports = {
 	},
 };
 
-
-// heroku run sequelize db:migrate --env production -m --app production-app-name.
+// heroku run sequelize db:migrate --env production -m --app production-app-name

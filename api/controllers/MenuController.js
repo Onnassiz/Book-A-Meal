@@ -9,7 +9,11 @@ class MenusController {
 			}],
 			where: { userId: req.params.id },
 		}).then((menus) => {
-			res.status(200).send(menus);
+			if (menus) {
+				res.status(200).send(menus);
+			} else {
+				res.status(404).send({ message: 'Menu not found' });
+			}
 		}).catch((errors) => {
 			res.status(404).send(errors);
 		});
@@ -22,7 +26,11 @@ class MenusController {
 			}],
 			where: { id: req.params.id },
 		}).then((responseData) => {
-			res.status(200).send(responseData);
+			if (responseData) {
+				res.status(200).send(responseData);
+			} else {
+				res.status(404).send({ message: 'Menu not found' });
+			}
 		});
 	}
 
@@ -44,14 +52,19 @@ class MenusController {
 			}],
 			where: { unixTime: timeStamp },
 		}).then((responseData) => {
-			res.status(200).send(responseData);
+			if (responseData) {
+				res.status(200).send(responseData);
+			} else {
+				res.status(404).send({ message: 'Menu not found' });
+			}
 		});
 	}
 
 	postMenu(req, res) {
-		const { unixTime, userId } = req.body;
+		const { unixTime, name } = req.body;
+		const userId = req.user.id;
 		const newMenu = menu.build({
-			name: req.body.name,
+			name,
 			unixTime,
 			userId,
 		});
@@ -59,11 +72,12 @@ class MenusController {
 		menu.findOne({ where: { userId, unixTime } }).then((mn) => {
 			if (mn) {
 				res.status(400).send({
-					message: 'You have already created menu for the selected date. You can still modify the already created menu',
+					message: 'You have already created a menu for the selected date. You can still modify the already created menu',
 				});
 			} else {
 				const newMealMenus = [];
-				const meals = JSON.parse(req.body.meals);
+				// const meals = JSON.parse(req.body.meals);
+				const { meals } = req.body;
 				meals.forEach((ml) => {
 					newMealMenus.push({
 						menuId: newMenu.id,
@@ -83,7 +97,8 @@ class MenusController {
 	}
 
 	putMenu(req, res) {
-		const { unixTime, userId } = req.body;
+		const { unixTime } = req.body;
+		const userId = req.user.id;
 		menu.update(
 			{
 				id: req.params.id,
@@ -93,21 +108,27 @@ class MenusController {
 			},
 			{ where: { id: req.params.id }, returning: true },
 		).then((updated) => {
-			menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
-				const newMealMenus = [];
-				const meals = JSON.parse(req.body.meals);
-	
-				meals.forEach((ml) => {
-					newMealMenus.push({
-						menuId: req.params.id,
-						mealId: ml.mealId,
+			const update = updated[1][0];
+			if (update) {
+				menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
+					const newMealMenus = [];
+					// const meals = JSON.parse(req.body.meals);
+					const meals = req.body.meals;
+
+					meals.forEach((ml) => {
+						newMealMenus.push({
+							menuId: req.params.id,
+							mealId: ml.mealId,
+						});
+					});
+
+					menuMeal.bulkCreate(newMealMenus).then(() => {
+						res.status(200).send(update);
 					});
 				});
-
-				menuMeal.bulkCreate(newMealMenus).then(() => {
-					res.status(200).send(updated[1][0]);
-				});
-			});
+			} else {
+				res.status(404).send({ message: 'Menu not found' });
+			}
 		});
 	}
 

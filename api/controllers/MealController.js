@@ -10,7 +10,13 @@ class MealsController {
 
 	getMealById(req, res) {
 		meal.findById(req.params.id).then((ml) => {
-			res.status(200).send(ml);
+			if (ml) {
+				res.status(200).send(ml);
+			} else {
+				res.status(404).send({
+					message: 'Meal not found',
+				});
+			}
 		});
 	}
 
@@ -33,7 +39,14 @@ class MealsController {
 			},
 			{ where: { id: req.params.id }, returning: true },
 		).then((updated) => {
-			res.status(200).send(updated[1][0]);
+			const update = updated[1][0];
+			if (update) {
+				res.status(200).send(update);
+			} else {
+				res.status(404).send({
+					message: 'Meal not found',
+				});
+			}
 		});
 	}
 
@@ -42,7 +55,7 @@ class MealsController {
 			name: req.body.name,
 			price: req.body.price,
 			description: req.body.description,
-			userId: req.body.userId,
+			userId: req.user.id,
 			category: req.body.category,
 			imageUrl: req.body.imageUrl,
 		});
@@ -60,13 +73,20 @@ class MealsController {
 				name: req.body.name,
 				price: req.body.price,
 				description: req.body.description,
-				userId: req.body.userId,
+				userId: req.user.id,
 				category: req.body.category,
 				imageUrl: req.body.imageUrl,
 			},
 			{ where: { id: req.params.id }, returning: true },
 		).then((updated) => {
-			res.status(200).send(updated[1][0]);
+			const update = updated[1][0];
+			if (update) {
+				res.status(200).send(update);
+			} else {
+				res.status(404).send({
+					message: 'Meal not found',
+				});
+			}
 		}).catch((error) => {
 			res.status(400).send(error);
 		});

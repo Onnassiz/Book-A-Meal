@@ -25,6 +25,9 @@ module.exports = {
 				onUpdate: 'CASCADE',
 				onDelete: 'CASCADE',
 			},
+			units: {
+				type: Sequelize.INTEGER,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
@@ -33,6 +36,8 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.DATE,
 			},
+		}, {
+			timestamps: false,
 		});
 	},
 

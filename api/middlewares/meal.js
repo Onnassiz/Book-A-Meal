@@ -1,59 +1,44 @@
-import validate from 'validate.js';
-import { cleanUpErrorMessages } from './auth';
+import isUrl from 'is-url';
 
 
-export function validateMealFormData(req, res, next) {
-	const constraints = {
-		name: {
-			presence: {
-				allowEmpty: false,
-			},
-			length: {
-				minimum: 1,
-				message: 'must be a string',
-			},
-		},
-		price: {
-			presence: true,
-			numericality: true,
-		},
-		imageUrl: {
-			url: true,
-		},
-		userId: {
-			presence: {
-				allowEmpty: false,
-				message: ' not verified',
-			},
-			length: {
-				minimum: 1,
-				message: 'must be a string',
-			},
-		},
-	};
-	const errors = validate(req.body, constraints);
-	if (errors == null) {
-		next();
-	} else {
-		res.status(400).send(cleanUpErrorMessages(errors));
-	}
-}
+const { check } = require('express-validator/check');
 
-export function validateAddImageData(req, res, next) {
-	const constraints = {
-		imageUrl: {
-			presence: {
-				allowEmpty: false,
-			},
-			url: true,
-		},
-	};
+export const mealFormConstraints = [
+	check('name')
+		.exists()
+		.withMessage('the name field is require')
+		.isString()
+		.withMessage('the meal name must be a string')
+		.trim(),
 
-	const errors = validate(req.body, constraints);
-	if (errors == null) {
-		next();
-	} else {
-		res.status(400).send(cleanUpErrorMessages(errors));
-	}
-}
+	check('category')
+		.exists()
+		.withMessage('the category field is require')
+		.isString()
+		.withMessage('the name must must be a string')
+		.trim(),
 
+	check('price')
+		.exists()
+		.withMessage('the price field is require')
+		.isInt()
+		.withMessage('the price field must must an integer')
+		.trim(),
+
+	check('imageUrl')
+		.optional({ nullable: true })
+		.custom((value) => {
+			return isUrl(value);
+		})
+		.withMessage('image link must be a URL'),
+];
+
+export const mealImageConstraints = [
+	check('imageUrl')
+		.exists()
+		.withMessage('image link must be a URL')
+		.custom((value) => {
+			return isUrl(value);
+		})
+		.withMessage('image link must be a URL'),
+];
