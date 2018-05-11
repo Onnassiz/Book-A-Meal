@@ -1,0 +1,1360 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the API documentation for Book-A-Meal web app.",
+    "version" : "1.0.0",
+    "title" : "Book-A-Meal API Documentation",
+    "contact" : {
+      "email" : "onnassiz@gmail.com"
+    },
+    "license" : {
+      "name" : "Book-A-Meak 1.0",
+      "url" : "https://mealbooker.herokuapp.com/api/v1"
+    }
+  },
+  "host" : "mealbooker.herokuapp.com",
+  "basePath" : "/api/v1",
+  "tags" : [ {
+    "name" : "Auth",
+    "description" : "Handles authentication and authorization"
+  }, {
+    "name" : "Meal",
+    "description" : "Manages meal operations"
+  }, {
+    "name" : "Menu",
+    "description" : "Manages menu operations"
+  }, {
+    "name" : "Order",
+    "description" : "Manages order operations"
+  }, {
+    "name" : "Profile",
+    "description" : "Manages profile operations"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/auth/signUp" : {
+      "post" : {
+        "tags" : [ "Auth" ],
+        "summary" : "Adds a new user to the system and returns an auth token",
+        "description" : "",
+        "operationId" : "addUser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A user signUp model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User created succesfully",
+            "schema" : {
+              "$ref" : "#/definitions/Token"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input/Or email already taken",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        }
+      }
+    },
+    "/auth/signIn" : {
+      "post" : {
+        "tags" : [ "Auth" ],
+        "summary" : "Sign a user in by returning a token",
+        "description" : "",
+        "operationId" : "signIn",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A user signIn model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UserSignIn"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User succesfully signed in",
+            "schema" : {
+              "$ref" : "#/definitions/Token"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "User not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        }
+      }
+    },
+    "/meals" : {
+      "get" : {
+        "tags" : [ "Meal" ],
+        "summary" : "Return all meals",
+        "description" : "",
+        "operationId" : "getAllMeals",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Meal"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Meals not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:meals", "read:meals" ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Meal" ],
+        "summary" : "Create a new meal instance",
+        "description" : "",
+        "operationId" : "createMeal",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A meal model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Meal"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Meal successfully created",
+            "schema" : {
+              "$ref" : "#/definitions/Meal"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        }
+      }
+    },
+    "/meals/{id}" : {
+      "get" : {
+        "tags" : [ "Meal" ],
+        "summary" : "Find meal by ID",
+        "description" : "Returns a single meal object",
+        "operationId" : "getMealById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of meal to return",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Meal"
+            }
+          },
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Meals not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:meals" ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Meal" ],
+        "summary" : "Update an instance of a meal",
+        "description" : "",
+        "operationId" : "updateMeal",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A meal model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Meal"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of meal to be updated",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Meal successfully updated",
+            "schema" : {
+              "$ref" : "#/definitions/Meal"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Meals not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:meals", "read:meals" ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Meal" ],
+        "summary" : "Deletes a meal by ID",
+        "description" : "",
+        "operationId" : "deleteMeal",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Meal id to delete",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Meal deleted"
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:meals" ]
+        } ]
+      }
+    },
+    "/meals/user/{id}" : {
+      "get" : {
+        "tags" : [ "Meal" ],
+        "summary" : "Find all meal created by a particular caterer",
+        "description" : "",
+        "operationId" : "getMealByUserId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of the caterer whose meals should be returned",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "meals successfull returned",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Meal"
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Meals not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:meals" ]
+        } ]
+      }
+    },
+    "/meals/image/{id}" : {
+      "put" : {
+        "tags" : [ "Meal" ],
+        "summary" : "Update the image instance of a meal",
+        "description" : "",
+        "operationId" : "updateMealImage",
+        "consumes" : [ "multipart/form-data" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "imageUrl",
+          "description" : "An instance of the image URL to update",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ImageUrl"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of meal to update",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Meal successfully updated",
+            "schema" : {
+              "$ref" : "#/definitions/Meal"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Meal not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:meals", "read:meals" ]
+        } ]
+      }
+    },
+    "/menus" : {
+      "get" : {
+        "tags" : [ "Menu" ],
+        "summary" : "Returns all existing menus with the meals in each menu",
+        "description" : "",
+        "operationId" : "getMenus",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Menu"
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Menu not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:menus" ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Menu" ],
+        "summary" : "Set up a menu for a particular day",
+        "description" : "",
+        "operationId" : "createMenu",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A menu model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Menu"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Menu successfully created",
+            "schema" : {
+              "$ref" : "#/definitions/Menu"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Menu not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:menus", "read:menus" ]
+        } ]
+      }
+    },
+    "/menus/{id}" : {
+      "get" : {
+        "tags" : [ "Menu" ],
+        "summary" : "Returns a single menu object with the meals in that menu",
+        "description" : "",
+        "operationId" : "getMenuById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of menu to return",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Menu"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Menu not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:menus" ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Menu" ],
+        "summary" : "Update an instance of a menu and its associating meals",
+        "description" : "",
+        "operationId" : "updateMenu",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A menu model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Menu"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of menu to update",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Menu successfully updated",
+            "schema" : {
+              "$ref" : "#/definitions/Menu"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Menu not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:menus", "read:menus" ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Menu" ],
+        "summary" : "Deletes a menu and its a by ID",
+        "description" : "",
+        "operationId" : "deleteMenu",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Menu id to delete",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Menu deleted"
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:menus" ]
+        } ]
+      }
+    },
+    "/menus/user/{id}" : {
+      "get" : {
+        "tags" : [ "Menu" ],
+        "summary" : "Returns menus created by a particular caterer",
+        "description" : "",
+        "operationId" : "getMenuByUserId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of user whose menus should be returned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Menu"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Menus not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:menus" ]
+        } ]
+      }
+    },
+    "/menu/unixTime/{timeStamp}" : {
+      "get" : {
+        "tags" : [ "Menu" ],
+        "summary" : "Returns menus created on a specified date",
+        "description" : "Date has to be converted to inix timestamp from the client",
+        "operationId" : "getMenuByUnixTime",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "timeStamp",
+          "in" : "path",
+          "description" : "Id of user whose menu should be returned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Menu"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Menus not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:menus" ]
+        } ]
+      }
+    },
+    "/orders" : {
+      "get" : {
+        "tags" : [ "Order" ],
+        "summary" : "Returns all existing orders with the meals in each order",
+        "description" : "",
+        "operationId" : "getOrders",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Order"
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Order not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:orders" ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Order" ],
+        "summary" : "Creates an other for a set of meals",
+        "description" : "",
+        "operationId" : "createOrder",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A order model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Order"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Order successfully created",
+            "schema" : {
+              "$ref" : "#/definitions/Order"
+            }
+          },
+          "400" : {
+            "description" : "Invalid input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:orders", "read:orders" ]
+        } ]
+      }
+    },
+    "/order/{id}" : {
+      "get" : {
+        "tags" : [ "Order" ],
+        "summary" : "Returns a single order object with the meals in that order",
+        "description" : "",
+        "operationId" : "getOrderById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of order to return",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Order"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Order not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:orders" ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Order" ],
+        "summary" : "Update an instance of a order and its associating meals",
+        "description" : "",
+        "operationId" : "updateOrder",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A order model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Menu"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of order to update",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Order successfully updated",
+            "schema" : {
+              "$ref" : "#/definitions/Order"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Order not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:menus", "read:menus" ]
+        } ]
+      }
+    },
+    "/order/caterer/{id}" : {
+      "get" : {
+        "tags" : [ "Order" ],
+        "summary" : "Returns all orders made to a particular caterer",
+        "description" : "",
+        "operationId" : "getOrderCatererId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of caterer whose orders to return",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Order"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Order not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:orders" ]
+        } ]
+      }
+    },
+    "/order/user/{id}" : {
+      "get" : {
+        "tags" : [ "Order" ],
+        "summary" : "Returns all orders made by a particular customer",
+        "description" : "",
+        "operationId" : "getOrderUserId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of user whose orders to return",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Order"
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Order not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:orders" ]
+        } ]
+      }
+    },
+    "/profile" : {
+      "post" : {
+        "tags" : [ "Profile" ],
+        "summary" : "Creates a profile for a caterer",
+        "description" : "",
+        "operationId" : "createProfile",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A profile model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Profile"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Profile successfully created",
+            "schema" : {
+              "$ref" : "#/definitions/Profile"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Profile not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:profiles", "read:profiles" ]
+        } ]
+      }
+    },
+    "/profile/{id}" : {
+      "get" : {
+        "tags" : [ "Profile" ],
+        "summary" : "Returns a single profile object",
+        "description" : "",
+        "operationId" : "getProfileById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "api_key",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of profile to return",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Profile"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Profile not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "read:profiles" ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Profile" ],
+        "summary" : "Update an intance of a profile",
+        "description" : "",
+        "operationId" : "updateProfile",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "A profile model",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Profile"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id of profile to update",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Profile successfully updated",
+            "schema" : {
+              "$ref" : "#/definitions/Profile"
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "403" : {
+            "description" : "Forbidden",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          },
+          "404" : {
+            "description" : "Menu not found",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseMessage"
+            }
+          }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:profiles", "read:profiles" ]
+        } ]
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "book_meal_auth" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "https://mealbooker.herokuapp.com/api/v1/auth",
+      "flow" : "implicit",
+      "scopes" : {
+        "write:meals" : "create/modify meals in database",
+        "read:meals" : "read meals",
+        "write:menus" : "create/modify menus in database",
+        "read:menus" : "read menus",
+        "write:orders" : "create/modify orders in database",
+        "read:orders" : "read orders",
+        "write:profiles" : "create/modify profile in database",
+        "read:profiles" : "read profile"
+      }
+    },
+    "api_key" : {
+      "type" : "apiKey",
+      "name" : "api_key",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "Order" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "meals" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Meal"
+          }
+        }
+      },
+      "example" : {
+        "id" : "id",
+        "meals" : [ {
+          "price" : 0,
+          "imageUrl" : "imageUrl",
+          "name" : "name",
+          "description" : "description",
+          "id" : "id",
+          "category" : "category"
+        }, {
+          "price" : 0,
+          "imageUrl" : "imageUrl",
+          "name" : "name",
+          "description" : "description",
+          "id" : "id",
+          "category" : "category"
+        } ]
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "fullName" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "password" : "password",
+        "fullName" : "fullName",
+        "id" : "id",
+        "email" : "email"
+      },
+      "xml" : {
+        "name" : "User"
+      }
+    },
+    "Token" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "message" : "message",
+        "token" : "token"
+      },
+      "xml" : {
+        "name" : "Tag"
+      }
+    },
+    "ResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "UserSignIn" : {
+      "type" : "object",
+      "properties" : {
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "password" : "password",
+        "email" : "email"
+      },
+      "xml" : {
+        "name" : "User"
+      }
+    },
+    "Meal" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "price" : {
+          "type" : "integer"
+        },
+        "imageUrl" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "price" : 0,
+        "imageUrl" : "imageUrl",
+        "name" : "name",
+        "description" : "description",
+        "id" : "id",
+        "category" : "category"
+      }
+    },
+    "Menu" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "unixTime" : {
+          "type" : "integer"
+        },
+        "expriry" : {
+          "type" : "string"
+        },
+        "meals" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Meal"
+          }
+        }
+      },
+      "example" : {
+        "expriry" : "expriry",
+        "unixTime" : 0,
+        "name" : "name",
+        "id" : "id",
+        "meals" : [ {
+          "price" : 0,
+          "imageUrl" : "imageUrl",
+          "name" : "name",
+          "description" : "description",
+          "id" : "id",
+          "category" : "category"
+        }, {
+          "price" : 0,
+          "imageUrl" : "imageUrl",
+          "name" : "name",
+          "description" : "description",
+          "id" : "id",
+          "category" : "category"
+        } ]
+      }
+    },
+    "ImageUrl" : {
+      "type" : "object",
+      "properties" : {
+        "imageUrl" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Profile" : {
+      "type" : "object",
+      "properties" : {
+        "businessName" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "contact" : {
+          "type" : "string"
+        },
+        "mission" : {
+          "type" : "string"
+        },
+        "banner" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "mission" : "mission",
+        "contact" : "contact",
+        "businessName" : "businessName",
+        "banner" : "banner",
+        "email" : "email"
+      }
+    }
+  }
+}

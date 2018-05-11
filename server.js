@@ -5,6 +5,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './api/routes';
 
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json');
+
 
 const apiRouter = express.Router();
 const app = express();
@@ -20,6 +23,9 @@ app.use(bodyParser.json());
 
 
 app.get('/api/v1', (req, res) => res.send('Welcome to Book-A-Meal'));
+app.get('/', (req, res) => res.send('Welcome to Book-A-Meal'));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/v1', apiRouter);
 
