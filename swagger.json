@@ -30,7 +30,7 @@
     "name" : "Profile",
     "description" : "Manages profile operations"
   } ],
-  "schemes" : [ "http" ],
+  "schemes" : [ "https" ],
   "paths" : {
     "/auth/signUp" : {
       "post" : {

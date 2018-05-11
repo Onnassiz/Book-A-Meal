@@ -362,7 +362,8 @@ table {
   box-sizing: border-box;
   -webkit-box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
-  border-radius: 10px; }
+  border-radius: 10px;
+  top: 35%; }
   .box h3 {
     margin: 0 0 20px;
     padding: 0;
@@ -768,3 +769,7 @@ table {
     width: 91.66%; }
   .col-12 {
     width: 100%; } }
+
+#menu-section {
+  margin: 40px auto;
+  padding-left: 120px; }

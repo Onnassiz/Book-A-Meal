@@ -36,6 +36,8 @@ class AuthController {
 				const hashedPassword = usr.passwordHash;
 				if (passwordHash.verify(req.body.password, hashedPassword)) {
 					res.status(200).send({
+						fullName: usr.fullName,
+						email: usr.email,
 						message: 'User successfully created',
 						token: signJsonWebToken(usr),
 					});
