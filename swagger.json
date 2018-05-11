@@ -183,7 +183,10 @@
               "$ref" : "#/definitions/ResponseMessage"
             }
           }
-        }
+        },
+        "security" : [ {
+          "book_meal_auth" : [ "write:meals", "read:meals" ]
+        } ]
       }
     },
     "/meals/{id}" : {
@@ -883,50 +886,6 @@
         },
         "security" : [ {
           "book_meal_auth" : [ "write:menus", "read:menus" ]
-        } ]
-      }
-    },
-    "/order/caterer/{id}" : {
-      "get" : {
-        "tags" : [ "Order" ],
-        "summary" : "Returns all orders made to a particular caterer",
-        "description" : "",
-        "operationId" : "getOrderCatererId",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "api_key",
-          "in" : "header",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Id of caterer whose orders to return",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/Order"
-            }
-          },
-          "403" : {
-            "description" : "Forbidden",
-            "schema" : {
-              "$ref" : "#/definitions/ResponseMessage"
-            }
-          },
-          "404" : {
-            "description" : "Order not found",
-            "schema" : {
-              "$ref" : "#/definitions/ResponseMessage"
-            }
-          }
-        },
-        "security" : [ {
-          "book_meal_auth" : [ "read:orders" ]
         } ]
       }
     },

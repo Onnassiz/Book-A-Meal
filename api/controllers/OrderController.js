@@ -1,5 +1,9 @@
-import { order, meal, mealOrder } from '../models';
+
 import moment from 'moment';
+
+import { order, meal, mealOrder } from '../models';
+import sequelize from '../models/index';
+
 
 class OrdersController {
 	getAllOrders(req, res) {
