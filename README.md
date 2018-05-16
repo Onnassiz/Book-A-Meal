@@ -11,7 +11,7 @@ This is a simple UI design for Book-A-Meal application. This UI has the followin
   <li>Github Pages: <a href="https://onnassiz.github.io/Book-A-Meal/UI">UI</a></li>
   <li>Pivotal Tracker: <a href="https://www.pivotaltracker.com/n/projects/2165782">PT</a></li>
   <li>Heroku Api Host: <a href="https://mealbooker.herokuapp.com/api/v1">API</a></li>
-  <li>Api Documentation: <a href="https://mealbooker.herokuapp.com/api/api-docs">API Docs</a></li>
+  <li>Api Documentation: <a href="https://mealbooker.herokuapp.com/api-docs">API Docs</a></li>
   <li>React Client Host: </li>
 </ul>
 
