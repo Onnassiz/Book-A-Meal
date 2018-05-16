@@ -88,7 +88,8 @@ describe('AuthController', () => {
 				password: '',
 			};
 
-			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response) => {
+			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response, body) => {
+				console.log(body);
 				expect(response.statusCode).to.equal(400);
 				done();
 			});
@@ -100,7 +101,8 @@ describe('AuthController', () => {
 				password: '',
 			};
 
-			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response) => {
+			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response, body) => {
+				console.log(body);				
 				expect(response.statusCode).to.equal(400);
 				done();
 			});
