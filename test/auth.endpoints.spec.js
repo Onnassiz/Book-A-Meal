@@ -29,7 +29,7 @@ describe('AuthController', () => {
 		it('should return status (400) if wrong email', (done) => {
 			const formData = {
 				fullName: '',
-				email: 'onasgma.co',
+				email: 'something.co',
 				password: '',
 			};
 
@@ -43,7 +43,7 @@ describe('AuthController', () => {
 			const formData = {
 				fullName: '',
 				email: '',
-				password: 'apsa',
+				password: 'pass',
 			};
 
 			request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response) => {
@@ -52,7 +52,7 @@ describe('AuthController', () => {
 			});
 		});
 
-		it('should return status(201) with a token of length greated than 100', (done) => {
+		it('should return status(201) with a token of length greater than 100', (done) => {
 			const formData = {
 				fullName: 'Onah Benjamin',
 				email: 'onnassiz@gmail.com',
@@ -96,7 +96,7 @@ describe('AuthController', () => {
 
 		it('should return status (400) if wrong email', (done) => {
 			const formData = {
-				email: 'onasgma.co',
+				email: 'sass.co',
 				password: '',
 			};
 
@@ -121,7 +121,7 @@ describe('AuthController', () => {
 
 		it('should return status (404) if user is not found', (done) => {
 			const formData = {
-				email: 'nouser@gmail.com',
+				email: 'trouser@gmail.com',
 				password: 'password',
 			};
 
