@@ -89,7 +89,7 @@ describe('AuthController', () => {
 			};
 
 			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response, body) => {
-				console.log(body);
+				console.log(error);
 				expect(response.statusCode).to.equal(400);
 				done();
 			});
@@ -102,7 +102,7 @@ describe('AuthController', () => {
 			};
 
 			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response, body) => {
-				console.log(body);				
+				console.log(error);				
 				expect(response.statusCode).to.equal(400);
 				done();
 			});
