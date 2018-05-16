@@ -1,4 +1,4 @@
-import { user, meal, menu, order, address, profile } from '../api/models';
+import { user, meal, menu, order, profile } from '../api/models';
 
 const uuidv4 = require('uuid/v4');
 
@@ -45,7 +45,7 @@ class TestUtil {
 
 	insertMenus(done) {
 		this.insertMeals(done, false);
-		user.findOne({ where: { email: 'customer@gmail.com' } }).then((usr) => {
+		user.findOne({ where: { email: 'caterer@gmail.com' } }).then((usr) => {
 			menu.bulkCreate([
 				{
 					name: 'Monday Special',
@@ -107,26 +107,18 @@ class TestUtil {
 						},
 					],
 				},
-			]).then(() => {
-				done();
-			});
-		});
-	}
-
-	insertAddresses(done) {
-		user.findOne({ where: { email: 'customer@gmail.com' } }).then((usr) => {
-			address.bulkCreate([
 				{
-					streetAddress: 'Alen Ave',
-					city: 'Ikeja',
-					state: 'Lagos',
+					amount: 2100,
 					userId: usr.id,
-				},
-				{
-					streetAddress: 'Alen Ave',
-					city: 'Zaria',
-					state: 'Kaduna',
-					userId: usr.id,
+					createdAt: '2018-05-09 16:23:11.689+01',
+					meals: [
+						{
+							mealId: this.meal_1_Id,
+						},
+						{
+							mealId: this.meal_2_Id,
+						},
+					],
 				},
 			]).then(() => {
 				done();
@@ -135,12 +127,12 @@ class TestUtil {
 	}
 
 	insertProfile(done) {
-		user.findOne({ where: { email: 'customer@gmail.com' } }).then((usr) => {
+		user.findOne({ where: { email: 'caterer@gmail.com' } }).then((usr) => {
 			profile.bulkCreate([
 				{
 					businessName: 'Just eat',
 					contact: '080321231232',
-					email: 'justeat@gmail.com',
+					email: 'justEat@gmail.com',
 					mission: 'Feeding the richest',
 					banner: 'http://banner.com',
 					userId: usr.id,
@@ -183,14 +175,6 @@ class TestUtil {
 		this.deleteMeals(done);
 	}
 
-	deleteAddresses(done) {
-		address.destroy({
-			where: {},
-		}).then(() => {
-		});
-		this.deleteMeals(done);
-	}
-
 	getMealId() {
 		return meal.findOne().then((ml) => {
 			return ml.id;
@@ -203,12 +187,6 @@ class TestUtil {
 		});
 	}
 
-	getAddressId() {
-		return address.findOne().then((adr) => {
-			return adr.id;
-		});
-	}
-
 	getMenuId() {
 		return menu.findOne().then((mn) => {
 			return mn.id;
@@ -217,6 +195,12 @@ class TestUtil {
 
 	getOrderId() {
 		return order.findOne().then((ord) => {
+			return ord.id;
+		});
+	}
+
+	getLastOrderId() {
+		return order.findOne({ where: { createdAt: '2018-05-09 16:23:11.689+01' } }).then((ord) => {
 			return ord.id;
 		});
 	}

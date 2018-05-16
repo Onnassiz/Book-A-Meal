@@ -9,13 +9,11 @@ class MenusController {
 			}],
 			where: { userId: req.params.id },
 		}).then((menus) => {
-			if (menus) {
+			if (menus.length) {
 				res.status(200).send(menus);
 			} else {
 				res.status(404).send({ message: 'Menu not found' });
 			}
-		}).catch((errors) => {
-			res.status(404).send(errors);
 		});
 	}
 
@@ -52,13 +50,14 @@ class MenusController {
 			}],
 			where: { unixTime: timeStamp },
 		}).then((responseData) => {
-			if (responseData) {
+			if (responseData.length) {
 				res.status(200).send(responseData);
 			} else {
 				res.status(404).send({ message: 'Menu not found' });
 			}
 		});
 	}
+
 
 	postMenu(req, res) {
 		const { unixTime, name } = req.body;
@@ -76,7 +75,6 @@ class MenusController {
 				});
 			} else {
 				const newMealMenus = [];
-				// const meals = JSON.parse(req.body.meals);
 				const { meals } = req.body;
 				meals.forEach((ml) => {
 					newMealMenus.push({
@@ -114,7 +112,7 @@ class MenusController {
 				menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
 					const newMealMenus = [];
 					// const meals = JSON.parse(req.body.meals);
-					const meals = req.body.meals;
+					const { meals } = req.body;
 
 					meals.forEach((ml) => {
 						newMealMenus.push({

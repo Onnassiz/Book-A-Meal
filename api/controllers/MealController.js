@@ -27,8 +27,9 @@ class MealsController {
 			}],
 			where: { id: req.params.id },
 		}).then((responseData) => {
-			responseData.passwordHash = null;
-			res.send(responseData);
+			const response = responseData;
+			response.passwordHash = null;
+			res.send(response);
 		});
 	}
 
@@ -68,12 +69,8 @@ class MealsController {
 			} else {
 				newMeal.save().then((response) => {
 					res.status(201).send(response);
-				}).catch((error) => {
-					res.status(400).send(error);
 				});
 			}
-		}).catch((error) => {
-			res.status(400).send(error);
 		});
 	}
 
@@ -97,18 +94,22 @@ class MealsController {
 					message: 'Meal not found',
 				});
 			}
-		}).catch((error) => {
-			res.status(400).send(error);
 		});
 	}
 
 	deleteMeal(req, res) {
 		meal.destroy({
 			where: { id: req.params.id },
-		}).then(() => {
-			res.status(200).send({
-				message: 'Meal successfully deleted',
-			});
+		}).then((deleted) => {
+			if (deleted) {
+				res.status(200).send({
+					message: 'Meal successfully deleted',
+				});
+			} else {
+				res.status(404).send({
+					message: 'Meal not found',
+				});
+			}
 		});
 	}
 }

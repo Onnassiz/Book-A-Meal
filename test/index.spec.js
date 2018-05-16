@@ -2,7 +2,6 @@
 import request from 'request';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import Sequelize from 'sequelize';
 import '../server';
 
 const baseUrl = 'http://localhost:3001/api/v1';

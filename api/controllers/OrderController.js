@@ -2,8 +2,6 @@
 import moment from 'moment';
 
 import { order, meal, mealOrder } from '../models';
-import sequelize from '../models/index';
-
 
 class OrdersController {
 	getAllOrders(req, res) {
@@ -12,7 +10,7 @@ class OrdersController {
 				model: meal,
 			}],
 		}).then((orders) => {
-			if (orders) {
+			if (orders.length) {
 				res.status(200).send(orders);
 			} else {
 				res.status(404).send({ message: 'Orders not found' });
@@ -24,9 +22,9 @@ class OrdersController {
 		order.findAll({
 			include: [{
 				model: meal,
-				where: { userId: req.params.id },
-			}] }).then((orders) => {
-			if (orders) {
+			}],
+			where: { userId: req.params.id } }).then((orders) => {
+			if (orders.length) {
 				res.status(200).send(orders);
 			} else {
 				res.status(404).send({ message: 'Orders not found' });
@@ -72,7 +70,7 @@ class OrdersController {
 
 		newOrder.save().then((ord) => {
 			mealOrder.bulkCreate(newMealOrders).then(() => {
-				res.status(200).send({
+				res.status(201).send({
 					message: 'Order successfully created',
 					order: ord,
 				});
@@ -106,13 +104,13 @@ class OrdersController {
 							});
 
 							mealOrder.bulkCreate(newMealOrders).then(() => {
-								res.status(201).send(update);
+								res.status(200).send(update);
 							});
 						});
 					});
 				}
 			} else {
-				res.status(400).send({ message: 'Order not found' });
+				res.status(404).send({ message: 'Order not found' });
 			}
 		});
 	}

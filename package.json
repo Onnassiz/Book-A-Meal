@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "sequelize db:migrate:undo:all --env test&& sequelize db:migrate --env test&& sequelize db:seed:all --env test&& NODE_ENV=test nyc mocha --compilers js:babel-register --recursive ./test/ --exit",
-    "start-app": "webpack-dev-server --open --mode development --port 3000",
     "start": "nodemon server.js --exec babel-node server.js --presets env",
     "lint": "eslint api",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -56,7 +55,9 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
+    "coffeescript": "^2.3.0",
     "coveralls": "^3.0.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",

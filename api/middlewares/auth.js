@@ -74,7 +74,9 @@ export function validateCatererToken(req, res, next) {
 				req.user = authData.data;
 				next();
 			} else {
-				res.status(403).send('Forbidden');
+				res.status(401).send({
+					message: 'Unauthorized',
+				});
 			}
 		}
 	});

@@ -11,14 +11,7 @@ var env       = process.env.NODE_ENV || 'development';
 var config    = require(path.resolve('api/config/config.js'))[env];
 var db        = {};
 
-if (config.use_env_variable) {
-	console.log(config.use_env_variable);
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
-
-
+var sequelize = config.use_env_variable ? new Sequelize(process.env[config.use_env_variable], config) : new Sequelize(config.database, config.username, config.password, config);
 
 fs
   .readdirSync(__dirname)

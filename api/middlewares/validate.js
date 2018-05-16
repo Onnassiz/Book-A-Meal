@@ -19,12 +19,6 @@ export const validParamId = [
 			return validate(value, 4);
 		})
 		.withMessage('wrong id format in params. id must be a valid UUID4'),
-	checkBodyAndQuery('userId')
-		.optional({ nullable: true })
-		.custom((value) => {
-			return validate(value, 4);
-		})
-		.withMessage('wrong id format in params. id must be a valid UUID4'),
 ];
 
 export function validateFormData(req, res, next) {

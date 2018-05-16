@@ -1,13 +1,14 @@
 import request from 'request';
 import { expect } from 'chai';
 import { describe, it, after, before } from 'mocha';
+import TestUtil from '../testUtil/TestUtil';
 
-import TestUil from '../testUtil/TestUtil';
+const uuidv4 = require('uuid/v4');
 
 const baseUrl = 'http://localhost:3001/api/v1';
 
 let tokenR = '';
-let tokenR_2 = '';
+let tokenR2 = '';
 
 const userFormData = {
 	email: 'caterer@gmail.com',
@@ -26,17 +27,17 @@ request.post({ url: `${baseUrl}/auth/signIn`, form: userFormData }, (error, resp
 
 request.post({ url: `${baseUrl}/auth/signIn`, form: customerFormData }, (error, response, body) => {
 	const { token } = JSON.parse(body);
-	tokenR_2 = token;
+	tokenR2 = token;
 });
 
 describe('Menu Controller', () => {
 	describe('GetMenus', () => {
 		before((done) => {
-			TestUil.insertMenus(done);
+			TestUtil.insertMenus(done);
 		});
 
 		after((done) => {
-			TestUil.deleteMenus(done);
+			TestUtil.deleteMenus(done);
 		});
 
 		it('should return status (200) and array of size 2 if request is made with auth token', (done) => {
@@ -47,15 +48,15 @@ describe('Menu Controller', () => {
 			});
 		});
 
-		it('should return status (403) if request is made with customer auth token', (done) => {
-			request.get({ url: `${baseUrl}/menus`, headers: { Authorization: `Bearer ${tokenR_2}` } }, (error, response, body) => {
-				expect(response.statusCode).to.equal(403);
+		it('should return status (401) and unauthorized if request is made with customer auth token', (done) => {
+			request.get({ url: `${baseUrl}/menus`, headers: { Authorization: `Bearer ${tokenR2}` } }, (error, response) => {
+				expect(response.statusCode).to.equal(401);
 				done();
 			});
 		});
 
 		it('should return status (200) if request is made with correct user id', (done) => {
-			TestUil.getMenuId().then((id) => {
+			TestUtil.getUserId().then((id) => {
 				request.get({ url: `${baseUrl}/menus/user/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
 					expect(response.statusCode).to.equal(200);
 					done();
@@ -63,19 +64,33 @@ describe('Menu Controller', () => {
 			});
 		});
 
-		it('should return status (403) if request is made with correct unixTime but wrong token', (done) => {
-			request.get({ url: `${baseUrl}/menus/unixTime/1525564800`, headers: { Authorization: `Bearer ${tokenR}jksdfj` } }, (error, response) => {
-				expect(response.statusCode).to.equal(403);
+		it('should return status (404) if user id does not exist', (done) => {
+			request.get({ url: `${baseUrl}/menus/user/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+				expect(response.statusCode).to.equal(404);
 				done();
 			});
 		});
 
-		it('should return status (404) if request is made with wrong user id', (done) => {
-			TestUil.getCustomerId().then((id) => {
+		it('should return status (401) if request is made with correct unixTime but wrong token', (done) => {
+			request.get({ url: `${baseUrl}/menus/unixTime/1525564800`, headers: { Authorization: `Bearer ${tokenR}wrong` } }, (error, response) => {
+				expect(response.statusCode).to.equal(401);
+				done();
+			});
+		});
+
+		it('should return status (400) if request is made with wrong user id', (done) => {
+			TestUtil.getCustomerId().then((id) => {
 				request.get({ url: `${baseUrl}/menus/user/${id}sdf`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
-					expect(response.statusCode).to.equal(404);
+					expect(response.statusCode).to.equal(400);
 					done();
 				});
+			});
+		});
+
+		it('should return status (404) if unixTime is not found', (done) => {
+			request.get({ url: `${baseUrl}/menus/unixTime/1525599822`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+				expect(response.statusCode).to.equal(404);
+				done();
 			});
 		});
 
@@ -87,26 +102,33 @@ describe('Menu Controller', () => {
 		});
 
 		it('should return status (200) if request is made with correct menu id', (done) => {
-			TestUil.getMenuId().then((id) => {
+			TestUtil.getMenuId().then((id) => {
 				request.get({ url: `${baseUrl}/menus/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
 					expect(response.statusCode).to.equal(200);
 					done();
 				});
 			});
 		});
+
+		it('should return status (404) if request is made with wrong menu id', (done) => {
+			request.get({ url: `${baseUrl}/menus/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+				expect(response.statusCode).to.equal(404);
+				done();
+			});
+		});
 	});
 
 	describe('Delete Menu', () => {
 		before((done) => {
-			TestUil.insertMenus(done);
+			TestUtil.insertMenus(done);
 		});
 
 		after((done) => {
-			TestUil.deleteMenus(done);
+			TestUtil.deleteMenus(done);
 		});
 
 		it('should return status (200) if delete request is made with correct menu id', (done) => {
-			TestUil.getMenuId().then((id) => {
+			TestUtil.getMenuId().then((id) => {
 				request.delete({ url: `${baseUrl}/menus/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
 					expect(response.statusCode).to.equal(200);
 					done();
@@ -117,11 +139,11 @@ describe('Menu Controller', () => {
 
 	describe('Post and Put Menu', () => {
 		before((done) => {
-			TestUil.insertMenus(done);
+			TestUtil.insertMenus(done);
 		});
 
 		after((done) => {
-			TestUil.deleteMenus(done);
+			TestUtil.deleteMenus(done);
 		});
 
 		it('should return status (400) if form validation fails', (done) => {
@@ -139,9 +161,8 @@ describe('Menu Controller', () => {
 			});
 		});
 
-
-		it('should return status (200) if form validation passes', (done) => {
-			TestUil.getCustomerIdAndMealIds().then((res) => {
+		it('should return status (201) if form validation passes and new menu is created', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525545800,
@@ -157,20 +178,68 @@ describe('Menu Controller', () => {
 
 				const header = {
 					Authorization: `Bearer ${tokenR}`,
-					'Content-Type': 'application/json',
-					Accept: 'application/json',
 				};
 
-				request.post({ url: `${baseUrl}/menus`, headers: header, form: formData }, (error, response, body) => {
-					console.log(body);
-					expect(response.statusCode).to.equal(200);
+				request.post({ url: `${baseUrl}/menus`, headers: header, json: formData }, (error, response, body) => {
+					expect(response.statusCode).to.equal(201);
+					expect(body.menu.name).to.equal('Monday Special');
 					done();
 				});
 			});
 		});
 
-		it('should return status (400) if menu already exists', (done) => {
-			TestUil.getCustomerIdAndMealIds().then((res) => {
+		it('should return status (400) if meal Id is missing in any of the meal entries', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					name: 'Monday Special',
+					unixTime: 1525545800,
+					meals: [
+						{},
+						{
+							mealId: res.meal_2_Id,
+						},
+					],
+				};
+
+				const header = {
+					Authorization: `Bearer ${tokenR}`,
+				};
+
+				request.post({ url: `${baseUrl}/menus`, headers: header, json: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(400);
+					done();
+				});
+			});
+		});
+
+		it('should return status (400) if menu has been created for a particular day', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					name: 'Monday Special',
+					unixTime: 1525651200,
+					meals: [
+						{
+							mealId: res.meal_1_Id,
+						},
+						{
+							mealId: res.meal_2_Id,
+						},
+					],
+				};
+
+				const header = {
+					Authorization: `Bearer ${tokenR}`,
+				};
+
+				request.post({ url: `${baseUrl}/menus`, headers: header, json: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(400);
+					done();
+				});
+			});
+		});
+
+		it('should return status (400) if user already created menu for a specified date', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525564800,
@@ -192,27 +261,48 @@ describe('Menu Controller', () => {
 			});
 		});
 
-		it('should return status (200) if form validation checks out for meal update', (done) => {
-			TestUil.getCustomerIdAndMealIds().then((res) => {
+		it('should return status (200) when updating a menu with passed form validation', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525545800,
-					userId: res.id,
-					meals: JSON.stringify([
+					meals: [
 						{
 							mealId: res.meal_1_Id,
 						},
 						{
 							mealId: res.meal_2_Id,
 						},
-					]),
+					],
 				};
 
-				TestUil.getMenuId().then((menuId) => {
-					request.put({ url: `${baseUrl}/menus/${menuId}`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response, body) => {
+				TestUtil.getMenuId().then((menuId) => {
+					request.put({ url: `${baseUrl}/menus/${menuId}`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
 						expect(response.statusCode).to.equal(200);
 						done();
 					});
+				});
+			});
+		});
+
+		it('should return status (404) when updating a menu with wrong meal ID', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					name: 'Monday Special',
+					unixTime: 1525545800,
+					meals: [
+						{
+							mealId: res.meal_1_Id,
+						},
+						{
+							mealId: res.meal_2_Id,
+						},
+					],
+				};
+
+				request.put({ url: `${baseUrl}/menus/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(404);
+					done();
 				});
 			});
 		});

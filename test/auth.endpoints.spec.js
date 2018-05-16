@@ -2,14 +2,14 @@ import request from 'request';
 import { expect } from 'chai';
 import { describe, it, after } from 'mocha';
 
-import TestUil from '../testUtil/TestUtil';
+import TestUtil from '../testUtil/TestUtil';
 
 const baseUrl = 'http://localhost:3001/api/v1';
 
 
 describe('AuthController', () => {
 	after((done) => {
-		TestUil.deleteUser('onnassiz@gmail.com', done);
+		TestUtil.deleteUser('onnassiz@gmail.com', done);
 	});
 
 	describe('SignUp', () => {
@@ -52,7 +52,7 @@ describe('AuthController', () => {
 			});
 		});
 
-		it('should return a token with length longer that is 100 and status(200)', (done) => {
+		it('should return status(201) with a token of length greated than 100', (done) => {
 			const formData = {
 				fullName: 'Onah Benjamin',
 				email: 'onnassiz@gmail.com',
@@ -60,7 +60,7 @@ describe('AuthController', () => {
 			};
 
 			request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response, body) => {
-				expect(response.statusCode).to.equal(200);
+				expect(response.statusCode).to.equal(201);
 				expect(JSON.parse(body).token).to.have.lengthOf.above(100);
 				done();
 			});
@@ -73,7 +73,7 @@ describe('AuthController', () => {
 				password: 'password',
 			};
 
-			request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response, body) => {
+			request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response) => {
 				expect(response.statusCode).to.equal(400);
 				done();
 			});
@@ -125,7 +125,7 @@ describe('AuthController', () => {
 				password: 'password',
 			};
 
-			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response, body) => {
+			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response) => {
 				expect(response.statusCode).to.equal(404);
 				done();
 			});
@@ -137,7 +137,7 @@ describe('AuthController', () => {
 				password: 'wrongPassword',
 			};
 
-			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response, body) => {
+			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response) => {
 				expect(response.statusCode).to.equal(404);
 				done();
 			});
