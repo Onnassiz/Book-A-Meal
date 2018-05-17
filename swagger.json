@@ -8,7 +8,7 @@
       "email" : "onnassiz@gmail.com"
     },
     "license" : {
-      "name" : "Book-A-Meak 1.0",
+      "name" : "Book-A-Meal 1.0",
       "url" : "https://mealbooker.herokuapp.com/api/v1"
     }
   },
@@ -51,7 +51,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "User created succesfully",
+            "description" : "User created successfully",
             "schema" : {
               "$ref" : "#/definitions/Token"
             }
@@ -83,7 +83,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "User succesfully signed in",
+            "description" : "User successfully signed in",
             "schema" : {
               "$ref" : "#/definitions/Token"
             }
@@ -336,7 +336,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "meals successfull returned",
+            "description" : "meals successful returned",
             "schema" : {
               "type" : "array",
               "items" : {
@@ -673,7 +673,7 @@
       "get" : {
         "tags" : [ "Menu" ],
         "summary" : "Returns menus created on a specified date",
-        "description" : "Date has to be converted to inix timestamp from the client",
+        "description" : "Date has to be converted to unix timestamp from the client",
         "operationId" : "getMenuByUnixTime",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -1029,7 +1029,7 @@
       },
       "put" : {
         "tags" : [ "Profile" ],
-        "summary" : "Update an intance of a profile",
+        "summary" : "Update an instance of a profile",
         "description" : "",
         "operationId" : "updateProfile",
         "produces" : [ "application/json" ],
@@ -1248,7 +1248,7 @@
         "unixTime" : {
           "type" : "integer"
         },
-        "expriry" : {
+        "expiry" : {
           "type" : "string"
         },
         "meals" : {
@@ -1259,7 +1259,7 @@
         }
       },
       "example" : {
-        "expriry" : "expriry",
+        "expiry" : "expiry",
         "unixTime" : 0,
         "name" : "name",
         "id" : "id",
