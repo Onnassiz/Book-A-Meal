@@ -1,8 +1,9 @@
 import request from 'request';
 import { expect } from 'chai';
 import { describe, it, after, before } from 'mocha';
+import TestUtil from '../testUtil/TestUtil';
 
-import TestUil from '../testUtil/TestUtil';
+const uuidv4 = require('uuid/v4');
 
 const baseUrl = 'http://localhost:3001/api/v1';
 
@@ -20,24 +21,33 @@ request.post({ url: `${baseUrl}/auth/signIn`, form: userFormData }, (error, resp
 
 describe('Order Controller', () => {
 	describe('Get Orders', () => {
+		it('should return status (404) if orders are not found', (done) => {
+			request.get({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+				expect(response.statusCode).to.equal(404);
+				done();
+			});
+		});
+	});
+
+	describe('Get Orders', () => {
 		before((done) => {
-			TestUil.insertOrders(done);
+			TestUtil.insertOrders(done);
 		});
 
 		after((done) => {
-			TestUil.deleteOrders(done);
+			TestUtil.deleteOrders(done);
 		});
 
-		it('should return status (200) and array of size 2 if request is made with auth token', (done) => {
+		it('should return status (200) and array of size 2 if request is made with valid auth token', (done) => {
 			request.get({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response, body) => {
 				expect(response.statusCode).to.equal(200);
-				expect(JSON.parse(body)).to.have.lengthOf(2);
+				expect(JSON.parse(body)).to.have.lengthOf(3);
 				done();
 			});
 		});
 
-		it('should return status (200) if request is made with order id', (done) => {
-			TestUil.getOrderId().then((id) => {
+		it('should return status (200) if request is made with valid order id', (done) => {
+			TestUtil.getOrderId().then((id) => {
 				request.get({ url: `${baseUrl}/orders/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response, body) => {
 					expect(response.statusCode).to.equal(200);
 					expect(typeof JSON.parse(body)).to.equal('object');
@@ -46,32 +56,42 @@ describe('Order Controller', () => {
 			});
 		});
 
-		it('should return status (200) if request is made with caterer id', (done) => {
-			TestUil.getUserId().then((id) => {
-				request.get({ url: `${baseUrl}/orders/caterer/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+		it('should return status (404) if request is made with wrong order id', (done) => {
+			request.get({ url: `${baseUrl}/orders/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+				expect(response.statusCode).to.equal(404);
+				done();
+			});
+		});
+
+		it('should return status (200) if request is made with correct user id', (done) => {
+			TestUtil.getCustomerId().then((id) => {
+				request.get({ url: `${baseUrl}/orders/user/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
 					expect(response.statusCode).to.equal(200);
 					done();
 				});
+			});
+		});
+
+		it('should return status (404) if request is made with wrong user id', (done) => {
+			request.get({ url: `${baseUrl}/orders/user/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+				expect(response.statusCode).to.equal(404);
+				done();
 			});
 		});
 	});
 
 	describe('Post and Put Orders', () => {
 		before((done) => {
-			TestUil.insertOrders(done);
+			TestUtil.insertOrders(done);
 		});
 
 		after((done) => {
-			TestUil.deleteOrders(done);
+			TestUtil.deleteOrders(done);
 		});
 
 		it('should return status (400) if form validation fails', (done) => {
 			const formData = {
-				amount: 1525,
-				userId: '',
-				meals: [
-
-				],
+				meals: [],
 			};
 
 			request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
@@ -80,46 +100,141 @@ describe('Order Controller', () => {
 			});
 		});
 
-		it('should return status (200) if form validation checks out', (done) => {
-			TestUil.getCustomerIdAndMealIds().then((res) => {
+		it('should return status (201) if form validation passes and order is created', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
 				const formData = {
 					amount: 1525,
 					userId: res.id,
-					meals: JSON.stringify([
+					meals: [
 						{
 							mealId: res.meal_1_Id,
+							units: 2,
 						},
 						{
 							mealId: res.meal_2_Id,
+							units: 3,
 						},
-					]),
+					],
 				};
 
-				request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
-					expect(response.statusCode).to.equal(200);
+				request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(201);
 					done();
 				});
 			});
 		});
 
-		it('should return status (200) when updating menu with correct validation', (done) => {
-			TestUil.getCustomerIdAndMealIds().then((res) => {
+		it('should return status (400) if mealId/units is missing in any of the meal entries', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
 				const formData = {
 					amount: 1525,
 					userId: res.id,
-					meals: JSON.stringify([
+					meals: [
 						{
-							mealId: res.meal_1_Id,
+							units: 3,
 						},
 						{
 							mealId: res.meal_2_Id,
+							units: 3,
 						},
-					]),
+					],
 				};
 
-				TestUil.getOrderId().then((id) => {
-					request.put({ url: `${baseUrl}/orders/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response, body) => {
+				request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(400);
+					done();
+				});
+			});
+		});
+
+		it('should return status (400) if mealId/units is missing in any of the meal entries', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					amount: 1525,
+					userId: res.id,
+					meals: [
+						{
+							mealId: '23123123',
+							units: '23123123',
+						},
+						{
+							mealId: res.meal_2_Id,
+							units: 3,
+						},
+					],
+				};
+
+				request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(400);
+					done();
+				});
+			});
+		});
+
+		it('should return status (200) when updating order', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					meals: [
+						{
+							mealId: res.meal_1_Id,
+							units: 3,
+						},
+						{
+							mealId: res.meal_2_Id,
+							units: 1,
+						},
+					],
+				};
+
+				TestUtil.getOrderId().then((id) => {
+					request.put({ url: `${baseUrl}/orders/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
 						expect(response.statusCode).to.equal(200);
+						done();
+					});
+				});
+			});
+		});
+
+		it('should return status (404) when updating an order that does not exist', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					meals: [
+						{
+							mealId: res.meal_1_Id,
+							units: 3,
+						},
+						{
+							mealId: res.meal_2_Id,
+							units: 1,
+						},
+					],
+				};
+
+				request.put({ url: `${baseUrl}/orders/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(404);
+					done();
+				});
+			});
+		});
+
+		it('should return status (400) when updating an order that was placed more than 60 mins ago', (done) => {
+			TestUtil.getCustomerIdAndMealIds().then((res) => {
+				const formData = {
+					meals: [
+						{
+							mealId: res.meal_1_Id,
+							units: 3,
+						},
+						{
+							mealId: res.meal_2_Id,
+							units: 1,
+						},
+					],
+				};
+
+				TestUtil.getLastOrderId().then((id) => {
+					request.put({ url: `${baseUrl}/orders/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
+						expect(response.statusCode).to.equal(400);
 						done();
 					});
 				});

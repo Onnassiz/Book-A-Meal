@@ -3,7 +3,11 @@ import { profile } from '../models';
 class ProfileController {
 	getProfile(req, res) {
 		profile.findById(req.params.id).then((prf) => {
-			res.status(200).send(prf);
+			if (prf) {
+				res.status(200).send(prf);
+			} else {
+				res.status(404).send('Profile not found');
+			}
 		});
 	}
 
@@ -14,12 +18,12 @@ class ProfileController {
 			email: req.body.email,
 			mission: req.body.mission,
 			banner: req.body.banner,
-			userId: req.body.userId,
+			userId: req.user.id,
 		});
 
 
 		newProfile.save().then((prf) => {
-			res.status(200).send(prf);
+			res.status(201).send(prf);
 		});
 	}
 
@@ -31,11 +35,16 @@ class ProfileController {
 				email: req.body.email,
 				mission: req.body.mission,
 				banner: req.body.banner,
-				userId: req.body.userId,
+				userId: req.user.id,
 			},
 			{ where: { id: req.params.id }, returning: true },
 		).then((updated) => {
-			res.status(200).send(updated[1][0]);
+			const prf = updated[1][0];
+			if (prf) {
+				res.status(200).send(prf);
+			} else {
+				res.status(404).send('Profile not found');
+			}
 		});
 	}
 }

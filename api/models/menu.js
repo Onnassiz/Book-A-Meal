@@ -9,11 +9,12 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		name: DataTypes.STRING,
 		unixTime: DataTypes.BIGINT(),
+		expiry: DataTypes.DATE,
 	}, {});
 
 	Menu.associate = (models) => {
 		Menu.belongsTo(models.user);
-		Menu.belongsToMany(models.meal, { through: 'menuMeals'});
+		Menu.belongsToMany(models.meal, { through: 'menuMeals' });
 	};
 
 	return Menu;

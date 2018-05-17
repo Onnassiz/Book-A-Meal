@@ -15,8 +15,8 @@
       <div class="nav">
         <ul>
           <li><a href="../menu.html">Menu</a></li>
-          <li><a href="../orders.html">Orders</a></li>
-          <li><a href="../cart.html"><i class="material-icons">shopping_cart</i></a></li>
+          <li><a href="#">Orders</a></li>
+          <li><a href="#"><i class="material-icons">shopping_cart</i></a></li>
            <li>
              <div class="dropdown">
                <a style="border-bottom: 1px solid white" href="#">Caterer</a>
@@ -33,57 +33,59 @@
     </header>
 
     <div id="content2">
-      <div class="col-10">
+      <div class="col-11">
         <div>
           <button class="button" onclick="toggle_form()"><i style="font-size: 15px" class="material-icons">add_circle</i> Add Meal</button>
         </div>
-        <div id="meal_form_div" hidden="">
-          <div class="box3">
-            <div class="heading">
-              <h3>Add New Meal</h3>
-            </div>
-            <div id="body">
-              <form id="meal_form">
-                <div class="inputBox">
-                  <label for="meal_name">Meal Name:</label>
-                  <input autocomplete="off" type="text" name="meal_name" required="" id="meal_name">
-                </div>
-                <div class="inputBox">
-                  <label for="category">Category:</label>
-                  <input autocomplete="off" type="text" name="category" required="" id="category">
-                </div>
-                <div class="inputBox">
-                  <label for="price">Unit Price:</label>
-                  <input autocomplete="off" type="text" name="price" required="" id="price">
-                </div>
-                <div class="inputBox">
-                  <label for="description">Description</label>
-                  <textarea name="description" id="description" cols="30" rows="10"></textarea>
-                </div>
-                <div id="buttons">
-                  <button onclick="toggle_form()" class="button-error" type="submit">Close</button>
-                  <button style="float: right;" class="button-default" type="submit">Add</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <div id="menu-section">
+        	<div id="meal_form_div" hidden="">
+        	  <div class="box3">
+        	    <div class="heading">
+        	      <h3>Add New Meal</h3>
+        	    </div>
+        	    <div id="body">
+        	      <form id="meal_form">
+        	        <div class="inputBox">
+        	          <label for="meal_name">Meal Name:</label>
+        	          <input autocomplete="off" type="text" name="meal_name" required="" id="meal_name">
+        	        </div>
+        	        <div class="inputBox">
+        	          <label for="category">Category:</label>
+        	          <input autocomplete="off" type="text" name="category" required="" id="category">
+        	        </div>
+        	        <div class="inputBox">
+        	          <label for="price">Unit Price:</label>
+        	          <input autocomplete="off" type="text" name="price" required="" id="price">
+        	        </div>
+        	        <div class="inputBox">
+        	          <label for="description">Description</label>
+        	          <textarea name="description" id="description" cols="30" rows="10"></textarea>
+        	        </div>
+        	        <div id="buttons">
+        	          <button onclick="toggle_form()" class="button-error" type="submit">Close</button>
+        	          <button style="float: right;" class="button-default" type="submit">Add</button>
+        	        </div>
+        	      </form>
+        	    </div>
+        	  </div>
+        	</div>
 
-        <div id="table">
-          <table>
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Meal Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th style="width: 130px">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="tbody">
-              
-            </tbody>
-          </table>
+        	<div id="table">
+        	  <table>
+        	    <thead>
+        	      <tr>
+        	        <th>S/N</th>
+        	        <th>Meal Name</th>
+        	        <th>Category</th>
+        	        <th>Price</th>
+        	        <th style="width: 130px">Actions</th>
+        	      </tr>
+        	    </thead>
+        	    <tbody id="tbody">
+        	      
+        	    </tbody>
+        	  </table>
+        	</div>
         </div>
       </div>
     </div>

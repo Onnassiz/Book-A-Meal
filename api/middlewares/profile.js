@@ -1,38 +1,42 @@
-import validate from 'validate.js';
-import { cleanUpErrorMessages } from './auth';
+import isUrl from 'is-url';
 
+const { check } = require('express-validator/check');
 
-export default function validateProfile(req, res, next) {
-	const constraints = {
-		businessName: {
-			presence: {
-				allowEmpty: false,
-			},
-			length: {
-				minimum: 1,
-				message: 'must be a string',
-			},
-		},
-		contact: {
-			presence: {
-				allowEmpty: false,
-			},
-		},
-		userId: {
-			length: {
-				minimum: 1,
-				message: 'must be a string',
-			},
-		},
-		email: {
-			email: true,
-		},
-	};
-	const errors = validate(req.body, constraints);
-	if (errors == null) {
-		next();
-	} else {
-		res.status(400).send(cleanUpErrorMessages(errors));
-	}
-}
+const profileFormConstraints = [
+	check('businessName')
+		.exists()
+		.withMessage('the business name field is require')
+		.isString()
+		.withMessage('the business name must be a string')
+		.trim(),
 
+	check('mission')
+		.exists()
+		.withMessage('the business name field is require')
+		.isString()
+		.withMessage('the business name must be a string')
+		.trim(),
+
+	check('contact')
+		.exists()
+		.withMessage('the contact field is require')
+		.isString()
+		.withMessage('the contact must must be a string')
+		.trim(),
+
+	check('email')
+		.optional({ nullable: true })
+		.isEmail()
+		.withMessage('must be an email')
+		.trim()
+		.normalizeEmail(),
+
+	check('banner')
+		.optional({ nullable: true })
+		.custom((value) => {
+			return isUrl(value);
+		})
+		.withMessage('image link must be a URL'),
+];
+
+export default profileFormConstraints;

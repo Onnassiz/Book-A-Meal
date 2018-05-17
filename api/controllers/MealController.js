@@ -10,7 +10,13 @@ class MealsController {
 
 	getMealById(req, res) {
 		meal.findById(req.params.id).then((ml) => {
-			res.status(200).send(ml);
+			if (ml) {
+				res.status(200).send(ml);
+			} else {
+				res.status(404).send({
+					message: 'Meal not found',
+				});
+			}
 		});
 	}
 
@@ -21,8 +27,9 @@ class MealsController {
 			}],
 			where: { id: req.params.id },
 		}).then((responseData) => {
-			responseData.passwordHash = null;
-			res.send(responseData);
+			const response = responseData;
+			response.passwordHash = null;
+			res.send(response);
 		});
 	}
 
@@ -33,7 +40,14 @@ class MealsController {
 			},
 			{ where: { id: req.params.id }, returning: true },
 		).then((updated) => {
-			res.status(200).send(updated[1][0]);
+			const update = updated[1][0];
+			if (update) {
+				res.status(200).send(update);
+			} else {
+				res.status(404).send({
+					message: 'Meal not found',
+				});
+			}
 		});
 	}
 
@@ -42,15 +56,21 @@ class MealsController {
 			name: req.body.name,
 			price: req.body.price,
 			description: req.body.description,
-			userId: req.body.userId,
+			userId: req.user.id,
 			category: req.body.category,
 			imageUrl: req.body.imageUrl,
 		});
 
-		newMeal.save().then((response) => {
-			res.status(200).send(response);
-		}).catch((error) => {
-			res.status(400).send(error);
+		meal.findOne({ where: { name: newMeal.name, userId: newMeal.userId } }).then((existingMeal) => {
+			if (existingMeal) {
+				res.status(400).send({
+					message: 'You have already created a meal with this name',
+				});
+			} else {
+				newMeal.save().then((response) => {
+					res.status(201).send(response);
+				});
+			}
 		});
 	}
 
@@ -60,25 +80,36 @@ class MealsController {
 				name: req.body.name,
 				price: req.body.price,
 				description: req.body.description,
-				userId: req.body.userId,
+				userId: req.user.id,
 				category: req.body.category,
 				imageUrl: req.body.imageUrl,
 			},
 			{ where: { id: req.params.id }, returning: true },
 		).then((updated) => {
-			res.status(200).send(updated[1][0]);
-		}).catch((error) => {
-			res.status(400).send(error);
+			const update = updated[1][0];
+			if (update) {
+				res.status(200).send(update);
+			} else {
+				res.status(404).send({
+					message: 'Meal not found',
+				});
+			}
 		});
 	}
 
 	deleteMeal(req, res) {
 		meal.destroy({
 			where: { id: req.params.id },
-		}).then(() => {
-			res.status(200).send({
-				message: 'Meal successfully deleted',
-			});
+		}).then((deleted) => {
+			if (deleted) {
+				res.status(200).send({
+					message: 'Meal successfully deleted',
+				});
+			} else {
+				res.status(404).send({
+					message: 'Meal not found',
+				});
+			}
 		});
 	}
 }

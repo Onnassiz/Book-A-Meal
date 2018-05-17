@@ -378,6 +378,7 @@ table{
 
 .box {
   @include box;
+  top: 35%;
 }
 
 .box2 {
@@ -561,10 +562,10 @@ table{
     .col-12 {width: 100%;}
 }
 
-
-
-
-
+#menu-section {
+	margin: 40px auto;
+	padding-left: 120px;
+}
 
 
 

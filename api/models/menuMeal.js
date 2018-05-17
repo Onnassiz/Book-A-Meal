@@ -10,8 +10,6 @@ module.exports = (sequelize, DataTypes) => {
 		menuId: DataTypes.STRING,
 		mealId: DataTypes.STRING,
 	}, {});
-	MenuMeal.associate = (models) => {
-		
-	};
+	MenuMeal.associate = () => {};
 	return MenuMeal;
 };

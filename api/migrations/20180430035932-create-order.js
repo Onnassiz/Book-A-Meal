@@ -7,7 +7,6 @@ module.exports = {
 				type: Sequelize.UUID,
 				defaultValue: Sequelize.UUIDV4,
 			},
-			amount: Sequelize.DECIMAL,
 			userId: {
 				type: Sequelize.UUID,
 				references: {
@@ -27,7 +26,7 @@ module.exports = {
 			},
 		});
 	},
-	down: (queryInterface, Sequelize) => {
+	down: (queryInterface) => {
 		return queryInterface.dropTable('orders');
 	},
 };

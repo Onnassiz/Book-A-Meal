@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
 		},
-		amount: DataTypes.DECIMAL,
 	}, {});
 	Order.associate = (models) => {
 		Order.belongsTo(models.user);

@@ -1,4 +1,4 @@
-'use strict';
+
 module.exports = {
 	up: (queryInterface, Sequelize) => {
 		return queryInterface.createTable('menus', {
@@ -13,6 +13,10 @@ module.exports = {
 			unixTime: {
 				allowNull: false,
 				type: Sequelize.BIGINT(11),
+			},
+			expiry: {
+				allowNull: true,
+				type: Sequelize.DATE,
 			},
 			userId: {
 				type: Sequelize.UUID,
@@ -33,7 +37,7 @@ module.exports = {
 			},
 		});
 	},
-	down: (queryInterface, Sequelize) => {
+	down: (queryInterface) => {
 		return queryInterface.dropTable('menus');
 	},
 };
