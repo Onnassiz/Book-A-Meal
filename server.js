@@ -4,6 +4,7 @@ require('dotenv').config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './api/routes';
+import path from 'path';
 
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json');
@@ -11,6 +12,9 @@ const swaggerDocument = require('./swagger.json');
 
 const apiRouter = express.Router();
 const app = express();
+
+app.use(express.static(path.join(__dirname, 'client/dist')));
+
 
 const cors = require('cors');
 app.use(cors());

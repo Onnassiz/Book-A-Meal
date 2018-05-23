@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { store, history } from './store';
 
 import App from './components/pages/App';
-import '../assets/scss/styles.scss';
+// import '../assets/scss/styles.scss';
 
 
 ReactDOM.render(
