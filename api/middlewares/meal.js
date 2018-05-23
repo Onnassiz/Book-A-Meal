@@ -7,6 +7,8 @@ export const mealFormConstraints = [
 	check('name')
 		.exists()
 		.withMessage('the name field is require')
+		.isLength({ min: 1 })
+		.withMessage('the name field is required')
 		.isString()
 		.withMessage('the meal name must be a string')
 		.trim(),
@@ -14,8 +16,10 @@ export const mealFormConstraints = [
 	check('category')
 		.exists()
 		.withMessage('the category field is require')
+		.isLength({ min: 1 })
+		.withMessage('the category field is required')
 		.isString()
-		.withMessage('the name must must be a string')
+		.withMessage('the category field must be a string')
 		.trim(),
 
 	check('price')
@@ -36,9 +40,9 @@ export const mealFormConstraints = [
 export const mealImageConstraints = [
 	check('imageUrl')
 		.exists()
-		.withMessage('image link must be a URL')
+		.withMessage('image link must be a valid URL')
 		.custom((value) => {
 			return isUrl(value);
 		})
-		.withMessage('image link must be a URL'),
+		.withMessage('image link must be a valid URL'),
 ];

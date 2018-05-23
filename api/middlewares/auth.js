@@ -6,30 +6,41 @@ export const signInConstraints = [
 	check('email')
 		.exists()
 		.withMessage('email is required')
+		.isLength({ min: 1 })
+		.withMessage('email is required')
 		.isEmail()
 		.withMessage('must be an email')
 		.trim(),
 
-	check('password').exists(),
+	check('password')
+		.exists()
+		.isLength({ min: 1 })
+		.withMessage('password is required'),
 ];
 
 export const signUpConstraints = [
 	check('email')
 		.exists()
-		.withMessage('email is require')
+		.withMessage('email is required')
+		.isLength({ min: 1 })
+		.withMessage('email is required')
 		.isEmail()
-		.withMessage('must be an email')
+		.withMessage('email field must contain a valid email address')
 		.trim(),
 
 	check('fullName')
 		.exists()
 		.withMessage('the name field is require')
+		.isLength({ min: 1 })
+		.withMessage('the name field is required')
 		.isString()
 		.withMessage('the name must be a string')
 		.trim(),
 
 	check('password')
 		.exists()
+		.withMessage('password is required')
+		.isLength({ min: 1 })
 		.withMessage('password is required')
 		.isLength({ min: 6 })
 		.withMessage('password must contain at least 6 characters'),
