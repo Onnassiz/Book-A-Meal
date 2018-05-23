@@ -31,7 +31,7 @@ function setSignInErrors(errors) {
 export function postUser(user) {
 	return (dispatch) => {
 		dispatch(setLoading());
-		axios.post('/auth/signUp', user).then((response) => {
+		axios.post('api/v1/auth/signUp', user).then((response) => {
 			localStorage.setItem('email', response.data.email);
 			localStorage.setItem('name', response.data.fullName);
 			localStorage.setItem('role', response.data.role);
@@ -50,7 +50,7 @@ export function postUser(user) {
 export function signInUser(user) {
 	return (dispatch) => {
 		dispatch(setLoading());
-		axios.post('/auth/signIn', user).then((response) => {
+		axios.post('api/v1/auth/signIn', user).then((response) => {
 			localStorage.setItem('email', response.data.email);
 			localStorage.setItem('name', response.data.fullName);
 			localStorage.setItem('role', response.data.role);
