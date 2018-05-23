@@ -41,9 +41,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "css-loader": "^0.28.11",
     "dotenv": "^5.0.1",
     "dotenv-webpack": "^1.5.5",
+    "file-loader": "^1.1.11",
     "history": "^4.7.2",
+    "imagemin": "^5.3.1",
+    "img-loader": "^3.0.0",
     "is-empty": "^1.2.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
@@ -54,6 +58,8 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
     "validator": "^10.2.0"
   }
 }
