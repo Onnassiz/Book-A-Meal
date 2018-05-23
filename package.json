@@ -8,7 +8,7 @@
     "start": "nodemon server.js --exec babel-node server.js --presets env --ignore 'client'",
     "lint": "eslint api",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel-node server.js --presets env && cd client && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",

@@ -8,7 +8,6 @@
     "server": "nodemon server.js --exec babel-node server.js --presets env",
     "starter": "concurrently --kill-others-on-fail \"cd ../ && npm start\" \"npm run client\"",
     "build": "webpack --mode production",
-    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
