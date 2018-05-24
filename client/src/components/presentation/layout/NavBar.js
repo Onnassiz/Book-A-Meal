@@ -25,11 +25,30 @@ class NavBar extends Component {
 		return (
 			<header>
 				<h1 className="logo"><Link to="/"><img src={Logo} alt="logo" /></Link></h1>
+				<div className="nav-left">
+					<ul>
+						{user.role === 'caterer' ?
+							<li>
+								<div className="dropdown">
+									<a href="pages/menu.html">{'Caterer\'s Links'}</a>
+									<div className="dropdown-content">
+										<a href="pages/admin/manage-meal.html"><i className="material-icons">settings</i> Add Profile</a>
+										<hr />
+										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Manage Meals</a>
+										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Manage Menus</a>
+										<hr />
+										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> View Reports</a>
+									</div>
+								</div>
+							</li> : ''}
+					</ul>
+				</div>
+
 				<div className="nav">
 					<ul>
 						<li><a href="pages/menu.html">Menu</a></li>
+						<li><a href="#"><i className="material-icons">shopping_cart</i> Cart</a></li>
 						<li><a href="#">Orders</a></li>
-						<li><a href="#"><i className="material-icons">shopping_cart</i></a></li>
 						<li>
 							<div className="dropdown">
 								<a href="#">{user.email}<i id="caret" className="material-icons">arrow_drop_down</i></a>

@@ -9,11 +9,6 @@ header {
   width: 100%;
   z-index: 10;
 
-  .nav{
-    float: right;
-    padding-right: 30px;
-  }
-
   .logo {
     float: left;
     margin-left: 30px;
@@ -22,8 +17,12 @@ header {
   a {
     text-decoration: none;
     color: #fff;
-    font-size: 17px;
-    font-family: $headerLinkFont;
+    font-size: 18px;
+    font-family: $mainFont;
+
+    i {
+      vertical-align: middle;
+    }
   }
 
   li{
@@ -33,40 +32,14 @@ header {
     padding-top: 30px;
   }
 
-  .nav .dropdown {
-    position: relative;
-    display: inline-block;
+  .nav-left {
+    @include nav;
   }
 
-  .nav .dropdown-content {
-    display: none;
-    background-color: $bodyBackGround;
-    min-width: 130px;
-    padding-top: 30px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 3px;
-  }
-
-  .nav .dropdown-content a {
-    color: $headerBackground;
-    padding: 12px 16px;
-    text-decoration: none;
-    font-size: 14px;
-    display: block;
-  }
-  
-  .nav .dropdown-content a .material-icons {
-    font-size: 10px;
-  }
-  
-
-  .nav .dropdown-content a:hover {
-    background-color: #b0b1b1ef; color: $headerBackground;
-  }
-
-  .nav .dropdown:hover .dropdown-content {
-    display: block;
+  .nav {
+    @include nav;
+    float: right;
+    padding-right: 30px;
   }
 
   #signIn {
@@ -122,6 +95,14 @@ a{
   background-color: $bodyBackGround;
   min-height: 800px;
   // padding: 40px 100px 40px 100px;
+}
+
+#content3 {
+  @include content;
+  position: relative;
+  top: 15px;
+  background-color: $bodyBackGround;
+  height: 200px;
 }
 
 table{
@@ -612,4 +593,9 @@ table{
   font-size: 50px; /* 50% of parent */
   line-height: 50px; /* 50% of parent */
   color: #fff;
+}
+
+#imageSlider {
+  height: 700px;
+  overflow-y: hidden;
 }

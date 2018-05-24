@@ -5,7 +5,7 @@ const initialState = {};
 export default (state = initialState, action) => {
 	switch (action.type) {
 	case SET_USER:
-		return { name: action.name, email: action.email };
+		return { name: action.name, email: action.email, role: action.role };
 	case SET_SIGN_UP_SERVER_ERRORS:
 		return { signUpErrors: action.errors };
 	case SET_SIGN_IN_SERVER_ERRORS:
