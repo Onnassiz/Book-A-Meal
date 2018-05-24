@@ -37,10 +37,14 @@ class App extends Component {
 
 	render() {
 		const guestRoutes = (
-			<Route exact path="/" component={Home} />
+			<div>
+				<Route exact path="/" component={Home} />
+			</div>
 		);
 		const userRoutes = (
-			<Route exact path="/" component={UserHomePage} />
+			<div>
+				<Route path="/" component={UserHomePage} />
+			</div>
 		);
 
 		return (

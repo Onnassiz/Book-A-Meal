@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Logo from '../../../../assets/images/logo.png';
 
 class NavBar extends Component {
 	constructor(props) {
@@ -23,7 +24,7 @@ class NavBar extends Component {
 		const initials = user.name.match(/\b(\w)/g).join('').toUpperCase();
 		return (
 			<header>
-				<h1 className="logo"><Link to="/"><img src="../assets/images/logo.png" alt="logo" /></Link></h1>
+				<h1 className="logo"><Link to="/"><img src={Logo} alt="logo" /></Link></h1>
 				<div className="nav">
 					<ul>
 						<li><a href="pages/menu.html">Menu</a></li>
