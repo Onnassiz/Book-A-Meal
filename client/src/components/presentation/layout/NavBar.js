@@ -32,7 +32,7 @@ class NavBar extends Component {
 								<div className="dropdown">
 									<a href="pages/menu.html">{'Caterer\'s Links'}</a>
 									<div className="dropdown-content">
-										<a href="pages/admin/manage-meal.html"><i className="material-icons">settings</i> Add Profile</a>
+										<Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
 										<hr />
 										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Manage Meals</a>
 										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Manage Menus</a>
@@ -46,7 +46,7 @@ class NavBar extends Component {
 
 				<div className="nav">
 					<ul>
-						<li><a href="pages/menu.html">Menu</a></li>
+						<li><Link to="/caterer">Menu</Link></li>
 						<li><a href="#"><i className="material-icons">shopping_cart</i> Cart</a></li>
 						<li><a href="#">Orders</a></li>
 						<li>

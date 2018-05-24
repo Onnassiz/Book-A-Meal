@@ -1,8 +1,6 @@
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUser } from '../../reducer/user/action';
-import App from '../presentation/App';
+import Profile from '../presentation/Profile';
 
 const mapStateToProps = (state) => {
 	return {
@@ -12,11 +10,10 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		setUser,
 	}, dispatch);
 }
 
-export default withRouter(connect(
+export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(App));
+)(Profile);

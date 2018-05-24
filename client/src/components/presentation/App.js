@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import Home from '../pages/Home';
-import UserHomePage from '../pages/UserHomePage';
 import Footer from '../presentation/layout/Footer';
+import UserHomePage from '../pages/UserHomePage';
+import Profile from '../pages/Profile';
+import Home from '../pages/Home';
 
 
 class App extends Component {
@@ -37,22 +38,22 @@ class App extends Component {
 
 	render() {
 		const guestRoutes = (
-			<div>
+			<Switch>
 				<Route exact path="/" component={Home} />
-			</div>
+			</Switch>
 		);
 		const userRoutes = (
-			<div>
-				<Route path="/" component={UserHomePage} />
-			</div>
+			<Switch>
+				<Route exact path="/" component={UserHomePage} />
+				<Route exact path="/caterer/business_profile" component={Profile} />
+			</Switch>
 		);
-
 		return (
-			<div id="container">
+			<div>
 				<main>
 					{ this.state.isSignedIn ? userRoutes : guestRoutes }
+					<Footer />
 				</main>
-				<Footer />
 			</div>
 		);
 	}

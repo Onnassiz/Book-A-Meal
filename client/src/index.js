@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import { store, history } from './store';
 
@@ -13,9 +14,9 @@ import '../assets/scss/styles.scss';
 ReactDOM.render(
 	<Provider store={store}>
 		<ConnectedRouter history={history}>
-			<div>
+			<BrowserRouter>
 				<App />
-			</div>
+			</BrowserRouter>
 		</ConnectedRouter>
 	</Provider>,
 	document.getElementById('index'),
