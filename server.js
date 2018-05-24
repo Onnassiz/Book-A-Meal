@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 import express from 'express';
+const favicon = require('serve-favicon')
 import bodyParser from 'body-parser';
 import routes from './api/routes';
 import path from 'path';
@@ -14,6 +15,7 @@ const apiRouter = express.Router();
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(favicon(path.join(__dirname, 'client/assets/images', 'favicon.ico')))
 
 
 const cors = require('cors');
