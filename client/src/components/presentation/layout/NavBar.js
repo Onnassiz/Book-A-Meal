@@ -19,6 +19,7 @@ class NavBar extends Component {
 			window.location = '/';
 		}, 500);
 	}
+
 	render() {
 		const { user } = this.props;
 		const initials = user.name.match(/\b(\w)/g).join('').toUpperCase();

@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 
 class Profile extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	componentWillMount() {
+		const { user } = this.props;
+		if (user.role !== 'caterer') {
+			push('/');
+		}
+	}
+
 	render() {
 		return (
 			<div id="content2">
@@ -9,5 +22,9 @@ class Profile extends Component {
 		);
 	}
 }
+
+Profile.propTypes = {
+	user: PropTypes.object.isRequired,
+};
 
 export default Profile;
