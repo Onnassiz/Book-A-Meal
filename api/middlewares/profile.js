@@ -6,6 +6,8 @@ const profileFormConstraints = [
 	check('businessName')
 		.exists()
 		.withMessage('the business name field is require')
+		.isLength({ min: 1 })
+		.withMessage('the business name field is required')
 		.isString()
 		.withMessage('the business name must be a string')
 		.trim(),
@@ -13,6 +15,8 @@ const profileFormConstraints = [
 	check('mission')
 		.exists()
 		.withMessage('the business name field is require')
+		.isLength({ min: 1 })
+		.withMessage('the business name field is required')
 		.isString()
 		.withMessage('the business name must be a string')
 		.trim(),
@@ -20,6 +24,8 @@ const profileFormConstraints = [
 	check('contact')
 		.exists()
 		.withMessage('the contact field is require')
+		.isLength({ min: 1 })
+		.withMessage('the contact field is required')
 		.isString()
 		.withMessage('the contact must must be a string')
 		.trim(),
@@ -27,7 +33,7 @@ const profileFormConstraints = [
 	check('email')
 		.optional({ nullable: true })
 		.isEmail()
-		.withMessage('must be an email')
+		.withMessage('the email field must be an email')
 		.trim()
 		.normalizeEmail(),
 

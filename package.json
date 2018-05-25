@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "sequelize db:migrate:undo:all --env test&& sequelize db:migrate --env test&& sequelize db:seed:all --env test&& NODE_ENV=test nyc mocha --compilers js:babel-register --recursive ./test/ --exit",
-    "start": "nodemon server.js --exec babel-node server.js --presets env",
+    "start": "nodemon server.js --exec babel-node server.js --presets env --ignore 'client'",
     "lint": "eslint api",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "webpack"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,29 +26,31 @@
   },
   "homepage": "https://github.com/Onnassiz/Book-A-Meal#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
+    "express-validator": "^5.2.0",
+    "html-loader": "^0.5.5",
+    "is-url": "^1.2.4",
     "jsonwebtoken": "^8.2.1",
     "lodash": "^4.17.10",
+    "moment": "^2.22.1",
     "password-hash": "^1.2.2",
     "pg": "^7.4.2",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.37.6",
     "sequelize-cli": "^4.0.0",
-    "uuid": "^3.2.1",
-    "validate.js": "^0.12.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "express-validator": "^5.2.0",
-    "html-loader": "^0.5.5",
-    "is-url": "^1.2.4",
-    "moment": "^2.22.1",
+    "serve-favicon": "^2.5.0",
     "swagger-ui-express": "^3.0.8",
-    "uuid-validate": "0.0.2"
+    "uuid": "^3.2.1",
+    "uuid-validate": "0.0.2",
+    "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -71,5 +73,11 @@
   },
   "engines": {
     "node": "6.10.3"
+  },
+  "eslintConfig": {
+    "globals": {
+      "window": true,
+      "document": true
+    }
   }
 }
