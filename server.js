@@ -39,8 +39,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', apiRouter);
 
 app.use(function(req, res, next) {
-  // res.status(404).send({ message: 'The resource you are trying to consume does not exist' });
-  res.redirect('/');
+  res.status(404).send({ message: 'The resource you are trying to consume does not exist' });
 });
 
 routes(apiRouter);
