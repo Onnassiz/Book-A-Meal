@@ -161,6 +161,23 @@ describe('Menu Controller', () => {
 			});
 		});
 
+		it('should return status (400) if UUID validation fails on meal id', (done) => {
+			const formData = {
+				name: '',
+				unixTime: 12312132123,
+				meals: [
+					{
+						mealId: 'wrongId',
+					},
+				],
+			};
+
+			request.post({ url: `${baseUrl}/menus`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
+				expect(response.statusCode).to.equal(400);
+				done();
+			});
+		});
+
 		it('should return status (201) if form validation passes and new menu is created', (done) => {
 			TestUtil.getCustomerIdAndMealIds().then((res) => {
 				const formData = {

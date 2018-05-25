@@ -6,6 +6,15 @@ import TestUtil from '../testUtil/TestUtil';
 
 const baseUrl = 'http://localhost:3001/api/v1';
 
+describe('Handle Not Found', () => {
+	it('should return status (404) with message if route is not found', (done) => {
+		request.get({ url: `${baseUrl}/authWrong` }, (error, response, body) => {
+			expect(response.statusCode).to.equal(404);
+			expect(JSON.parse(body).message).to.equal('The resource you are trying to consume does not exist');
+			done();
+		});
+	});
+});
 
 describe('AuthController', () => {
 	after((done) => {
@@ -88,8 +97,7 @@ describe('AuthController', () => {
 				password: '',
 			};
 
-			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response, body) => {
-				console.log(error);
+			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response) => {
 				expect(response.statusCode).to.equal(400);
 				done();
 			});
@@ -101,8 +109,7 @@ describe('AuthController', () => {
 				password: '',
 			};
 
-			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response, body) => {
-				console.log(error);				
+			request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response) => {
 				expect(response.statusCode).to.equal(400);
 				done();
 			});

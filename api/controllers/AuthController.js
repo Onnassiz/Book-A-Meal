@@ -16,6 +16,7 @@ class AuthController {
 			res.status(201).send({
 				fullName: usr.fullName,
 				email: usr.email,
+				role: usr.role,
 				message: 'User successfully created',
 				token: signJsonWebToken(usr),
 			});
@@ -38,6 +39,7 @@ class AuthController {
 					res.status(200).send({
 						fullName: usr.fullName,
 						email: usr.email,
+						role: usr.role,
 						message: 'User successfully created',
 						token: signJsonWebToken(usr),
 					});

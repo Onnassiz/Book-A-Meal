@@ -2,3 +2,8 @@ node_modules/
 .nyc_output/
 .env
 npm-debug.log
+
+client/node_modules/
+client/.env
+client/npm-debug.log
+
