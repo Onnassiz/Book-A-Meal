@@ -1,5 +1,5 @@
-<a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=setup-swagger" alt="travis"></a>
-<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=setup-swagger'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=setup-swagger' alt='Coverage Status' /></a> <a href="https://codeclimate.com/github/Onnassiz/Book-A-Meal/maintainability"><img src="https://api.codeclimate.com/v1/badges/219224f1c0c06ec8fb79/maintainability" /></a>
+<a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=profile-setup" alt="travis"></a>
+<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=profle-setup'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=profle-setup' alt='Coverage Status' /></a> <a href="https://codeclimate.com/github/Onnassiz/Book-A-Meal/maintainability"><img src="https://api.codeclimate.com/v1/badges/219224f1c0c06ec8fb79/maintainability" /></a>
 
 
 # Book-A-Meal
