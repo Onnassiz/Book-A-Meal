@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "css-loader": "^0.28.11",
     "dotenv": "^5.0.1",
     "dotenv-webpack": "^1.5.5",
@@ -54,7 +55,9 @@
     "raw-loader": "^0.5.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-dropzone": "^4.2.10",
     "react-image-gallery": "^0.8.7",
+    "react-modal": "^3.4.4",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",

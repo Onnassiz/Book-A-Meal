@@ -8,15 +8,26 @@ const uuidv4 = require('uuid/v4');
 const baseUrl = 'http://localhost:3001/api/v1';
 
 let tokenR = '';
+let tokenRC = '';
 
 const userFormData = {
 	email: 'caterer@gmail.com',
 	password: 'password',
 };
 
+const customerFormData = {
+	email: 'customer@gmail.com',
+	password: 'password',
+};
+
 request.post({ url: `${baseUrl}/auth/signIn`, form: userFormData }, (error, response, body) => {
 	const { token } = JSON.parse(body);
 	tokenR = token;
+});
+
+request.post({ url: `${baseUrl}/auth/signIn`, form: customerFormData }, (error, response, body) => {
+	const { token } = JSON.parse(body);
+	tokenRC = token;
 });
 
 
@@ -31,16 +42,14 @@ describe('Profile Controller', () => {
 		});
 
 		it('should return status (200) and an object if request is made with a valid profile ID', (done) => {
-			TestUil.getProfileId().then((id) => {
-				request.get({ url: `${baseUrl}/profile/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
-					expect(response.statusCode).to.equal(200);
-					done();
-				});
+			request.get({ url: `${baseUrl}/profile`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+				expect(response.statusCode).to.equal(200);
+				done();
 			});
 		});
 
-		it('should return status (404) and an object if request is made with a wrong profile ID', (done) => {
-			request.get({ url: `${baseUrl}/profile/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+		it('should return status (404) and an object if request profile is not found', (done) => {
+			request.get({ url: `${baseUrl}/profile}`, headers: { Authorization: `Bearer ${tokenRC}` } }, (error, response) => {
 				expect(response.statusCode).to.equal(404);
 				done();
 			});
@@ -56,22 +65,18 @@ describe('Profile Controller', () => {
 			TestUil.deleteProfiles(done);
 		});
 
-		it('should return status (200) and an object if form data is valid', (done) => {
-			TestUil.getUserId().then((id) => {
-				const formData = {
-					businessName: 'Just eat',
-					contact: '080321231232',
-					email: 'justeat@gmail.com',
-					mission: 'Feeding the richest',
-					banner: 'http://banner.com',
-					userId: id,
-				};
+		it('should return status (400) if form data is valid but user already created a profile', (done) => {
+			const formData = {
+				businessName: 'Just eat',
+				contact: '080321231232',
+				email: 'justEat@gmail.com',
+				mission: 'Feeding the richest',
+				banner: 'http://banner.com',
+			};
 
-				request.post({ url: `${baseUrl}/profile`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response, body) => {
-					expect(response.statusCode).to.equal(201);
-					expect(typeof JSON.parse(body)).to.equal('object');
-					done();
-				});
+			request.post({ url: `${baseUrl}/profile`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
+				expect(response.statusCode).to.equal(400);
+				done();
 			});
 		});
 
@@ -79,9 +84,9 @@ describe('Profile Controller', () => {
 			const formData = {
 				businessName: 'Just eat',
 				contact: '080321231232',
-				email: 'justeatgmail.com',
+				email: 'justEatGmail.com',
 				mission: 'Feeding the richest',
-				banner: 'httpbanner.com',
+				banner: 'httpBanner.com',
 			};
 
 			request.post({ url: `${baseUrl}/profile`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
@@ -96,7 +101,7 @@ describe('Profile Controller', () => {
 				const formData = {
 					businessName: 'Just eat',
 					contact: '080321231232',
-					email: 'justeat@gmail.com',
+					email: 'justEat@gmail.com',
 					mission: 'Feeding the richest',
 					banner: 'http://banner.com',
 				};
@@ -108,11 +113,37 @@ describe('Profile Controller', () => {
 			});
 		});
 
+		it('should return status (200) when updating profile banner', (done) => {
+			TestUil.getProfileId().then((id) => {
+				const formData = {
+					banner: 'http://banner.com',
+				};
+
+				request.put({ url: `${baseUrl}/profile/image/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(200);
+					done();
+				});
+			});
+		});
+
+		it('should return status (400) when updating profile banner with wrong banner URL', (done) => {
+			TestUil.getProfileId().then((id) => {
+				const formData = {
+					banner: 'Banner',
+				};
+
+				request.put({ url: `${baseUrl}/profile/image/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(400);
+					done();
+				});
+			});
+		});
+
 		it('should return status (404) when updating profile that does not exist', (done) => {
 			const formData = {
 				businessName: 'Just eat',
 				contact: '080321231232',
-				email: 'justeat@gmail.com',
+				email: 'justEat@gmail.com',
 				mission: 'Feeding the richest',
 				banner: 'http://banner.com',
 			};
@@ -120,6 +151,23 @@ describe('Profile Controller', () => {
 			request.put({ url: `${baseUrl}/profile/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
 				expect(response.statusCode).to.equal(404);
 				done();
+			});
+		});
+
+		it('should return status (200) and an object if form validation passes and profile is created', (done) => {
+			TestUil.deleteProfiles(done).then(() => {
+				const formData = {
+					businessName: 'Just eat',
+					contact: '080321231232',
+					email: 'justEat@gmail.com',
+					mission: 'Feeding the richest',
+					banner: 'http://banner.com',
+				};
+
+				request.post({ url: `${baseUrl}/profile`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
+					expect(response.statusCode).to.equal(200);
+					done();
+				});
 			});
 		});
 	});

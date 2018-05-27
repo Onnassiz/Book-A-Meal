@@ -32,7 +32,7 @@ class AuthController {
 			},
 		}).then((usr) => {
 			if (usr === null) {
-				res.status(404).send('User not found.');
+				res.status(404).send({ message: 'User not found' });
 			} else {
 				const hashedPassword = usr.passwordHash;
 				if (passwordHash.verify(req.body.password, hashedPassword)) {

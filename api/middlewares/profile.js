@@ -2,7 +2,7 @@ import isUrl from 'is-url';
 
 const { check } = require('express-validator/check');
 
-const profileFormConstraints = [
+export const profileFormConstraints = [
 	check('businessName')
 		.exists()
 		.withMessage('the business name field is require')
@@ -31,7 +31,10 @@ const profileFormConstraints = [
 		.trim(),
 
 	check('email')
-		.optional({ nullable: true })
+		.exists()
+		.withMessage('the email field is require')
+		.isLength({ min: 1 })
+		.withMessage('the email field is required')
 		.isEmail()
 		.withMessage('the email field must be an email')
 		.trim()
@@ -45,4 +48,15 @@ const profileFormConstraints = [
 		.withMessage('image link must be a URL'),
 ];
 
-export default profileFormConstraints;
+export const profileBannerConstraints = [
+	check('banner')
+		.exists()
+		.withMessage('the image field is require')
+		.isLength({ min: 1 })
+		.withMessage('the image field is required')
+		.optional({ nullable: true })
+		.custom((value) => {
+			return isUrl(value);
+		})
+		.withMessage('image link must be a URL'),
+];
