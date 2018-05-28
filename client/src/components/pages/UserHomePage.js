@@ -6,7 +6,7 @@ class UserHomePage extends Component {
 	render() {
 		return (
 			<div>
-				<NavBarContainer />
+				<NavBarContainer page="home" />
 				<UserHomePageContainer />
 			</div>
 		);

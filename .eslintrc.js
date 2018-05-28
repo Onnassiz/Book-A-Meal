@@ -23,6 +23,7 @@ module.exports = {
 	"globals": {
     "document": true,
 		"window": true,
-		"localStorage": true
+		"localStorage": true,
+		"FormData": true
   }
 };

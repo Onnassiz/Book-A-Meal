@@ -49,6 +49,11 @@
   font-family: $headerLinkFont;
   outline: none;
   cursor: pointer;
+
+  &:disabled {
+    background: rgba(201, 198, 198, 0.863);
+    cursor: not-allowed;
+  }
 }
 
 @mixin content {
@@ -56,7 +61,7 @@
   position: relative;
   top: 500px;
   background-color: $bodyBackGround;
-  height:800px;
+  min-height:800px;
   padding: 40px 90px 40px 90px;
 
   h2 {

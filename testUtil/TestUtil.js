@@ -152,7 +152,7 @@ class TestUtil {
 	}
 
 	deleteProfiles(done) {
-		profile.destroy({
+		return profile.destroy({
 			where: {},
 		}).then(() => {
 			done();

@@ -21,11 +21,13 @@ class App extends Component {
 		axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 		const token = localStorage.getItem('token');
 		if (token !== '' && token !== null) {
+			axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 			const { setUser } = this.props;
+			const id = localStorage.getItem('id');
 			const name = localStorage.getItem('name');
 			const email = localStorage.getItem('email');
 			const role = localStorage.getItem('role');
-			const user = { name, email, role };
+			const user = { id, name, email, role };
 
 			setUser(user);
 			this.setSignedIn();
@@ -52,8 +54,8 @@ class App extends Component {
 			<div>
 				<main>
 					{ this.state.isSignedIn ? userRoutes : guestRoutes }
-					<Footer />
 				</main>
+				<Footer />
 			</div>
 		);
 	}

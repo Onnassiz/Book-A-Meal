@@ -21,7 +21,7 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const { user } = this.props;
+		const { user, page } = this.props;
 		const initials = user.name.match(/\b(\w)/g).join('').toUpperCase();
 		return (
 			<header>
@@ -31,7 +31,7 @@ class NavBar extends Component {
 						{user.role === 'caterer' ?
 							<li>
 								<div className="dropdown">
-									<a href="pages/menu.html">{'Caterer\'s Links'}</a>
+									<a className={page === 'caterer' ? 'active' : ''}>{'Caterer\'s Links'}</a>
 									<div className="dropdown-content">
 										<Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
 										<hr />
@@ -76,6 +76,7 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
 	user: PropTypes.object.isRequired,
+	page: PropTypes.string.isRequired,
 };
 
 export default NavBar;

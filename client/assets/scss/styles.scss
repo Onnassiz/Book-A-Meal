@@ -25,11 +25,16 @@ header {
     }
   }
 
+  .active {
+    border-bottom: solid 2px white;
+  }
+
   li{
     list-style: none;
     float: left;
     margin-left: 15px;
     padding-top: 30px;
+
   }
 
   .nav-left {
@@ -91,9 +96,10 @@ a{
 #content2 {
   @include content;
   position: relative;
-  top: 65px;
+  top: -15px;
   background-color: $bodyBackGround;
   min-height: 800px;
+  padding-bottom: 300px;
 }
 
 #content3 {
@@ -101,7 +107,7 @@ a{
   position: relative;
   top: 15px;
   background-color: $bodyBackGround;
-  height: 200px;
+  min-height: 200px;
 }
 
 table{
@@ -392,7 +398,6 @@ table{
 
 .box {
   @include box;
-  top: 35%;
   
   #signUpAsAdmin{
     width: 190px;
@@ -597,4 +602,38 @@ table{
 #imageSlider {
   height: 700px;
   overflow-y: hidden;
+}
+
+#alert {
+  margin-top: 20px;
+  background:$headerBackground;
+  padding: 15px;
+  opacity: 0.8;
+  color: white;
+  border-radius: 4px;
+}
+
+#detail {
+  margin-top: 12px;
+
+  h2 {
+    color: $headerBackground;
+    font-family: $headerLinkFont;
+    font-size: 25px;
+  }
+
+  span {
+    font-size: 18px;
+    margin-left: 35px;
+    color: rgb(124, 123, 121);
+
+    i {
+      font-size: 150px;
+    }
+  }
+}
+
+#dropzoneHeader {
+  color: $headerBackground;
+  font-family: $headerLinkFont;
 }

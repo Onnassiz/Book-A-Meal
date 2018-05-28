@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import empty from 'is-empty';
 import PropTypes from 'prop-types';
-import BasicInput from '../presentation/form/BasicInput';
+import { BasicInput } from '../presentation/form/BasicInput';
 import SubmitButton from '../presentation/form/SubmitButton';
 import { validateSignUp, validateSignIn } from '../../utilities/validateAuthForms';
-// import { push } from 'react-router-redux';
 
 class Home extends Component {
 	constructor(props) {
