@@ -1,9 +1,9 @@
-
+import sequelize from 'sequelize';
 import { meal, user } from '../models';
 
 class MealsController {
 	getMeals(req, res) {
-		meal.findAll().then((meals) => {
+		meal.findAll({ order: sequelize.literal('name') }).then((meals) => {
 			res.status(200).send(meals);
 		});
 	}

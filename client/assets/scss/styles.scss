@@ -99,7 +99,6 @@ a{
   top: -15px;
   background-color: $bodyBackGround;
   min-height: 800px;
-  padding-bottom: 300px;
 }
 
 #content3 {
@@ -153,25 +152,29 @@ table{
   background: $arrowBox;
   border-radius: 5px;
   position: absolute;
-  top: -5.0em;
-  left: 75px;
+  top: -155px;
+  right: -100px;
   padding: 10px;
   font-size: 13px;
   line-height: 22px;
   text-align: center;
 
+  div{
+    height: 100%;
+    overflow-y: scroll;
+  }
+
   &:after {
     content: ' ';
     width: 0px;
     height: 0px;
-    border-top: 10px solid transparent;
+    border-top: 10px solid $arrowBox;
     border-left: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-right: 10px solid $arrowBox;
+    border-right: 10px solid transparent;
     position: absolute;
-    right: 100%;
-    top: 50%;
-    margin-top: -10px;
+    left: 47%;
+    top: 100%;
   }
 }
 

@@ -35,7 +35,7 @@ class NavBar extends Component {
 									<div className="dropdown-content">
 										<Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
 										<hr />
-										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Manage Meals</a>
+										<Link to="/caterer/meals"><i className="material-icons">dashboard</i> Manage Meals</Link>
 										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Manage Menus</a>
 										<hr />
 										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> View Reports</a>
