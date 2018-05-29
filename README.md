@@ -1,5 +1,5 @@
-<a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=profile-setup" alt="travis"></a>
-<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=profle-setup'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=profle-setup' alt='Coverage Status' /></a> <a href="https://codeclimate.com/github/Onnassiz/Book-A-Meal/maintainability"><img src="https://api.codeclimate.com/v1/badges/219224f1c0c06ec8fb79/maintainability" /></a>
+<a href="https://travis-ci.org/Onnassiz/Book-A-Meal"><img src="https://travis-ci.org/Onnassiz/Book-A-Meal.svg?branch=manage-meal" alt="travis"></a>
+<a href='https://coveralls.io/github/Onnassiz/Book-A-Meal?branch=manage-meal'><img src='https://coveralls.io/repos/github/Onnassiz/Book-A-Meal/badge.svg?branch=manage-meal' alt='Coverage Status' /></a> <a href="https://codeclimate.com/github/Onnassiz/Book-A-Meal/maintainability"><img src="https://api.codeclimate.com/v1/badges/219224f1c0c06ec8fb79/maintainability" /></a>
 
 
 # Book-A-Meal
@@ -11,6 +11,8 @@ This is a simple UI design for Book-A-Meal application. This UI has the followin
   <li>Github Pages: <a href="https://onnassiz.github.io/Book-A-Meal/UI">UI</a></li>
   <li>Pivotal Tracker: <a href="https://www.pivotaltracker.com/n/projects/2165782">PT</a></li>
   <li>Heroku Api Host: <a href="https://mealbooker.herokuapp.com/api/v1">API</a></li>
+  <li>Heroku UI Host: <a href="https://mealbooker.herokuapp.com">React UI</a></li>
+
   <li>Api Documentation: <a href="https://mealbooker.herokuapp.com/api-docs">API Docs</a></li>
   <li>React Client Host: </li>
 </ul>

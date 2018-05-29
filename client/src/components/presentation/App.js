@@ -6,6 +6,7 @@ import Footer from '../presentation/layout/Footer';
 import UserHomePage from '../pages/UserHomePage';
 import Profile from '../pages/Profile';
 import Home from '../pages/Home';
+import Meals from '../pages/Meals';
 
 
 class App extends Component {
@@ -48,6 +49,7 @@ class App extends Component {
 			<Switch>
 				<Route exact path="/" component={UserHomePage} />
 				<Route exact path="/caterer/business_profile" component={Profile} />
+				<Route exact path="/caterer/meals" component={Meals} />
 			</Switch>
 		);
 		return (

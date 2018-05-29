@@ -73,7 +73,7 @@ export function putImage(id, field) {
 			return response;
 		}).catch((error) => {
 			dispatch(unsetLoading());
-			console.log(error.response.data);
+			dispatch(setProfileErrors(error.response.data));
 			return error;
 		});
 	};

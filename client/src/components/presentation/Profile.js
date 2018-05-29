@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import empty from 'is-empty';
-import { addProfileModalStyle } from './../../utilities/modalStyles';
+import { addProfileModalStyle, addProfileImageModalView } from './../../utilities/modalStyles';
 import { BasicInput, TextArea } from '../presentation/form/BasicInput';
 import SubmitButton from '../presentation/form/SubmitButton';
 import validateProfile from '../../utilities/validateProfileForm';
@@ -47,8 +47,11 @@ class Profile extends Component {
 		this.setState({ isShowingDropZoneModal: !this.state.isShowingDropZoneModal });
 	}
 
-	putImage(field) {
+	putImage(imageURL) {
 		const { putImage, profile } = this.props;
+		const field = {
+			banner: imageURL,
+		};
 		putImage(profile.id, field).then((response) => {
 			if (response.status === 200) {
 				this.toggleDropZone(false);
@@ -118,7 +121,7 @@ class Profile extends Component {
 		};
 
 		return (
-			<div id="content2">
+			<div id="content2" style={{ paddingBottom: 200 }}>
 				<div className="col-12">
 					<button onClick={empty(profile.businessName) ? this.handleAddButtonClick.bind(this, false) : this.handleAddButtonClick.bind(this, true)} style={{ marginRight: 5 }} className="button">
 						{empty(profile.businessName) ? 'Add Profile' : 'Update Profile'}
@@ -146,10 +149,10 @@ class Profile extends Component {
 								</ul>
 							</div>
 							<form onSubmit={this.handleSubmit}>
-								<BasicInput name="businessName" type="text" label="Business Name" value={this.state.businessName} onChange={this.onChange} />
-								<BasicInput name="mission" type="text" label="Mission Statement" value={this.state.mission} onChange={this.onChange} />
-								<BasicInput name="email" type="text" label="Business Email" value={this.state.email} onChange={this.onChange} />
-								<TextArea name="contact" type="text" label="Contact" value={this.state.contact} onChange={this.onChange} />
+								<BasicInput name="businessName" type="text" label="Business Name" value={this.state.businessName} onChange={this.onChange} hasError={this.state.errors.businessName !== undefined} />
+								<BasicInput name="mission" type="text" label="Mission Statement" value={this.state.mission} onChange={this.onChange} hasError={this.state.errors.mission !== undefined} />
+								<BasicInput name="email" type="text" label="Business Email" value={this.state.email} onChange={this.onChange} hasError={this.state.errors.email !== undefined} />
+								<TextArea name="contact" type="text" label="Contact" value={this.state.contact} onChange={this.onChange} hasError={this.state.errors.contact !== undefined} />
 								<SubmitButton value={empty(profile.businessName) ? 'Submit' : 'Update'} isLoading={formState.isLoading} />
 							</form>
 						</div>
@@ -159,13 +162,13 @@ class Profile extends Component {
 					<Modal
 						isOpen={this.state.isShowingDropZoneModal}
 						closeTimeoutMS={1}
-						style={addProfileModalStyle}
+						style={addProfileImageModalView}
 						ariaHideApp={false}
 						contentLabel="Modal"
 					>
 						<div className="col-12">
 							<div className="col-12">
-								<a onClick={this.toggleDropZone} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
+								<a onClick={this.toggleDropZone} style={{ float: 'right' }}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
 							</div>
 							<ImageUploader putImage={this.putImage} />
 						</div>
@@ -183,10 +186,6 @@ class Profile extends Component {
 					<div id="detail">
 						<h2>Business Email</h2>
 						<span>{profile.email}</span>
-					</div>
-					<div id="detail">
-						<h2>Contact</h2>
-						<span>{profile.contact}</span>
 					</div>
 					<div id="detail">
 						<h2>Contact</h2>
