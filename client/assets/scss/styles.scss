@@ -640,3 +640,11 @@ table{
   color: $headerBackground;
   font-family: $headerLinkFont;
 }
+
+#meals-checkBox {
+  max-height: 300px;
+  border: solid $headerBackground 1px;
+  border-radius: 4px;
+  padding: 10px;
+  overflow-y: scroll;
+}

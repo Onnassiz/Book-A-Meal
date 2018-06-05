@@ -268,7 +268,7 @@ class Meals extends Component {
 												<th>Price</th>
 												<th>Category</th>
 												<th>Date Created</th>
-												<th>Date Updated</th>
+												<th>Added By</th>
 												<th>Actions</th>
 											</tr>
 										</thead>

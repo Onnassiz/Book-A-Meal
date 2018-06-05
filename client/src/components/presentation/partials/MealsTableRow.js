@@ -13,7 +13,7 @@ const MealsTableRow = (props) => {
 			<td>&#8358;{numberWithCommas(props.item.price)}</td>
 			<td>{props.item.category}</td>
 			<td>{getDate(props.item.createdAt)}</td>
-			<td>{getDate(props.item.updatedAt)}</td>
+			<td>{props.item.caterer}</td>
 			<td>
 				<span>
 					<a title="edit" onClick={props.toggleUpdateModal}><i className="material-icons">mode_edit</i></a>
