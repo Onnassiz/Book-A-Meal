@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
 	case SET_PROFILE:
 		return { id: action.id, businessName: action.businessName, email: action.email, mission: action.mission, contact: action.contact, banner: action.banner };
 	case SET_PROFILE_SERVER_ERRORS:
-		return { errors: action.errors };
+		return { ...state, errors: action.errors };
 	case SET_PROFILE_ALERT:
 		return { ...state, alert: action.alert };
 	default:

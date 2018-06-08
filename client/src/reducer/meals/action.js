@@ -67,7 +67,7 @@ export function postMeal(meal) {
 			return response;
 		}).catch((error) => {
 			dispatch(unsetLoading());
-			dispatch(setMealErrors(error.response));
+			dispatch(setMealErrors(error.response.data));
 			return error;
 		});
 	};

@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import empty from 'is-empty';
 import { addProfileModalStyle, deleteModalStyle, addProfileImageModalView } from './../../utilities/modalStyles';
-import { BasicInput, TextArea } from '../presentation/form/BasicInput';
+import { BasicInput, TextArea } from './form/BasicInput';
 import SubmitButton from '../presentation/form/SubmitButton';
 import validateMeal from '../../utilities/validateMealForm';
 import Alert from '../presentation/partials/Alert';
 import ImageUploader from '../presentation/partials/ImageUploader';
 import MealsTableRow from './partials/MealsTableRow';
 import loaderImage from '../../../assets/images/loader.gif';
-
 
 class Meals extends Component {
 	constructor(props) {
@@ -87,9 +86,7 @@ class Meals extends Component {
 	}
 
 	handleAddButtonClick() {
-		if (this.state.updateMode) {
-			this.resetFields();
-		}
+		this.resetFields();
 		this.setState({ isShowingModal: !this.state.isShowingModal });
 	}
 
@@ -109,13 +106,15 @@ class Meals extends Component {
 			if (!this.state.updateMode) {
 				postMeal(formData).then((response) => {
 					if (response.status === 201) {
-						this.handleAddButtonClick(false);
+						this.resetFields();
+						this.handleAddButtonClick();
 					}
 				});
 			} else {
 				updateMeal(formData).then((response) => {
 					if (response.status === 200) {
-						this.handleAddButtonClick(false);
+						this.resetFields();
+						this.handleAddButtonClick();
 					}
 				});
 			}
@@ -146,7 +145,7 @@ class Meals extends Component {
 			description: item.description === null ? '' : item.description,
 			category: item.category,
 			id: item.id,
-			isShowingModal: true,
+			isShowingModal: !this.state.isShowingModal,
 		});
 	}
 
@@ -171,7 +170,6 @@ class Meals extends Component {
 	render() {
 		const { formState, profile, meals } = this.props;
 		const closeModalStyle = {
-			marginRight: 55,
 			float: 'right',
 		};
 
@@ -201,11 +199,11 @@ class Meals extends Component {
 									<a onClick={this.handleAddButtonClick} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
 								</div>
 								<div className="box">
-									<h3>Add Meal</h3>
+									<h3>{this.state.updateMode ? 'Update Meal' : 'Add Meal'}</h3>
 									<div className="show-errors">
 										<ul>
 											{Object.keys(this.state.errors).map(item => <li key={item}>{ this.state.errors[item] }</li>)}
-											{empty(profile.errors) ? '' : Object.keys(profile.errors).map(item => <li key={item}>{ profile.errors[item] }</li>)}
+											{empty(meals.errors) ? '' : Object.keys(meals.errors).map(item => <li key={item}>{ meals.errors[item] }</li>)}
 										</ul>
 									</div>
 									<form onSubmit={this.handleSubmit}>

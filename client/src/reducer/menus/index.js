@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
 	case SET_MENUS:
 		return { ...state, menus: action.menus };
 	case SET_MENU_SERVER_ERRORS:
-		return { errors: action.errors };
+		return { ...state, errors: action.errors };
 	case SET_MENUS_ALERT:
 		return { ...state, alert: action.alert };
 	default:

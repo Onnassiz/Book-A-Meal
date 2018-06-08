@@ -3,18 +3,25 @@ import empty from 'is-empty';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import Alert from '../presentation/partials/Alert';
-import { addProfileModalStyle, deleteModalStyle } from './../../utilities/modalStyles';
-import { Checkbox } from './form/BasicInput';
+import { addMenuModalStyle, deleteModalStyle } from './../../utilities/modalStyles';
+import { Checkbox, BasicInput, SubmitButton } from './form/BasicInput';
 
 
 class AdminMenus extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			date: '',
+			name: '',
+			updateMode: true,
 			isShowingModal: false,
+			selectedMeals: [],
 			errors: {},
 		};
 		this.toggleShowModal = this.toggleShowModal.bind(this);
+		this.pushToProfile = this.pushToProfile.bind(this);
+		this.onCheckBoxChange = this.onChange.bind(this);
+		this.onChange = this.onChange.bind(this);
 	}
 
 	componentWillMount() {
@@ -28,8 +35,20 @@ class AdminMenus extends Component {
 		}
 	}
 
+	onCheckBoxChange(e) {
+		const meals = this.state.selectedMeals;
+		if (e.target.checked) {
+			meals.push({ mealId: e.target.value });
+			this.setState({ selectedMeals: meals });
+		} else {
+			const index = meals.findIndex(x => x.mealId === e.target.value);
+			meals.splice(index, 1);
+			this.setState({ selectedMeals: meals });
+		}
+	}
+
 	onChange(e) {
-		console.log('Hello');
+		this.setState({ [e.target.name]: e.target.value });
 	}
 
 
@@ -71,15 +90,14 @@ class AdminMenus extends Component {
 							<Modal
 								isOpen={this.state.isShowingModal}
 								closeTimeoutMS={1}
-								style={addProfileModalStyle}
+								style={addMenuModalStyle}
 								ariaHideApp={false}
 								contentLabel="Modal"
 							>
 								<div className="col-12">
 									<a title="close" onClick={this.toggleShowModal} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
 								</div>
-								<div className="box">
-									<h3>Set Daily Menu</h3>
+								<div>
 									<div className="show-errors">
 										<ul>
 											{Object.keys(this.state.errors).map(item => <li key={item}>{ this.state.errors[item] }</li>)}
@@ -92,9 +110,17 @@ class AdminMenus extends Component {
 										</div> :
 										<div>
 											<form onSubmit={this.handleSubmit}>
-												<div id="meals-checkBox">
-													{meals.meals.map(item => <Checkbox meal={item} key={item.id} onChange={this.onChange} />)}
+												<div className="box">
+													<h3>Set Daily Menu</h3>
+													<BasicInput name="name" type="date" label="Menu Date" value={this.state.date} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
+													<BasicInput name="name" type="text" label="Menu Name (optional)" value={this.state.name} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
+													<p style={{ fontSize: 18, marginTop: 45 }}><b>{ this.state.selectedMeals.length } </b>meals selected</p>
+													<SubmitButton value={this.state.updateMode ? 'Update' : 'Submit'} isLoading={formState.isLoading} />
 												</div>
+												<div id="meals-checkBox">
+													{meals.meals.map(item => <Checkbox meal={item} key={item.id} onChange={this.onCheckBoxChange} />)}
+												</div>
+												<span id="checkBox-label">Scroll to view all meals</span>
 											</form>
 										</div>}
 								</div>
