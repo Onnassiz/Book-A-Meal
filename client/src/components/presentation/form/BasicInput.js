@@ -16,8 +16,8 @@ export const TextArea = props => (
 );
 
 export const Checkbox = props => (
-	<label className="checkbox"> {props.meal.name} <span style={{ float: 'right', color: '#7a604a' }}>{props.meal.caterer}</span>
-		<input type="checkbox" value={props.meal.id} onChange={props.onChange} /><span className="check" />
+	<label className="checkbox"> {props.meal.name} <span style={{ float: 'right', color: '#7a604a', fontSize: 10 }}>Added by {props.meal.caterer}</span>
+		<input type="checkbox" value={props.meal.id} onChange={props.onChange} checked={props.isChecked} /><span className="check" />
 	</label>
 );
 
@@ -44,6 +44,7 @@ TextArea.propTypes = {
 
 Checkbox.propTypes = {
 	meal: PropTypes.object.isRequired,
+	isChecked: PropTypes.bool.isRequired,
 	onChange: PropTypes.func.isRequired,
 };
 

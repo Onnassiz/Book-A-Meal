@@ -2,18 +2,31 @@
 import { menu, meal, menuMeal } from '../models';
 
 class MenusController {
+	constructor() {
+		this.postMenu = this.postMenu.bind(this);
+		this.putMenu = this.putMenu.bind(this);
+	}
+
 	getMenusByUserId(req, res) {
 		menu.findAll({
 			include: [{
 				model: meal,
 			}],
-			where: { userId: req.params.id },
+			where: { userId: req.user.id },
+			order: ['unixTime'],
 		}).then((menus) => {
-			if (menus.length) {
-				res.status(200).send(menus);
-			} else {
-				res.status(404).send({ message: 'Menu not found' });
-			}
+			res.status(200).send(menus);
+		});
+	}
+
+	getMenuById(id) {
+		return menu.findOne({
+			include: [{
+				model: meal,
+			}],
+			where: { id },
+		}).then((responseData) => {
+			return responseData;
 		});
 	}
 
@@ -85,9 +98,11 @@ class MenusController {
 
 				newMenu.save().then((createdMenu) => {
 					menuMeal.bulkCreate(newMealMenus).then(() => {
-						res.status(201).send({
-							message: 'Menu successfully created',
-							menu: createdMenu,
+						this.getMenuById(createdMenu.id).then((responseData) => {
+							res.status(201).send({
+								message: 'Menu successfully created',
+								menu: responseData,
+							});
 						});
 					});
 				});
@@ -111,7 +126,6 @@ class MenusController {
 			if (update) {
 				menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
 					const newMealMenus = [];
-					// const meals = JSON.parse(req.body.meals);
 					const { meals } = req.body;
 
 					meals.forEach((ml) => {
@@ -122,7 +136,12 @@ class MenusController {
 					});
 
 					menuMeal.bulkCreate(newMealMenus).then(() => {
-						res.status(200).send(update);
+						this.getMenuById(update.id).then((responseData) => {
+							res.status(200).send({
+								message: 'Menu successfully updated',
+								menu: responseData,
+							});
+						});
 					});
 				});
 			} else {

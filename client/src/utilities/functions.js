@@ -29,6 +29,33 @@ export function getDate(dateTime) {
 	return '----';
 }
 
+export function convertUnixToDate(unixTime) {
+	const dateTime = parseInt(unixTime, 10);
+	if (dateTime !== null) {
+		const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+		const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		const dateAndTime = new Date(dateTime * 1000);
+		const getDay = days[dateAndTime.getDay()];
+		const getThisDate = addZ(dateAndTime.getDate());
+		const getMonth = months[dateAndTime.getMonth()];
+		const getYear = dateAndTime.getFullYear();
+		return (`${getDay}, ${getMonth} ${getThisDate}, ${getYear}`);
+	}
+	return '----';
+}
+
+export function convertToUnixForUpdate(unixTime) {
+	const dateTime = parseInt(unixTime, 10);
+	if (dateTime !== null) {
+		const dateAndTime = new Date(dateTime * 1000);
+		const getThisDate = addZ(dateAndTime.getDate());
+		const getMonth = addZ(dateAndTime.getMonth() + 1);
+		const getYear = dateAndTime.getFullYear();
+		return (`${getYear}-${getMonth}-${getThisDate}`);
+	}
+	return '----';
+}
+
 export const numberWithCommas = (x) => {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };

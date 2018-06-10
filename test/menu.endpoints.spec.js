@@ -57,17 +57,10 @@ describe('Menu Controller', () => {
 
 		it('should return status (200) if request is made with correct user id', (done) => {
 			TestUtil.getUserId().then((id) => {
-				request.get({ url: `${baseUrl}/menus/user/${id}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
+				request.get({ url: `${baseUrl}/menus/user`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
 					expect(response.statusCode).to.equal(200);
 					done();
 				});
-			});
-		});
-
-		it('should return status (404) if user id does not exist', (done) => {
-			request.get({ url: `${baseUrl}/menus/user/${uuidv4()}`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
-				expect(response.statusCode).to.equal(404);
-				done();
 			});
 		});
 
@@ -75,15 +68,6 @@ describe('Menu Controller', () => {
 			request.get({ url: `${baseUrl}/menus/unixTime/1525564800`, headers: { Authorization: `Bearer ${tokenR}wrong` } }, (error, response) => {
 				expect(response.statusCode).to.equal(401);
 				done();
-			});
-		});
-
-		it('should return status (400) if request is made with wrong user id', (done) => {
-			TestUtil.getCustomerId().then((id) => {
-				request.get({ url: `${baseUrl}/menus/user/${id}sdf`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
-					expect(response.statusCode).to.equal(400);
-					done();
-				});
 			});
 		});
 

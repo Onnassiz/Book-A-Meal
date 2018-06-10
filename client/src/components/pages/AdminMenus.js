@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AdminMenusContainer from '../container/AdminMenusContainer';
 import NavBarContainer from '../container/NavBarContainer';
 
-class Profile extends Component {
+class AdminMenus extends Component {
 	render() {
 		return (
 			<div>
@@ -13,4 +13,4 @@ class Profile extends Component {
 	}
 }
 
-export default Profile;
+export default AdminMenus;

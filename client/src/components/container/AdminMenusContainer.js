@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getProfile } from '../../reducer/profile/action';
 import { getMeals } from '../../reducer/meals/action';
-import { postMenu } from '../../reducer/menus/action';
+import { postMenu, getUserMenus, deleteMenuById, updateMenu } from '../../reducer/menus/action';
 import AdminMenus from '../presentation/AdminMenus';
 
 const mapStateToProps = (state) => {
@@ -16,15 +16,16 @@ const mapStateToProps = (state) => {
 	};
 };
 
-
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
 		postMenu,
+		deleteMenuById,
+		getUserMenus,
 		getMeals,
 		getProfile,
+		updateMenu,
 	}, dispatch);
 }
-
 
 export default withRouter(connect(
 	mapStateToProps,

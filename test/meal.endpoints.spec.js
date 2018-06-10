@@ -22,7 +22,8 @@ request.post({ url: `${baseUrl}/auth/signIn`, form: userFormData }, (error, resp
 describe('Meal Controller', () => {
 	describe('GetMeals', () => {
 		before((done) => {
-			TestUtil.insertMeals(done, true);
+			TestUtil.insertMeals(done, false);
+			TestUtil.insertProfile(done);
 		});
 
 		after((done) => {

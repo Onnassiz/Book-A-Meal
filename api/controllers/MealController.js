@@ -12,7 +12,7 @@ const mealViewModelFromArray = (meals) => {
 			description: item.description,
 			createdAt: item.createdAt,
 			updatedAt: item.updatedAt,
-			caterer: item.user.profile.businessName,
+			caterer: item.user.profile === null ? null : item.user.profile.businessName,
 			imageUrl: item.imageUrl,
 		});
 	});
@@ -28,7 +28,7 @@ const mealViewModel = (item) => {
 		description: item.description,
 		createdAt: item.createdAt,
 		updatedAt: item.updatedAt,
-		caterer: item.user.profile.businessName,
+		caterer: item.user.profile === null ? null : item.user.profile.businessName,
 		imageUrl: item.imageUrl,
 	};
 	return viewModel;
