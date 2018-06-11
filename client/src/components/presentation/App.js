@@ -7,6 +7,7 @@ import UserHomePage from '../pages/UserHomePage';
 import Profile from '../pages/Profile';
 import Home from '../pages/Home';
 import Meals from '../pages/Meals';
+import AdminMenus from '../pages/AdminMenus';
 
 
 class App extends Component {
@@ -50,6 +51,7 @@ class App extends Component {
 				<Route exact path="/" component={UserHomePage} />
 				<Route exact path="/caterer/business_profile" component={Profile} />
 				<Route exact path="/caterer/meals" component={Meals} />
+				<Route exact path="/caterer/menus" component={AdminMenus} />
 			</Switch>
 		);
 		return (

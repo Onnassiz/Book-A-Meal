@@ -1,10 +1,45 @@
 import sequelize from 'sequelize';
-import { meal, user } from '../models';
+import { meal, user, profile } from '../models';
+
+const mealViewModelFromArray = (meals) => {
+	const viewModel = [];
+	meals.forEach((item) => {
+		viewModel.push({
+			id: item.id,
+			name: item.name,
+			price: item.price,
+			category: item.category,
+			description: item.description,
+			createdAt: item.createdAt,
+			updatedAt: item.updatedAt,
+			caterer: item.user.profile === null ? null : item.user.profile.businessName,
+			imageUrl: item.imageUrl,
+		});
+	});
+	return viewModel;
+};
+
+const mealViewModel = (item) => {
+	const viewModel = {
+		id: item.id,
+		name: item.name,
+		price: item.price,
+		category: item.category,
+		description: item.description,
+		createdAt: item.createdAt,
+		updatedAt: item.updatedAt,
+		caterer: item.user.profile === null ? null : item.user.profile.businessName,
+		imageUrl: item.imageUrl,
+	};
+	return viewModel;
+};
+
 
 class MealsController {
 	getMeals(req, res) {
-		meal.findAll({ order: sequelize.literal('name') }).then((meals) => {
-			res.status(200).send(meals);
+		meal.findAll({ include: [{ model: user, include: [{ model: profile }] }], order: sequelize.literal('name') }).then((meals) => {
+			const viewModel = mealViewModelFromArray(meals);
+			res.status(200).send(viewModel);
 		});
 	}
 
@@ -42,7 +77,10 @@ class MealsController {
 		).then((updated) => {
 			const update = updated[1][0];
 			if (update) {
-				res.status(200).send(update);
+				meal.findOne({
+					include: [{ model: user, include: [{ model: profile }] }],
+					where: { id: update.id },
+				}).then(returnedMeal => res.status(200).send(mealViewModel(returnedMeal)));
 			} else {
 				res.status(404).send({
 					message: 'Meal not found',
@@ -68,7 +106,10 @@ class MealsController {
 				});
 			} else {
 				newMeal.save().then((response) => {
-					res.status(201).send(response);
+					meal.findOne({
+						include: [{ model: user, include: [{ model: profile }] }],
+						where: { id: response.id },
+					}).then(returnedMeal => res.status(201).send(mealViewModel(returnedMeal)));
 				});
 			}
 		});
@@ -88,7 +129,10 @@ class MealsController {
 		).then((updated) => {
 			const update = updated[1][0];
 			if (update) {
-				res.status(200).send(update);
+				meal.findOne({
+					include: [{ model: user, include: [{ model: profile }] }],
+					where: { id: update.id },
+				}).then(returnedMeal => res.status(200).send(mealViewModel(returnedMeal)));
 			} else {
 				res.status(404).send({
 					message: 'Meal not found',

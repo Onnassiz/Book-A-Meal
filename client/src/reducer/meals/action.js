@@ -4,7 +4,7 @@ import { setLoading, unsetLoading } from '../formState/action';
 
 export const SET_MEAL = 'SET_MEAL';
 export const SET_MEAL_SERVER_ERRORS = 'SET_MEAL_SERVER_ERRORS';
-export const SET_MEAL_ALERT = 'SET_ALERT_ALERT';
+export const SET_MEAL_ALERT = 'SET_MEAL_ALERT';
 
 function setAlert(alert) {
 	return dispatch => dispatch({
@@ -67,7 +67,7 @@ export function postMeal(meal) {
 			return response;
 		}).catch((error) => {
 			dispatch(unsetLoading());
-			dispatch(setMealErrors(error.response));
+			dispatch(setMealErrors(error.response.data));
 			return error;
 		});
 	};
@@ -109,7 +109,7 @@ export function putImage(id, field) {
 	return (dispatch) => {
 		dispatch(setLoading());
 		return axios.put(`api/v1/meals/image/${id}`, field).then((response) => {
-      dispatch(unsetLoading());
+			dispatch(unsetLoading());
 			dispatch(updateMealState(response.data));
 			dispatch(setAlert('Image successfully uploaded'));
 			return response;

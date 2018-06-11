@@ -15,6 +15,12 @@ export const TextArea = props => (
 	</div>
 );
 
+export const Checkbox = props => (
+	<label className="checkbox"> {props.meal.name} <span style={{ float: 'right', color: '#7a604a', fontSize: 10 }}>Added by {props.meal.caterer}</span>
+		<input type="checkbox" value={props.meal.id} onChange={props.onChange} checked={props.isChecked} /><span className="check" />
+	</label>
+);
+
 BasicInput.propTypes = {
 	name: PropTypes.string.isRequired,
 	label: PropTypes.string.isRequired,
@@ -34,6 +40,12 @@ TextArea.propTypes = {
 	value: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
 	hasError: PropTypes.bool,
+};
+
+Checkbox.propTypes = {
+	meal: PropTypes.object.isRequired,
+	isChecked: PropTypes.bool.isRequired,
+	onChange: PropTypes.func.isRequired,
 };
 
 TextArea.defaultProps = {
