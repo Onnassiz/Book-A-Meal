@@ -44,7 +44,7 @@ export function convertUnixToDate(unixTime) {
 	return '----';
 }
 
-export function convertToUnixForUpdate(unixTime) {
+export function convertUnixToDateForUpdate(unixTime) {
 	const dateTime = parseInt(unixTime, 10);
 	if (dateTime !== null) {
 		const dateAndTime = new Date(dateTime * 1000);

@@ -28,11 +28,14 @@ const MenuAccordion = (props) => {
 							<p><b>Price: </b>{ meal.price }</p>
 						</div>
 					</div>)) }
-				<hr />
-				<div style={{ marginLeft: 20 }}>
-					<button onClick={props.toggleUpdateModal} className="button-default">Edit</button>
-					<button onClick={props.toggleShowDeleteModal} className="button-error">Delete</button>
-				</div>
+				{!props.showOpsButtons ? '' :
+					<div>
+						<hr />
+						<div style={{ marginLeft: 20 }}>
+							<button onClick={props.toggleUpdateModal} className="button-default">Edit</button>
+							<button onClick={props.toggleShowDeleteModal} className="button-error">Delete</button>
+						</div>
+					</div>}
 			</AccordionItemBody>
 		</AccordionItem>
 	);
@@ -42,6 +45,7 @@ MenuAccordion.propTypes = {
 	menu: PropTypes.object.isRequired,
 	toggleUpdateModal: PropTypes.func.isRequired,
 	toggleShowDeleteModal: PropTypes.func.isRequired,
+	showOpsButtons: PropTypes.bool.isRequired,
 };
 
 export default MenuAccordion;

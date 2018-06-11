@@ -47,7 +47,7 @@ class NavBar extends Component {
 
 				<div className="nav">
 					<ul>
-						<li><Link to="/caterer">Menu</Link></li>
+						<li><Link to="/menus">Menu</Link></li>
 						<li><a href="#"><i className="material-icons">shopping_cart</i> Cart</a></li>
 						<li><a href="#">Orders</a></li>
 						<li>
