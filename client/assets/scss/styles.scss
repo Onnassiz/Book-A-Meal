@@ -211,6 +211,7 @@ table{
 
 .dateInput {
   width: 260px;
+  margin: auto;
   input {
     width: 65%;
     padding: 10px 10px 12px 10px;
@@ -235,14 +236,23 @@ table{
   }
 }
 
-
 #card_container{
-  padding-left: 5%;
-  width: 80%;
-  margin: 12px auto 12px auto;
+  width: 100%;
+  margin: auto;
+
+  #no-menu {
+    text-align: center;
+    padding: 70px;
+
+    h2{
+      color: $headerBackground;
+      font-family: $headerLinkFont;
+      font-size: 30px;
+    }
+  }
 
   .card {
-    width: 295px;
+    width: 290px;
     position: relative;
     top: 50%;
     margin: 12px;
@@ -255,6 +265,7 @@ table{
       height: 300px;
       overflow: hidden;
       position: relative;
+      background: #999494;
 
       img {
         height: 100%
@@ -299,6 +310,7 @@ table{
         position: absolute;
         bottom: 20px;
         left: 20px;
+        right: 5px;
         color: white;
         opacity: 0.7px;
       }    
@@ -356,11 +368,13 @@ table{
 
         .num {
           display: block;
-          font-size: 30px;
+          font-size: 25px;
         }
 
         .word {
-          font-size: 16px;
+          font-size: 14px;
+          width: 90px;
+          text-align: right;
         }
       }
     }

@@ -10,6 +10,7 @@ class NavBar extends Component {
 	}
 
 	signOut() {
+		localStorage.removeItem('id');
 		localStorage.removeItem('email');
 		localStorage.removeItem('name');
 		localStorage.removeItem('role');
@@ -47,7 +48,7 @@ class NavBar extends Component {
 
 				<div className="nav">
 					<ul>
-						<li><Link to="/menus">Menu</Link></li>
+						<li className={page === 'menus' ? 'active' : ''}><Link to="/menus">Menu</Link></li>
 						<li><a href="#"><i className="material-icons">shopping_cart</i> Cart</a></li>
 						<li><a href="#">Orders</a></li>
 						<li>

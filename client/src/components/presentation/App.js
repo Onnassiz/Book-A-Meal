@@ -61,7 +61,7 @@ class App extends Component {
 				<main>
 					{ this.state.isSignedIn ? userRoutes : guestRoutes }
 				</main>
-				<Footer />
+				{/* <Footer /> */}
 			</div>
 		);
 	}

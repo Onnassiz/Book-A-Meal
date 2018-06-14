@@ -6,7 +6,7 @@ import Menus from '../presentation/Menus';
 
 const mapStateToProps = (state) => {
 	return {
-		userMenus: state.userMenus,
+		menus: state.menus,
 		user: state.user,
 		formState: state.formState,
 	};

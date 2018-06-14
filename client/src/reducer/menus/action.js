@@ -3,6 +3,7 @@ import { store } from '../../store';
 import { setLoading, unsetLoading } from '../formState/action';
 
 export const SET_MENUS = 'SET_MENUS';
+export const SET_USER_MENUS = 'SET_USER_MENUS';
 export const SET_MENUS_SERVER_ERRORS = 'SET_MENUS_SERVER_ERRORS';
 export const SET_MENUS_ALERT = 'SET_MENUS_ALERT';
 
@@ -55,6 +56,34 @@ export function updateMenuState(menu) {
 		type: SET_MENUS,
 		menus,
 	});
+}
+
+export function setClientMenus(menus, date) {
+	return dispatch => dispatch({
+		type: SET_USER_MENUS,
+		menus,
+		date,
+	});
+}
+
+function addMealsFromMenuToArray(menus) {
+	const meals = [];
+	menus.forEach((item) => {
+		item.meals.forEach((meal) => {
+			meals.push({
+				id: meal.id,
+				name: meal.name,
+				menuName: item.name,
+				category: meal.category,
+				description: meal.description,
+				caterer: item.caterer,
+				price: meal.price,
+				menuId: item.id,
+				imageUrl: meal.imageUrl,
+			});
+		});
+	});
+	return meals;
 }
 
 export function getUserMenus() {
@@ -116,6 +145,23 @@ export function updateMenu(meal) {
 		}).catch((error) => {
 			dispatch(unsetLoading());
 			dispatch(setMenusErrors(error.response.data));
+			return error;
+		});
+	};
+}
+
+export function getMenusByUnixTime(date) {
+	let unixTime = new Date(date);
+	unixTime = unixTime.setDate(unixTime.getDate()) / 1000;
+	return (dispatch) => {
+		dispatch(setLoading());
+		return axios.get(`api/v1/menus/unixTime/${unixTime}`).then((response) => {
+			dispatch(unsetLoading());
+			dispatch(setClientMenus(addMealsFromMenuToArray(response.data), date));
+			return response;
+		}).catch((error) => {
+			dispatch(unsetLoading());
+			dispatch(setClientMenus([], date));
 			return error;
 		});
 	};

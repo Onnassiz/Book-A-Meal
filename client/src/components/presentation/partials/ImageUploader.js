@@ -25,7 +25,7 @@ class ImageUploader extends Component {
 		const uploader = () => {
 			const formData = new FormData();
 			formData.append('file', file[0]);
-			formData.append('tags', 'banner');
+			formData.append('tags', 'book-a-meal');
 			formData.append('upload_preset', 'nbo5oyfm');
 			formData.append('api_key', '258613626473737');
 			formData.append('timestamp', (Date.now() / 1000));

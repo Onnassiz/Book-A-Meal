@@ -168,7 +168,7 @@ class Meals extends Component {
 	}
 
 	render() {
-		const { formState, profile, meals } = this.props;
+		const { formState, profile, meals, user } = this.props;
 		const closeModalStyle = {
 			float: 'right',
 		};
@@ -267,11 +267,12 @@ class Meals extends Component {
 												<th>Category</th>
 												<th>Date Created</th>
 												<th>Added By</th>
+												<th>More</th>
 												<th>Actions</th>
 											</tr>
 										</thead>
 										<tbody>
-											{meals.meals.map((item, i) => <MealsTableRow toggleAddPhoto={() => this.toggleAddPhoto(item)} toggleShowDeleteModal={() => this.toggleShowDeleteModal(item)} toggleUpdateModal={() => this.toggleUpdateModal(item)} item={item} key={item.id} i={i + 1} />)}
+											{meals.meals.map((item, i) => <MealsTableRow toggleAddPhoto={() => this.toggleAddPhoto(item)} userId={user.id} toggleShowDeleteModal={() => this.toggleShowDeleteModal(item)} toggleUpdateModal={() => this.toggleUpdateModal(item)} item={item} key={item.id} i={i + 1} />)}
 										</tbody>
 									</table>
 								</div>

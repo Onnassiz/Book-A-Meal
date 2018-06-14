@@ -16,7 +16,7 @@ import validateMenu from '../../utilities/validateMenuForm';
 import '../../../assets/css/fancy.css';
 import MenuAccordion from './partials/MenuAccordion';
 import loaderImage from '../../../assets/images/loader.gif';
-import { convertUnixToDate, convertUnixToDateForUpdate } from '../../utilities/functions';
+import { convertUnixToDate, convertUnixToDateForUpdate, getCurrentDate } from '../../utilities/functions';
 
 
 class AdminMenus extends Component {
@@ -74,23 +74,6 @@ class AdminMenus extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
-	getCurrentDate() {
-		const today = new Date();
-		let dd = today.getDate();
-		let mm = today.getMonth() + 1; // January is 0!
-		const yyyy = today.getFullYear();
-
-		if (dd < 10) {
-			dd = `0${dd}`;
-		}
-
-		if (mm < 10) {
-			mm = `0${mm}`;
-		}
-
-		return `${yyyy}/${mm}/${dd}`;
-	}
-
 	isValid() {
 		this.setState({ errors: {} });
 		const { errors, isValid } = validateMenu(this.state);
@@ -133,7 +116,7 @@ class AdminMenus extends Component {
 	}
 
 	showOpsButtons(unixTime) {
-		const currentTime = new Date(this.getCurrentDate()).getTime() / 1000;
+		const currentTime = new Date(getCurrentDate()).getTime() / 1000;
 		return currentTime <= unixTime;
 	}
 
@@ -207,8 +190,10 @@ class AdminMenus extends Component {
 			<div id="content2" style={{ paddingBottom: 700 }}>
 				{empty(profile.businessName) ? SetupProfile :
 					<div>
-						<button onClick={this.toggleShowModal} className="button">Add Menu</button>
-						{empty(menus.alert) ? '' : <Alert alert={menus.alert} />}
+						<div className="col-11">
+							<button onClick={this.toggleShowModal} className="button">Add Menu</button>
+							{empty(menus.alert) ? '' : <Alert alert={menus.alert} />}
+						</div>
 
 						<div>
 							<Modal

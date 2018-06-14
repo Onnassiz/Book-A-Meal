@@ -14,6 +14,7 @@ class AuthController {
 
 		newUser.save().then((usr) => {
 			res.status(201).send({
+				id: usr.id,
 				fullName: usr.fullName,
 				email: usr.email,
 				role: usr.role,
@@ -37,6 +38,7 @@ class AuthController {
 				const hashedPassword = usr.passwordHash;
 				if (passwordHash.verify(req.body.password, hashedPassword)) {
 					res.status(200).send({
+						id: usr.id,
 						fullName: usr.fullName,
 						email: usr.email,
 						role: usr.role,
