@@ -1,12 +1,14 @@
 import React from 'react';
 import empty from 'is-empty';
 import PropTypes from 'prop-types';
+import { getCurrentDate } from '../../../utilities/functions';
 
 const numberWithCommas = (x) => {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 const Card = (props) => {
+	const todayDate = getCurrentDate();
 	return (
 		<div className="card">
 			<div className="card-header">
@@ -28,7 +30,7 @@ const Card = (props) => {
 				<div className="left">
 					<h3>Description</h3>
 					<p>{props.meal.description}</p>
-					<a className="add_button" href="#">Add to cart</a>
+					{ todayDate > props.currentDate ? '' : <a className="add_button" href="#">Add to cart</a>}
 				</div>
 				<div className="right">
 					<div className="item">
@@ -46,6 +48,7 @@ const Card = (props) => {
 
 Card.propTypes = {
 	meal: PropTypes.object.isRequired,
+	currentDate: PropTypes.string.isRequired,
 };
 
 export default Card;

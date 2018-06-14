@@ -1,5 +1,5 @@
 import { SET_MENUS, SET_MENUS_ALERT, SET_MENUS_SERVER_ERRORS, SET_USER_MENUS } from './action';
-import { getCurrentDate } from '../../utilities/functions'
+import { getCurrentDate } from '../../utilities/functions';
 
 const initialState = {
 	menus: [],

@@ -20,7 +20,14 @@ class Menus extends Component {
 	}
 
 	onChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
+		const { getMenusByUnixTime } = this.props;
+		let date = new Date(e.target.value);
+		date = convertUnixToDateForUpdate(date.setDate(date.getDate()) / 1000);
+		getMenusByUnixTime(date).then(() => {
+			this.setState({ date });
+		}).catch(() => {
+			this.setState({ date });
+		});
 	}
 
 	getMenuForDate(number) {
@@ -48,7 +55,7 @@ class Menus extends Component {
 						{empty(menus.userMenus) ?
 							<div id="no-menu">
 								<h2>No menu has been set for this day.</h2>
-							</div> : menus.userMenus.map(meal => <Card meal={meal} key={meal.id + meal.caterer} />)}
+							</div> : menus.userMenus.map(meal => <Card meal={meal} key={meal.id + meal.caterer} currentDate={menus.currentDate} />)}
 					</div>
 				</div>
 			</div>
