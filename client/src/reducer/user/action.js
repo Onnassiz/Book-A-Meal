@@ -53,6 +53,7 @@ export function signInUser(user) {
 	return (dispatch) => {
 		dispatch(setLoading());
 		axios.post('api/v1/auth/signIn', user).then((response) => {
+			localStorage.setItem('id', response.data.id);
 			localStorage.setItem('email', response.data.email);
 			localStorage.setItem('name', response.data.fullName);
 			localStorage.setItem('role', response.data.role);

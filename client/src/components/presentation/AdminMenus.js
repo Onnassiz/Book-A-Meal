@@ -16,7 +16,7 @@ import validateMenu from '../../utilities/validateMenuForm';
 import '../../../assets/css/fancy.css';
 import MenuAccordion from './partials/MenuAccordion';
 import loaderImage from '../../../assets/images/loader.gif';
-import { convertUnixToDate, convertToUnixForUpdate } from '../../utilities/functions';
+import { convertUnixToDate, convertUnixToDateForUpdate, getCurrentDate } from '../../utilities/functions';
 
 
 class AdminMenus extends Component {
@@ -40,6 +40,7 @@ class AdminMenus extends Component {
 		this.toggleShowDeleteModal = this.toggleShowDeleteModal.bind(this);
 		this.deleteMenu = this.deleteMenu.bind(this);
 		this.isSelected = this.isSelected.bind(this);
+		this.showOpsButtons = this.showOpsButtons.bind(this);
 	}
 
 	componentWillMount() {
@@ -114,6 +115,11 @@ class AdminMenus extends Component {
 		}
 	}
 
+	showOpsButtons(unixTime) {
+		const currentTime = new Date(getCurrentDate()).getTime() / 1000;
+		return currentTime <= unixTime;
+	}
+
 	deleteMenu() {
 		const { deleteMenuById } = this.props;
 		deleteMenuById(this.state.currentMenu.id).then((response) => {
@@ -154,7 +160,7 @@ class AdminMenus extends Component {
 			selectedMeals.push({ mealId: item.id });
 		});
 		this.setState({
-			date: convertToUnixForUpdate(menu.unixTime),
+			date: convertUnixToDateForUpdate(menu.unixTime),
 			selectedMeals,
 			name: menu.name,
 			isShowingModal: true,
@@ -184,8 +190,10 @@ class AdminMenus extends Component {
 			<div id="content2" style={{ paddingBottom: 700 }}>
 				{empty(profile.businessName) ? SetupProfile :
 					<div>
-						<button onClick={this.toggleShowModal} className="button">Add Menu</button>
-						{empty(menus.alert) ? '' : <Alert alert={menus.alert} />}
+						<div className="col-11">
+							<button onClick={this.toggleShowModal} className="button">Add Menu</button>
+							{empty(menus.alert) ? '' : <Alert alert={menus.alert} />}
+						</div>
 
 						<div>
 							<Modal
@@ -250,7 +258,7 @@ class AdminMenus extends Component {
 						<div className="col-11" style={{ marginTop: 20 }}>
 							{ empty(menus.menus) ? '' :
 								<Accordion>
-									{ menus.menus.map(menu => <MenuAccordion toggleUpdateModal={() => this.toggleUpdateModal(menu)} toggleShowDeleteModal={() => this.toggleShowDeleteModal(menu)} menu={menu} key={menu.id} />) }
+									{ menus.menus.map(menu => <MenuAccordion showOpsButtons={this.showOpsButtons(menu.unixTime)} toggleUpdateModal={() => this.toggleUpdateModal(menu)} toggleShowDeleteModal={() => this.toggleShowDeleteModal(menu)} menu={menu} key={menu.id} />) }
 								</Accordion>
 							}
 						</div>

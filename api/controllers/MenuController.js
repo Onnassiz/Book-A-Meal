@@ -1,5 +1,19 @@
 
-import { menu, meal, menuMeal } from '../models';
+import { menu, meal, menuMeal, user, profile } from '../models';
+
+const menuViewModelFromArray = (meals) => {
+	const viewModel = [];
+	meals.forEach((item) => {
+		viewModel.push({
+			id: item.id,
+			name: item.name,
+			meals: item.meals,
+			unixTime: item.unixTime,
+			caterer: item.user.profile === null ? null : item.user.profile.businessName,
+		});
+	});
+	return viewModel;
+};
 
 class MenusController {
 	constructor() {
@@ -13,7 +27,7 @@ class MenusController {
 				model: meal,
 			}],
 			where: { userId: req.user.id },
-			order: ['unixTime'],
+			order: [['unixTime', 'DESC']],
 		}).then((menus) => {
 			res.status(200).send(menus);
 		});
@@ -58,13 +72,19 @@ class MenusController {
 	getMenusByTimeStamp(req, res) {
 		const timeStamp = parseInt(req.params.timeStamp, 10);
 		menu.findAll({
-			include: [{
-				model: meal,
-			}],
+			include: [
+				{
+					model: meal,
+				},
+				{
+					model: user,
+					include: [{ model: profile }],
+				},
+			],
 			where: { unixTime: timeStamp },
 		}).then((responseData) => {
 			if (responseData.length) {
-				res.status(200).send(responseData);
+				res.status(200).send(menuViewModelFromArray(responseData));
 			} else {
 				res.status(404).send({ message: 'Menu not found' });
 			}

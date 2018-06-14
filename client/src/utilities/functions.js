@@ -44,7 +44,7 @@ export function convertUnixToDate(unixTime) {
 	return '----';
 }
 
-export function convertToUnixForUpdate(unixTime) {
+export function convertUnixToDateForUpdate(unixTime) {
 	const dateTime = parseInt(unixTime, 10);
 	if (dateTime !== null) {
 		const dateAndTime = new Date(dateTime * 1000);
@@ -59,3 +59,27 @@ export function convertToUnixForUpdate(unixTime) {
 export const numberWithCommas = (x) => {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
+
+export function getCurrentDate() {
+	const today = new Date();
+	let dd = today.getDate();
+	let mm = today.getMonth() + 1; // January is 0!
+	const yyyy = today.getFullYear();
+
+	if (dd < 10) {
+		dd = `0${dd}`;
+	}
+
+	if (mm < 10) {
+		mm = `0${mm}`;
+	}
+
+	return `${yyyy}-${mm}-${dd}`;
+}
+
+export function compareAZ(a, b) {
+	if (a.name < b.name) { return -1; }
+	if (a.name > b.name) { return 1; }
+	return 0;
+}
+

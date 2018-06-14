@@ -8,6 +8,7 @@ import Profile from '../pages/Profile';
 import Home from '../pages/Home';
 import Meals from '../pages/Meals';
 import AdminMenus from '../pages/AdminMenus';
+import Menus from '../pages/Menus';
 
 
 class App extends Component {
@@ -52,6 +53,7 @@ class App extends Component {
 				<Route exact path="/caterer/business_profile" component={Profile} />
 				<Route exact path="/caterer/meals" component={Meals} />
 				<Route exact path="/caterer/menus" component={AdminMenus} />
+				<Route exact path="/menus" component={Menus} />
 			</Switch>
 		);
 		return (
@@ -59,7 +61,7 @@ class App extends Component {
 				<main>
 					{ this.state.isSignedIn ? userRoutes : guestRoutes }
 				</main>
-				<Footer />
+				{/* <Footer /> */}
 			</div>
 		);
 	}
