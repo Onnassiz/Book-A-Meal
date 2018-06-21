@@ -4,7 +4,7 @@ import { numberWithCommas } from '../../../utilities/functions';
 
 
 const CartItem = (props) => {
-	return (
+  return (
 		<div className="menu_item" key={props.meal.id}>
 			<h3>{ props.meal.name }</h3>
 			<div>
@@ -18,13 +18,13 @@ const CartItem = (props) => {
 			</div>
 			<hr />
 		</div>
-	);
+  );
 };
 
 CartItem.propTypes = {
-	meal: PropTypes.object.isRequired,
-	updateUnits: PropTypes.func.isRequired,
-	deleteFromCart: PropTypes.func.isRequired,
+  meal: PropTypes.object.isRequired,
+  updateUnits: PropTypes.func.isRequired,
+  deleteFromCart: PropTypes.func.isRequired,
 };
 
 export default CartItem;

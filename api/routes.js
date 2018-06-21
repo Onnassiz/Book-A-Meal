@@ -10,12 +10,12 @@ import orderRoutes from './routes/order.routes';
 import profileRoutes from './routes/profile.routes';
 
 export default function routes(app) {
-	app.post('/auth/signUp', signUpConstraints, validateFormData, AuthController.signUp);
-	app.post('/auth/signIn', signInConstraints, validateFormData, AuthController.signIn);
+  app.post('/auth/signUp', signUpConstraints, validateFormData, AuthController.signUp);
+  app.post('/auth/signIn', signInConstraints, validateFormData, AuthController.signIn);
 
-	mealRoutes(app);
-	menuRoutes(app);
-	orderRoutes(app);
-	profileRoutes(app);
+  mealRoutes(app);
+  menuRoutes(app);
+  orderRoutes(app);
+  profileRoutes(app);
 }
 

@@ -3,7 +3,7 @@ import empty from 'is-empty';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import {
-	Accordion,
+  Accordion,
 } from 'react-accessible-accordion';
 
 
@@ -20,173 +20,173 @@ import { convertUnixToDate, convertUnixToDateForUpdate, getCurrentDate } from '.
 
 
 class AdminMenus extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			date: '',
-			name: '',
-			updateMode: false,
-			currentMenu: {},
-			isShowingModal: false,
-			isShowingDeleteMeal: false,
-			selectedMeals: [],
-			errors: {},
-		};
-		this.toggleShowModal = this.toggleShowModal.bind(this);
-		this.pushToProfile = this.pushToProfile.bind(this);
-		this.onCheckBoxChange = this.onCheckBoxChange.bind(this);
-		this.onChange = this.onChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.toggleShowDeleteModal = this.toggleShowDeleteModal.bind(this);
-		this.deleteMenu = this.deleteMenu.bind(this);
-		this.isSelected = this.isSelected.bind(this);
-		this.showOpsButtons = this.showOpsButtons.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: '',
+      name: '',
+      updateMode: false,
+      currentMenu: {},
+      isShowingModal: false,
+      isShowingDeleteMeal: false,
+      selectedMeals: [],
+      errors: {},
+    };
+    this.toggleShowModal = this.toggleShowModal.bind(this);
+    this.pushToProfile = this.pushToProfile.bind(this);
+    this.onCheckBoxChange = this.onCheckBoxChange.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleShowDeleteModal = this.toggleShowDeleteModal.bind(this);
+    this.deleteMenu = this.deleteMenu.bind(this);
+    this.isSelected = this.isSelected.bind(this);
+    this.showOpsButtons = this.showOpsButtons.bind(this);
+  }
 
-	componentWillMount() {
-		const { user, history, getProfile, profile, getUserMenus, menus } = this.props;
-		if (user.role !== 'caterer') {
-			history.push('/');
-		}
+  componentWillMount() {
+    const { user, history, getProfile, profile, getUserMenus, menus } = this.props;
+    if (user.role !== 'caterer') {
+      history.push('/');
+    }
 
-		if (empty(profile)) {
-			getProfile();
-		}
+    if (empty(profile)) {
+      getProfile();
+    }
 
-		if (empty(menus.menus)) {
-			getUserMenus();
-		}
-	}
+    if (empty(menus.menus)) {
+      getUserMenus();
+    }
+  }
 
-	onCheckBoxChange(e, meal) {
-		const meals = this.state.selectedMeals;
-		if (e.target.checked) {
-			meals.push({ mealId: meal.id, price: meal.price });
-			this.setState({ selectedMeals: meals });
-		} else {
-			const index = meals.findIndex(x => x.mealId === e.target.value);
-			meals.splice(index, 1);
-			this.setState({ selectedMeals: meals });
-		}
-	}
+  onCheckBoxChange(e, meal) {
+    const meals = this.state.selectedMeals;
+    if (e.target.checked) {
+      meals.push({ mealId: meal.id, price: meal.price });
+      this.setState({ selectedMeals: meals });
+    } else {
+      const index = meals.findIndex(x => x.mealId === e.target.value);
+      meals.splice(index, 1);
+      this.setState({ selectedMeals: meals });
+    }
+  }
 
-	onChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
-	}
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-	isValid() {
-		this.setState({ errors: {} });
-		const { errors, isValid } = validateMenu(this.state);
-		if (!isValid) {
-			this.setState({ errors });
-		}
-		return isValid;
-	}
+  isValid() {
+    this.setState({ errors: {} });
+    const { errors, isValid } = validateMenu(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  }
 
-	resetFields() {
-		this.setState({ date: '', name: '', selectedMeals: [], updateMode: false });
-	}
+  resetFields() {
+    this.setState({ date: '', name: '', selectedMeals: [], updateMode: false });
+  }
 
-	handleSubmit(e) {
-		e.preventDefault();
-		if (this.isValid()) {
-			const { postMenu, updateMenu } = this.props;
-			const formData = {
-				id: this.state.currentMenu.id,
-				unixTime: new Date(this.state.date).getTime() / 1000,
-				name: this.state.name,
-				meals: this.state.selectedMeals,
-			};
-			if (this.state.updateMode) {
-				updateMenu(formData).then((response) => {
-					if (response.status === 200) {
-						this.resetFields();
-						this.toggleShowModal();
-					}
-				});
-			} else {
-				postMenu(formData).then((response) => {
-					if (response.status === 201) {
-						this.resetFields();
-						this.toggleShowModal();
-					}
-				});
-			}
-		}
-	}
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.isValid()) {
+      const { postMenu, updateMenu } = this.props;
+      const formData = {
+        id: this.state.currentMenu.id,
+        unixTime: new Date(this.state.date).getTime() / 1000,
+        name: this.state.name,
+        meals: this.state.selectedMeals,
+      };
+      if (this.state.updateMode) {
+        updateMenu(formData).then((response) => {
+          if (response.status === 200) {
+            this.resetFields();
+            this.toggleShowModal();
+          }
+        });
+      } else {
+        postMenu(formData).then((response) => {
+          if (response.status === 201) {
+            this.resetFields();
+            this.toggleShowModal();
+          }
+        });
+      }
+    }
+  }
 
-	showOpsButtons(unixTime) {
-		const currentTime = new Date(getCurrentDate()).getTime() / 1000;
-		return currentTime <= unixTime;
-	}
+  showOpsButtons(unixTime) {
+    const currentTime = new Date(getCurrentDate()).getTime() / 1000;
+    return currentTime <= unixTime;
+  }
 
-	deleteMenu() {
-		const { deleteMenuById } = this.props;
-		deleteMenuById(this.state.currentMenu.id).then((response) => {
-			if (response.status === 200) {
-				this.toggleShowDeleteModal({});
-			}
-		});
-	}
+  deleteMenu() {
+    const { deleteMenuById } = this.props;
+    deleteMenuById(this.state.currentMenu.id).then((response) => {
+      if (response.status === 200) {
+        this.toggleShowDeleteModal({});
+      }
+    });
+  }
 
-	pushToProfile() {
-		const { history } = this.props;
-		history.push('/caterer/business_profile');
-	}
+  pushToProfile() {
+    const { history } = this.props;
+    history.push('/caterer/business_profile');
+  }
 
-	toggleShowModal() {
-		const { meals, getMeals } = this.props;
-		if (empty(meals.meals)) {
-			getMeals();
-		}
-		if (this.state.isShowingModal) {
-			this.resetFields();
-		}
-		this.setState({ isShowingModal: !this.state.isShowingModal });
-	}
+  toggleShowModal() {
+    const { meals, getMeals } = this.props;
+    if (empty(meals.meals)) {
+      getMeals();
+    }
+    if (this.state.isShowingModal) {
+      this.resetFields();
+    }
+    this.setState({ isShowingModal: !this.state.isShowingModal });
+  }
 
-	toggleShowDeleteModal(menu) {
-		this.setState({ isShowingDeleteMeal: !this.state.isShowingDeleteMeal, currentMenu: menu });
-	}
+  toggleShowDeleteModal(menu) {
+    this.setState({ isShowingDeleteMeal: !this.state.isShowingDeleteMeal, currentMenu: menu });
+  }
 
-	toggleUpdateModal(menu) {
-		const { meals, getMeals } = this.props;
-		if (empty(meals.meals)) {
-			getMeals();
-		}
+  toggleUpdateModal(menu) {
+    const { meals, getMeals } = this.props;
+    if (empty(meals.meals)) {
+      getMeals();
+    }
 
-		const selectedMeals = [];
-		menu.meals.forEach((item) => {
-			selectedMeals.push({ mealId: item.id });
-		});
-		this.setState({
-			date: convertUnixToDateForUpdate(menu.unixTime),
-			selectedMeals,
-			name: menu.name,
-			isShowingModal: true,
-			updateMode: true,
-			currentMenu: menu,
-		});
-	}
+    const selectedMeals = [];
+    menu.meals.forEach((item) => {
+      selectedMeals.push({ mealId: item.id });
+    });
+    this.setState({
+      date: convertUnixToDateForUpdate(menu.unixTime),
+      selectedMeals,
+      name: menu.name,
+      isShowingModal: true,
+      updateMode: true,
+      currentMenu: menu,
+    });
+  }
 
-	isSelected(id) {
-		return this.state.selectedMeals.findIndex(x => x.mealId === id) !== -1;
-	}
+  isSelected(id) {
+    return this.state.selectedMeals.findIndex(x => x.mealId === id) !== -1;
+  }
 
-	render() {
-		const { formState, profile, menus, meals } = this.props;
-		const closeModalStyle = {
-			float: 'right',
-		};
+  render() {
+    const { formState, profile, menus, meals } = this.props;
+    const closeModalStyle = {
+      float: 'right',
+    };
 
-		const SetupProfile = (
+    const SetupProfile = (
 			<div className="col-12" style={{ textAlign: 'center' }}>
 				<h2>You have not created a Business Profile. You need a business profile before managing menus. Create a business profile first by clicking the link below.</h2>
 				<button className="button" onClick={this.pushToProfile}>Setup Profile</button>
 			</div>
-		);
+    );
 
-		return (
+    return (
 			<div id="content2" style={{ paddingBottom: 700 }}>
 				{empty(profile.businessName) ? SetupProfile :
 					<div>
@@ -264,23 +264,23 @@ class AdminMenus extends Component {
 						</div>
 					</div>}
 			</div>
-		);
-	}
+    );
+  }
 }
 
 AdminMenus.propTypes = {
-	user: PropTypes.object.isRequired,
-	menus: PropTypes.object.isRequired,
-	meals: PropTypes.object.isRequired,
-	history: PropTypes.object.isRequired,
-	profile: PropTypes.object.isRequired,
-	formState: PropTypes.object.isRequired,
-	getProfile: PropTypes.func.isRequired,
-	getMeals: PropTypes.func.isRequired,
-	postMenu: PropTypes.func.isRequired,
-	getUserMenus: PropTypes.func.isRequired,
-	deleteMenuById: PropTypes.func.isRequired,
-	updateMenu: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  menus: PropTypes.object.isRequired,
+  meals: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  formState: PropTypes.object.isRequired,
+  getProfile: PropTypes.func.isRequired,
+  getMeals: PropTypes.func.isRequired,
+  postMenu: PropTypes.func.isRequired,
+  getUserMenus: PropTypes.func.isRequired,
+  deleteMenuById: PropTypes.func.isRequired,
+  updateMenu: PropTypes.func.isRequired,
 };
 
 export default AdminMenus;

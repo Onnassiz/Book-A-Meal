@@ -4,28 +4,28 @@ import PropTypes from 'prop-types';
 import Logo from '../../../../assets/images/logo.png';
 
 class NavBar extends Component {
-	constructor(props) {
-		super(props);
-		this.signOut = this.signOut.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.signOut = this.signOut.bind(this);
+  }
 
-	signOut() {
-		localStorage.removeItem('id');
-		localStorage.removeItem('email');
-		localStorage.removeItem('name');
-		localStorage.removeItem('role');
-		localStorage.removeItem('token');
+  signOut() {
+    localStorage.removeItem('id');
+    localStorage.removeItem('email');
+    localStorage.removeItem('name');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
 
-		setTimeout(() => {
-			window.location = '/';
-		}, 500);
-	}
+    setTimeout(() => {
+      window.location = '/';
+    }, 500);
+  }
 
-	render() {
-		const { user, page, cart } = this.props;
-		// const initials = user.name.match(/\b(\w)/g).join('').toUpperCase();
-		const initials = 'BA';
-		return (
+  render() {
+    const { user, page, cart } = this.props;
+    // const initials = user.name.match(/\b(\w)/g).join('').toUpperCase();
+    const initials = 'BA';
+    return (
 			<header>
 				<h1 className="logo"><Link to="/"><img src={Logo} alt="logo" /></Link></h1>
 				<div className="nav-left">
@@ -72,13 +72,14 @@ class NavBar extends Component {
 					</ul>
 				</div>
 			</header>
-		);
-	}
+    );
+  }
 }
 
 NavBar.propTypes = {
-	user: PropTypes.object.isRequired,
-	page: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
+  page: PropTypes.string.isRequired,
 };
 
 export default NavBar;

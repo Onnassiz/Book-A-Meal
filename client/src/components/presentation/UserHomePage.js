@@ -3,8 +3,8 @@ import ImageSlider from './partials/ImageSlider';
 
 
 class UserHomePage extends Component {
-	render() {
-		return (
+  render() {
+    return (
 			<div>
 				<ImageSlider />
 				<div id="content3">
@@ -23,8 +23,8 @@ class UserHomePage extends Component {
 					</div>
 				</div>
 			</div>
-		);
-	}
+    );
+  }
 }
 
 export default UserHomePage;

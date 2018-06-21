@@ -4,23 +4,23 @@ import PropTypes from 'prop-types';
 import { getCurrentDate } from '../../../utilities/functions';
 
 const numberWithCommas = (x) => {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 const isAdded = (cart, id) => {
-	const items = cart.filter(x => x.id === id);
-	return items.length > 0;
+  const items = cart.filter(x => x.id === id);
+  return items.length > 0;
 };
 
 const Card = (props) => {
-	const todayDate = getCurrentDate();
-	const { cart } = props;
-	const button = (
+  const todayDate = getCurrentDate();
+  const { cart } = props;
+  const button = (
 		<span>
 			{ isAdded(cart, props.meal.id) ? <a className="add_button" onClick={props.removeFromCart}>Remove from cart</a> : <a className="add_button" onClick={props.addToCart}>Add to cart</a> }
 		</span>
-	);
-	return (
+  );
+  return (
 		<div className="card">
 			<div className="card-header">
 				{ empty(props.meal.imageUrl) ? '' : <img src={props.meal.imageUrl} alt="food" />}
@@ -54,15 +54,15 @@ const Card = (props) => {
 				</div>
 			</div>
 		</div>
-	);
+  );
 };
 
 Card.propTypes = {
-	meal: PropTypes.object.isRequired,
-	cart: PropTypes.array.isRequired,
-	currentDate: PropTypes.string.isRequired,
-	addToCart: PropTypes.func.isRequired,
-	removeFromCart: PropTypes.func.isRequired,
+  meal: PropTypes.object.isRequired,
+  cart: PropTypes.array.isRequired,
+  currentDate: PropTypes.string.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
 };
 
 export default Card;

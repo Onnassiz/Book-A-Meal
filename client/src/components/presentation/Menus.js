@@ -5,57 +5,57 @@ import { convertUnixToDateForUpdate } from '../../utilities/functions';
 import Card from './partials/MealCard';
 
 class Menus extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			date: props.menus.currentDate,
-		};
-		this.onChange = this.onChange.bind(this);
-		this.getMenuForDate = this.getMenuForDate.bind(this);
-		this.addToCart = this.addToCart.bind(this);
-		this.removeFromCart = this.removeFromCart.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: props.menus.currentDate,
+    };
+    this.onChange = this.onChange.bind(this);
+    this.getMenuForDate = this.getMenuForDate.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+  }
 
-	componentWillMount() {
-		const { getMenusByUnixTime } = this.props;
-		getMenusByUnixTime(this.state.date);
-	}
+  componentWillMount() {
+    const { getMenusByUnixTime } = this.props;
+    getMenusByUnixTime(this.state.date);
+  }
 
-	onChange(e) {
-		const { getMenusByUnixTime } = this.props;
-		let date = new Date(e.target.value);
-		date = convertUnixToDateForUpdate(date.setDate(date.getDate()) / 1000);
-		getMenusByUnixTime(date).then(() => {
-			this.setState({ date });
-		}).catch(() => {
-			this.setState({ date });
-		});
-	}
+  onChange(e) {
+    const { getMenusByUnixTime } = this.props;
+    let date = new Date(e.target.value);
+    date = convertUnixToDateForUpdate(date.setDate(date.getDate()) / 1000);
+    getMenusByUnixTime(date).then(() => {
+      this.setState({ date });
+    }).catch(() => {
+      this.setState({ date });
+    });
+  }
 
-	getMenuForDate(number) {
-		const { getMenusByUnixTime } = this.props;
-		let date = new Date(this.state.date);
-		date = convertUnixToDateForUpdate(date.setDate(date.getDate() + number) / 1000);
-		getMenusByUnixTime(date).then(() => {
-			this.setState({ date });
-		}).catch(() => {
-			this.setState({ date });
-		});
-	}
+  getMenuForDate(number) {
+    const { getMenusByUnixTime } = this.props;
+    let date = new Date(this.state.date);
+    date = convertUnixToDateForUpdate(date.setDate(date.getDate() + number) / 1000);
+    getMenusByUnixTime(date).then(() => {
+      this.setState({ date });
+    }).catch(() => {
+      this.setState({ date });
+    });
+  }
 
-	addToCart(meal) {
-		const { addToCart } = this.props;
-		addToCart(meal);
-	}
+  addToCart(meal) {
+    const { addToCart } = this.props;
+    addToCart(meal);
+  }
 
-	removeFromCart(mealId) {
-		const { deleteFromCart } = this.props;
-		deleteFromCart(mealId);
-	}
+  removeFromCart(mealId) {
+    const { deleteFromCart } = this.props;
+    deleteFromCart(mealId);
+  }
 
-	render() {
-		const { menus, cart } = this.props;
-		return (
+  render() {
+    const { menus, cart } = this.props;
+    return (
 			<div id="content2">
 				<div className="col-12">
 					<div className="dateInput">
@@ -71,15 +71,16 @@ class Menus extends Component {
 					</div>
 				</div>
 			</div>
-		);
-	}
+    );
+  }
 }
 
 Menus.propTypes = {
-	menus: PropTypes.object.isRequired,
-	getMenusByUnixTime: PropTypes.func.isRequired,
-	addToCart: PropTypes.func.isRequired,
-	deleteFromCart: PropTypes.func.isRequired,
+  menus: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
+  getMenusByUnixTime: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  deleteFromCart: PropTypes.func.isRequired,
 };
 export default Menus;
 

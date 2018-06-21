@@ -13,42 +13,42 @@ import Cart from '../pages/Cart';
 
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isSignedIn: false,
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSignedIn: false,
+    };
+  }
 
-	componentWillMount() {
-		axios.defaults.baseURL = process.env.API_URL;
-		axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
-		const token = localStorage.getItem('token');
-		if (token !== '' && token !== null) {
-			axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-			const { setUser } = this.props;
-			const id = localStorage.getItem('id');
-			const name = localStorage.getItem('name');
-			const email = localStorage.getItem('email');
-			const role = localStorage.getItem('role');
-			const user = { id, name, email, role };
+  componentWillMount() {
+    axios.defaults.baseURL = process.env.API_URL;
+    axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+    const token = localStorage.getItem('token');
+    if (token !== '' && token !== null) {
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      const { setUser } = this.props;
+      const id = localStorage.getItem('id');
+      const name = localStorage.getItem('name');
+      const email = localStorage.getItem('email');
+      const role = localStorage.getItem('role');
+      const user = { id, name, email, role };
 
-			setUser(user);
-			this.setSignedIn();
-		}
-	}
+      setUser(user);
+      this.setSignedIn();
+    }
+  }
 
-	setSignedIn() {
-		this.setState({ isSignedIn: true });
-	}
+  setSignedIn() {
+    this.setState({ isSignedIn: true });
+  }
 
-	render() {
-		const guestRoutes = (
+  render() {
+    const guestRoutes = (
 			<Switch>
 				<Route exact path="/" component={Home} />
 			</Switch>
-		);
-		const userRoutes = (
+    );
+    const userRoutes = (
 			<Switch>
 				<Route exact path="/" component={UserHomePage} />
 				<Route exact path="/caterer/business_profile" component={Profile} />
@@ -57,20 +57,20 @@ class App extends Component {
 				<Route exact path="/menus" component={Menus} />
 				<Route exact path="/cart" component={Cart} />
 			</Switch>
-		);
-		return (
+    );
+    return (
 			<div>
 				<main>
 					{ this.state.isSignedIn ? userRoutes : guestRoutes }
 				</main>
 				{/* <Footer /> */}
 			</div>
-		);
-	}
+    );
+  }
 }
 
 App.propTypes = {
-	setUser: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
 };
 
 export default App;

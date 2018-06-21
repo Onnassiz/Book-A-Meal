@@ -5,8 +5,8 @@ import { validateFormData, validParamId } from '../middlewares/validate';
 
 
 export default function menuRoutes(app) {
-	app.get('/profile', verifyAuthToken, validateCatererToken, validateFormData, ProfileController.getProfile);
-	app.post('/profile', verifyAuthToken, validateCatererToken, profileFormConstraints, validateFormData, ProfileController.postProfile);
-	app.put('/profile/:id', verifyAuthToken, validateCatererToken, validParamId, profileFormConstraints, validateFormData, ProfileController.putProfile);
-	app.put('/profile/image/:id', verifyAuthToken, validateCatererToken, validParamId, profileBannerConstraints, validateFormData, ProfileController.putImage);
+  app.get('/profile', verifyAuthToken, validateCatererToken, validateFormData, ProfileController.getProfile);
+  app.post('/profile', verifyAuthToken, validateCatererToken, profileFormConstraints, validateFormData, ProfileController.postProfile);
+  app.put('/profile/:id', verifyAuthToken, validateCatererToken, validParamId, profileFormConstraints, validateFormData, ProfileController.putProfile);
+  app.put('/profile/image/:id', verifyAuthToken, validateCatererToken, validParamId, profileBannerConstraints, validateFormData, ProfileController.putImage);
 }

@@ -6,86 +6,77 @@ import loaderImage from '../../../assets/images/loader.gif';
 import { deleteModalStyle } from './../../utilities/modalStyles';
 
 class Cart extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			totalPrice: 0,
-			showModal: false,
-		};
-		this.updateUnits = this.updateUnits.bind(this);
-		this.deleteMeal = this.deleteMeal.bind(this);
-		this.toggleOrderModal = this.toggleOrderModal.bind(this);
-		this.placeOrder = this.placeOrder.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalPrice: 0,
+      showModal: false,
+    };
+    this.updateUnits = this.updateUnits.bind(this);
+    this.deleteMeal = this.deleteMeal.bind(this);
+    this.toggleOrderModal = this.toggleOrderModal.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
+  }
 
-	componentWillMount() {
-		this.calculateTotalPrice();
-	}
+  componentWillMount() {
+    this.calculateTotalPrice();
+  }
 
-	calculateTotalPrice() {
-		const $this = this;
-		setTimeout(() => {
-			const { cart } = this.props;
-			let totalPrice = 0;
-			cart.cart.forEach((meal) => {
-				totalPrice += meal.totalPrice;
-			});
-			$this.setState({ totalPrice });
-		}, 300);
-	}
+  calculateTotalPrice() {
+    const $this = this;
+    setTimeout(() => {
+      const { cart } = this.props;
+      let totalPrice = 0;
+      cart.cart.forEach((meal) => {
+        totalPrice += meal.totalPrice;
+      });
+      $this.setState({ totalPrice });
+    }, 300);
+  }
 
-	toggleOrderModal() {
-		this.setState({ showModal: !this.state.showModal });
-	}
+  toggleOrderModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
 
-	processPayload() {
-		const { user, cart } = this.props;
-		const meals = [];
-		cart.cart.forEach((meal) => {
-			meals.push({
-				mealId: meal.id,
-				price: meal.price,
-				units: meal.units,
-				profileId: meal.profileId,
-			});
-		});
-		const payload = {
-			userId: user.id,
-			meals,
-		};
-		return payload;
-	}
+  processPayload() {
+    const { user, cart } = this.props;
+    const meals = [];
+    cart.cart.forEach((meal) => {
+      meals.push({
+        mealId: meal.id,
+        price: meal.price,
+        units: meal.units,
+        profileId: meal.profileId,
+      });
+    });
+    const payload = {
+      userId: user.id,
+      meals,
+    };
+    return payload;
+  }
 
-	testIndent() {
-		console.log(true);
-	}
+  updateUnits(e, currentMeal) {
+    const { value } = e.target;
+    if (value > 0) {
+      const { updateCart } = this.props;
+      const meal = currentMeal;
+      meal.units = parseInt(value, 10);
+      meal.totalPrice = value * meal.price;
+      updateCart(meal);
+      this.calculateTotalPrice();
+    }
+  }
 
-	placeOrder() {
-		const payload = this.processPayload();
-		console.log(payload);
-	}
+  deleteMeal(id) {
+    const { deleteFromCart } = this.props;
+    deleteFromCart(id);
+    this.calculateTotalPrice();
+  }
 
-	updateUnits(e, currentMeal) {
-		const { value } = e.target;
-		if (value > 0) {
-			const { updateCart } = this.props;
-			const meal = currentMeal;
-			meal.units = parseInt(value, 10);
-			meal.totalPrice = value * meal.price;
-			updateCart(meal);
-			this.calculateTotalPrice();
-		}
-	}
-
-	deleteMeal(id) {
-		const { deleteFromCart } = this.props;
-		deleteFromCart(id);
-		this.calculateTotalPrice();
-	}
-
-	render() {
-		const { cart, formState } = this.props;
-		return (
+  render() {
+    const { cart, formState } = this.props;
+    return (
 			<div id="content2">
 				{ cart.cart.length ?
 					<div>
@@ -131,16 +122,16 @@ class Cart extends Component {
 						<h2>You have not added any meals to the cart.</h2>
 					</div> }
 			</div>
-		);
-	}
+    );
+  }
 }
 
 Cart.propTypes = {
-	user: PropTypes.object.isRequired,
-	cart: PropTypes.object.isRequired,
-	updateCart: PropTypes.func.isRequired,
-	formState: PropTypes.object.isRequired,
-	deleteFromCart: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
+  updateCart: PropTypes.func.isRequired,
+  formState: PropTypes.object.isRequired,
+  deleteFromCart: PropTypes.func.isRequired,
 };
 
 export default Cart;

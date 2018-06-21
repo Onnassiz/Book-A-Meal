@@ -7,27 +7,27 @@ import { postMenu, getUserMenus, deleteMenuById, updateMenu } from '../../reduce
 import AdminMenus from '../presentation/AdminMenus';
 
 const mapStateToProps = (state) => {
-	return {
-		menus: state.menus,
-		meals: state.meals,
-		user: state.user,
-		profile: state.profile,
-		formState: state.formState,
-	};
+  return {
+    menus: state.menus,
+    meals: state.meals,
+    user: state.user,
+    profile: state.profile,
+    formState: state.formState,
+  };
 };
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({
-		postMenu,
-		deleteMenuById,
-		getUserMenus,
-		getMeals,
-		getProfile,
-		updateMenu,
-	}, dispatch);
+  return bindActionCreators({
+    postMenu,
+    deleteMenuById,
+    getUserMenus,
+    getMeals,
+    getProfile,
+    updateMenu,
+  }, dispatch);
 }
 
 export default withRouter(connect(
-	mapStateToProps,
-	mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(AdminMenus));
