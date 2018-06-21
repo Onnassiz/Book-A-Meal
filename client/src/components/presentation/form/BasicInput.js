@@ -22,34 +22,34 @@ export const Checkbox = props => (
 );
 
 BasicInput.propTypes = {
-	name: PropTypes.string.isRequired,
-	label: PropTypes.string,
-	type: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired,
-	onChange: PropTypes.func.isRequired,
-	hasError: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  hasError: PropTypes.bool,
 };
 
 BasicInput.defaultProps = {
-	hasError: false,
-	label: '',
+  hasError: false,
+  label: '',
 };
 
 TextArea.propTypes = {
-	name: PropTypes.string.isRequired,
-	label: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired,
-	onChange: PropTypes.func.isRequired,
-	hasError: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  hasError: PropTypes.bool,
 };
 
 Checkbox.propTypes = {
-	meal: PropTypes.object.isRequired,
-	isChecked: PropTypes.bool.isRequired,
-	onChange: PropTypes.func.isRequired,
+  meal: PropTypes.object.isRequired,
+  isChecked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 TextArea.defaultProps = {
-	hasError: false,
+  hasError: false,
 };
 

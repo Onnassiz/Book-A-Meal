@@ -80,6 +80,7 @@ a{
   background: none;
   border: solid 1px #7E9C18;
   color: #7E9C18;
+  margin: 10px;
 }
 
 .button-error {
@@ -236,20 +237,52 @@ table{
   }
 }
 
+#cart_summary{
+  width: 100%;
+  padding: 10px;
+  background: #f1f1f1;
+  border-radius: 4px;
+  box-shadow: 0px 0px 20px #817c7c;
+
+  h2{
+    color: $headerBackground;
+    font-family: $headerLinkFont;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .cart_summary_body{
+    margin-top: 10px;
+    p{
+      margin: 0px 10px 0px 10px;
+    }
+
+    .num{
+      display: block;
+      font-size: 17px;
+    }
+
+    button{
+      width: 100%;
+      background: $headerBackground;
+      border-radius: 4px;
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      cursor: pointer;
+      padding: 8px 0;
+      transition: 0.2s all;
+
+      &:hover {
+        color: $offGreen;
+      }
+    }
+  }
+}
+
 #card_container{
   width: 100%;
   margin: auto;
-
-  #no-menu {
-    text-align: center;
-    padding: 70px;
-
-    h2{
-      color: $headerBackground;
-      font-family: $headerLinkFont;
-      font-size: 30px;
-    }
-  }
 
   .card {
     width: 290px;
@@ -352,7 +385,7 @@ table{
           transition: 0.2s all;
 
           &:hover {
-            color: #604a37;
+            color: $offGreen;
           }
         }
       }
@@ -441,6 +474,10 @@ table{
 
   b{
     color: #4D4D4D;
+  }
+
+  input[type="number"]{
+    width: 30px;
   }
 }
 
@@ -620,6 +657,47 @@ table{
   color: $headerBackground;
   font-size: 12px;
   margin-left: 10px;
+}
+
+/* Class or Id doesn't matter */
+.dynamic-badge {
+  position:relative;
+  margin-right: 10px;
+}
+
+.dynamic-badge[data-badge]:after {
+  content:attr(data-badge);
+
+  position:absolute;
+  top:-15px;
+  right:-18px;
+
+  font-size:11px;
+  font-family:"Roboto","Helvetica","Arial",sans-serif;
+  font-weight:600;
+
+  text-align:center;
+  line-height:23px;
+
+  background:$offGreen;
+  color:white;
+
+  width:22px;
+  height:22px;           
+
+  border-radius:50%;
+  /* box-shadow:1px 2px 5px #888; */
+}
+
+#no-menu {
+  text-align: center;
+  padding: 70px;
+
+  h2{
+    color: $headerBackground;
+    font-family: $headerLinkFont;
+    font-size: 30px;
+  }
 }
 
 // ::-webkit-scrollbar {

@@ -23,11 +23,11 @@ describe('Meal Controller', () => {
 	describe('GetMeals', () => {
 		before((done) => {
 			TestUtil.insertMeals(done, false);
-			TestUtil.insertProfile(done);
+			TestUtil.insertProfile(done, true);
 		});
 
 		after((done) => {
-			TestUtil.deleteMeals(done);
+			TestUtil.deleteMeals(done, true);
 		});
 
 		it('should return unauthorized (401) if request is made without token', (done) => {
@@ -38,7 +38,7 @@ describe('Meal Controller', () => {
 		});
 
 		it('should return unauthorized (401) if request is made with a wrong token', (done) => {
-			request.get({ url: `${baseUrl}/meals`, headers: { Authorization: 'Bearer jskdfjk' } }, (error, response) => {
+			request.get({ url: `${baseUrl}/meals`, headers: { Authorization: 'Bearer wrong' } }, (error, response) => {
 				expect(response.statusCode).to.equal(401);
 				done();
 			});
@@ -88,7 +88,7 @@ describe('Meal Controller', () => {
 		});
 
 		after((done) => {
-			TestUtil.deleteMeals(done);
+			TestUtil.deleteMeals(done, true);
 		});
 
 		it('should return unauthorized (401) if request is made without token', (done) => {
@@ -112,7 +112,7 @@ describe('Meal Controller', () => {
 				name: '',
 				price: 2000,
 				category: 'Hot meal',
-				imageUrl: 'httcom',
+				imageUrl: 'http',
 			};
 			request.post({ url: `${baseUrl}/meals`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
 				expect(response.statusCode).to.equal(400);
@@ -182,7 +182,7 @@ describe('Meal Controller', () => {
 
 		it('should return status (400) when wrong image url is used', (done) => {
 			const formData = {
-				imageUrl: 'wrongurl',
+				imageUrl: 'wrongUrl',
 			};
 
 			TestUtil.getMealId().then((mealId) => {
@@ -224,7 +224,7 @@ describe('Meal Controller', () => {
 		});
 
 		after((done) => {
-			TestUtil.deleteMeals(done);
+			TestUtil.deleteMeals(done, true);
 		});
 
 		it('should return status (404) and delete meal', (done) => {

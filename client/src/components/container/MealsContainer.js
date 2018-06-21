@@ -6,28 +6,28 @@ import { postMeal, getMeals, updateMeal, deleteMealById, putImage } from '../../
 import Meals from '../presentation/Meals';
 
 const mapStateToProps = (state) => {
-	return {
-		meals: state.meals,
-		user: state.user,
-		profile: state.profile,
-		formState: state.formState,
-	};
+  return {
+    meals: state.meals,
+    user: state.user,
+    profile: state.profile,
+    formState: state.formState,
+  };
 };
 
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({
-		getMeals,
-		postMeal,
-		getProfile,
-		putImage,
-		updateMeal,
-		deleteMealById,
-	}, dispatch);
+  return bindActionCreators({
+    getMeals,
+    postMeal,
+    getProfile,
+    putImage,
+    updateMeal,
+    deleteMealById,
+  }, dispatch);
 }
 
 
 export default withRouter(connect(
-	mapStateToProps,
-	mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(Meals));

@@ -3,14 +3,14 @@ import MealsContainer from '../container/MealsContainer';
 import NavBarContainer from '../container/NavBarContainer';
 
 class Profile extends Component {
-	render() {
-		return (
+  render() {
+    return (
 			<div>
 				<NavBarContainer page="caterer" />
 				<MealsContainer />
 			</div>
-		);
-	}
+    );
+  }
 }
 
 export default Profile;

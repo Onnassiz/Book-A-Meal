@@ -8,33 +8,33 @@ import image3 from '../../../../assets/images/homeSlider/image_3.jpg';
 import image4 from '../../../../assets/images/homeSlider/image_4.jpg';
 
 class ImageSlider extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			images: [],
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      images: [],
+    };
+  }
 
-	componentWillMount() {
-		const images = [
-			{
-				original: image3,
-			},
-			{
-				original: image2,
-			},
-			{
-				original: image1,
-			},
-			{
-				original: image4,
-			},
-		];
-		this.setState({ images });
-	}
+  componentWillMount() {
+    const images = [
+      {
+        original: image3,
+      },
+      {
+        original: image2,
+      },
+      {
+        original: image1,
+      },
+      {
+        original: image4,
+      },
+    ];
+    this.setState({ images });
+  }
 
-	render() {
-		return (
+  render() {
+    return (
 			<div id="imageSlider">
 				<ImageGallery
 					items={this.state.images}
@@ -44,8 +44,8 @@ class ImageSlider extends Component {
 					showPlayButton={false}
 				/>
 			</div>
-		);
-	}
+    );
+  }
 }
 
 export default ImageSlider;
