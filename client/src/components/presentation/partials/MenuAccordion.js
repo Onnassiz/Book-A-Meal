@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-	AccordionItem,
-	AccordionItemTitle,
-	AccordionItemBody,
+  AccordionItem,
+  AccordionItemTitle,
+  AccordionItemBody,
 } from 'react-accessible-accordion';
 import { convertUnixToDate } from '../../../utilities/functions';
 
 const MenuAccordion = (props) => {
-	return (
+  return (
 		<AccordionItem>
 			<AccordionItemTitle>
 				<h3 className="u-position-relative">
@@ -23,7 +23,7 @@ const MenuAccordion = (props) => {
 					<div className="menu_item" key={meal.id}>
 						<h3>{ meal.name }</h3>
 						<div>
-							<p><b>Description:</b>{meal.description}</p>
+							<p><b>Description:</b> {meal.description}</p>
 							<p><b>Category: </b>{ meal.category }</p>
 							<p><b>Price: </b>{ meal.price }</p>
 						</div>
@@ -38,14 +38,14 @@ const MenuAccordion = (props) => {
 					</div>}
 			</AccordionItemBody>
 		</AccordionItem>
-	);
+  );
 };
 
 MenuAccordion.propTypes = {
-	menu: PropTypes.object.isRequired,
-	toggleUpdateModal: PropTypes.func.isRequired,
-	toggleShowDeleteModal: PropTypes.func.isRequired,
-	showOpsButtons: PropTypes.bool.isRequired,
+  menu: PropTypes.object.isRequired,
+  toggleUpdateModal: PropTypes.func.isRequired,
+  toggleShowDeleteModal: PropTypes.func.isRequired,
+  showOpsButtons: PropTypes.bool.isRequired,
 };
 
 export default MenuAccordion;

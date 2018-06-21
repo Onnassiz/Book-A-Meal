@@ -12,175 +12,175 @@ import MealsTableRow from './partials/MealsTableRow';
 import loaderImage from '../../../assets/images/loader.gif';
 
 class Meals extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			id: '',
-			name: '',
-			price: '',
-			category: '',
-			description: '',
-			updateMode: false,
-			currentMeal: {},
-			isShowingModal: false,
-			isShowingAddPhoto: false,
-			isShowingDeleteMeal: false,
-			isShowingDropZoneModal: false,
-			errors: {},
-		};
-		this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
-		this.toggleDropZone = this.toggleDropZone.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.onChange = this.onChange.bind(this);
-		this.putImage = this.putImage.bind(this);
-		this.pushToProfile = this.pushToProfile.bind(this);
-		this.toggleUpdateModal = this.toggleUpdateModal.bind(this);
-		this.toggleShowDeleteModal = this.toggleShowDeleteModal.bind(this);
-		this.toggleAddPhoto = this.toggleAddPhoto.bind(this);
-		this.deleteMeal = this.deleteMeal.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: '',
+      name: '',
+      price: '',
+      category: '',
+      description: '',
+      updateMode: false,
+      currentMeal: {},
+      isShowingModal: false,
+      isShowingAddPhoto: false,
+      isShowingDeleteMeal: false,
+      isShowingDropZoneModal: false,
+      errors: {},
+    };
+    this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
+    this.toggleDropZone = this.toggleDropZone.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.putImage = this.putImage.bind(this);
+    this.pushToProfile = this.pushToProfile.bind(this);
+    this.toggleUpdateModal = this.toggleUpdateModal.bind(this);
+    this.toggleShowDeleteModal = this.toggleShowDeleteModal.bind(this);
+    this.toggleAddPhoto = this.toggleAddPhoto.bind(this);
+    this.deleteMeal = this.deleteMeal.bind(this);
+  }
 
-	componentWillMount() {
-		const { user, history, getProfile, profile, meals, getMeals } = this.props;
-		if (user.role !== 'caterer') {
-			history.push('/');
-		}
+  componentWillMount() {
+    const { user, history, getProfile, profile, meals, getMeals } = this.props;
+    if (user.role !== 'caterer') {
+      history.push('/');
+    }
 
-		if (empty(profile)) {
-			getProfile();
-		}
+    if (empty(profile)) {
+      getProfile();
+    }
 
-		if (empty(meals.meals)) {
-			getMeals();
-		}
-	}
+    if (empty(meals.meals)) {
+      getMeals();
+    }
+  }
 
-	onChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
-	}
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-	toggleDropZone() {
-		this.setState({ isShowingDropZoneModal: !this.state.isShowingDropZoneModal });
-	}
+  toggleDropZone() {
+    this.setState({ isShowingDropZoneModal: !this.state.isShowingDropZoneModal });
+  }
 
-	putImage(image) {
-		const { putImage } = this.props;
-		const field = {
-			imageUrl: image,
-		};
+  putImage(image) {
+    const { putImage } = this.props;
+    const field = {
+      imageUrl: image,
+    };
 
-		putImage(this.state.currentMeal.id, field).then((response) => {
-			if (response.status === 200) {
-				this.toggleAddPhoto({});
-			}
-		});
-	}
+    putImage(this.state.currentMeal.id, field).then((response) => {
+      if (response.status === 200) {
+        this.toggleAddPhoto({});
+      }
+    });
+  }
 
-	isValid() {
-		this.setState({ errors: {} });
-		const { errors, isValid } = validateMeal(this.state);
-		if (!isValid) {
-			this.setState({ errors });
-		}
-		return isValid;
-	}
+  isValid() {
+    this.setState({ errors: {} });
+    const { errors, isValid } = validateMeal(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  }
 
-	handleAddButtonClick() {
-		this.resetFields();
-		this.setState({ isShowingModal: !this.state.isShowingModal });
-	}
+  handleAddButtonClick() {
+    this.resetFields();
+    this.setState({ isShowingModal: !this.state.isShowingModal });
+  }
 
-	handleSubmit(e) {
-		e.preventDefault();
-		if (this.isValid()) {
-			const { postMeal, updateMeal } = this.props;
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.isValid()) {
+      const { postMeal, updateMeal } = this.props;
 
-			const formData = {
-				id: this.state.id,
-				name: this.state.name,
-				category: this.state.category,
-				price: parseInt(this.state.price, 10),
-				description: this.state.description,
-			};
+      const formData = {
+        id: this.state.id,
+        name: this.state.name,
+        category: this.state.category,
+        price: parseInt(this.state.price, 10),
+        description: this.state.description,
+      };
 
-			if (!this.state.updateMode) {
-				postMeal(formData).then((response) => {
-					if (response.status === 201) {
-						this.resetFields();
-						this.handleAddButtonClick();
-					}
-				});
-			} else {
-				updateMeal(formData).then((response) => {
-					if (response.status === 200) {
-						this.resetFields();
-						this.handleAddButtonClick();
-					}
-				});
-			}
-		}
-	}
+      if (!this.state.updateMode) {
+        postMeal(formData).then((response) => {
+          if (response.status === 201) {
+            this.resetFields();
+            this.handleAddButtonClick();
+          }
+        });
+      } else {
+        updateMeal(formData).then((response) => {
+          if (response.status === 200) {
+            this.resetFields();
+            this.handleAddButtonClick();
+          }
+        });
+      }
+    }
+  }
 
-	pushToProfile() {
-		const { history } = this.props;
-		history.push('/caterer/business_profile');
-	}
+  pushToProfile() {
+    const { history } = this.props;
+    history.push('/caterer/business_profile');
+  }
 
-	resetFields() {
-		this.setState({
-			updateMode: false,
-			name: '',
-			price: '',
-			description: '',
-			category: '',
-			id: '',
-		});
-	}
+  resetFields() {
+    this.setState({
+      updateMode: false,
+      name: '',
+      price: '',
+      description: '',
+      category: '',
+      id: '',
+    });
+  }
 
-	toggleUpdateModal(item) {
-		this.setState({
-			updateMode: true,
-			name: item.name,
-			price: item.price.toString(),
-			description: item.description === null ? '' : item.description,
-			category: item.category,
-			id: item.id,
-			isShowingModal: !this.state.isShowingModal,
-		});
-	}
+  toggleUpdateModal(item) {
+    this.setState({
+      updateMode: true,
+      name: item.name,
+      price: item.price.toString(),
+      description: item.description === null ? '' : item.description,
+      category: item.category,
+      id: item.id,
+      isShowingModal: !this.state.isShowingModal,
+    });
+  }
 
-	toggleShowDeleteModal(meal) {
-		this.setState({ isShowingDeleteMeal: !this.state.isShowingDeleteMeal, currentMeal: meal });
-	}
+  toggleShowDeleteModal(meal) {
+    this.setState({ isShowingDeleteMeal: !this.state.isShowingDeleteMeal, currentMeal: meal });
+  }
 
-	toggleAddPhoto(meal) {
-		this.setState({ isShowingAddPhoto: !this.state.isShowingAddPhoto, currentMeal: meal });
-	}
+  toggleAddPhoto(meal) {
+    this.setState({ isShowingAddPhoto: !this.state.isShowingAddPhoto, currentMeal: meal });
+  }
 
-	deleteMeal() {
-		const { deleteMealById } = this.props;
-		deleteMealById(this.state.currentMeal.id).then((response) => {
-			if (response.status === 200) {
-				this.toggleShowDeleteModal(false);
-				this.setState({ currentMeal: {} });
-			}
-		});
-	}
+  deleteMeal() {
+    const { deleteMealById } = this.props;
+    deleteMealById(this.state.currentMeal.id).then((response) => {
+      if (response.status === 200) {
+        this.toggleShowDeleteModal(false);
+        this.setState({ currentMeal: {} });
+      }
+    });
+  }
 
-	render() {
-		const { formState, profile, meals, user } = this.props;
-		const closeModalStyle = {
-			float: 'right',
-		};
+  render() {
+    const { formState, profile, meals, user } = this.props;
+    const closeModalStyle = {
+      float: 'right',
+    };
 
-		const SetupProfile = (
+    const SetupProfile = (
 			<div className="col-12" style={{ textAlign: 'center' }}>
 				<h2>You have not created a Business Profile. You need a business profile before managing meals. Create a business profile first by clicking the link below.</h2>
 				<button className="button" onClick={this.pushToProfile}>Setup Profile</button>
 			</div>
-		);
+    );
 
-		return (
+    return (
 			<div id="content2" style={{ paddingBottom: 700 }}>
 				{empty(profile.businessName) ? SetupProfile :
 					<div className="col-11">
@@ -231,7 +231,7 @@ class Meals extends Component {
 									<br />
 									<p>
 										<button onClick={this.toggleShowDeleteModal} className="button-default">Close</button>
-										<button onClick={this.deleteMeal} className="button-error" disabled={formState.isLoading}>Delete</button>
+										<button onClick={this.deleteMeal} style={{ float: 'right' }} className="button-error" disabled={formState.isLoading}>Delete</button>
 										<img style={{ float: 'right' }} src={loaderImage} alt="loader" hidden={!formState.isLoading} />
 									</p>
 								</div>
@@ -281,22 +281,22 @@ class Meals extends Component {
 					</div>
 				}
 			</div>
-		);
-	}
+    );
+  }
 }
 
 Meals.propTypes = {
-	user: PropTypes.object.isRequired,
-	meals: PropTypes.object.isRequired,
-	history: PropTypes.object.isRequired,
-	profile: PropTypes.object.isRequired,
-	formState: PropTypes.object.isRequired,
-	postMeal: PropTypes.func.isRequired,
-	updateMeal: PropTypes.func.isRequired,
-	deleteMealById: PropTypes.func.isRequired,
-	getMeals: PropTypes.func.isRequired,
-	putImage: PropTypes.func.isRequired,
-	getProfile: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  meals: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  formState: PropTypes.object.isRequired,
+  postMeal: PropTypes.func.isRequired,
+  updateMeal: PropTypes.func.isRequired,
+  deleteMealById: PropTypes.func.isRequired,
+  getMeals: PropTypes.func.isRequired,
+  putImage: PropTypes.func.isRequired,
+  getProfile: PropTypes.func.isRequired,
 };
 
 export default Meals;

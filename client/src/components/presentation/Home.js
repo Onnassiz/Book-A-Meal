@@ -6,92 +6,92 @@ import SubmitButton from '../presentation/form/SubmitButton';
 import { validateSignUp, validateSignIn } from '../../utilities/validateAuthForms';
 
 class Home extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			checked: false,
-			fullName: '',
-			signUpEmail: '',
-			signInEmail: '',
-			signInPassword: '',
-			password: '',
-			role: '',
-			confirm_password: '',
-			signUpErrors: {},
-			signInErrors: {},
-			errors: {},
-		};
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
-		this.onChange = this.onChange.bind(this);
-		this.onCheckBoxChange = this.onCheckBoxChange.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: false,
+      fullName: '',
+      signUpEmail: '',
+      signInEmail: '',
+      signInPassword: '',
+      password: '',
+      role: '',
+      confirm_password: '',
+      signUpErrors: {},
+      signInErrors: {},
+      errors: {},
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onCheckBoxChange = this.onCheckBoxChange.bind(this);
+  }
 
-	onChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
-	}
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-	onCheckBoxChange(e) {
-		this.setState({
-			checked: !this.state.checked,
-		});
+  onCheckBoxChange(e) {
+    this.setState({
+      checked: !this.state.checked,
+    });
 
-		const { value } = e.target;
-		this.setState({ role: value });
-	}
+    const { value } = e.target;
+    this.setState({ role: value });
+  }
 
-	isValid() {
-		this.setState({ signUpErrors: {} });
-		const { errors, isValid } = validateSignUp(this.state);
-		if (!isValid) {
-			this.setState({ signUpErrors: errors });
-		}
-		return isValid;
-	}
+  isValid() {
+    this.setState({ signUpErrors: {} });
+    const { errors, isValid } = validateSignUp(this.state);
+    if (!isValid) {
+      this.setState({ signUpErrors: errors });
+    }
+    return isValid;
+  }
 
-	isValidSignIn() {
-		this.setState({ signInErrors: {} });
-		const { errors, isValid } = validateSignIn(this.state);
-		if (!isValid) {
-			this.setState({ signInErrors: errors });
-		}
-		return isValid;
-	}
+  isValidSignIn() {
+    this.setState({ signInErrors: {} });
+    const { errors, isValid } = validateSignIn(this.state);
+    if (!isValid) {
+      this.setState({ signInErrors: errors });
+    }
+    return isValid;
+  }
 
-	handleSubmit(e) {
-		e.preventDefault();
-		if (this.isValid()) {
-			const formData = {
-				fullName: this.state.fullName,
-				email: this.state.signUpEmail,
-				password: this.state.password,
-			};
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.isValid()) {
+      const formData = {
+        fullName: this.state.fullName,
+        email: this.state.signUpEmail,
+        password: this.state.password,
+      };
 
-			if (this.state.checked) {
-				formData.role = this.state.role;
-			}
+      if (this.state.checked) {
+        formData.role = this.state.role;
+      }
 
-			const { postUser } = this.props;
-			postUser(formData);
-		}
-	}
+      const { postUser } = this.props;
+      postUser(formData);
+    }
+  }
 
-	handleSignInSubmit(e) {
-		e.preventDefault();
-		if (this.isValidSignIn()) {
-			const formData = {
-				email: this.state.signInEmail,
-				password: this.state.signInPassword,
-			};
+  handleSignInSubmit(e) {
+    e.preventDefault();
+    if (this.isValidSignIn()) {
+      const formData = {
+        email: this.state.signInEmail,
+        password: this.state.signInPassword,
+      };
 
-			const { signInUser } = this.props;
-			signInUser(formData);
-		}
-	}
+      const { signInUser } = this.props;
+      signInUser(formData);
+    }
+  }
 
-	render() {
-		const { user, formState } = this.props;
-		return (
+  render() {
+    const { user, formState } = this.props;
+    return (
 			<div>
 				<div id="banner" />
 				<div id="content">
@@ -154,15 +154,15 @@ class Home extends Component {
 					</div>
 				</div>
 			</div>
-		);
-	}
+    );
+  }
 }
 
 Home.propTypes = {
-	signInUser: PropTypes.func.isRequired,
-	postUser: PropTypes.func.isRequired,
-	user: PropTypes.object.isRequired,
-	formState: PropTypes.object.isRequired,
+  signInUser: PropTypes.func.isRequired,
+  postUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  formState: PropTypes.object.isRequired,
 };
 
 

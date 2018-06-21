@@ -6,61 +6,61 @@ import loaderImage from '../../../../assets/images/file-loader.gif';
 
 
 class ImageUploader extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			showLoader: false,
-			errors: {},
-		};
-		this.handleDrop = this.handleDrop.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      showLoader: false,
+      errors: {},
+    };
+    this.handleDrop = this.handleDrop.bind(this);
+  }
 
-	toggleLoader() {
-		this.setState({ showLoader: !this.state.showLoader });
-	}
+  toggleLoader() {
+    this.setState({ showLoader: !this.state.showLoader });
+  }
 
-	handleDrop(file) {
-		const { putImage } = this.props;
-		const url = 'https://api.cloudinary.com/v1_1/onnassiz/image/upload';
-		const uploader = () => {
-			const formData = new FormData();
-			formData.append('file', file[0]);
-			formData.append('tags', 'book-a-meal');
-			formData.append('upload_preset', 'nbo5oyfm');
-			formData.append('api_key', '258613626473737');
-			formData.append('timestamp', (Date.now() / 1000));
+  handleDrop(files) {
+    const { putImage } = this.props;
+    const url = 'https://api.cloudinary.com/v1_1/onnassiz/image/upload';
+    const uploader = () => {
+      const formData = new FormData();
+      formData.append('file', files[0]);
+      formData.append('tags', 'book-a-meal');
+      formData.append('upload_preset', 'nbo5oyfm');
+      formData.append('api_key', '258613626473737');
+      formData.append('timestamp', (Date.now() / 1000));
 
-			delete axios.defaults.headers.common.Authorization;
-			this.toggleLoader();
-			axios.post(url, formData, {
-				headers: { 'X-Requested-With': 'XMLHttpRequest' },
-			}).then((response) => {
-				axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
-				const { data } = response;
-				const fileURL = data.secure_url; // You should store this URL for future references in your app
-				this.toggleLoader();
-				putImage(fileURL);
-			}).catch((error) => {
-				this.showErrors(error.response);
-			});
-		};
-		uploader();
-	}
+      delete axios.defaults.headers.common.Authorization;
+      this.toggleLoader();
+      axios.post(url, formData, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      }).then((response) => {
+        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
+        const { data } = response;
+        const fileURL = data.secure_url; // You should store this URL for future references in your app
+        this.toggleLoader();
+        putImage(fileURL);
+      }).catch((error) => {
+        this.showErrors(error.response);
+      });
+    };
+    uploader();
+  }
 
-	showErrors(errors) {
-		this.setState({ errors });
-	}
+  showErrors(errors) {
+    this.setState({ errors });
+  }
 
-	render() {
-		const dropZoneStyle = {
-			width: 350,
-			height: 300,
-			marginTop: 30,
-			padding: 20,
-			border: 'solid #7a604a 1px',
-			borderRadius: 3,
-		};
-		return (
+  render() {
+    const dropZoneStyle = {
+      width: 350,
+      height: 300,
+      marginTop: 30,
+      padding: 20,
+      border: 'solid #7a604a 1px',
+      borderRadius: 3,
+    };
+    return (
 			<div className="col-12">
 				<div className="show-errors">
 					<ul>
@@ -82,12 +82,12 @@ class ImageUploader extends Component {
 					</div>
 				</Dropzone>
 			</div>
-		);
-	}
+    );
+  }
 }
 
 ImageUploader.propTypes = {
-	putImage: PropTypes.func.isRequired,
+  putImage: PropTypes.func.isRequired,
 };
 
 export default ImageUploader;

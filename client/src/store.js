@@ -3,16 +3,30 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 import logger from 'redux-logger';
+import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist';
 import reducer from './reducer';
 
-export const history = createHistory();
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['cart'],
+};
 
-export const store = createStore(
-	reducer,
-	compose(applyMiddleware(
-		thunk,
-		logger,
-		routerMiddleware(history),
-	), window.devToolsExtension ? window.devToolsExtension() : f => f),
-);
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+
+export default () => {
+  const history = createHistory();
+  const store = createStore(
+    persistedReducer,
+    compose(applyMiddleware(
+      thunk,
+      logger,
+      routerMiddleware(history),
+    ), window.devToolsExtension ? window.devToolsExtension() : f => f),
+  );
+  const persistor = persistStore(store);
+  return { store, persistor, history };
+};
 

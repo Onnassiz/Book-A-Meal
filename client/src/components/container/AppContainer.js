@@ -5,18 +5,18 @@ import { setUser } from '../../reducer/user/action';
 import App from '../presentation/App';
 
 const mapStateToProps = (state) => {
-	return {
-		user: state.user,
-	};
+  return {
+    user: state.user,
+  };
 };
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({
-		setUser,
-	}, dispatch);
+  return bindActionCreators({
+    setUser,
+  }, dispatch);
 }
 
 export default withRouter(connect(
-	mapStateToProps,
-	mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(App));

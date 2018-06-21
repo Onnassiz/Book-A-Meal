@@ -4,9 +4,9 @@ import empty from 'is-empty';
 import { getDate, numberWithCommas } from '../../../utilities/functions';
 
 const MealsTableRow = (props) => {
-	let image = props.item.imageUrl;
-	image = image === null ? null : image.replace('upload/', 'upload/c_scale,w_70/');
-	return (
+  let image = props.item.imageUrl;
+  image = image === null ? null : image.replace('upload/', 'upload/c_scale,w_70/');
+  return (
 		<tr>
 			<td>{props.i}</td>
 			<td>{props.item.name}</td>
@@ -43,16 +43,16 @@ const MealsTableRow = (props) => {
 					</span> : '' }
 			</td>
 		</tr>
-	);
+  );
 };
 
 MealsTableRow.propTypes = {
-	item: PropTypes.object.isRequired,
-	userId: PropTypes.string.isRequired,
-	i: PropTypes.number.isRequired,
-	toggleUpdateModal: PropTypes.func.isRequired,
-	toggleShowDeleteModal: PropTypes.func.isRequired,
-	toggleAddPhoto: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired,
+  userId: PropTypes.string.isRequired,
+  i: PropTypes.number.isRequired,
+  toggleUpdateModal: PropTypes.func.isRequired,
+  toggleShowDeleteModal: PropTypes.func.isRequired,
+  toggleAddPhoto: PropTypes.func.isRequired,
 };
 
 
