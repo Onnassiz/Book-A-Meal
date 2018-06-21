@@ -101,18 +101,23 @@ describe('Order Controller', () => {
 		});
 
 		it('should return status (201) if form validation passes and order is created', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
-					amount: 1525,
 					userId: res.id,
 					meals: [
 						{
 							mealId: res.meal_1_Id,
 							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: res.menuId,
 						},
 						{
 							mealId: res.meal_2_Id,
 							units: 3,
+							price: 400,
+							profileId: res.profileId,
+							menuId: res.menuId,
 						},
 					],
 				};
@@ -125,7 +130,7 @@ describe('Order Controller', () => {
 		});
 
 		it('should return status (400) if mealId/units is missing in any of the meal entries', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					amount: 1525,
 					userId: res.id,
@@ -148,7 +153,7 @@ describe('Order Controller', () => {
 		});
 
 		it('should return status (400) if mealId/units is missing in any of the meal entries', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					amount: 1525,
 					userId: res.id,
@@ -172,16 +177,22 @@ describe('Order Controller', () => {
 		});
 
 		it('should return status (200) when updating order', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					meals: [
 						{
 							mealId: res.meal_1_Id,
-							units: 3,
+							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: res.menuId,
 						},
 						{
-							mealId: res.meal_2_Id,
-							units: 1,
+							mealId: res.meal_1_Id,
+							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: res.menuId,
 						},
 					],
 				};
@@ -195,17 +206,53 @@ describe('Order Controller', () => {
 			});
 		});
 
+		it('should return status (400) when updating order with a wrong mealId, profileId, or menuId', (done) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
+				const formData = {
+					meals: [
+						{
+							mealId: 'wrong_id',
+							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: 'wrong_id',
+						},
+						{
+							mealId: 'wrong_id',
+							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: res.menuId,
+						},
+					],
+				};
+
+				TestUtil.getOrderId().then((id) => {
+					request.put({ url: `${baseUrl}/orders/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
+						expect(response.statusCode).to.equal(400);
+						done();
+					});
+				});
+			});
+		});
+
 		it('should return status (404) when updating an order that does not exist', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					meals: [
 						{
 							mealId: res.meal_1_Id,
-							units: 3,
+							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: res.menuId,
 						},
 						{
-							mealId: res.meal_2_Id,
-							units: 1,
+							mealId: res.meal_1_Id,
+							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: res.menuId,
 						},
 					],
 				};
@@ -218,16 +265,22 @@ describe('Order Controller', () => {
 		});
 
 		it('should return status (400) when updating an order that was placed more than 60 mins ago', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					meals: [
 						{
 							mealId: res.meal_1_Id,
-							units: 3,
+							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: res.menuId,
 						},
 						{
-							mealId: res.meal_2_Id,
-							units: 1,
+							mealId: res.meal_1_Id,
+							units: 2,
+							price: 200,
+							profileId: res.profileId,
+							menuId: res.menuId,
 						},
 					],
 				};

@@ -23,7 +23,7 @@ const MenuAccordion = (props) => {
 					<div className="menu_item" key={meal.id}>
 						<h3>{ meal.name }</h3>
 						<div>
-							<p><b>Description:</b>{meal.description}</p>
+							<p><b>Description:</b> {meal.description}</p>
 							<p><b>Category: </b>{ meal.category }</p>
 							<p><b>Price: </b>{ meal.price }</p>
 						</div>

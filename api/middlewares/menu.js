@@ -42,6 +42,17 @@ const menuFormConstraints = [
 			return noErrors;
 		})
 		.withMessage('at least one of the objects in the array does not have the \'mealId\' or the id is not a valid UUID4 id')
+		.custom((value) => {
+			let noErrors = true;
+			for (let i = 0; i < value.length; i += 1) {
+				if (value[i].price === undefined || typeof value[i].price !== 'number') {
+					noErrors = false;
+					break;
+				}
+			}
+			return noErrors;
+		})
+		.withMessage('at least one of the meals in the supplied does not have a price. It is also possible you have supplied a price that is not a number.')
 		.trim(),
 ];
 

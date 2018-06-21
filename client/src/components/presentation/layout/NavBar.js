@@ -22,8 +22,9 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const { user, page } = this.props;
-		const initials = user.name.match(/\b(\w)/g).join('').toUpperCase();
+		const { user, page, cart } = this.props;
+		// const initials = user.name.match(/\b(\w)/g).join('').toUpperCase();
+		const initials = 'BA';
 		return (
 			<header>
 				<h1 className="logo"><Link to="/"><img src={Logo} alt="logo" /></Link></h1>
@@ -49,7 +50,7 @@ class NavBar extends Component {
 				<div className="nav">
 					<ul>
 						<li className={page === 'menus' ? 'active' : ''}><Link to="/menus">Menu</Link></li>
-						<li><a href="#"><i className="material-icons">shopping_cart</i> Cart</a></li>
+						<li className={page === 'cart' ? 'active' : ''}><Link to="/cart" className={cart.cart.length ? 'dynamic-badge' : ''} data-badge={cart.cart.length}><i className="material-icons">shopping_cart</i> Cart</Link></li>
 						<li><a href="#">Orders</a></li>
 						<li>
 							<div className="dropdown">

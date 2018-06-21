@@ -12,6 +12,8 @@ class Menus extends Component {
 		};
 		this.onChange = this.onChange.bind(this);
 		this.getMenuForDate = this.getMenuForDate.bind(this);
+		this.addToCart = this.addToCart.bind(this);
+		this.removeFromCart = this.removeFromCart.bind(this);
 	}
 
 	componentWillMount() {
@@ -41,8 +43,18 @@ class Menus extends Component {
 		});
 	}
 
+	addToCart(meal) {
+		const { addToCart } = this.props;
+		addToCart(meal);
+	}
+
+	removeFromCart(mealId) {
+		const { deleteFromCart } = this.props;
+		deleteFromCart(mealId);
+	}
+
 	render() {
-		const { menus } = this.props;
+		const { menus, cart } = this.props;
 		return (
 			<div id="content2">
 				<div className="col-12">
@@ -54,8 +66,8 @@ class Menus extends Component {
 					<div id="card_container">
 						{empty(menus.userMenus) ?
 							<div id="no-menu">
-								<h2>No menu has been set for this day.</h2>
-							</div> : menus.userMenus.map(meal => <Card meal={meal} key={meal.id + meal.caterer} currentDate={menus.currentDate} />)}
+								<h2>No menu has been set for this day</h2>
+							</div> : menus.userMenus.map(meal => <Card cart={cart.cart} addToCart={() => this.addToCart(meal)} meal={meal} key={meal.id + meal.caterer} currentDate={menus.currentDate} removeFromCart={() => this.removeFromCart(meal.id)} />)}
 					</div>
 				</div>
 			</div>
@@ -66,6 +78,8 @@ class Menus extends Component {
 Menus.propTypes = {
 	menus: PropTypes.object.isRequired,
 	getMenusByUnixTime: PropTypes.func.isRequired,
+	addToCart: PropTypes.func.isRequired,
+	deleteFromCart: PropTypes.func.isRequired,
 };
 export default Menus;
 

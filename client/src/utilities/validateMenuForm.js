@@ -1,4 +1,3 @@
-import validator from 'validator';
 import empty from 'is-empty';
 
 const validateMenu = (data) => {

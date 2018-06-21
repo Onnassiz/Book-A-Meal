@@ -22,11 +22,11 @@ request.post({ url: `${baseUrl}/auth/signIn`, form: userFormData }, (error, resp
 describe('Profile Controller', () => {
 	describe('Get Profile', () => {
 		before((done) => {
-			TestUil.insertProfile(done);
+			TestUil.insertProfile(done, true);
 		});
 
 		after((done) => {
-			TestUil.deleteProfiles(done);
+			TestUil.deleteProfiles(done, true);
 		});
 
 		it('should return status (200) and an object if request is made with a valid profile ID', (done) => {
@@ -39,7 +39,7 @@ describe('Profile Controller', () => {
 
 	describe('Get Empty Profile', () => {
 		before((done) => {
-			TestUil.deleteProfiles(done);
+			TestUil.deleteProfiles(done, true);
 		});
 
 		it('should return status (404) and an object if request profile is not found', (done) => {
@@ -67,11 +67,11 @@ describe('Profile Controller', () => {
 
 	describe('Post Profile', () => {
 		before((done) => {
-			TestUil.insertProfile(done);
+			TestUil.insertProfile(done, true);
 		});
 
 		after((done) => {
-			TestUil.deleteProfiles(done);
+			TestUil.deleteProfiles(done, true);
 		});
 
 		it('should return status (400) if form data is valid but user already created a profile', (done) => {
@@ -134,9 +134,9 @@ describe('Profile Controller', () => {
 				});
 			});
 		});
-		
+
 		it('should return status (404) when updating profile banner for profile that does not exist', (done) => {
-			TestUil.getProfileId().then((id) => {
+			TestUil.getProfileId().then(() => {
 				const formData = {
 					banner: 'http://banner.com',
 				};

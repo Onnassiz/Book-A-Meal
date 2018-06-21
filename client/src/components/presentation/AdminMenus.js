@@ -58,10 +58,10 @@ class AdminMenus extends Component {
 		}
 	}
 
-	onCheckBoxChange(e) {
+	onCheckBoxChange(e, meal) {
 		const meals = this.state.selectedMeals;
 		if (e.target.checked) {
-			meals.push({ mealId: e.target.value });
+			meals.push({ mealId: meal.id, price: meal.price });
 			this.setState({ selectedMeals: meals });
 		} else {
 			const index = meals.findIndex(x => x.mealId === e.target.value);
@@ -227,7 +227,7 @@ class AdminMenus extends Component {
 													<SubmitButton value={this.state.updateMode ? 'Update' : 'Submit'} isLoading={formState.isLoading} />
 												</div>
 												<div id="meals-checkBox">
-													{meals.meals.map(item => <Checkbox isChecked={this.isSelected(item.id)} meal={item} key={item.id} onChange={this.onCheckBoxChange} />)}
+													{meals.meals.map(item => <Checkbox isChecked={this.isSelected(item.id)} meal={item} key={item.id} onChange={e => this.onCheckBoxChange(e, item)} />)}
 												</div>
 												<span id="checkBox-label">Scroll to view all meals</span>
 											</form>

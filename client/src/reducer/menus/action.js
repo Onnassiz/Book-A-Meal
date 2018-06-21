@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { store } from '../../store';
 import { setLoading, unsetLoading } from '../formState/action';
 
 export const SET_MENUS = 'SET_MENUS';
@@ -14,9 +13,8 @@ function setAlert(alert) {
 	});
 }
 
-export function setMenus(menu) {
-	let { menus } = store.getState().menus;
-	menus = [menu].concat(menus);
+export function setMenus(storeMenus, menu) {
+	const menus = [menu].concat(storeMenus);
 	return dispatch => dispatch({
 		type: SET_MENUS,
 		menus,
@@ -30,27 +28,25 @@ function setMenusErrors(errors) {
 	});
 }
 
-function setMenusArray(menu) {
-	let { menus } = store.getState().menus;
-	menus = menus.concat(menu);
+function setMenusArray(storeMenus, menu) {
+	const menus = storeMenus.concat(menu);
 	return dispatch => dispatch({
 		type: SET_MENUS,
 		menus,
 	});
 }
 
-function updateMenuAfterDelete(id) {
-	let { menus } = store.getState().menus;
-	menus = menus.filter(x => x.id !== id);
+function updateMenuAfterDelete(storeMenus, id) {
+	const menus = storeMenus.filter(x => x.id !== id);
 	return dispatch => dispatch({
 		type: SET_MENUS,
 		menus,
 	});
 }
 
-export function updateMenuState(menu) {
-	const { menus } = store.getState().menus;
-	const index = menus.findIndex(x => x.id === menu.id);
+export function updateMenuState(storeMenus, menu) {
+	const index = storeMenus.findIndex(x => x.id === menu.id);
+	const menus = storeMenus;
 	menus[index] = menu;
 	return dispatch => dispatch({
 		type: SET_MENUS,
@@ -77,7 +73,10 @@ function addMealsFromMenuToArray(menus) {
 				category: meal.category,
 				description: meal.description,
 				caterer: item.caterer,
+				profileId: item.profileId,
 				price: meal.price,
+				totalPrice: meal.price,
+				units: 1,
 				menuId: item.id,
 				imageUrl: meal.imageUrl,
 			});
@@ -87,11 +86,11 @@ function addMealsFromMenuToArray(menus) {
 }
 
 export function getUserMenus() {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.get('api/v1/menus/user').then((response) => {
 			dispatch(unsetLoading());
-			dispatch(setMenusArray(response.data));
+			dispatch(setMenusArray(getState().menus.menus, response.data));
 			return response;
 		}).catch((error) => {
 			dispatch(unsetLoading());
@@ -103,11 +102,11 @@ export function getUserMenus() {
 
 
 export function postMenu(menu) {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.post('api/v1/menus', menu).then((response) => {
 			dispatch(unsetLoading());
-			dispatch(setMenus(response.data.menu));
+			dispatch(setMenus(getState().menus.menus, response.data.menu));
 			dispatch(setAlert('Menu successfully created'));
 			return response;
 		}).catch((error) => {
@@ -119,11 +118,11 @@ export function postMenu(menu) {
 }
 
 export function deleteMenuById(id) {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.delete(`api/v1/menus/${id}`).then((response) => {
 			dispatch(unsetLoading());
-			dispatch(updateMenuAfterDelete(id));
+			dispatch(updateMenuAfterDelete(getState().menus.menus, id));
 			dispatch(setAlert('Meal successfully deleted'));
 			return response;
 		}).catch((error) => {
@@ -135,11 +134,11 @@ export function deleteMenuById(id) {
 }
 
 export function updateMenu(meal) {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.put(`api/v1/menus/${meal.id}`, meal).then((response) => {
 			dispatch(unsetLoading());
-			dispatch(updateMenuState(response.data.menu));
+			dispatch(updateMenuState(getState().menus.menus, response.data.menu));
 			dispatch(setAlert('Menu successfully updated'));
 			return response;
 		}).catch((error) => {

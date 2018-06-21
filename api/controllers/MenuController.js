@@ -10,6 +10,7 @@ const menuViewModelFromArray = (meals) => {
 			meals: item.meals,
 			unixTime: item.unixTime,
 			caterer: item.user.profile === null ? null : item.user.profile.businessName,
+			profileId: item.user.profile === null ? null : item.user.profile.id,
 		});
 	});
 	return viewModel;
@@ -113,6 +114,7 @@ class MenusController {
 					newMealMenus.push({
 						menuId: newMenu.id,
 						mealId: ml.mealId,
+						price: ml.price,
 					});
 				});
 

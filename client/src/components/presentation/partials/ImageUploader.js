@@ -19,12 +19,12 @@ class ImageUploader extends Component {
 		this.setState({ showLoader: !this.state.showLoader });
 	}
 
-	handleDrop(file) {
+	handleDrop(files) {
 		const { putImage } = this.props;
 		const url = 'https://api.cloudinary.com/v1_1/onnassiz/image/upload';
 		const uploader = () => {
 			const formData = new FormData();
-			formData.append('file', file[0]);
+			formData.append('file', files[0]);
 			formData.append('tags', 'book-a-meal');
 			formData.append('upload_preset', 'nbo5oyfm');
 			formData.append('api_key', '258613626473737');

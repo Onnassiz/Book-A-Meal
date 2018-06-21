@@ -43,7 +43,7 @@ class TestUtil {
 		});
 	}
 
-	insertMenus(done) {
+	insertMenus(done, callDone) {
 		this.insertMeals(done, false);
 		user.findOne({ where: { email: 'caterer@gmail.com' } }).then((usr) => {
 			menu.bulkCreate([
@@ -54,9 +54,11 @@ class TestUtil {
 					meals: [
 						{
 							mealId: this.meal_1_Id,
+							price: 200,
 						},
 						{
 							mealId: this.meal_2_Id,
+							price: 200,
 						},
 					],
 				},
@@ -67,20 +69,26 @@ class TestUtil {
 					meals: [
 						{
 							mealId: this.meal_1_Id,
+							price: 300,
 						},
 						{
 							mealId: this.meal_2_Id,
+							price: 400,
 						},
 					],
 				},
 			]).then(() => {
-				done();
+				if (callDone) {
+					done();
+				}
 			});
 		});
 	}
 
 	insertOrders(done) {
 		this.insertMeals(done, false);
+		this.insertProfile(done, false);
+		this.insertMenus(done, false);
 		user.findOne({ where: { email: 'customer@gmail.com' } }).then((usr) => {
 			order.bulkCreate([
 				{
@@ -89,9 +97,13 @@ class TestUtil {
 					meals: [
 						{
 							mealId: this.meal_1_Id,
+							price: 200,
+							units: 2,
 						},
 						{
 							mealId: this.meal_2_Id,
+							price: 300,
+							units: 3,
 						},
 					],
 				},
@@ -126,7 +138,7 @@ class TestUtil {
 		});
 	}
 
-	insertProfile(done) {
+	insertProfile(done, callDone) {
 		user.findOne({ where: { email: 'caterer@gmail.com' } }).then((usr) => {
 			profile.bulkCreate([
 				{
@@ -138,41 +150,53 @@ class TestUtil {
 					userId: usr.id,
 				},
 			]).then(() => {
-				done();
+				if (callDone) {
+					done();
+				}
 			});
 		});
 	}
 
-	deleteMeals(done) {
+	deleteMeals(done, callDone) {
 		meal.destroy({
 			where: {},
 		}).then(() => {
-			done();
+			if (callDone) {
+				done();
+			}
 		});
 	}
 
-	deleteProfiles(done) {
+	deleteProfiles(done, callDone) {
 		return profile.destroy({
 			where: {},
 		}).then(() => {
-			done();
+			if (callDone) {
+				done();
+			}
 		});
 	}
 
-	deleteMenus(done) {
+	deleteMenus(done, callDone) {
+		this.deleteMeals(done, false);
 		menu.destroy({
 			where: {},
 		}).then(() => {
+			if (callDone) {
+				done();
+			}
 		});
-		this.deleteMeals(done);
 	}
 
 	deleteOrders(done) {
+		this.deleteProfiles(done, false);
+		this.deleteMenus(done, false);
+		this.deleteMeals(done, false);
 		order.destroy({
 			where: {},
 		}).then(() => {
+			done();
 		});
-		this.deleteMeals(done);
 	}
 
 	getMealId() {
@@ -217,14 +241,20 @@ class TestUtil {
 		});
 	}
 
-	getCustomerIdAndMealIds() {
+	getCustomerIdMenuIdProfileIdMealIds() {
 		return this.getCustomerId().then((id) => {
-			return meal.findAll().then((mls) => {
-				return {
-					id,
-					meal_1_Id: mls[0].id,
-					meal_2_Id: mls[1].id,
-				};
+			return this.getProfileId().then((profileId) => {
+				return this.getMenuId().then((menuId) => {
+					return meal.findAll().then((mls) => {
+						return {
+							id,
+							meal_1_Id: mls[0].id,
+							meal_2_Id: mls[1].id,
+							menuId,
+							profileId,
+						};
+					});
+				});
 			});
 		});
 	}

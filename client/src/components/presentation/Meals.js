@@ -231,7 +231,7 @@ class Meals extends Component {
 									<br />
 									<p>
 										<button onClick={this.toggleShowDeleteModal} className="button-default">Close</button>
-										<button onClick={this.deleteMeal} className="button-error" disabled={formState.isLoading}>Delete</button>
+										<button onClick={this.deleteMeal} style={{ float: 'right' }} className="button-error" disabled={formState.isLoading}>Delete</button>
 										<img style={{ float: 'right' }} src={loaderImage} alt="loader" hidden={!formState.isLoading} />
 									</p>
 								</div>

@@ -9,6 +9,7 @@ import Home from '../pages/Home';
 import Meals from '../pages/Meals';
 import AdminMenus from '../pages/AdminMenus';
 import Menus from '../pages/Menus';
+import Cart from '../pages/Cart';
 
 
 class App extends Component {
@@ -54,6 +55,7 @@ class App extends Component {
 				<Route exact path="/caterer/meals" component={Meals} />
 				<Route exact path="/caterer/menus" component={AdminMenus} />
 				<Route exact path="/menus" component={Menus} />
+				<Route exact path="/cart" component={Cart} />
 			</Switch>
 		);
 		return (

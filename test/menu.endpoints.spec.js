@@ -33,11 +33,11 @@ request.post({ url: `${baseUrl}/auth/signIn`, form: customerFormData }, (error, 
 describe('Menu Controller', () => {
 	describe('GetMenus', () => {
 		before((done) => {
-			TestUtil.insertMenus(done);
+			TestUtil.insertMenus(done, true);
 		});
 
 		after((done) => {
-			TestUtil.deleteMenus(done);
+			TestUtil.deleteMenus(done, true);
 		});
 
 		it('should return status (200) and array of size 2 if request is made with auth token', (done) => {
@@ -56,7 +56,7 @@ describe('Menu Controller', () => {
 		});
 
 		it('should return status (200) if request is made with correct user id', (done) => {
-			TestUtil.getUserId().then((id) => {
+			TestUtil.getUserId().then(() => {
 				request.get({ url: `${baseUrl}/menus/user`, headers: { Authorization: `Bearer ${tokenR}` } }, (error, response) => {
 					expect(response.statusCode).to.equal(200);
 					done();
@@ -104,11 +104,11 @@ describe('Menu Controller', () => {
 
 	describe('Delete Menu', () => {
 		before((done) => {
-			TestUtil.insertMenus(done);
+			TestUtil.insertMenus(done, true);
 		});
 
 		after((done) => {
-			TestUtil.deleteMenus(done);
+			TestUtil.deleteMenus(done, true);
 		});
 
 		it('should return status (200) if delete request is made with correct menu id', (done) => {
@@ -123,11 +123,11 @@ describe('Menu Controller', () => {
 
 	describe('Post and Put Menu', () => {
 		before((done) => {
-			TestUtil.insertMenus(done);
+			TestUtil.insertMenus(done, true);
 		});
 
 		after((done) => {
-			TestUtil.deleteMenus(done);
+			TestUtil.deleteMenus(done, true);
 		});
 
 		it('should return status (400) if form validation fails', (done) => {
@@ -163,16 +163,18 @@ describe('Menu Controller', () => {
 		});
 
 		it('should return status (201) if form validation passes and new menu is created', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525545800,
 					meals: [
 						{
 							mealId: res.meal_1_Id,
+							price: 2000,
 						},
 						{
 							mealId: res.meal_2_Id,
+							price: 4000,
 						},
 					],
 				};
@@ -190,7 +192,7 @@ describe('Menu Controller', () => {
 		});
 
 		it('should return status (400) if meal Id is missing in any of the meal entries', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525545800,
@@ -214,7 +216,7 @@ describe('Menu Controller', () => {
 		});
 
 		it('should return status (400) if menu has been created for a particular day', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525651200,
@@ -240,22 +242,24 @@ describe('Menu Controller', () => {
 		});
 
 		it('should return status (400) if user already created menu for a specified date', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525564800,
 					userId: res.id,
-					meals: JSON.stringify([
+					meals: [
 						{
 							mealId: res.meal_1_Id,
+							price: 200,
 						},
 						{
 							mealId: res.meal_2_Id,
+							price: 900,
 						},
-					]),
+					],
 				};
 
-				request.post({ url: `${baseUrl}/menus`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
+				request.post({ url: `${baseUrl}/menus`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
 					expect(response.statusCode).to.equal(400);
 					done();
 				});
@@ -263,16 +267,18 @@ describe('Menu Controller', () => {
 		});
 
 		it('should return status (200) when updating a menu with passed form validation', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525545800,
 					meals: [
 						{
 							mealId: res.meal_1_Id,
+							price: 200,
 						},
 						{
 							mealId: res.meal_2_Id,
+							price: 300,
 						},
 					],
 				};
@@ -287,16 +293,18 @@ describe('Menu Controller', () => {
 		});
 
 		it('should return status (404) when updating a menu with wrong meal ID', (done) => {
-			TestUtil.getCustomerIdAndMealIds().then((res) => {
+			TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
 				const formData = {
 					name: 'Monday Special',
 					unixTime: 1525545800,
 					meals: [
 						{
 							mealId: res.meal_1_Id,
+							price: 500,
 						},
 						{
 							mealId: res.meal_2_Id,
+							price: 300,
 						},
 					],
 				};

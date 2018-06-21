@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { store } from '../../store';
 import { setLoading, unsetLoading } from '../formState/action';
 
 export const SET_MEAL = 'SET_MEAL';
@@ -13,27 +12,25 @@ function setAlert(alert) {
 	});
 }
 
-export function setMeal(meal) {
-	let { meals } = store.getState().meals;
-	meals = [meal].concat(meals);
+function setMeal(storeMeals, meal) {
+	const meals = [meal].concat(storeMeals);
 	return dispatch => dispatch({
 		type: SET_MEAL,
 		meals,
 	});
 }
 
-export function setMealArray(meal) {
-	let { meals } = store.getState().meals;
-	meals = meals.concat(meal);
+function setMealArray(storeMeals, meal) {
+	const meals = storeMeals.concat(meal);
 	return dispatch => dispatch({
 		type: SET_MEAL,
 		meals,
 	});
 }
 
-export function updateMealState(meal) {
-	const { meals } = store.getState().meals;
-	const index = meals.findIndex(x => x.id === meal.id);
+export function updateMealState(storeMeals, meal) {
+	const index = storeMeals.findIndex(x => x.id === meal.id);
+	const meals = storeMeals;
 	meals[index] = meal;
 	return dispatch => dispatch({
 		type: SET_MEAL,
@@ -41,9 +38,8 @@ export function updateMealState(meal) {
 	});
 }
 
-export function updateMealAfterDelete(id) {
-	let { meals } = store.getState().meals;
-	meals = meals.filter(x => x.id !== id);
+export function updateMealAfterDelete(storeMeals, id) {
+	const meals = storeMeals.filter(x => x.id !== id);
 	return dispatch => dispatch({
 		type: SET_MEAL,
 		meals,
@@ -58,11 +54,11 @@ function setMealErrors(errors) {
 }
 
 export function postMeal(meal) {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.post('api/v1/meals', meal).then((response) => {
 			dispatch(unsetLoading());
-			dispatch(setMeal(response.data));
+			dispatch(setMeal(getState().meals.meals, response.data));
 			dispatch(setAlert('Meal successfully created'));
 			return response;
 		}).catch((error) => {
@@ -74,11 +70,11 @@ export function postMeal(meal) {
 }
 
 export function updateMeal(meal) {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.put(`api/v1/meals/${meal.id}`, meal).then((response) => {
 			dispatch(unsetLoading());
-			dispatch(updateMealState(response.data));
+			dispatch(updateMealState(getState().meals.meals, response.data));
 			dispatch(setAlert('Meal successfully updated'));
 			return response;
 		}).catch((error) => {
@@ -90,11 +86,11 @@ export function updateMeal(meal) {
 }
 
 export function deleteMealById(id) {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.delete(`api/v1/meals/${id}`).then((response) => {
 			dispatch(unsetLoading());
-			dispatch(updateMealAfterDelete(id));
+			dispatch(updateMealAfterDelete(getState().meals.meals, id));
 			dispatch(setAlert('Meal successfully deleted'));
 			return response;
 		}).catch((error) => {
@@ -106,11 +102,11 @@ export function deleteMealById(id) {
 }
 
 export function putImage(id, field) {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.put(`api/v1/meals/image/${id}`, field).then((response) => {
 			dispatch(unsetLoading());
-			dispatch(updateMealState(response.data));
+			dispatch(updateMealState(getState().meals.meals, response.data));
 			dispatch(setAlert('Image successfully uploaded'));
 			return response;
 		}).catch((error) => {
@@ -120,12 +116,13 @@ export function putImage(id, field) {
 		});
 	};
 }
+
 export function getMeals() {
-	return (dispatch) => {
+	return (dispatch, getState) => {
 		dispatch(setLoading());
 		return axios.get('api/v1/meals').then((response) => {
 			dispatch(unsetLoading());
-			dispatch(setMealArray(response.data));
+			dispatch(setMealArray(getState().meals.meals, response.data));
 			return response;
 		}).catch((error) => {
 			dispatch(unsetLoading());

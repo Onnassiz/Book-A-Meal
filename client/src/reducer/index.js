@@ -4,6 +4,7 @@ import user from './user';
 import profile from './profile';
 import meals from './meals';
 import menus from './menus';
+import cart from './cart';
 
 export default combineReducers({
 	formState,
@@ -11,4 +12,5 @@ export default combineReducers({
 	menus,
 	user,
 	profile,
+	cart,
 });

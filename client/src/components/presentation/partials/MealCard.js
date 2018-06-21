@@ -7,8 +7,19 @@ const numberWithCommas = (x) => {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
+const isAdded = (cart, id) => {
+	const items = cart.filter(x => x.id === id);
+	return items.length > 0;
+};
+
 const Card = (props) => {
 	const todayDate = getCurrentDate();
+	const { cart } = props;
+	const button = (
+		<span>
+			{ isAdded(cart, props.meal.id) ? <a className="add_button" onClick={props.removeFromCart}>Remove from cart</a> : <a className="add_button" onClick={props.addToCart}>Add to cart</a> }
+		</span>
+	);
 	return (
 		<div className="card">
 			<div className="card-header">
@@ -30,7 +41,7 @@ const Card = (props) => {
 				<div className="left">
 					<h3>Description</h3>
 					<p>{props.meal.description}</p>
-					{ todayDate > props.currentDate ? '' : <a className="add_button" href="#">Add to cart</a>}
+					{ todayDate > props.currentDate ? '' : button}
 				</div>
 				<div className="right">
 					<div className="item">
@@ -48,7 +59,10 @@ const Card = (props) => {
 
 Card.propTypes = {
 	meal: PropTypes.object.isRequired,
+	cart: PropTypes.array.isRequired,
 	currentDate: PropTypes.string.isRequired,
+	addToCart: PropTypes.func.isRequired,
+	removeFromCart: PropTypes.func.isRequired,
 };
 
 export default Card;
