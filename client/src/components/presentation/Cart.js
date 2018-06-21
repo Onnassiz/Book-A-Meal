@@ -56,6 +56,10 @@ class Cart extends Component {
 		return payload;
 	}
 
+	testIndent() {
+		console.log(true);
+	}
+
 	placeOrder() {
 		const payload = this.processPayload();
 		console.log(payload);
