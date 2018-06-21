@@ -31,7 +31,7 @@ class Cart extends Component {
 				totalPrice += meal.totalPrice;
 			});
 			$this.setState({ totalPrice });
-		}, 200);
+		}, 300);
 	}
 
 	toggleOrderModal() {
