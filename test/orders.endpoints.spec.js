@@ -104,6 +104,8 @@ describe('Order Controller', () => {
       TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
         const formData = {
           userId: res.id,
+          contact: '+23490090234',
+          address: '12, Allen Avenue, Close',
           meals: [
             {
               mealId: res.meal_1_Id,
@@ -132,7 +134,8 @@ describe('Order Controller', () => {
     it('should return status (400) if mealId/units is missing in any of the meal entries', (done) => {
       TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
         const formData = {
-          amount: 1525,
+          contact: '+23490090234',
+          address: '12, Allen Avenue, Close',
           userId: res.id,
           meals: [
             {
@@ -155,7 +158,8 @@ describe('Order Controller', () => {
     it('should return status (400) if mealId/units is missing in any of the meal entries', (done) => {
       TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
         const formData = {
-          amount: 1525,
+          contact: '+23490090234',
+          address: '12, Allen Avenue, Close',
           userId: res.id,
           meals: [
             {
@@ -179,6 +183,8 @@ describe('Order Controller', () => {
     it('should return status (200) when updating order', (done) => {
       TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
         const formData = {
+          contact: '+23490090234',
+          address: '12, Allen Avenue, Close',
           meals: [
             {
               mealId: res.meal_1_Id,
@@ -209,6 +215,8 @@ describe('Order Controller', () => {
     it('should return status (400) when updating order with a wrong mealId, profileId, or menuId', (done) => {
       TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
         const formData = {
+          contact: '+23490090234',
+          address: '12, Allen Avenue, Close',
           meals: [
             {
               mealId: 'wrong_id',
@@ -239,6 +247,8 @@ describe('Order Controller', () => {
     it('should return status (404) when updating an order that does not exist', (done) => {
       TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
         const formData = {
+          contact: '+23490090234',
+          address: '12, Allen Avenue, Close',
           meals: [
             {
               mealId: res.meal_1_Id,
@@ -267,6 +277,8 @@ describe('Order Controller', () => {
     it('should return status (400) when updating an order that was placed more than 60 mins ago', (done) => {
       TestUtil.getCustomerIdMenuIdProfileIdMealIds().then((res) => {
         const formData = {
+          contact: '+23490090234',
+          address: '12, Allen Avenue, Close',
           meals: [
             {
               mealId: res.meal_1_Id,

@@ -92,7 +92,8 @@ class TestUtil {
     user.findOne({ where: { email: 'customer@gmail.com' } }).then((usr) => {
       order.bulkCreate([
         {
-          amount: 1525,
+          address: '1525, Allen Road',
+          contact: '+234888342193',
           userId: usr.id,
           meals: [
             {
@@ -108,27 +109,37 @@ class TestUtil {
           ],
         },
         {
-          amount: 2100,
+          address: '1525, Allen Road',
+          contact: '+234888342193',
           userId: usr.id,
           meals: [
             {
               mealId: this.meal_1_Id,
+              price: 200,
+              units: 2,
             },
             {
               mealId: this.meal_2_Id,
+              price: 200,
+              units: 2,
             },
           ],
         },
         {
-          amount: 2100,
+          address: '1525, Allen Road',
+          contact: '+234888342193',
           userId: usr.id,
           createdAt: '2018-05-09 16:23:11.689+01',
           meals: [
             {
               mealId: this.meal_1_Id,
+              price: 200,
+              units: 2,
             },
             {
               mealId: this.meal_2_Id,
+              price: 200,
+              units: 2,
             },
           ],
         },

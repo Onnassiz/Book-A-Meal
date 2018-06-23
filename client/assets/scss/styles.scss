@@ -75,6 +75,11 @@ a{
   @include button;
 }
 
+.button-block {
+  @include button;
+  width: 100%;
+}
+
 .button-default {
   @include button;
   background: none;
@@ -450,6 +455,17 @@ table{
 .box {
   @include box;
   
+  #signUpAsAdmin{
+    width: 190px;
+    margin-top: 15px;
+    float: left;
+  }
+}
+
+.box-menu {
+  @include box;
+  width: 400px;
+
   #signUpAsAdmin{
     width: 190px;
     margin-top: 15px;

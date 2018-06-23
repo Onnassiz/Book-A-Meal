@@ -3,6 +3,24 @@ import validate from 'uuid-validate';
 const { check } = require('express-validator/check');
 
 const orderFormConstraints = [
+  check('contact')
+    .exists()
+    .withMessage('the phone number field is require')
+    .isLength({ min: 1 })
+    .withMessage('the phone number field is require')
+    .isString()
+    .withMessage('the phone number field must be a string')
+    .trim(),
+
+  check('address')
+    .exists()
+    .withMessage('the address field is require')
+    .isLength({ min: 1 })
+    .withMessage('the address field is required')
+    .isString()
+    .withMessage('the address field must be a string')
+    .trim(),
+
   check('meals')
     .exists()
     .withMessage('the meals field is require')

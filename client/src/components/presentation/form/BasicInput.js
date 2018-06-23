@@ -24,7 +24,7 @@ export const Checkbox = props => (
 BasicInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   hasError: PropTypes.bool,
@@ -32,6 +32,7 @@ BasicInput.propTypes = {
 
 BasicInput.defaultProps = {
   hasError: false,
+  type: 'text',
   label: '',
 };
 

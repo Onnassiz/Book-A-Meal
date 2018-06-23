@@ -213,7 +213,7 @@ class AdminMenus extends Component {
 										</div> :
 										<div>
 											<form onSubmit={this.handleSubmit}>
-												<div className="box">
+												<div className="box-menu">
 													<h3>{ this.state.updateMode ? 'Update' : 'Set Daily' } Menu</h3>
 													<div className="show-errors">
 														<ul>

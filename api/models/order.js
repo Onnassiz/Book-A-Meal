@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
+    contact: DataTypes.STRING,
+    address: DataTypes.STRING,
   }, {});
   Order.associate = (models) => {
     Order.belongsTo(models.user);

@@ -108,7 +108,7 @@ class Home extends Component {
 							</p>
 						</div>
 						<div id="authSection">
-							<div className="box">
+							<div className="box-menu">
 								<h3>Sign In</h3>
 								<div className="show-errors">
 									<ul>
@@ -128,7 +128,7 @@ class Home extends Component {
 							<div id="boxSeparator">
 								Or
 							</div>
-							<div className="box">
+							<div className="box-menu">
 								<h3>Sign Up</h3>
 								<div className="show-errors">
 									<ul>

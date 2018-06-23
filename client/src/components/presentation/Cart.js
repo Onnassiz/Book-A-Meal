@@ -3,23 +3,33 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import CartItem from './partials/CartItem';
 import loaderImage from '../../../assets/images/loader.gif';
-import { deleteModalStyle } from './../../utilities/modalStyles';
+import { addProfileImageModalView } from './../../utilities/modalStyles';
+import { BasicInput, TextArea } from './form/BasicInput';
+import validateOrder from '../../utilities/validateOrder';
 
 class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
       totalPrice: 0,
+      telephone: '',
+      address: '',
       showModal: false,
+      errors: {},
     };
     this.updateUnits = this.updateUnits.bind(this);
     this.deleteMeal = this.deleteMeal.bind(this);
     this.toggleOrderModal = this.toggleOrderModal.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
     this.calculateTotalPrice();
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   calculateTotalPrice() {
@@ -38,6 +48,14 @@ class Cart extends Component {
     this.setState({ showModal: !this.state.showModal });
   }
 
+  placeOrder(e) {
+    e.preventDefault();
+    if (this.isValid()) {
+      const order = this.processPayload();
+      console.log(order);
+    }
+  }
+
   processPayload() {
     const { user, cart } = this.props;
     const meals = [];
@@ -51,9 +69,20 @@ class Cart extends Component {
     });
     const payload = {
       userId: user.id,
+      telephone: this.state.telephone,
+      address: this.state.address,
       meals,
     };
     return payload;
+  }
+
+  isValid() {
+    this.setState({ errors: {} });
+    const { errors, isValid } = validateOrder(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
   }
 
   updateUnits(e, currentMeal) {
@@ -76,6 +105,9 @@ class Cart extends Component {
 
   render() {
     const { cart, formState } = this.props;
+    const closeModalStyle = {
+      float: 'right',
+    };
     return (
 			<div id="content2">
 				{ cart.cart.length ?
@@ -84,18 +116,31 @@ class Cart extends Component {
 							<Modal
 								isOpen={this.state.showModal}
 								closeTimeoutMS={1}
-								style={deleteModalStyle}
+								style={addProfileImageModalView}
 								ariaHideApp={false}
 								contentLabel="Modal"
 							>
 								<div>
-									<p style={{ margin: 5 }}>Are you sure you want to place this order?</p>
+                  <div className="col-12">
+                    <a onClick={this.toggleOrderModal} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
+                  </div>
+                  <div className="box">
+                    <div className="show-errors">
+                      <ul>
+                        {Object.keys(this.state.errors).map(item => <li key={item}>{ this.state.errors[item] }</li>)}
+                        {/* {empty(meals.errors) ? '' : Object.keys(meals.errors).map(item => <li key={item}>{ meals.errors[item] }</li>)} */}
+                      </ul>
+                    </div>
+                  <form onSubmit={this.placeOrder}>
+                    <BasicInput type="text" label="Phone Number" name="telephone" value={this.state.telephone} onChange={this.onChange} />
+                    <TextArea name="address" type="text" label="Address" value={this.state.address} onChange={this.onChange} />
+                  </form>
+                  </div>
 									<br />
-									<p>
-										<button onClick={this.toggleOrderModal} className="button-default">Close</button>
-										<button onClick={this.placeOrder} style={{ float: 'right' }} className="button-default" disabled={formState.isLoading}>Place Order</button>
+									<div>
+										<button onClick={this.placeOrder} style={{ float: 'right' }} className="button-block" disabled={formState.isLoading}>Place Order</button>
 										<img style={{ float: 'right', marginTop: 13 }} src={loaderImage} alt="loader" hidden={!formState.isLoading} />
-									</p>
+									</div>
 								</div>
 							</Modal>
 						</div>

@@ -116,7 +116,6 @@ class Profile extends Component {
   render() {
     const { formState, profile } = this.props;
     const closeModalStyle = {
-      marginRight: 55,
       float: 'right',
     };
 

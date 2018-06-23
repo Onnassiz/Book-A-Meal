@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import empty from 'is-empty';
 import Footer from '../presentation/layout/Footer';
 import UserHomePage from '../pages/UserHomePage';
 import Profile from '../pages/Profile';
@@ -17,6 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       isSignedIn: false,
+      date: props.menus.currentDate,
     };
   }
 
@@ -35,7 +37,17 @@ class App extends Component {
 
       setUser(user);
       this.setSignedIn();
+      this.setCart();
     }
+  }
+
+  setCart() {
+    const { getMenusByUnixTime, emptyCart } = this.props;
+    getMenusByUnixTime(this.state.date).then((response) => {
+      if (empty(response.data)) {
+        emptyCart();
+      }
+    });
   }
 
   setSignedIn() {
@@ -71,6 +83,9 @@ class App extends Component {
 
 App.propTypes = {
   setUser: PropTypes.func.isRequired,
+  emptyCart: PropTypes.func.isRequired,
+  getMenusByUnixTime: PropTypes.func.isRequired,
+  menus: PropTypes.object.isRequired,
 };
 
 export default App;

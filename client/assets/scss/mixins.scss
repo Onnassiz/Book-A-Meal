@@ -118,9 +118,9 @@
 
 @mixin box {
   position: relative;
-  width: 350px;
-  min-height: 250px;
-  padding: 40px;
+  width: 100%;
+  padding-top: 30px;
+  min-height: 270px;
   float: left;
 
   h3{
