@@ -1,4 +1,4 @@
-import { SET_USER, SET_SIGN_UP_SERVER_ERRORS, SET_SIGN_IN_SERVER_ERRORS } from './action';
+import { SET_USER, SET_SIGN_UP_SERVER_ERRORS, SET_SIGN_IN_SERVER_ERRORS } from './actions';
 
 const initialState = {};
 

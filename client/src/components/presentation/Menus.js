@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import empty from 'is-empty';
+import Alert from '../presentation/partials/Alert';
 import { convertUnixToDateForUpdate } from '../../utilities/functions';
 import Card from './partials/MealCard';
 
@@ -54,10 +55,11 @@ class Menus extends Component {
   }
 
   render() {
-    const { menus, cart } = this.props;
+    const { menus, cart, orders } = this.props;
     return (
 			<div id="content2">
 				<div className="col-12">
+          {empty(orders.alert) ? '' : <Alert alert={orders.alert} />}
 					<div className="dateInput">
 						<a onClick={() => this.getMenuForDate(-1)} title="back"><i className="material-icons">navigate_before</i></a>
 						<input autoComplete="off" type="date" name="date" onChange={this.onChange} value={this.state.date} required="" id="date" />
@@ -76,6 +78,7 @@ class Menus extends Component {
 }
 
 Menus.propTypes = {
+  orders: PropTypes.object.isRequired,
   menus: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
   getMenusByUnixTime: PropTypes.func.isRequired,

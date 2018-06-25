@@ -150,6 +150,10 @@
     input.has-error {
       border: red 1px solid;
     }
+    
+    textarea.has-error {
+      border: red 1px solid;
+    }
 
     textarea{
       width: 93%;

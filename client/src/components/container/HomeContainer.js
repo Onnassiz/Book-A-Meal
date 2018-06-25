@@ -1,8 +1,8 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
-import { setLoading } from '../../reducer/formState/action';
-import { postUser, signInUser } from '../../reducer/user/action';
+import { setLoading } from '../../reducer/formState/actions';
+import { postUser, signInUser } from '../../reducer/user/actions';
 import Home from '../presentation/Home';
 
 const mapStateToProps = (state) => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setLoading, unsetLoading } from '../formState/action';
+import { setLoading, unsetLoading } from '../formState/actions';
 
 export const SET_MENUS = 'SET_MENUS';
 export const SET_USER_MENUS = 'SET_USER_MENUS';
@@ -111,7 +111,7 @@ export function postMenu(menu) {
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());
-      dispatch(setMenusErrors(error.response));
+      dispatch(setMenusErrors(error.response.data));
       return error;
     });
   };

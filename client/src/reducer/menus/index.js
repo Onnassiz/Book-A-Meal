@@ -1,4 +1,4 @@
-import { SET_MENUS, SET_MENUS_ALERT, SET_MENUS_SERVER_ERRORS, SET_USER_MENUS } from './action';
+import { SET_MENUS, SET_MENUS_ALERT, SET_MENUS_SERVER_ERRORS, SET_USER_MENUS } from './actions';
 import { getCurrentDate } from '../../utilities/functions';
 
 const initialState = {

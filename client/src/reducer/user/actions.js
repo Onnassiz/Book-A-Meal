@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setLoading, unsetLoading } from '../formState/action';
+import { setLoading, unsetLoading } from '../formState/actions';
 
 export const SET_USER = 'SET_USER';
 export const SET_SIGN_UP_SERVER_ERRORS = 'SET_SIGN_UP_SERVER_ERRORS';

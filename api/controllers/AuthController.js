@@ -36,6 +36,7 @@ class AuthController {
         res.status(404).send({ message: 'User not found' });
       } else {
         const hashedPassword = usr.passwordHash;
+
         if (passwordHash.verify(req.body.password, hashedPassword)) {
           res.status(200).send({
             id: usr.id,
