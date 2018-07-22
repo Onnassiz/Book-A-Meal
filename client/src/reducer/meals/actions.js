@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setLoading, unsetLoading } from '../formState/action';
+import { setLoading, unsetLoading } from '../formState/actions';
 
 export const SET_MEAL = 'SET_MEAL';
 export const SET_MEAL_SERVER_ERRORS = 'SET_MEAL_SERVER_ERRORS';

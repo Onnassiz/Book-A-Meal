@@ -1,12 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import empty from 'is-empty';
 import Logo from '../../../../assets/images/logo.png';
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      show: '',
+    };
     this.signOut = this.signOut.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
+  }
+
+  toggleShow() {
+    const { user } = this.props;
+    let show = '';
+    if (user.role === 'caterer') {
+      show = empty(this.state.show) ? 'showAdmin' : '';
+    } else {
+      show = empty(this.state.show) ? 'show' : '';
+    }
+    this.setState({ show });
   }
 
   signOut() {
@@ -23,8 +39,7 @@ class NavBar extends Component {
 
   render() {
     const { user, page, cart } = this.props;
-    // const initials = user.name.match(/\b(\w)/g).join('').toUpperCase();
-    const initials = 'BA';
+    const initials = empty(user) ? '' : user.name.match(/\b(\w)/g).join('').toUpperCase();
     return (
 			<header>
 				<h1 className="logo"><Link to="/"><img src={Logo} alt="logo" /></Link></h1>
@@ -34,13 +49,15 @@ class NavBar extends Component {
 							<li>
 								<div className="dropdown">
 									<a className={page === 'caterer' ? 'active' : ''}>{'Caterer\'s Links'}</a>
-									<div className="dropdown-content">
-										<Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
-										<hr />
-										<Link to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link>
-										<Link to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link>
-										<hr />
-										<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> View Reports</a>
+									<div className="dropdown-container">
+										<div className="dropdown-content">
+											<Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
+											<hr />
+											<Link to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link>
+											<Link to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link>
+											<hr />
+											<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> View Reports</a>
+										</div>
 									</div>
 								</div>
 							</li> : ''}
@@ -48,28 +65,71 @@ class NavBar extends Component {
 				</div>
 
 				<div className="nav">
-					<ul>
-						<li className={page === 'menus' ? 'active' : ''}><Link to="/menus">Menu</Link></li>
-						<li className={page === 'cart' ? 'active' : ''}><Link to="/cart" className={cart.cart.length ? 'dynamic-badge' : ''} data-badge={cart.cart.length}><i className="material-icons">shopping_cart</i> Cart</Link></li>
-						<li><a href="#">Orders</a></li>
-						<li>
-							<div className="dropdown">
-								<a href="#">{user.email}<i id="caret" className="material-icons">arrow_drop_down</i></a>
-								<div className="dropdown-content">
-									<div className="avatar-circle">
-										<span className="initials">
-											{initials}
-										</span>
+					{ !empty(user) ?
+						<ul>
+							<li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
+							<li className={page === 'cart' ? 'active' : ''}><Link to="/cart" className={cart.cart.length ? 'dynamic-badge main' : 'main'} data-badge={cart.cart.length}><i className="material-icons">shopping_cart</i> Cart</Link></li>
+							<li><Link to="/orders" className="main">Orders</Link></li>
+							<li>
+								<div className="dropdown">
+									<button className="user-button"><a href="#">{initials}<i id="caret" className="material-icons">arrow_drop_down</i></a></button>
+									<div className="dropdown-container">
+										<div className="dropdown-content">
+											<div className="avatar-circle">
+												<span className="initials">
+													{initials}
+												</span>
+											</div>
+											<hr />
+											<a href="pages/admin/manage-meal.html"><i className="material-icons">settings</i> Profile</a>
+											<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Change Password</a>
+											<hr />
+											<a onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
+										</div>
 									</div>
-									<hr />
-									<a href="pages/admin/manage-meal.html"><i className="material-icons">settings</i> Profile</a>
-									<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Change Password</a>
-									<hr />
-									<a onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
 								</div>
-							</div>
+							</li>
+						</ul> :
+						<ul>
+							<li><Link to="/auth"><button className="auth-button">Sign Up</button></Link></li>
+							<li><Link to="/auth"><button className="auth-button" style={{ border: 'solid white 2px' }}>Login</button></Link></li>
+						</ul>
+					}
+				</div>
+
+				<div className="menuIcon">
+					<ul>
+						<li>
+							<button onClick={this.toggleShow}>
+								<i style={{ fontSize: 30 }} className="material-icons">menu</i>
+							</button>
 						</li>
 					</ul>
+				</div>
+				<div>
+					{ empty(user) ?
+						<ul className={`responsive ${this.state.show}`}>
+							<li><Link className="main" to="/auth">Sign In</Link></li>
+							<li><Link className="main" to="/auth">Sign Up</Link></li>
+						</ul>
+						:
+						<ul className={`responsive ${this.state.show}`}>
+							<li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
+							<li className={page === 'cart' ? 'active' : ''}><Link to="/cart" className={cart.cart.length ? 'dynamic-badge main' : 'main'} data-badge={cart.cart.length}><i className="material-icons">shopping_cart</i> Cart</Link></li>
+							<li><Link to="/orders" className="main">Orders</Link></li>
+							{this.state.show === 'showAdmin' ?
+							<div>
+								<hr />
+								<li><Link className="main" to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link></li>
+								<li><Link className="main" to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link></li>
+								<li><Link className="main" to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link></li>
+							</div> :
+							''}
+							<hr />
+							<a className="main" onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
+						</ul>
+					}
+					
 				</div>
 			</header>
     );

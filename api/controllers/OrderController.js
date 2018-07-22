@@ -48,13 +48,13 @@ class OrdersController {
   }
 
   postOrder(req, res) {
-    const { amount, createdAt } = req.body;
+    const { address, contact } = req.body;
     const userId = req.user.id;
 
     const newOrder = order.build({
-      amount,
+      contact,
+      address,
       userId,
-      createdAt,
     });
 
     const newMealOrders = [];
@@ -64,6 +64,8 @@ class OrdersController {
       newMealOrders.push({
         orderId: newOrder.id,
         mealId: ml.mealId,
+        menuId: ml.menuId,
+        profileId: ml.profileId,
         units: ml.units,
       });
     });
@@ -79,6 +81,7 @@ class OrdersController {
   }
 
   putOrder(req, res) {
+    const { address, contact } = req.body;
     const userId = req.user.id;
     order.findOne({ where: { id: req.params.id } }).then((ord) => {
       if (ord) {
@@ -87,6 +90,8 @@ class OrdersController {
         } else {
           order.update(
             {
+              address,
+              contact,
               userId,
             },
             { where: { id: req.params.id }, returning: true },
@@ -100,6 +105,9 @@ class OrdersController {
                 newMealOrders.push({
                   orderId: req.params.id,
                   mealId: ml.mealId,
+                  menuId: ml.menuId,
+                  profileId: ml.profileId,
+                  units: ml.units,
                 });
               });
 

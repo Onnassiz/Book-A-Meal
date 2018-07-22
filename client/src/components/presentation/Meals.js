@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import empty from 'is-empty';
-import { addProfileModalStyle, deleteModalStyle, addProfileImageModalView } from './../../utilities/modalStyles';
+import swal from 'sweetalert';
+import { addProfileModalStyle, addProfileImageModalView } from './../../utilities/modalStyles';
 import { BasicInput, TextArea } from './form/BasicInput';
 import SubmitButton from '../presentation/form/SubmitButton';
 import validateMeal from '../../utilities/validateMealForm';
 import Alert from '../presentation/partials/Alert';
 import ImageUploader from '../presentation/partials/ImageUploader';
 import MealsTableRow from './partials/MealsTableRow';
-import loaderImage from '../../../assets/images/loader.gif';
+
 
 class Meals extends Component {
   constructor(props) {
@@ -150,7 +151,23 @@ class Meals extends Component {
   }
 
   toggleShowDeleteModal(meal) {
-    this.setState({ isShowingDeleteMeal: !this.state.isShowingDeleteMeal, currentMeal: meal });
+    swal({
+      text: `Are you sure want to delete ${meal.name}?`,
+      icon: 'warning',
+      dangerMode: true,
+      buttons: ['Cancel', 'Delete'],
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          const { deleteMealById } = this.props;
+          deleteMealById(meal.id).then((response) => {
+            if (response.status === 200) {
+              this.setState({ currentMeal: {} });
+              swal('Deleted!', 'Your meal has been deleted', 'success');
+            }
+          });
+        }
+      });
   }
 
   toggleAddPhoto(meal) {
@@ -181,19 +198,19 @@ class Meals extends Component {
     );
 
     return (
-			<div id="content2" style={{ paddingBottom: 700 }}>
+			<div id="content-body">
 				{empty(profile.businessName) ? SetupProfile :
-					<div className="col-11">
-						<button onClick={this.handleAddButtonClick} className="button">Add New Meal</button>
+					<div className="col-12">
+						<button onClick={this.handleAddButtonClick} className="button">Add meal</button>
 						{empty(meals.alert) ? '' : <Alert alert={meals.alert} />}
-
 						<div>
 							<Modal
 								isOpen={this.state.isShowingModal}
 								closeTimeoutMS={1}
 								style={addProfileModalStyle}
 								ariaHideApp={false}
-								contentLabel="Modal"
+                contentLabel="Modal"
+                className="create-profile"
 							>
 								<div className="col-12">
 									<a onClick={this.handleAddButtonClick} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
@@ -219,32 +236,12 @@ class Meals extends Component {
 
 						<div>
 							<Modal
-								isOpen={this.state.isShowingDeleteMeal}
-								closeTimeoutMS={1}
-								style={deleteModalStyle}
-								ariaHideApp={false}
-								contentLabel="Modal"
-							>
-								<div>
-									<p>Meal: <b>{this.state.currentMeal.name}</b></p>
-									<p>Are you sure you want to delete this meal?</p>
-									<br />
-									<p>
-										<button onClick={this.toggleShowDeleteModal} className="button-default">Close</button>
-										<button onClick={this.deleteMeal} style={{ float: 'right' }} className="button-error" disabled={formState.isLoading}>Delete</button>
-										<img style={{ float: 'right' }} src={loaderImage} alt="loader" hidden={!formState.isLoading} />
-									</p>
-								</div>
-							</Modal>
-						</div>
-
-						<div>
-							<Modal
 								isOpen={this.state.isShowingAddPhoto}
 								closeTimeoutMS={1}
 								style={addProfileImageModalView}
 								ariaHideApp={false}
-								contentLabel="Modal"
+                contentLabel="Modal"
+                className="image-upload"
 							>
 								<div className="col-12">
 									<div className="col-12">

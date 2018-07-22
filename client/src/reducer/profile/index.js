@@ -1,4 +1,4 @@
-import { SET_PROFILE, SET_PROFILE_ALERT, SET_PROFILE_SERVER_ERRORS } from './action';
+import { SET_PROFILE, SET_PROFILE_ALERT, SET_PROFILE_SERVER_ERRORS } from './actions';
 
 const initialState = {};
 

@@ -55,11 +55,12 @@ class ImageUploader extends Component {
     const dropZoneStyle = {
       width: 350,
       height: 300,
-      marginTop: 30,
+      margin: 'auto',
       padding: 20,
       border: 'solid #7a604a 1px',
       borderRadius: 3,
     };
+
     return (
 			<div className="col-12">
 				<div className="show-errors">
@@ -70,7 +71,8 @@ class ImageUploader extends Component {
 				<Dropzone
 					onDrop={this.handleDrop}
 					accept="image/*"
-					style={dropZoneStyle}
+          style={dropZoneStyle}
+          className="dropzone"
 				>
 					<div style={{ textAlign: 'center' }}>
 						<h2 id="dropzoneHeader">Drop Images Here</h2>

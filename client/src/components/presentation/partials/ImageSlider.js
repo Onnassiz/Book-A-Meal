@@ -6,6 +6,7 @@ import image1 from '../../../../assets/images/homeSlider/image_1.jpg';
 import image2 from '../../../../assets/images/homeSlider/image_2.jpg';
 import image3 from '../../../../assets/images/homeSlider/image_3.jpg';
 import image4 from '../../../../assets/images/homeSlider/image_4.jpg';
+import image5 from '../../../../assets/images/homeSlider/image_5.jpg';
 
 class ImageSlider extends Component {
   constructor(props) {
@@ -18,16 +19,24 @@ class ImageSlider extends Component {
   componentWillMount() {
     const images = [
       {
-        original: image3,
+        original: image1,
+        description: 'We ensure that better food is accessible to everyone.',
       },
       {
         original: image2,
+        description: 'We bring warm catering service to your doorstep.',
       },
       {
-        original: image1,
+        original: image3,
+        description: 'Let us worry about your diet.',
       },
       {
         original: image4,
+        description: 'Our caterers are willing to work on your recipe.',
+      },
+      {
+        original: image5,
+        description: 'Many caterers to give you diverse experiences.',
       },
     ];
     this.setState({ images });
@@ -41,7 +50,9 @@ class ImageSlider extends Component {
 					slideInterval={6000}
 					showThumbnails={false}
 					autoPlay
-					showPlayButton={false}
+          showPlayButton
+          showNav={false}
+          showBullets
 				/>
 			</div>
     );

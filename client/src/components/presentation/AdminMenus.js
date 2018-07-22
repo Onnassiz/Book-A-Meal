@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import empty from 'is-empty';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 import Modal from 'react-modal';
 import {
   Accordion,
@@ -146,7 +147,23 @@ class AdminMenus extends Component {
   }
 
   toggleShowDeleteModal(menu) {
-    this.setState({ isShowingDeleteMeal: !this.state.isShowingDeleteMeal, currentMenu: menu });
+    swal({
+      text: 'Are you sure want to delete this menu?',
+      icon: 'warning',
+      dangerMode: true,
+      buttons: ['Cancel', 'Delete'],
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          const { deleteMenuById } = this.props;
+          deleteMenuById(menu.id).then((response) => {
+            if (response.status === 200) {
+              this.setState({ currentMeal: {} });
+              swal('Deleted!', 'Your menu has been deleted', 'success');
+            }
+          });
+        }
+      });
   }
 
   toggleUpdateModal(menu) {
@@ -157,7 +174,7 @@ class AdminMenus extends Component {
 
     const selectedMeals = [];
     menu.meals.forEach((item) => {
-      selectedMeals.push({ mealId: item.id });
+      selectedMeals.push({ mealId: item.id, price: item.price });
     });
     this.setState({
       date: convertUnixToDateForUpdate(menu.unixTime),
@@ -186,11 +203,13 @@ class AdminMenus extends Component {
 			</div>
     );
 
+    const today = new Date().toISOString().split('T')[0];
+
     return (
-			<div id="content2" style={{ paddingBottom: 700 }}>
+			<div id="content-body">
 				{empty(profile.businessName) ? SetupProfile :
 					<div>
-						<div className="col-11">
+						<div className="col-12">
 							<button onClick={this.toggleShowModal} className="button">Add Menu</button>
 							{empty(menus.alert) ? '' : <Alert alert={menus.alert} />}
 						</div>
@@ -213,7 +232,7 @@ class AdminMenus extends Component {
 										</div> :
 										<div>
 											<form onSubmit={this.handleSubmit}>
-												<div className="box">
+												<div className="box-menu">
 													<h3>{ this.state.updateMode ? 'Update' : 'Set Daily' } Menu</h3>
 													<div className="show-errors">
 														<ul>
@@ -221,9 +240,9 @@ class AdminMenus extends Component {
 															{empty(menus.errors) ? '' : Object.keys(menus.errors).map(item => <li key={item}>{ menus.errors[item] }</li>)}
 														</ul>
 													</div>
-													<BasicInput name="date" type="date" label="Menu Date" value={this.state.date} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
+													<BasicInput name="date" type="date" min={today} label="Menu Date" value={this.state.date} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
 													<BasicInput name="name" type="text" label="Menu Name (optional)" value={this.state.name} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
-													<p style={{ fontSize: 18, marginTop: 45 }}><b>{ this.state.selectedMeals.length } </b>meals selected</p>
+													<div style={{ fontSize: 18, marginTop: 45 }}><b>{ this.state.selectedMeals.length } </b>meals selected</div>
 													<SubmitButton value={this.state.updateMode ? 'Update' : 'Submit'} isLoading={formState.isLoading} />
 												</div>
 												<div id="meals-checkBox">
@@ -255,7 +274,7 @@ class AdminMenus extends Component {
 								</div>
 							</Modal>
 						</div>
-						<div className="col-11" style={{ marginTop: 20 }}>
+						<div className="col-12" style={{ marginTop: 20 }}>
 							{ empty(menus.menus) ? '' :
 								<Accordion>
 									{ menus.menus.map(menu => <MenuAccordion showOpsButtons={this.showOpsButtons(menu.unixTime)} toggleUpdateModal={() => this.toggleUpdateModal(menu)} toggleShowDeleteModal={() => this.toggleShowDeleteModal(menu)} menu={menu} key={menu.id} />) }

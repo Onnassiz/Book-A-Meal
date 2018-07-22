@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { postProfile, getProfile, updateProfile, putImage } from '../../reducer/profile/action';
+import { postProfile, getProfile, updateProfile, putImage } from '../../reducer/profile/actions';
 import Profile from '../presentation/Profile';
 
 const mapStateToProps = (state) => {

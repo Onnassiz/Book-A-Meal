@@ -1,4 +1,4 @@
-import { SET_MENUS, SET_MENUS_ALERT, SET_MENUS_SERVER_ERRORS, SET_USER_MENUS } from './action';
+import { SET_MENUS, SET_MENUS_ALERT, SET_MENUS_SERVER_ERRORS, SET_USER_MENUS } from './actions';
 import { getCurrentDate } from '../../utilities/functions';
 
 const initialState = {
@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     case SET_USER_MENUS:
       return { ...state, userMenus: action.menus, currentDate: action.date };
     case SET_MENUS_SERVER_ERRORS:
-      return { ...state, errors: action.errors.data };
+      return { ...state, errors: action.errors };
     case SET_MENUS_ALERT:
       return { ...state, alert: action.alert };
     default:

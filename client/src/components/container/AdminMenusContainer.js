@@ -1,9 +1,9 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getProfile } from '../../reducer/profile/action';
-import { getMeals } from '../../reducer/meals/action';
-import { postMenu, getUserMenus, deleteMenuById, updateMenu } from '../../reducer/menus/action';
+import { getProfile } from '../../reducer/profile/actions';
+import { getMeals } from '../../reducer/meals/actions';
+import { postMenu, getUserMenus, deleteMenuById, updateMenu } from '../../reducer/menus/actions';
 import AdminMenus from '../presentation/AdminMenus';
 
 const mapStateToProps = (state) => {

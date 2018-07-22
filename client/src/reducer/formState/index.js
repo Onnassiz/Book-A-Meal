@@ -1,4 +1,4 @@
-import { SET_LOADING, UNSET_LOADING } from './action';
+import { SET_LOADING, UNSET_LOADING } from './actions';
 
 const initialState = {
   isLoading: false,

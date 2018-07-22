@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setLoading, unsetLoading } from '../formState/action';
+import { setLoading, unsetLoading } from '../formState/actions';
 
 export const SET_PROFILE = 'SET_PROFILE';
 export const SET_PROFILE_SERVER_ERRORS = 'SET_PROFILE_SERVER_ERRORS';
