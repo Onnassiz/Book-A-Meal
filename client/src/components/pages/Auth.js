@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import HomeContainer from '../container/HomeContainer';
+import AuthContainer from '../container/AuthContainer';
 
 class Home extends Component {
   render() {
     return (
 			<div>
-				<HomeContainer />
+				<AuthContainer />
 			</div>
     );
   }

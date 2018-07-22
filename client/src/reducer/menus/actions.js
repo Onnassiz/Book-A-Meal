@@ -94,7 +94,6 @@ export function getUserMenus() {
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());
-      // console.log(error.response.data);
       return error;
     });
   };

@@ -3,15 +3,19 @@
     position: relative;
     display: inline-block;
   }
+
+  .dropdown-container {
+    display: none;
+    width: 180px;
+    position: absolute;
+    z-index: 1;
+  }
   
   .dropdown-content {
-    display: none;
-    position: absolute;
+    margin-top: 2px;
     background-color: $bodyBackGround;
-    width: 180px;
     padding-top: 30px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
     border-radius: 3px;
   }
   
@@ -32,23 +36,25 @@
     background-color: #b0b1b1ef; color: $headerBackground;
   }
   
-  .dropdown:hover .dropdown-content {
+  .dropdown:hover .dropdown-container {
     display: block;
   }
 }
 @mixin button {
-  background: $offGreen;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 17px;
-  border-radius: 3px;
-  font-family: $headerLinkFont;
+  border: solid $black 1px;;
   outline: none;
+  background: none;
+  // margin-right: 4px;
+  padding: 10px 20px;
   cursor: pointer;
+  font-size: 16px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  border-radius: 3px;
+  color: $black;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   &:disabled {
     background: rgba(201, 198, 198, 0.863);
@@ -59,14 +65,15 @@
 @mixin content {
   display: block;
   position: relative;
-  top: 500px;
-  background-color: $bodyBackGround;
-  min-height:800px;
+  background-color: white;
+  bottom: 40px;
   padding: 40px 90px 40px 90px;
 
-  h2 {
+  .body{
+    h2 {
       color: #4D4D4D;
       margin-left: 20px;
+    }
   }
 }
 
@@ -119,32 +126,45 @@
 @mixin box {
   position: relative;
   width: 100%;
-  padding-top: 30px;
+  padding-top: 10px;
   min-height: 270px;
   float: left;
 
   h3{
     margin: 0 0 20px;
-    font-size: 25px;
+    font-size: 30px;
+    font-weight: normal;
     padding: 0;
+    color: #474747;
     text-align: center;
-    color: $headerBackground;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
+  }
+
+  #signUpAsAdmin{
+    width: 190px;
+    margin-top: 15px;
+    float: left;
   }
 
   .inputBox {
     position: relative;
     input{
-      width: 93%;
+      width: 95%;
       padding: 10px 10px 12px 10px;
       font-size: 16px;
       color: #474747;
-      background: #dbdfdf;
-      border: solid #7E9C18 1px;
+      background: white;
+      border: solid rgb(167, 165, 168) 1px;
       outline: none;
       margin-bottom: 10px;
       margin-top: 8px;
       border-radius: 4px;
+
+
+      &:focus {
+        background: rgb(231, 229, 231);
+        transition: 0.5s;
+      }
     }
 
     input.has-error {
@@ -156,12 +176,12 @@
     }
 
     textarea{
-      width: 93%;
+      width: 95%;
       padding: 10px 10px 12px 10px;
       font-size: 16px;
       color: #474747;
-      background: #dbdfdf;
-      border: solid #7E9C18 1px;
+      background: white;
+      border: solid $lightBlack 1px;
       outline: none;
       margin-bottom: 10px;
       margin-top: 8px;
@@ -184,22 +204,32 @@
     text-decoration: underline;
   }
 
+  label {
+    color: #474747;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 16px;
+  }
+
   #submit {
     width: 160px;
     float: right;
 
     input[type="submit"] {
-      border: none;
+      border: solid $lightBlack 1px;;
       outline: none;
-      background: #7E9C18;
-      margin-right: 4px;
+      background: none;
+      // margin-right: 4px;
       padding: 10px 20px;
       cursor: pointer;
       font-size: 16px;
       font-family: "Trebuchet MS", Helvetica, sans-serif;
       border-radius: 3px;
-      color: #FFF;
+      color: $lightBlack;
       float: right;
+
+      &:hover {
+        transform: scale(1.05);
+      }
     }
 
     img{

@@ -32,8 +32,8 @@ const MenuAccordion = (props) => {
 					<div>
 						<hr />
 						<div style={{ marginLeft: 20 }}>
-							<button onClick={props.toggleUpdateModal} className="button-default">Edit</button>
 							<button onClick={props.toggleShowDeleteModal} className="button-error">Delete</button>
+							<button onClick={props.toggleUpdateModal} className="button">Edit</button>
 						</div>
 					</div>}
 			</AccordionItemBody>

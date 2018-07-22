@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
@@ -26,7 +27,7 @@ class Profile extends Component {
     this.toggleDropZone = this.toggleDropZone.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.putImage = this.putImage.bind(this);
+    this.putImage = this.putImage.bind(this);  
   }
 
   componentWillMount() {
@@ -120,7 +121,7 @@ class Profile extends Component {
     };
 
     return (
-			<div id="content2" style={{ paddingBottom: 200 }}>
+			<div id="content-body">
 				<div className="col-12">
 					<button onClick={empty(profile.businessName) ? this.handleAddButtonClick.bind(this, false) : this.handleAddButtonClick.bind(this, true)} style={{ marginRight: 5 }} className="button">
 						{empty(profile.businessName) ? 'Add Profile' : 'Update Profile'}
@@ -134,27 +135,30 @@ class Profile extends Component {
 						closeTimeoutMS={1}
 						style={addProfileModalStyle}
 						ariaHideApp={false}
-						contentLabel="Modal"
+            contentLabel="Modal"
+            className="create-profile"
 					>
-						<div className="col-12">
-							<a onClick={this.handleAddButtonClick} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
-						</div>
-						<div className="box">
-							<h3>Setup Business Profile</h3>
-							<div className="show-errors">
-								<ul>
-									{Object.keys(this.state.errors).map(item => <li key={item}>{ this.state.errors[item] }</li>)}
-									{empty(profile.errors) ? '' : Object.keys(profile.errors).map(item => <li key={item}>{ profile.errors[item] }</li>)}
-								</ul>
-							</div>
-							<form onSubmit={this.handleSubmit}>
-								<BasicInput name="businessName" type="text" label="Business Name" value={this.state.businessName} onChange={this.onChange} hasError={this.state.errors.businessName !== undefined} />
-								<BasicInput name="mission" type="text" label="Mission Statement" value={this.state.mission} onChange={this.onChange} hasError={this.state.errors.mission !== undefined} />
-								<BasicInput name="email" type="text" label="Business Email" value={this.state.email} onChange={this.onChange} hasError={this.state.errors.email !== undefined} />
-								<TextArea name="contact" type="text" label="Contact" value={this.state.contact} onChange={this.onChange} hasError={this.state.errors.contact !== undefined} />
-								<SubmitButton value={empty(profile.businessName) ? 'Submit' : 'Update'} isLoading={formState.isLoading} />
-							</form>
-						</div>
+						<div>
+              <div className="col-12">
+                <a onClick={this.handleAddButtonClick} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
+              </div>
+              <div className="box">
+                <h3>Setup Business Profile</h3>
+                <div className="show-errors">
+                  <ul>
+                    {Object.keys(this.state.errors).map(item => <li key={item}>{ this.state.errors[item] }</li>)}
+                    {empty(profile.errors) ? '' : Object.keys(profile.errors).map(item => <li key={item}>{ profile.errors[item] }</li>)}
+                  </ul>
+                </div>
+                <form onSubmit={this.handleSubmit}>
+                  <BasicInput name="businessName" type="text" label="Business Name" value={this.state.businessName} onChange={this.onChange} hasError={this.state.errors.businessName !== undefined} />
+                  <BasicInput name="mission" type="text" label="Mission Statement" value={this.state.mission} onChange={this.onChange} hasError={this.state.errors.mission !== undefined} />
+                  <BasicInput name="email" type="text" label="Business Email" value={this.state.email} onChange={this.onChange} hasError={this.state.errors.email !== undefined} />
+                  <TextArea name="contact" type="text" label="Contact" value={this.state.contact} onChange={this.onChange} hasError={this.state.errors.contact !== undefined} />
+                  <SubmitButton value={empty(profile.businessName) ? 'Submit' : 'Update'} isLoading={formState.isLoading} />
+                </form>
+              </div>
+            </div>
 					</Modal>
 				</div>
 				<div>
@@ -163,7 +167,8 @@ class Profile extends Component {
 						closeTimeoutMS={1}
 						style={addProfileImageModalView}
 						ariaHideApp={false}
-						contentLabel="Modal"
+            contentLabel="Modal"
+            className="image-upload"
 					>
 						<div className="col-12">
 							<div className="col-12">

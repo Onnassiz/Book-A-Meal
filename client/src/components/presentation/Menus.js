@@ -57,7 +57,7 @@ class Menus extends Component {
   render() {
     const { menus, cart, orders } = this.props;
     return (
-			<div id="content2">
+			<div id="content-body">
 				<div className="col-12">
           {empty(orders.alert) ? '' : <Alert alert={orders.alert} />}
 					<div className="dateInput">

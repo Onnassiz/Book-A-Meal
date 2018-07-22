@@ -8,7 +8,7 @@ const MealsTableRow = (props) => {
   image = image === null ? null : image.replace('upload/', 'upload/c_scale,w_70/');
   return (
 		<tr>
-			<td>{props.i}</td>
+			<td style={{ width: 10 }}>{props.i}</td>
 			<td>{props.item.name}</td>
 			<td>&#8358;{numberWithCommas(props.item.price)}</td>
 			<td>{props.item.category}</td>

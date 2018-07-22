@@ -1,10 +1,9 @@
-
 @import "variables";
 @import "reset";
 @import "mixins";
 
 header {
-  height: 80px;
+  min-height: 80px;
   background: $headerBackground;
   width: 100%;
   z-index: 10;
@@ -19,26 +18,48 @@ header {
     color: #fff;
     font-size: 18px;
     font-family: $mainFont;
+    cursor: pointer;
 
     i {
       vertical-align: middle;
     }
   }
 
+  a.main {
+    &:hover {
+      border-bottom: solid white 2px;
+    }
+  }
+
+  .menuIcon {
+    display: none;
+    right: 0;
+  }
+  
+
   .active {
     border-bottom: solid 2px white;
   }
 
-  li{
-    list-style: none;
-    float: left;
-    margin-left: 15px;
-    padding-top: 30px;
-
+  ul {
+    min-width: 50px;
+    float: right;
+    padding-top: 27px;
+    right: 0;
+    li{
+      list-style: none;
+      display: inline;
+      margin-left: 15px;
+    }
   }
 
   .nav-left {
     @include nav;
+    ul {
+      float: left;
+      padding-top: 27px;
+      padding-bottom: 3px;
+    }
   }
 
   .nav {
@@ -47,27 +68,72 @@ header {
     padding-right: 30px;
   }
 
-  #signIn {
-    list-style: none;
-    float: left;
-    margin-left: 15px;
-    padding-top: 22px;
+  .auth-button {
+    border: white solid 1px;;
+    background: none;
+    color: white;
+    width: 80px;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
+  
+  .user-button {
+    border: white solid 1px;;
+    background: none;
+    color: white;
+    width: 180px;
+    padding: 4px 2px 2px 2px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .responsive {
+    float: none;
+    margin-bottom: -20px;
+    opacity: 0;
+    height: 0;
+    visibility: hidden;
+    transition: height 1s;
+    -webkit-transition: opacity 600ms, visibility 600ms, height 700ms;
+    transition: opacity 600ms, visibility 600ms, height 700ms;    padding-top: 100px;
+    line-height: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    li {
+      display: block;
+    }
+  }
+
+  .responsive.show {
+    visibility: visible;
+    opacity: 1;
+    height: 200px;
+  }
+  
+  .responsive.showAdmin {
+    visibility: visible;
+    opacity: 1;
+    height: 350px;  
   }
 }
 
+
 #banner {
   width: 100%;
-  height: 500px;
-  position: fixed;
-  background: url('../images/banner.jpg');
-  background-repeat-x: no-repeat;
+  height: 100%;
+  // background: url('../images/banner.jpg');
   background-size: cover;
 }
 
 a{
   text-decoration: none;
   font-size: 14px;
-  color:  $linkColor;
   cursor: pointer;
 }
 
@@ -100,20 +166,23 @@ a{
   @include content;
 }
 
-#content2 {
+#content-body {
   @include content;
   position: relative;
   top: -15px;
-  background-color: $bodyBackGround;
-  min-height: 800px;
+  min-height: calc(100vh - 200px);
 }
 
 #content3 {
   @include content;
   position: relative;
-  top: 15px;
-  background-color: $bodyBackGround;
-  min-height: 200px;
+  padding-top: 40px;
+  top: -15px;
+  background: url('../images/banner.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: -20px;
+  min-height: calc(100vh - 100px);
 }
 
 table{
@@ -121,27 +190,35 @@ table{
   margin-top: 15px;
   border-collapse: collapse;
   border-spacing: 0;
-  width: 100%;
   border-radius: 5px;
+  display: block;
+  max-width: 100%;
+  overflow: scroll;
 
   thead tr{
-    background: #afafaf;
+    background: $headerBackground;
+    height: 70px;;
   }
 
   thead th{
-    color: #4D4D4D;
+    color: white;
     padding: 12px;
     text-align: left;
+    font-weight: normal;
   }
 
   tbody tr {
-    background: $milkyWhite;
+    &:hover {background-color: #f5f5f5;}
   }
 
-  tbody tr:nth-child(odd) {
-    background: #cccecd;
+  th, td {
+    border-bottom: 1px solid #ddd;
   }
 
+  tbody td a .material-icons {
+    color: $headerBackground;
+  }
+  
   tbody td {
     padding: 12px;
     text-align: left;
@@ -149,6 +226,9 @@ table{
     span {
       margin: 5px;
     }
+  }
+  tbody td:last-child {
+    min-width: 150px;
   }
 }
 
@@ -191,7 +271,6 @@ table{
 
 .tooltips {
   position: relative;
-  z-index: 1;
 
   div {
     display: none;
@@ -206,12 +285,42 @@ table{
 
 .about {
   margin-top: 0px;
-  h1{
-    color: #7a604a;
-    font-size: 30px;
+  .text {
+    padding: 0px 30px 0px 30px;
+    p {
+      font-size: 20px;
+      line-height: 35px;
+      margin-bottom: 20px;
+    }
+  
+    h1 {
+      font-size: 35px;
+      font-weight: normal;
+    }
   }
-  p{
-    font-size: 20px;
+
+  img {
+    max-width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    transition: transform .2s;
+
+    &:hover{
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
+
+  .centered {
+    position: absolute;
+    pointer-events:none;
+    position: relative;
+    bottom: 40px; 
+    width: 60%;
+    text-align: center;
+    margin: auto;
   }
 }
 
@@ -223,12 +332,10 @@ table{
     padding: 10px 10px 12px 10px;
     font-size: 16px;
     color: #474747;
-    background: #dbdfdf;
-    border: solid #7E9C18 1px;
+    border: solid 1px;
     outline: none;
     margin-bottom: 10px;
     margin: 10px 10px 0 44px;
-    border-radius: 4px;
   }
   span {
     color: #4D4D4D;
@@ -272,14 +379,18 @@ table{
       background: $headerBackground;
       border-radius: 4px;
       color: white;
-      font-size: 20px;
+      font-size: 16px;
       text-align: center;
       cursor: pointer;
       padding: 8px 0;
       transition: 0.2s all;
 
       &:hover {
-        color: $offGreen;
+        background: $lightBlack;
+      }
+
+      &:focus {
+        outline: none;
       }
     }
   }
@@ -287,6 +398,7 @@ table{
 
 #card_container{
   width: 100%;
+  display: table;
   margin: auto;
 
   .card {
@@ -364,7 +476,7 @@ table{
       overflow: hidden;
 
       .left {
-        width: 160px;
+        width: 150px;
         float: left;
 
         h3 {
@@ -382,7 +494,7 @@ table{
         .add_button {
           width: 100%;
           background: $headerBackground;
-          border-radius: 12px;
+          border-radius: 4px;
           color: white;
           text-align: center;
           display: block;
@@ -390,7 +502,7 @@ table{
           transition: 0.2s all;
 
           &:hover {
-            color: $offGreen;
+            background: $lightBlack;
           }
         }
       }
@@ -420,14 +532,13 @@ table{
 }
 
 .footer {
+  clear: both;
   padding-top: 7px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  position: relative;
   width: 100%;
-  background-color: $headerBackground;
+  background: $headerBackground;
   color: white;
-  height: 25px;
+  height: 35px;
   text-align: center;
 }
 
@@ -439,38 +550,19 @@ table{
 #authSection {
   position: relative;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 110px;
   width: 75%;
 }
 
-#authSection #boxSeparator {
-  width: 80px;
-  text-align: center;
-  float: left;
-  padding-top: 160px;
-  font-size: 25px;
-  color: $headerBackground;
-}
 
 .box {
   @include box;
-  
-  #signUpAsAdmin{
-    width: 190px;
-    margin-top: 15px;
-    float: left;
-  }
 }
 
 .box-menu {
   @include box;
   width: 400px;
-
-  #signUpAsAdmin{
-    width: 190px;
-    margin-top: 15px;
-    float: left;
-  }
+  margin: 0 22px 0 22px;
 }
 
 .menu_item {
@@ -518,12 +610,12 @@ table{
 }
 
 .checkbox:hover input ~ .check {
-  border: solid 2px #7E9C18;
+  border: solid 2px $lightBlack;
 }
 
 .checkbox input:checked ~ .check {
   border: none;
-  background: #7E9C18;
+  background: $lightBlack;
 }
 
 .checkbox input:checked ~ .check:after {
@@ -560,26 +652,6 @@ table{
   display: none;
 }
 
-
-[class*="col-"] {
-    width: 100%;
-    float: left;
-}
-@media only screen and (min-width: 768px) {
-    /* For desktop: */
-    .col-1 {width: 8.33%;}
-    .col-2 {width: 16.66%;}
-    .col-3 {width: 25%;}
-    .col-4 {width: 33.33%;}
-    .col-5 {width: 41.66%;}
-    .col-6 {width: 50%;}
-    .col-7 {width: 58.33%;}
-    .col-8 {width: 66.66%;}
-    .col-9 {width: 75%;}
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
-}
 
 #menu-section {
 	margin: 40px auto;
@@ -628,7 +700,7 @@ table{
 }
 
 #imageSlider {
-  height: 700px;
+  height: 580px;
   overflow-y: hidden;
 }
 
@@ -652,11 +724,14 @@ table{
 
   span {
     font-size: 18px;
-    margin-left: 35px;
     color: rgb(124, 123, 121);
 
     i {
       font-size: 150px;
+    }
+
+    img {
+      max-width: 100%;
     }
   }
 }
@@ -669,6 +744,7 @@ table{
 #meals-checkBox {
   height: 300px;
   width: 500px;
+  margin: auto;
   padding: 10px;
   overflow-y: scroll;
 }
@@ -699,8 +775,8 @@ table{
   text-align:center;
   line-height:23px;
 
-  background:$offGreen;
-  color:white;
+  background:white;
+  color: $lightBlack;
 
   width:22px;
   height:22px;           
@@ -720,13 +796,247 @@ table{
   }
 }
 
-// ::-webkit-scrollbar {
-//   -webkit-appearance: none;
-//   width: 5px;
-// }
+.accordion__item + .accordion__item {
+  border-top: rgb(231, 226, 226) 1px solid;
+}
 
-// ::-webkit-scrollbar-thumb {
-//   border-radius: 5px;
-//   background-color: rgba(0,0,0,.5);
-//   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-// }
+.accordion__title {
+  background: none;
+  color: #444;
+  border-bottom: rgb(218, 213, 213) 1px solid;
+  width: 97%;
+
+  &:focus {
+    outline: rgb(218, 213, 213) 1px solid;
+  }
+}
+
+.u-position-relative {
+  font-weight: normal;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+[class*="col-"] {
+  float: left;
+  // padding: 15px;
+}
+
+@media screen and (max-width: 1366px) {
+  #imageSlider {
+    height: 400px;
+  }
+
+  .accordion__title {
+    width: 96%;
+  }
+
+  div.ReactModal__Content.ReactModal__Content--after-open.create-profile {
+    top: 15% !important;
+    bottom: calc(100vh - 700px) !important;
+    left: 26% !important;
+    right: 26% !important;
+  }
+
+  div.ReactModal__Content.ReactModal__Content--after-open.image-upload {
+    top: 15% !important;
+    bottom: calc(100vh - 650px) !important;
+    left: 25% !important;
+    right: 25% !important;
+  }
+
+  .box-menu {
+    float: none;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 1026px) {
+  #authSection {
+    margin-top: 40px;
+  }
+
+  #content3 {
+  min-height: calc(100vh - 30px);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  div.ReactModal__Content.ReactModal__Content--after-open.create-profile {
+    top: 15% !important;
+    bottom: 30% !important;
+    left: 25% !important;
+    right: 27% !important;
+  }
+
+  div.ReactModal__Content.ReactModal__Content--after-open.image-upload {
+    top: 15% !important;
+    bottom: 42% !important;
+    left: 21% !important;
+    right: 21% !important;
+  }
+  
+  #card_container {
+    .card {
+      width: 270px;
+
+      .card_container{
+        .right {
+          width: 90px;
+        }
+        .left {
+          width: 140px;
+        }
+      }
+    }
+  }
+
+  .accordion__title {
+    width: 94%;
+  }
+
+  #content3 {
+    min-height: calc(100vh - 110px);
+  }
+
+  #authSection {
+    margin-top: 100px;
+  }
+
+  .box {
+    .inputBox {
+      input {
+        width: 93%;
+      }
+
+      textarea {
+        width: 93%;
+      }
+    }
+  }
+
+  #banner {
+    height: 450px;
+  }
+}
+
+@media screen and (max-width: 870px) {
+  header {
+    .nav, .nav-left{
+        display: none;
+    }
+    .menuIcon {
+      display: block;
+    }
+    #banner {
+      height: 400px;
+    }
+  }
+
+  #imageSlider {
+    height: 320px;
+  }
+
+  #content {
+    padding: 20px 40px 20px 40px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .dropzone {
+    width: 200px !important;
+  }
+
+  #cart_summary {
+    width: 90%;
+  }
+
+  #card_container{
+    width: 80%;
+  }  
+
+  #imageSlider {
+    height: 180px;
+  }
+
+  div.ReactModal__Content.ReactModal__Content--after-open.create-profile {
+    top: 13% !important;
+    bottom: 8% !important;
+    left: 9% !important;
+    right: 9% !important;
+  }
+   
+  div.ReactModal__Content.ReactModal__Content--after-open.image-upload {
+    top: 16% !important;
+    bottom: 20% !important;
+    left: 9% !important;
+    right: 9% !important;
+  }
+
+  .accordion__title {
+    width: 89%;
+  }
+
+  .box {
+    .inputBox {
+      input {
+        width: 93%;
+      }
+
+      textarea {
+        width: 93%;
+      }
+    }
+  }
+
+  #detail {
+    span {
+      margin-left: 0px;
+    }
+  }
+
+  #authSection {
+    width: 100%;
+  }
+  
+  #banner {
+    height: 300px;
+  }
+
+  .box-menu {
+    width: 250px;
+    margin-bottom: 15px;
+  }
+
+  #content-body {
+    padding: 10px 20px 80px 20px;
+  }
+
+  #content3 {
+    top: 0px;
+    padding: 10px 20px 140px 20px;
+    min-height: calc(125vh);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .footer {
+    height: 45px;
+  }
+
+  [class*="col-"] {
+      width: 100%;
+  }
+}

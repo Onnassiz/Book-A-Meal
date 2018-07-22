@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const BasicInput = props => (
 	<div className="inputBox">
 		<label htmlFor={props.name}>{props.label}</label>
-		<input autoComplete={props.name} className={props.hasError ? 'has-error' : ''} onChange={props.onChange} value={props.value} type={props.type} name={props.name} id={props.name} />
+		<input autoComplete={props.name} min={props.min} className={props.hasError ? 'has-error' : ''} onChange={props.onChange} value={props.value} type={props.type} name={props.name} id={props.name} />
 	</div>
 );
 
@@ -24,6 +24,7 @@ export const Checkbox = props => (
 BasicInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
+  min: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -34,6 +35,7 @@ BasicInput.defaultProps = {
   hasError: false,
   type: 'text',
   label: '',
+  min: '',
 };
 
 TextArea.propTypes = {

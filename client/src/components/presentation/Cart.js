@@ -121,7 +121,7 @@ class Cart extends Component {
       float: 'right',
     };
     return (
-			<div id="content2">
+			<div id="content-body">
 				{ cart.cart.length ?
 					<div>
 						<div>
@@ -130,7 +130,8 @@ class Cart extends Component {
 								closeTimeoutMS={1}
 								style={addProfileImageModalView}
 								ariaHideApp={false}
-								contentLabel="Modal"
+                contentLabel="Modal"
+                className="image-upload"
 							>
 								<div>
                   <div className="col-12">

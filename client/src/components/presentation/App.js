@@ -6,7 +6,7 @@ import empty from 'is-empty';
 import Footer from '../presentation/layout/Footer';
 import UserHomePage from '../pages/UserHomePage';
 import Profile from '../pages/Profile';
-import Home from '../pages/Home';
+import Auth from '../pages/Auth';
 import Meals from '../pages/Meals';
 import AdminMenus from '../pages/AdminMenus';
 import Menus from '../pages/Menus';
@@ -56,27 +56,28 @@ class App extends Component {
 
   render() {
     const guestRoutes = (
-			<Switch>
-				<Route exact path="/" component={Home} />
-			</Switch>
+      <Switch>
+        <Route exact path="/" component={UserHomePage} />
+        <Route exact path="/auth" component={Auth} />
+      </Switch>
     );
     const userRoutes = (
-			<Switch>
-				<Route exact path="/" component={UserHomePage} />
-				<Route exact path="/caterer/business_profile" component={Profile} />
-				<Route exact path="/caterer/meals" component={Meals} />
-				<Route exact path="/caterer/menus" component={AdminMenus} />
-				<Route exact path="/menus" component={Menus} />
-				<Route exact path="/cart" component={Cart} />
-			</Switch>
+      <Switch>
+        <Route exact path="/" component={UserHomePage} />
+        <Route exact path="/caterer/business_profile" component={Profile} />
+        <Route exact path="/caterer/meals" component={Meals} />
+        <Route exact path="/caterer/menus" component={AdminMenus} />
+        <Route exact path="/menus" component={Menus} />
+        <Route exact path="/cart" component={Cart} />
+      </Switch>
     );
     return (
-			<div>
-				<main>
-					{ this.state.isSignedIn ? userRoutes : guestRoutes }
-				</main>
-				{/* <Footer /> */}
-			</div>
+      <div>
+        <main>
+          {this.state.isSignedIn ? userRoutes : guestRoutes}
+        </main>
+        <Footer />
+      </div>
     );
   }
 }

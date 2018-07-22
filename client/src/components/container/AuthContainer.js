@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
 import { setLoading } from '../../reducer/formState/actions';
 import { postUser, signInUser } from '../../reducer/user/actions';
-import Home from '../presentation/Home';
+import Auth from '../presentation/Auth';
 
 const mapStateToProps = (state) => {
   return {
@@ -23,4 +23,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Home);
+)(Auth);
