@@ -95,7 +95,7 @@ describe('Order Controller', () => {
       };
 
       request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
+        expect(response.statusCode).to.equal(422);
         done();
       });
     });
@@ -149,7 +149,7 @@ describe('Order Controller', () => {
         };
 
         request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
-          expect(response.statusCode).to.equal(400);
+          expect(response.statusCode).to.equal(422);
           done();
         });
       });
@@ -174,7 +174,7 @@ describe('Order Controller', () => {
         };
 
         request.post({ url: `${baseUrl}/orders`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
-          expect(response.statusCode).to.equal(400);
+          expect(response.statusCode).to.equal(422);
           done();
         });
       });
@@ -237,7 +237,7 @@ describe('Order Controller', () => {
 
         TestUtil.getOrderId().then((id) => {
           request.put({ url: `${baseUrl}/orders/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, json: formData }, (error, response) => {
-            expect(response.statusCode).to.equal(400);
+            expect(response.statusCode).to.equal(422);
             done();
           });
         });

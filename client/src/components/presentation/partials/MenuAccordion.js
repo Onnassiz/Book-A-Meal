@@ -19,7 +19,8 @@ const MenuAccordion = (props) => {
 				<div>{ props.menu.name }</div>
 			</AccordionItemTitle>
 			<AccordionItemBody>
-				{ props.menu.meals.map(meal => (
+				<div>Hi</div>
+				{/* { props.menu.meals.map(meal => (
 					<div className="menu_item" key={meal.id}>
 						<h3>{ meal.name }</h3>
 						<div>
@@ -35,7 +36,7 @@ const MenuAccordion = (props) => {
 							<button onClick={props.toggleShowDeleteModal} className="button-error">Delete</button>
 							<button onClick={props.toggleUpdateModal} className="button">Edit</button>
 						</div>
-					</div>}
+					</div>} */}
 			</AccordionItemBody>
 		</AccordionItem>
   );

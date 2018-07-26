@@ -20,6 +20,16 @@ const menuFormConstraints = [
     .withMessage('the unixTime field must be an integer')
     .trim(),
 
+  check('extraDays')
+    .optional({ nullable: true })
+    .isInt()
+    .withMessage('the extra day field must be an integer')
+    .custom((value) => {
+      return typeof value === 'number';
+    })
+    .withMessage('the extra day field must be an integer')
+    .trim(),
+
   check('meals')
     .exists()
     .withMessage('the meals field is require')

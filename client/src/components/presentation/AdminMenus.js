@@ -24,7 +24,8 @@ class AdminMenus extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: '',
+      startDate: new Date().toISOString().split('T')[0],
+      endDate: '',
       name: '',
       updateMode: false,
       currentMenu: {},
@@ -75,6 +76,11 @@ class AdminMenus extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  getMenuExtraDays() {
+    const unixTimeDiff = (new Date(this.state.endDate).getTime() / 1000) - (new Date(this.state.startDate).getTime() / 1000);
+    return unixTimeDiff > 0 ? unixTimeDiff / 86400 : 0;
+  }
+
   isValid() {
     this.setState({ errors: {} });
     const { errors, isValid } = validateMenu(this.state);
@@ -85,7 +91,7 @@ class AdminMenus extends Component {
   }
 
   resetFields() {
-    this.setState({ date: '', name: '', selectedMeals: [], updateMode: false });
+    this.setState({ startDate: '', endDate: '', name: '', selectedMeals: [], updateMode: false });
   }
 
   handleSubmit(e) {
@@ -94,10 +100,12 @@ class AdminMenus extends Component {
       const { postMenu, updateMenu } = this.props;
       const formData = {
         id: this.state.currentMenu.id,
-        unixTime: new Date(this.state.date).getTime() / 1000,
+        unixTime: new Date(this.state.startDate).getTime() / 1000,
+        extraDays: this.getMenuExtraDays(),
         name: this.state.name,
         meals: this.state.selectedMeals,
       };
+
       if (this.state.updateMode) {
         updateMenu(formData).then((response) => {
           if (response.status === 200) {
@@ -177,7 +185,7 @@ class AdminMenus extends Component {
       selectedMeals.push({ mealId: item.id, price: item.price });
     });
     this.setState({
-      date: convertUnixToDateForUpdate(menu.unixTime),
+      startDate: convertUnixToDateForUpdate(menu.unixTime),
       selectedMeals,
       name: menu.name,
       isShowingModal: true,
@@ -240,7 +248,8 @@ class AdminMenus extends Component {
 															{empty(menus.errors) ? '' : Object.keys(menus.errors).map(item => <li key={item}>{ menus.errors[item] }</li>)}
 														</ul>
 													</div>
-													<BasicInput name="date" type="date" min={today} label="Menu Date" value={this.state.date} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
+													<BasicInput name="startDate" type="date" min={today} label="Start Date" value={this.state.startDate} onChange={this.onChange} hasError={this.state.errors.date !== undefined} />
+													<BasicInput name="endDate" type="date" min={this.state.startDate} label="End Date (optional)" value={this.state.endDate} onChange={this.onChange} hasError={this.state.errors.endDate !== undefined} />
 													<BasicInput name="name" type="text" label="Menu Name (optional)" value={this.state.name} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
 													<div style={{ fontSize: 18, marginTop: 45 }}><b>{ this.state.selectedMeals.length } </b>meals selected</div>
 													<SubmitButton value={this.state.updateMode ? 'Update' : 'Submit'} isLoading={formState.isLoading} />
@@ -248,7 +257,7 @@ class AdminMenus extends Component {
 												<div id="meals-checkBox">
 													{meals.meals.map(item => <Checkbox isChecked={this.isSelected(item.id)} meal={item} key={item.id} onChange={e => this.onCheckBoxChange(e, item)} />)}
 												</div>
-												<span id="checkBox-label">Scroll to view all meals</span>
+												<span id="checkBox-label">Scroll to view more meals</span>
 											</form>
 										</div>}
 								</div>

@@ -30,7 +30,7 @@ describe('AuthController', () => {
       };
 
       request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
+        expect(response.statusCode).to.equal(422);
         done();
       });
     });
@@ -43,7 +43,7 @@ describe('AuthController', () => {
       };
 
       request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
+        expect(response.statusCode).to.equal(422);
         done();
       });
     });
@@ -56,7 +56,7 @@ describe('AuthController', () => {
       };
 
       request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
+        expect(response.statusCode).to.equal(422);
         done();
       });
     });
@@ -98,7 +98,7 @@ describe('AuthController', () => {
       };
 
       request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
+        expect(response.statusCode).to.equal(422);
         done();
       });
     });
@@ -110,7 +110,7 @@ describe('AuthController', () => {
       };
 
       request.post({ url: `${baseUrl}/auth/signIn`, form: formData }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
+        expect(response.statusCode).to.equal(422);
         done();
       });
     });

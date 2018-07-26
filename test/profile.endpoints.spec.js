@@ -99,7 +99,7 @@ describe('Profile Controller', () => {
       };
 
       request.post({ url: `${baseUrl}/profile`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
-        expect(response.statusCode).to.equal(400);
+        expect(response.statusCode).to.equal(422);
         done();
       });
     });
@@ -155,7 +155,7 @@ describe('Profile Controller', () => {
         };
 
         request.put({ url: `${baseUrl}/profile/image/${id}`, headers: { Authorization: `Bearer ${tokenR}` }, form: formData }, (error, response) => {
-          expect(response.statusCode).to.equal(400);
+          expect(response.statusCode).to.equal(422);
           done();
         });
       });

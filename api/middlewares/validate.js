@@ -21,10 +21,15 @@ export const validParamId = [
     .withMessage('wrong id format in params. id must be a valid UUID4'),
 ];
 
+/**
+ * @param {req} req express request method that holds all request credentials
+ * @param {res} res express response method that sends a request's response
+ * @param {next} next this method takes the user to the next middleware method.
+ */
 export function validateFormData(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).send(cleanUpErrorMessages(errors.mapped()));
+    return res.status(422).send(cleanUpErrorMessages(errors.mapped()));
   }
   return next();
 }

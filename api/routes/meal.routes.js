@@ -6,10 +6,12 @@ import { validateFormData, validParamId } from '../middlewares/validate';
 
 export default function mealRoutes(app) {
   app.get('/meals', verifyAuthToken, validateCatererToken, MealController.getMeals);
-  app.get('/meals/:id', verifyAuthToken, validateCatererToken, validParamId, validateFormData, MealController.getMealById);
+  app.get('/meals/user/:offset/:limit?', verifyAuthToken, validateCatererToken, validParamId, validateFormData, MealController.getUserMeals);
+  app.get('/meals/menu/:id', verifyAuthToken, validateCatererToken, validParamId, validateFormData, MealController.getMealsInMenu);
+  app.get('/meals/id/:id', verifyAuthToken, validateCatererToken, validParamId, validateFormData, MealController.getMealById);
+  app.get('/meals/:offset/:limit?/:searchKey?', verifyAuthToken, validateCatererToken, MealController.getMealsWithOffsetAndLimit);
   app.post('/meals', verifyAuthToken, validateCatererToken, mealFormConstraints, validateFormData, MealController.postMeal);
   app.put('/meals/:id', verifyAuthToken, validateCatererToken, validParamId, mealFormConstraints, validateFormData, MealController.putMeal);
   app.put('/meals/image/:id', verifyAuthToken, validateCatererToken, validParamId, mealImageConstraints, validateFormData, MealController.putImage);
   app.delete('/meals/:id', verifyAuthToken, validateCatererToken, validParamId, validateFormData, MealController.deleteMeal);
-  app.get('/meals/user/:id', verifyAuthToken, validateCatererToken, validParamId, validateFormData, MealController.getUserAndMeals);
 }

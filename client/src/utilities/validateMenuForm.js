@@ -7,8 +7,8 @@ const validateMenu = (data) => {
     errors.selectedMeals = 'You must select at least one meal';
   }
 
-  if (empty(data.date)) {
-    errors.date = 'The date field is required';
+  if (empty(data.startDate)) {
+    errors.startDate = 'The date field is required';
   }
 
   return {

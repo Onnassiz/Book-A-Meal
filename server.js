@@ -10,17 +10,14 @@ import path from 'path';
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json');
 
-
 const apiRouter = express.Router();
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
-app.use(favicon(path.join(__dirname, 'client/assets/images', 'favicon.ico')))
-
+app.use(favicon(path.join(__dirname, 'client/assets/images', 'favicon.ico')));
 
 const cors = require('cors');
 app.use(cors());
-
 
 app.set('port', process.env.PORT);
 
@@ -29,7 +26,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-
 
 app.get('/api/v1', (req, res) => res.send('Welcome to Book-A-Meal'));
 app.get('/', (req, res) => res.send('Welcome to Book-A-Meal'));
@@ -43,7 +39,6 @@ app.use(function(req, res, next) {
 });
 
 routes(apiRouter);
-
 
 app.listen(app.get('port'), () => console.log('App running at port', app.get('port')));
 

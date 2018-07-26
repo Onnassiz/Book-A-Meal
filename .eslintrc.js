@@ -2,6 +2,7 @@ module.exports = {
 	"extends": "airbnb",
 	"rules": {
 		"object-curly-newline": ["off"],
+		"consistent-return": ["off"],
 		"class-methods-use-this": ["off"],
 		"no-tabs": ["off"],
 		"no-useless-constructor": ["off"],

@@ -89,6 +89,8 @@ export function getUserMenus() {
   return (dispatch, getState) => {
     dispatch(setLoading());
     return axios.get('api/v1/menus/user').then((response) => {
+      console.log(response.data);
+
       dispatch(unsetLoading());
       dispatch(setMenusArray(getState().menus.menus, response.data));
       return response;
