@@ -50,7 +50,7 @@ class MenusController {
     for (let i = 0; i <= times; i += 1) {
       menus.push({
         name: newMenu.name,
-        date: moment(newMenu.date).add(i, 'days').format('L'),
+        date: moment(newMenu.date).add(i, 'days'),
         userId: newMenu.userId,
       });
     }
@@ -215,26 +215,35 @@ class MenusController {
         ).then((updated) => {
           const update = updated[1][0];
           if (update) {
-            menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
-              const newMealMenus = [];
-              const { meals } = req.body;
+            const { meals } = req.body;
 
-              meals.forEach((ml) => {
-                newMealMenus.push({
-                  menuId: req.params.id,
-                  mealId: ml.mealId,
+            if (meals) {
+              menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
+                const newMealMenus = [];
+                meals.forEach((ml) => {
+                  newMealMenus.push({
+                    menuId: req.params.id,
+                    mealId: ml.mealId,
+                  });
                 });
-              });
 
-              menuMeal.bulkCreate(newMealMenus).then(() => {
-                this.getMenuById(update.id).then((responseData) => {
-                  res.status(200).send({
-                    message: 'Menu successfully updated',
-                    menu: this.getMenusViewModel([responseData])[0],
+                menuMeal.bulkCreate(newMealMenus).then(() => {
+                  this.getMenuById(update.id).then((responseData) => {
+                    res.status(200).send({
+                      message: 'Menu successfully updated',
+                      menu: this.getMenusViewModel([responseData])[0],
+                    });
                   });
                 });
               });
-            });
+            } else {
+              this.getMenuById(update.id).then((responseData) => {
+                res.status(200).send({
+                  message: 'Menu successfully updated',
+                  menu: this.getMenusViewModel([responseData])[0],
+                });
+              });
+            }
           }
         });
       } else {

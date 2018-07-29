@@ -2,6 +2,7 @@ import request from 'request';
 import { expect } from 'chai';
 import { describe, it, after, before, afterEach } from 'mocha';
 import dotenv from 'dotenv';
+import uuidv4 from 'uuid/v4';
 
 import { getCatererToken } from '../../testHelpers/main';
 import { deleteMeals, insertOneMeal, insertMock, getMealId } from '../../testHelpers/meals/index';
@@ -114,7 +115,7 @@ describe('MealController - Edge Cases', () => {
       adminToken = '';
     });
 
-    it('should return (200) and a meal object when a meal is updated', (done) => {
+    it('should return (404) when updating a meal with wrong uuid', (done) => {
       const formData = {
         name: 'New meal',
         price: 2000,
@@ -123,27 +124,26 @@ describe('MealController - Edge Cases', () => {
         imageUrl: 'http://bens.com',
       };
 
-      insertOneMeal(done).then((data) => {
-        request.put({ url: `${baseUrl}/meals/${data.id}`, headers: { Authorization: `Bearer ${adminToken}` }, form: formData }, (error, response, body) => {
-          expect(response.statusCode).to.equal(200);
-          expect(typeof JSON.parse(body)).to.equal('object');
-          expect(JSON.parse(body).name).to.equal('New meal');
+      insertOneMeal(done).then(() => {
+        request.put({ url: `${baseUrl}/meals/${uuidv4()}`, headers: { Authorization: `Bearer ${adminToken}` }, form: formData }, (error, response) => {
+          expect(response.statusCode).to.equal(404);
           done();
         });
       });
     });
 
-    it('should return (200) and a meal object when not all the fields are being updated', (done) => {
+    it('should return (422) when updating a meal with wrong uuid format', (done) => {
       const formData = {
-        price: 3000,
+        name: 'New meal',
+        price: 2000,
+        description: 'The meal is good',
+        category: 'Hot meal',
+        imageUrl: 'http://bens.com',
       };
 
-      insertOneMeal(done).then((data) => {
-        request.put({ url: `${baseUrl}/meals/${data.id}`, headers: { Authorization: `Bearer ${adminToken}` }, form: formData }, (error, response, body) => {
-          expect(response.statusCode).to.equal(200);
-          expect(typeof JSON.parse(body)).to.equal('object');
-          expect(JSON.parse(body).price).to.equal(3000);
-          expect(JSON.parse(body).name).to.equal('The Good Meal');
+      insertOneMeal(done).then(() => {
+        request.put({ url: `${baseUrl}/meals/updating`, headers: { Authorization: `Bearer ${adminToken}` }, form: formData }, (error, response) => {
+          expect(response.statusCode).to.equal(422);
           done();
         });
       });
@@ -165,84 +165,36 @@ describe('MealController - Edge Cases', () => {
     });
   });
 
-  // describe('Get Meals - Pagination', () => {
-  //   before((done) => {
-  //     insertMock().then(() => {
-  //       getCatererToken(done).then(((token) => {
-  //         adminToken = token;
-  //       }));
-  //     });
-  //   });
+  describe('Delete Meal', () => {
+    before((done) => {
+      getCatererToken(done).then(((token) => {
+        adminToken = token;
+      }));
+    });
 
-  //   after((done) => {
-  //     deleteMeals(done);
-  //     adminToken = '';
-  //   });
+    after((done) => {
+      deleteMeals(done);
+      adminToken = '';
+    });
 
-  //   it('should return (200) and a an array of 10 meals', (done) => {
-  //     request.get({ url: `${baseUrl}/meals`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
-  //       expect(response.statusCode).to.equal(200);
-  //       expect(JSON.parse(body).length).to.equal(10);
-  //       done();
-  //     });
-  //   });
+    it('should return (404) when deleting a meal that does not exist', (done) => {
+      insertOneMeal().then(() => {
+        request.delete({ url: `${baseUrl}/meals/${uuidv4()}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
+          expect(response.statusCode).to.equal(404);
+          expect(JSON.parse(body).message).to.equal('Meal not found');
+          done();
+        });
+      });
+    });
 
-  //   it('should return (200) and a an array of 20 meals when limit=20 and offset=0', (done) => {
-  //     request.get({ url: `${baseUrl}/meals?limit=20&offset=0`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
-  //       expect(response.statusCode).to.equal(200);
-  //       expect(JSON.parse(body).length).to.equal(20);
-  //       done();
-  //     });
-  //   });
-
-  //   it('should return (200) and a an array of 1 item when searchKey is passed', (done) => {
-  //     request.get({ url: `${baseUrl}/meals?searchKey=Aristolochiaceae`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
-  //       expect(response.statusCode).to.equal(200);
-  //       expect(JSON.parse(body).length).to.equal(1);
-  //       expect(JSON.parse(body)[0].name).to.equal('Aristolochiaceae');
-  //       done();
-  //     });
-  //   });
-
-  //   it('should return (200) and a an array of 40 when meals/user is referenced with the right limit and offset', (done) => {
-  //     request.get({ url: `${baseUrl}/meals/user?limit=40&offset=0`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
-  //       expect(response.statusCode).to.equal(200);
-  //       expect(JSON.parse(body).length).to.equal(40);
-  //       done();
-  //     });
-  //   });
-
-  //   it('should return (200) and a meal object when meals/:id is referenced', (done) => {
-  //     getMealId().then((id) => {
-  //       request.get({ url: `${baseUrl}/meals/${id}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
-  //         expect(response.statusCode).to.equal(200);
-  //         // expect(JSON.parse(body).length).to.equal(40);
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
-
-  // describe('Delete Meal', () => {
-  //   before((done) => {
-  //     getCatererToken(done).then(((token) => {
-  //       adminToken = token;
-  //     }));
-  //   });
-
-  //   after((done) => {
-  //     deleteMeals(done);
-  //     adminToken = '';
-  //   });
-
-  //   it('should return (200) and a message when meal is successfully deleted', (done) => {
-  //     insertOneMeal().then((data) => {
-  //       request.delete({ url: `${baseUrl}/meals/${data.id}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
-  //         expect(response.statusCode).to.equal(200);
-  //         expect(JSON.parse(body).message).to.equal('Meal successfully deleted');
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
+    it('should return (422) when deleting a meal with wrong uuid format', (done) => {
+      insertOneMeal().then(() => {
+        request.delete({ url: `${baseUrl}/meals/wrong`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
+          expect(response.statusCode).to.equal(422);
+          expect(JSON.parse(body).id).to.equal('wrong id format in params. id must be a valid UUID4');
+          done();
+        });
+      });
+    });
+  });
 });

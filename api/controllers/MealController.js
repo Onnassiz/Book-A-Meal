@@ -38,22 +38,22 @@ const mealViewModel = (item) => {
   return viewModel;
 };
 
-const mealsInMenuModel = (meals) => {
-  const viewModel = [];
-  meals.forEach((item) => {
-    viewModel.push({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      userId: item.userId,
-      category: item.category,
-      description: item.description,
-      imageUrl: item.imageUrl,
-    });
-  });
+// const mealsInMenuModel = (meals) => {
+//   const viewModel = [];
+//   meals.forEach((item) => {
+//     viewModel.push({
+//       id: item.id,
+//       name: item.name,
+//       price: item.price,
+//       userId: item.userId,
+//       category: item.category,
+//       description: item.description,
+//       imageUrl: item.imageUrl,
+//     });
+//   });
 
-  return viewModel;
-};
+//   return viewModel;
+// };
 
 class MealsController {
   getMeals(req, res) {
@@ -74,23 +74,21 @@ class MealsController {
     }).then((meals) => {
       const viewModel = mealViewModelFromArray(meals);
       res.status(200).send(viewModel);
-    }).catch((error) => {
-      res.status(400).send(error.name);
     });
   }
 
   getMealsInMenu(req, res) {
-    const { id } = req.params;
-    const { limit, offset } = req.params;
+    // const { id } = req.params;
+    // const { limit, offset } = req.params;
 
-    meal.findAll({
-      include: [{ model: menu, where: { id } }],
-      limit: limit || 10,
-      offset: offset || 0,
-    }).then((data) => {
-      // const viewModel = mealViewModelFromArray(meals);
-      res.status(200).send(mealsInMenuModel(data));
-    });
+    // meal.findAll({
+    //   include: [{ model: menu, where: { id } }],
+    //   limit: limit || 10,
+    //   offset: offset || 0,
+    // }).then((data) => {
+    //   // const viewModel = mealViewModelFromArray(meals);
+    //   res.status(200).send(mealsInMenuModel(data));
+    // });
   }
 
   getMealById(req, res) {
@@ -116,29 +114,6 @@ class MealsController {
     }).then((meals) => {
       const viewModel = mealViewModelFromArray(meals);
       res.status(200).send(viewModel);
-    }).catch((error) => {
-      res.status(400).send(error.name);
-    });
-  }
-
-  putImage(req, res) {
-    meal.update(
-      {
-        imageUrl: req.body.imageUrl,
-      },
-      { where: { id: req.params.id }, returning: true },
-    ).then((updated) => {
-      const update = updated[1][0];
-      if (update) {
-        meal.findOne({
-          include: [{ model: user, include: [{ model: profile }] }],
-          where: { id: update.id },
-        }).then(returnedMeal => res.status(200).send(mealViewModel(returnedMeal)));
-      } else {
-        res.status(404).send({
-          message: 'Meal not found',
-        });
-      }
     });
   }
 

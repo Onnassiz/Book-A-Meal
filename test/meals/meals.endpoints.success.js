@@ -153,6 +153,14 @@ describe('MealController - Success', () => {
       });
     });
 
+    it('should return (200) and a an array of 10 when meals/user is referenced without limit and offset', (done) => {
+      request.get({ url: `${baseUrl}/meals/user`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
+        expect(response.statusCode).to.equal(200);
+        expect(JSON.parse(body).length).to.equal(10);
+        done();
+      });
+    });
+
     it('should return (200) and a meal object when meals/:id is referenced', (done) => {
       getMealId().then((id) => {
         request.get({ url: `${baseUrl}/meals/${id}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
