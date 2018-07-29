@@ -17,7 +17,7 @@ import validateMenu from '../../utilities/validateMenuForm';
 import '../../../assets/css/fancy.css';
 import MenuAccordion from './partials/MenuAccordion';
 import loaderImage from '../../../assets/images/loader.gif';
-import { convertUnixToDate, convertUnixToDateForUpdate, getCurrentDate } from '../../utilities/functions';
+import { convertUnixToDate } from '../../utilities/functions';
 
 
 class AdminMenus extends Component {
@@ -100,7 +100,7 @@ class AdminMenus extends Component {
       const { postMenu, updateMenu } = this.props;
       const formData = {
         id: this.state.currentMenu.id,
-        unixTime: new Date(this.state.startDate).getTime() / 1000,
+        date: this.state.startDate,
         extraDays: this.getMenuExtraDays(),
         name: this.state.name,
         meals: this.state.selectedMeals,
@@ -124,9 +124,9 @@ class AdminMenus extends Component {
     }
   }
 
-  showOpsButtons(unixTime) {
-    const currentTime = new Date(getCurrentDate()).getTime() / 1000;
-    return currentTime <= unixTime;
+  showOpsButtons(date) {
+    const today = new Date().toISOString().split('T')[0];
+    return today <= date;
   }
 
   deleteMenu() {
@@ -181,17 +181,19 @@ class AdminMenus extends Component {
     }
 
     const selectedMeals = [];
-    menu.meals.forEach((item) => {
-      selectedMeals.push({ mealId: item.id, price: item.price });
-    });
     this.setState({
-      startDate: convertUnixToDateForUpdate(menu.unixTime),
+      startDate: menu.date,
       selectedMeals,
       name: menu.name,
       isShowingModal: true,
       updateMode: true,
       currentMenu: menu,
     });
+    // getMealsInMenu(menu.meals).then((menuMeals) => {
+    //   menuMeals.forEach((item) => {
+    //     selectedMeals.push({ mealId: item.id, price: item.price });
+    //   });
+    // });
   }
 
   isSelected(id) {
@@ -218,7 +220,7 @@ class AdminMenus extends Component {
 				{empty(profile.businessName) ? SetupProfile :
 					<div>
 						<div className="col-12">
-							<button onClick={this.toggleShowModal} className="button">Add Menu</button>
+							<button onClick={this.toggleShowModal} className="button"><i className="ion-android-add" /> Add Menu</button>
 							{empty(menus.alert) ? '' : <Alert alert={menus.alert} />}
 						</div>
 
@@ -249,7 +251,17 @@ class AdminMenus extends Component {
 														</ul>
 													</div>
 													<BasicInput name="startDate" type="date" min={today} label="Start Date" value={this.state.startDate} onChange={this.onChange} hasError={this.state.errors.date !== undefined} />
-													<BasicInput name="endDate" type="date" min={this.state.startDate} label="End Date (optional)" value={this.state.endDate} onChange={this.onChange} hasError={this.state.errors.endDate !== undefined} />
+                          { this.state.updateMode ? '' :
+                            <BasicInput
+                              name="endDate"
+                              type="date"
+                              min={this.state.startDate}
+                              label="End Date (optional)"
+                              value={this.state.endDate}
+                              onChange={this.onChange}
+                              hasError={this.state.errors.endDate !== undefined}
+                            />
+                          }
 													<BasicInput name="name" type="text" label="Menu Name (optional)" value={this.state.name} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
 													<div style={{ fontSize: 18, marginTop: 45 }}><b>{ this.state.selectedMeals.length } </b>meals selected</div>
 													<SubmitButton value={this.state.updateMode ? 'Update' : 'Submit'} isLoading={formState.isLoading} />
@@ -284,9 +296,9 @@ class AdminMenus extends Component {
 							</Modal>
 						</div>
 						<div className="col-12" style={{ marginTop: 20 }}>
-							{ empty(menus.menus) ? '' :
+							{ empty(menus.menus) ? <div>You have not created any menu</div> :
 								<Accordion>
-									{ menus.menus.map(menu => <MenuAccordion showOpsButtons={this.showOpsButtons(menu.unixTime)} toggleUpdateModal={() => this.toggleUpdateModal(menu)} toggleShowDeleteModal={() => this.toggleShowDeleteModal(menu)} menu={menu} key={menu.id} />) }
+									{ menus.menus.map(menu => <MenuAccordion showOpsButtons={this.showOpsButtons(menu.date)} toggleUpdateModal={() => this.toggleUpdateModal(menu)} toggleShowDeleteModal={() => this.toggleShowDeleteModal(menu)} menu={menu} key={menu.id} />) }
 								</Accordion>
 							}
 						</div>
@@ -309,6 +321,7 @@ AdminMenus.propTypes = {
   getUserMenus: PropTypes.func.isRequired,
   deleteMenuById: PropTypes.func.isRequired,
   updateMenu: PropTypes.func.isRequired,
+  getMealsInMenu: PropTypes.func.isRequired,
 };
 
 export default AdminMenus;

@@ -2,7 +2,7 @@ import validate from 'uuid-validate';
 
 const { buildCheckFunction, validationResult } = require('express-validator/check');
 
-const checkBodyAndQuery = buildCheckFunction(['body', 'params']);
+const checkBodyAndQuery = buildCheckFunction(['body', 'params', 'query']);
 
 function cleanUpErrorMessages(errors) {
   const newErrors = {};
@@ -19,6 +19,23 @@ export const validParamId = [
       return validate(value, 4);
     })
     .withMessage('wrong id format in params. id must be a valid UUID4'),
+];
+
+export const validateQueryString = [
+  checkBodyAndQuery('limit')
+    .optional({ nullable: true })
+    .isInt()
+    .withMessage('the limit field must be an integer'),
+  checkBodyAndQuery('offset')
+    .optional({ nullable: true })
+    .isInt()
+    .withMessage('the offset field must be an integer'),
+  checkBodyAndQuery('date')
+    .optional({ nullable: true })
+    .custom((value) => {
+      return new Date(value).toDateString() !== 'Invalid Date';
+    })
+    .withMessage('the date field must be a valid date'),
 ];
 
 /**

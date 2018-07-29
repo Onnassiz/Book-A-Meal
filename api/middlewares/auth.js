@@ -44,6 +44,19 @@ export const signUpConstraints = [
     .withMessage('password is required')
     .isLength({ min: 6 })
     .withMessage('password must contain at least 6 characters'),
+
+  check('role')
+    .exists()
+    .withMessage('role field is required')
+    .isLength({ min: 1 })
+    .withMessage('role field is required')
+    .isString()
+    .withMessage('the role field must be a string')
+    .custom((value) => {
+      const roles = ['caterer', 'Caterer', 'customer', 'Customer'];
+      return roles.indexOf(value) !== -1;
+    })
+    .withMessage('the accepted roles are customer and caterer'),
 ];
 
 

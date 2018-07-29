@@ -10,9 +10,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      unixTime: {
+      date: {
         allowNull: false,
-        type: Sequelize.BIGINT(11),
+        type: Sequelize.DATEONLY,
       },
       expiry: {
         allowNull: true,

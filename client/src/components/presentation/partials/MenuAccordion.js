@@ -6,20 +6,19 @@ import {
   AccordionItemTitle,
   AccordionItemBody,
 } from 'react-accessible-accordion';
-import { convertUnixToDate } from '../../../utilities/functions';
 
 const MenuAccordion = (props) => {
   return (
 		<AccordionItem>
 			<AccordionItemTitle>
 				<h3 className="u-position-relative">
-					{ convertUnixToDate(props.menu.unixTime) }
+					{ new Date(props.menu.date).toDateString() }
 					<div className="accordion__arrow" role="presentation" />
 				</h3>
 				<div>{ props.menu.name }</div>
+				<div>{ props.menu.mealsCount > 1 ? `${props.menu.mealsCount} meals` : `${props.menu.mealsCount} meal` }</div>
 			</AccordionItemTitle>
 			<AccordionItemBody>
-				<div>Hi</div>
 				{/* { props.menu.meals.map(meal => (
 					<div className="menu_item" key={meal.id}>
 						<h3>{ meal.name }</h3>
@@ -37,6 +36,12 @@ const MenuAccordion = (props) => {
 							<button onClick={props.toggleUpdateModal} className="button">Edit</button>
 						</div>
 					</div>} */}
+					<div>
+						<div style={{ textAlign: 'right' }}>
+							<button style={{ width: 110 }} onClick={props.toggleShowDeleteModal} className="button-error"><i className="ion-ios-trash" /> Delete</button>
+							<button style={{ width: 110 }} onClick={props.toggleUpdateModal} className="button"><i className="ion-ios-compose-outline" /> Edit</button>
+						</div>
+					</div>
 			</AccordionItemBody>
 		</AccordionItem>
   );

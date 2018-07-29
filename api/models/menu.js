@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
     },
     name: DataTypes.STRING,
-    unixTime: DataTypes.BIGINT(),
+    date: DataTypes.DATEONLY,
     expiry: DataTypes.DATE,
   }, {});
 

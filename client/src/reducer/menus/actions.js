@@ -13,8 +13,8 @@ function setAlert(alert) {
   });
 }
 
-export function setMenus(storeMenus, menu) {
-  const menus = [menu].concat(storeMenus);
+export function setMenus(storeMenus, newMenus) {
+  const menus = newMenus.concat(storeMenus);
   return dispatch => dispatch({
     type: SET_MENUS,
     menus,
@@ -89,8 +89,20 @@ export function getUserMenus() {
   return (dispatch, getState) => {
     dispatch(setLoading());
     return axios.get('api/v1/menus/user').then((response) => {
-      console.log(response.data);
+      dispatch(unsetLoading());
+      dispatch(setMenusArray(getState().menus.menus, response.data));
+      return response;
+    }).catch((error) => {
+      dispatch(unsetLoading());
+      return error;
+    });
+  };
+}
 
+export function getMealsInMenu(url) {
+  return (dispatch, getState) => {
+    dispatch(setLoading());
+    return axios.get(url).then((response) => {
       dispatch(unsetLoading());
       dispatch(setMenusArray(getState().menus.menus, response.data));
       return response;
@@ -107,7 +119,7 @@ export function postMenu(menu) {
     dispatch(setLoading());
     return axios.post('api/v1/menus', menu).then((response) => {
       dispatch(unsetLoading());
-      dispatch(setMenus(getState().menus.menus, response.data.menu));
+      dispatch(setMenus(getState().menus.menus, response.data.menus));
       dispatch(setAlert('Menu successfully created'));
       return response;
     }).catch((error) => {

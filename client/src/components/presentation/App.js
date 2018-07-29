@@ -37,8 +37,11 @@ class App extends Component {
 
       setUser(user);
       this.setSignedIn();
-      this.setCart();
     }
+  }
+
+  componentDidMount() {
+    // this.setCart();
   }
 
   setCart() {

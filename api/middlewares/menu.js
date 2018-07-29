@@ -9,15 +9,13 @@ const menuFormConstraints = [
     .withMessage('the menu name must be a string')
     .trim(),
 
-  check('unixTime')
+  check('date')
     .exists()
-    .withMessage('the unixTime field is require')
-    .isInt()
-    .withMessage('the unixTime field must an integer')
+    .withMessage('the date field is require')
     .custom((value) => {
-      return typeof value === 'number';
+      return new Date(value).toDateString() !== 'Invalid Date';
     })
-    .withMessage('the unixTime field must be an integer')
+    .withMessage('the date supplied is not a valid date')
     .trim(),
 
   check('extraDays')

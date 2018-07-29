@@ -57,38 +57,11 @@ const mealsInMenuModel = (meals) => {
 
 class MealsController {
   getMeals(req, res) {
-    meal.findAll({ include: [{ model: user, include: [{ model: profile }] }], order: sequelize.literal('name') }).then((meals) => {
-      const viewModel = mealViewModelFromArray(meals);
-      res.status(200).send(viewModel);
-    });
-  }
-
-  getMealsInMenu(req, res) {
-    const { id } = req.params;
-
-    menu.findOne({
-      include: [{ model: meal, limit: 5 }],
-      where: { id },
-    }).then((data) => {
-      // const viewModel = mealViewModelFromArray(meals);
-      res.status(200).send(mealsInMenuModel(data.meals));
-    });
-  }
-
-  getMealsWithOffsetAndLimit(req, res) {
-    const { offset } = req.params;
-    let { limit, searchKey } = req.params;
-
-    if (!searchKey && limit) {
-      if (Number.isNaN(parseInt(limit, 10))) {
-        searchKey = limit;
-        limit = undefined;
-      }
-    }
+    const { offset, limit, searchKey } = req.query;
 
     meal.findAll({ include: [{ model: user, include: [{ model: profile }] }],
       order: sequelize.literal('name'),
-      offset,
+      offset: offset || 0,
       limit: limit || 10,
       where: searchKey === undefined ? null :
         {
@@ -106,6 +79,20 @@ class MealsController {
     });
   }
 
+  getMealsInMenu(req, res) {
+    const { id } = req.params;
+    const { limit, offset } = req.params;
+
+    meal.findAll({
+      include: [{ model: menu, where: { id } }],
+      limit: limit || 10,
+      offset: offset || 0,
+    }).then((data) => {
+      // const viewModel = mealViewModelFromArray(meals);
+      res.status(200).send(mealsInMenuModel(data));
+    });
+  }
+
   getMealById(req, res) {
     meal.findById(req.params.id).then((ml) => {
       if (ml) {
@@ -119,11 +106,11 @@ class MealsController {
   }
 
   getUserMeals(req, res) {
-    const { offset, limit } = req.params;
+    const { offset, limit } = req.query;
 
     meal.findAll({ include: [{ model: user, include: [{ model: profile }] }],
       order: sequelize.literal('name'),
-      offset,
+      offset: offset || 0,
       limit: limit || 10,
       where: { userId: req.user.id },
     }).then((meals) => {

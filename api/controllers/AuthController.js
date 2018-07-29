@@ -17,7 +17,7 @@ class AuthController {
         id: usr.id,
         fullName: usr.fullName,
         email: usr.email,
-        role: usr.role,
+        role: usr.role.toLowerCase(),
         message: 'User successfully created',
         token: signJsonWebToken(usr),
       });
