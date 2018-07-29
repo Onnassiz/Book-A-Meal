@@ -154,7 +154,7 @@ class MealsController {
 
     meal.findOne({ where: { name: newMeal.name, userId: newMeal.userId } }).then((existingMeal) => {
       if (existingMeal) {
-        res.status(400).send({
+        res.status(409).send({
           message: 'You have already created a meal with this name',
         });
       } else {

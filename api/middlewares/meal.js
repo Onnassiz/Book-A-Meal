@@ -37,12 +37,29 @@ export const mealFormConstraints = [
     .withMessage('image link must be a URL'),
 ];
 
-export const mealImageConstraints = [
+export const mealUpdateFormConstraints = [
+  check('name')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('the meal name must be a string')
+    .trim(),
+
+  check('category')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('the category field must be a string')
+    .trim(),
+
+  check('price')
+    .optional({ nullable: true })
+    .isInt()
+    .withMessage('the price field must must an integer')
+    .trim(),
+
   check('imageUrl')
-    .exists()
-    .withMessage('image link must be a valid URL')
+    .optional({ nullable: true })
     .custom((value) => {
       return isUrl(value);
     })
-    .withMessage('image link must be a valid URL'),
+    .withMessage('image link must be a URL'),
 ];

@@ -66,6 +66,7 @@ describe('AuthController', () => {
         fullName: 'Onah Benjamin',
         email: 'onnassiz@gmail.com',
         password: 'password',
+        role: 'customer',
       };
 
       request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response, body) => {
@@ -78,8 +79,9 @@ describe('AuthController', () => {
     it('should return a status(400) if email already exist', (done) => {
       const formData = {
         fullName: 'Onah Benjamin',
-        email: 'caterer@gmail.com',
+        email: 'caterer@bookmeal.com',
         password: 'password',
+        role: 'caterer',
       };
 
       request.post({ url: `${baseUrl}/auth/signUp`, form: formData }, (error, response) => {
@@ -117,7 +119,7 @@ describe('AuthController', () => {
 
     it('should return a token with length longer that is 100', (done) => {
       const formData = {
-        email: 'caterer@gmail.com',
+        email: 'caterer@bookmeal.com',
         password: 'password',
       };
 
@@ -130,7 +132,7 @@ describe('AuthController', () => {
 
     it('should return status (404) if user is not found', (done) => {
       const formData = {
-        email: 'trouser@gmail.com',
+        email: 'trouser@bookmeal.com',
         password: 'password',
       };
 
@@ -142,7 +144,7 @@ describe('AuthController', () => {
 
     it('should return status (404) if password not verified', (done) => {
       const formData = {
-        email: 'caterer@gmail.com',
+        email: 'caterer@bookmeal.com',
         password: 'wrongPassword',
       };
 

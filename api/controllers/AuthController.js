@@ -43,7 +43,7 @@ class AuthController {
             fullName: usr.fullName,
             email: usr.email,
             role: usr.role,
-            message: 'User successfully created',
+            message: 'User successfully signed in',
             token: signJsonWebToken(usr),
           });
         } else {

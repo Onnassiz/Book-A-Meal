@@ -68,7 +68,7 @@ export function verifyAuthToken(req, res, next) {
     next();
   } else {
     res.status(401).send({
-      message: 'Unauthorized',
+      message: 'You are not authorized to consume this resource. Please sign in',
     });
   }
 }
@@ -77,7 +77,7 @@ export function validateToken(req, res, next) {
   jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
     if (err) {
       res.status(401).send({
-        message: 'Unauthorized',
+        message: 'You are not authorized to consume this resource. Please sign in',
       });
     } else {
       req.user = authData.data;
@@ -90,7 +90,7 @@ export function validateCatererToken(req, res, next) {
   jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
     if (err) {
       res.status(401).send({
-        message: 'Unauthorized',
+        message: 'You are not authorized to consume this resource. Please sign in',
       });
     } else {
       const { role } = authData.data;
@@ -99,7 +99,7 @@ export function validateCatererToken(req, res, next) {
         next();
       } else {
         res.status(401).send({
-          message: 'Unauthorized',
+          message: 'You are not authorized to consume this resource. Please sign in',
         });
       }
     }

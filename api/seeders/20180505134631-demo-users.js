@@ -9,7 +9,7 @@ module.exports = {
       {
         id: uuidv4(),
         fullName: 'Caterer',
-        email: 'caterer@gmail.com',
+        email: 'caterer@bookmeal.com',
         role: 'caterer',
         passwordHash: passwordHash.generate('password'),
         createdAt: new Date(),
@@ -18,7 +18,7 @@ module.exports = {
       {
         id: uuidv4(),
         fullName: 'Customer',
-        email: 'customer@gmail.com',
+        email: 'customer@bookmeal.com',
         role: 'customer',
         passwordHash: passwordHash.generate('password'),
         createdAt: new Date(),
