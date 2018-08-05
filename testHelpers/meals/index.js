@@ -11,7 +11,7 @@ const deleteMeals = (done) => {
   });
 };
 
-const insertMock = (done) => {
+const insertMealMock = (done) => {
   return getCatererId(done, false).then((id) => {
     const mocks = getMealsMock(id);
 
@@ -48,6 +48,6 @@ export {
   deleteMeals,
   insertOneMeal,
   getMealId,
-  insertMock,
+  insertMealMock,
 };
 

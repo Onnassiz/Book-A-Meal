@@ -10,6 +10,14 @@ const getCustomerId = (done, callDone = true) => {
   });
 };
 
+const deleteUser = (email, done) => {
+  user.destroy({
+    where: { email },
+  }).then(() => {
+    done();
+  });
+};
+
 const getCatererId = (done, callDone = true) => {
   return user.findOne({ where: { email: 'caterer@bookmeal.com' } }).then((data) => {
     if (callDone) {
@@ -19,9 +27,11 @@ const getCatererId = (done, callDone = true) => {
   });
 };
 
-const getCustomerToken = (done) => {
+const getCustomerToken = (done, callDone = true) => {
   return user.findOne({ where: { email: 'customer@bookmeal.com' } }).then((data) => {
-    done();
+    if (callDone) {
+      done();
+    }
     return signJsonWebToken(data);
   });
 };
@@ -38,4 +48,5 @@ export {
   getCustomerToken,
   getCustomerId,
   getCatererId,
+  deleteUser,
 };

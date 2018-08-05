@@ -14,11 +14,11 @@ export const profileFormConstraints = [
 
   check('mission')
     .exists()
-    .withMessage('the business name field is require')
+    .withMessage('the mission name field is require')
     .isLength({ min: 1 })
-    .withMessage('the business name field is required')
+    .withMessage('the mission name field is required')
     .isString()
-    .withMessage('the business name must be a string')
+    .withMessage('the mission name must be a string')
     .trim(),
 
   check('contact')
@@ -48,12 +48,33 @@ export const profileFormConstraints = [
     .withMessage('image link must be a URL'),
 ];
 
-export const profileBannerConstraints = [
+export const profileUpdateFormConstraints = [
+  check('businessName')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('the business name must be a string')
+    .trim(),
+
+  check('mission')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('the business name must be a string')
+    .trim(),
+
+  check('contact')
+    .optional({ nullable: true })
+    .isString()
+    .withMessage('the contact must must be a string')
+    .trim(),
+
+  check('email')
+    .optional({ nullable: true })
+    .isEmail()
+    .withMessage('the email field must be an email')
+    .trim()
+    .normalizeEmail(),
+
   check('banner')
-    .exists()
-    .withMessage('the image field is require')
-    .isLength({ min: 1 })
-    .withMessage('the image field is required')
     .optional({ nullable: true })
     .custom((value) => {
       return isUrl(value);

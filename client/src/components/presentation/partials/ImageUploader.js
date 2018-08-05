@@ -37,7 +37,7 @@ class ImageUploader extends Component {
       }).then((response) => {
         axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
         const { data } = response;
-        const fileURL = data.secure_url; // You should store this URL for future references in your app
+        const fileURL = data.secure_url;
         this.toggleLoader();
         putImage(fileURL);
       }).catch((error) => {

@@ -8,8 +8,7 @@ class MenusController {
     this.putMenu = this.putMenu.bind(this);
     this.getMenusByUserId = this.getMenusByUserId.bind(this);
     this.getMenus = this.getMenus.bind(this);
-    this.getMenuAndMeals = this.getMenuAndMeals.bind(this);
-    this.getMenusByTimeStamp = this.getMenusByTimeStamp.bind(this);
+    this.getMenuByIdParam = this.getMenuByIdParam.bind(this);
     this.mapMenusToMeals = this.mapMenusToMeals.bind(this);
   }
 
@@ -20,6 +19,7 @@ class MenusController {
         id: item.id,
         name: item.name,
         mealsCount: item.meals.length,
+        mealsArray: [],
         meals: `/api/v1/meals/menu/${item.id}`,
         date: item.date,
         caterer: item.user.profile === null ? null : item.user.profile.businessName,
@@ -37,6 +37,7 @@ class MenusController {
         id: item.id,
         name: item.name,
         date: item.date,
+        mealsArray: [],
         mealsCount: mealsCount || item.meals.length,
         meals: `/api/v1/meals/menu/${item.id}`,
         createdAt: item.createdAt,
@@ -58,16 +59,21 @@ class MenusController {
   }
 
   getMenusByUserId(req, res) {
-    menu.findAll({
-      include: [{
-        model: meal,
-      }],
-      where: { userId: req.user.id },
-      limit: req.query.limit || 10,
-      offset: req.query.offset || 0,
-      order: [['date', 'DESC']],
-    }).then((menus) => {
-      res.status(200).send(this.getMenusViewModel(menus));
+    menu.count({ where: { userId: req.user.id } }).then((count) => {
+      menu.findAll({
+        include: [{
+          model: meal,
+        }],
+        where: { userId: req.user.id },
+        limit: req.query.limit || 10,
+        offset: req.query.offset || 0,
+        order: [['date', 'DESC']],
+      }).then((menus) => {
+        res.status(200).send({
+          count,
+          menus: this.getMenusViewModel(menus),
+        });
+      });
     });
   }
 
@@ -82,7 +88,7 @@ class MenusController {
     });
   }
 
-  getMenuAndMeals(req, res) {
+  getMenuByIdParam(req, res) {
     menu.findOne({
       include: [{
         model: meal,
@@ -114,26 +120,6 @@ class MenusController {
     });
   }
 
-  getMenusByTimeStamp(req, res) {
-    menu.findAll({
-      include: [
-        {
-          model: meal,
-        },
-        {
-          model: user,
-          include: [{ model: profile }],
-        },
-      ],
-      where: { date: req.query.date },
-      limit: req.params.limit || 10,
-      offset: req.params.offset || 0,
-    }).then((responseData) => {
-      res.status(200).send(this.menuViewModelFromArray(responseData));
-    });
-  }
-
-
   postMenu(req, res, next) {
     const { date, name, extraDays } = req.body;
     const userId = req.user.id;
@@ -156,11 +142,7 @@ class MenusController {
         req.meals = req.body.meals;
 
         return next();
-      }).catch((error) => {
-        return res.status(400).send({ message: error.name });
       });
-    }).catch((error) => {
-      res.status(400).send({ message: error.name });
     });
   }
 
@@ -189,7 +171,7 @@ class MenusController {
   }
 
   putMenu(req, res) {
-    const { date } = req.body;
+    const { date, meals } = req.body;
     const userId = req.user.id;
 
     menu.findOne({ where: { id: req.params.id } }).then((existingMenu) => {
@@ -197,57 +179,61 @@ class MenusController {
         if (existingMenu.date !== date) {
           menu.findOne({ where: { userId, date } }).then((otherMenus) => {
             if (otherMenus) {
-              return res.status(400).send({
+              res.status(400).send({
                 message: 'You have already created a menu for the selected date. Please choose a different date.',
               });
+            } else {
+              this.updateMenu(req, res, date, meals, userId);
             }
           });
+        } else {
+          this.updateMenu(req, res, date, meals, userId);
         }
+      } else {
+        return res.status(404).send({ message: 'Menu not found' });
+      }
+    });
+  }
 
-        menu.update(
-          {
-            id: req.params.id,
-            name: req.body.name,
-            date,
-            userId,
-          },
-          { where: { id: req.params.id }, returning: true },
-        ).then((updated) => {
-          const update = updated[1][0];
-          if (update) {
-            const { meals } = req.body;
-
-            if (meals) {
-              menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
-                const newMealMenus = [];
-                meals.forEach((ml) => {
-                  newMealMenus.push({
-                    menuId: req.params.id,
-                    mealId: ml.mealId,
-                  });
-                });
-
-                menuMeal.bulkCreate(newMealMenus).then(() => {
-                  this.getMenuById(update.id).then((responseData) => {
-                    res.status(200).send({
-                      message: 'Menu successfully updated',
-                      menu: this.getMenusViewModel([responseData])[0],
-                    });
-                  });
-                });
+  updateMenu(req, res, date, meals, userId) {
+    menu.update(
+      {
+        id: req.params.id,
+        name: req.body.name,
+        date,
+        userId,
+      },
+      { where: { id: req.params.id }, returning: true },
+    ).then((updated) => {
+      const update = updated[1][0];
+      if (update) {
+        if (meals) {
+          menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
+            const newMealMenus = [];
+            meals.forEach((ml) => {
+              newMealMenus.push({
+                menuId: req.params.id,
+                mealId: ml.mealId,
               });
-            } else {
+            });
+
+            menuMeal.bulkCreate(newMealMenus).then(() => {
               this.getMenuById(update.id).then((responseData) => {
                 res.status(200).send({
                   message: 'Menu successfully updated',
                   menu: this.getMenusViewModel([responseData])[0],
                 });
               });
-            }
-          }
-        });
-      } else {
-        return res.status(404).send({ message: 'Menu not found' });
+            });
+          });
+        } else {
+          this.getMenuById(update.id).then((responseData) => {
+            res.status(200).send({
+              message: 'Menu successfully updated',
+              menu: this.getMenusViewModel([responseData])[0],
+            });
+          });
+        }
       }
     });
   }
@@ -255,10 +241,16 @@ class MenusController {
   deleteMenu(req, res) {
     menu.destroy({
       where: { id: req.params.id },
-    }).then(() => {
-      res.status(200).send({
-        message: 'Menu successfully deleted',
-      });
+    }).then((deleted) => {
+      if (deleted) {
+        res.status(200).send({
+          message: 'Menu successfully deleted',
+        });
+      } else {
+        res.status(404).send({
+          message: 'Menu not found',
+        });
+      }
     });
   }
 }

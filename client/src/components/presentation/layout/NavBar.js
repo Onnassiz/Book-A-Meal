@@ -38,7 +38,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const { user, page, cart } = this.props;
+    const { user, page } = this.props;
     const initials = empty(user) ? '' : user.name.match(/\b(\w)/g).join('').toUpperCase();
     return (
 			<header>
@@ -68,7 +68,6 @@ class NavBar extends Component {
 					{ !empty(user) ?
 						<ul>
 							<li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
-							<li className={page === 'cart' ? 'active' : ''}><Link to="/cart" className={cart.cart.length ? 'dynamic-badge main' : 'main'} data-badge={cart.cart.length}><i className="material-icons">shopping_cart</i> Cart</Link></li>
 							<li><Link to="/orders" className="main">Orders</Link></li>
 							<li>
 								<div className="dropdown">
@@ -115,7 +114,6 @@ class NavBar extends Component {
 						:
 						<ul className={`responsive ${this.state.show}`}>
 							<li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
-							<li className={page === 'cart' ? 'active' : ''}><Link to="/cart" className={cart.cart.length ? 'dynamic-badge main' : 'main'} data-badge={cart.cart.length}><i className="material-icons">shopping_cart</i> Cart</Link></li>
 							<li><Link to="/orders" className="main">Orders</Link></li>
 							{this.state.show === 'showAdmin' ?
 							<div>
@@ -129,7 +127,6 @@ class NavBar extends Component {
 							<a className="main" onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
 						</ul>
 					}
-					
 				</div>
 			</header>
     );
@@ -138,7 +135,6 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
   user: PropTypes.object.isRequired,
-  cart: PropTypes.object.isRequired,
   page: PropTypes.string.isRequired,
 };
 

@@ -10,6 +10,8 @@ const mealViewModelFromArray = (meals) => {
       id: item.id,
       name: item.name,
       price: item.price,
+      units: 1,
+      totalPrice: item.price,
       userId: item.userId,
       category: item.category,
       description: item.description,
@@ -38,31 +40,10 @@ const mealViewModel = (item) => {
   return viewModel;
 };
 
-// const mealsInMenuModel = (meals) => {
-//   const viewModel = [];
-//   meals.forEach((item) => {
-//     viewModel.push({
-//       id: item.id,
-//       name: item.name,
-//       price: item.price,
-//       userId: item.userId,
-//       category: item.category,
-//       description: item.description,
-//       imageUrl: item.imageUrl,
-//     });
-//   });
-
-//   return viewModel;
-// };
-
 class MealsController {
   getMeals(req, res) {
     const { offset, limit, searchKey } = req.query;
-
-    meal.findAll({ include: [{ model: user, include: [{ model: profile }] }],
-      order: sequelize.literal('name'),
-      offset: offset || 0,
-      limit: limit || 10,
+    meal.count({
       where: searchKey === undefined ? null :
         {
           [Op.or]: {
@@ -71,24 +52,66 @@ class MealsController {
             category: { [Op.iLike]: `%${searchKey}%` },
           },
         },
-    }).then((meals) => {
-      const viewModel = mealViewModelFromArray(meals);
-      res.status(200).send(viewModel);
+    }).then((count) => {
+      meal.findAll({ include: [{ model: user, include: [{ model: profile }] }],
+        order: sequelize.literal('name'),
+        offset: offset || 0,
+        limit: limit || 10,
+        where: searchKey === undefined ? null :
+          {
+            [Op.or]: {
+              name: { [Op.iLike]: `%${searchKey}%` },
+              description: { [Op.iLike]: `%${searchKey}%` },
+              category: { [Op.iLike]: `%${searchKey}%` },
+            },
+          },
+      }).then((meals) => {
+        const viewModel = mealViewModelFromArray(meals);
+        res.status(200).send({ meals: viewModel, count });
+      });
     });
   }
 
   getMealsInMenu(req, res) {
-    // const { id } = req.params;
-    // const { limit, offset } = req.params;
+    const { id } = req.params;
+    const { limit, offset } = req.query;
 
-    // meal.findAll({
-    //   include: [{ model: menu, where: { id } }],
-    //   limit: limit || 10,
-    //   offset: offset || 0,
-    // }).then((data) => {
-    //   // const viewModel = mealViewModelFromArray(meals);
-    //   res.status(200).send(mealsInMenuModel(data));
-    // });
+    menu.findOne({
+      where: { id },
+      include: [{ model: meal }],
+      limit: limit || 10,
+      offset: offset || 0,
+      attributes: ['name', 'date'],
+      subQuery: false,
+    }).then((data) => {
+      res.status(200).send(data.meals);
+    });
+  }
+
+  getMealsInDailyMenu(req, res) {
+    const { date, limit, offset } = req.query;
+    meal.count({
+      include: [{ model: menu, where: { date } }],
+    }).then((count) => {
+      meal.findAll({
+        include: [
+          {
+            model: menu,
+            where: { date },
+            attributes: [],
+            order: sequelize.literal('createdAt'),
+          },
+          { model: user, include: [{ model: profile }] },
+        ],
+        limit: limit || 10,
+        offset: offset || 0,
+      }).then((meals) => {
+        res.status(200).send({
+          count,
+          meals: mealViewModelFromArray(meals),
+        });
+      });
+    });
   }
 
   getMealById(req, res) {
@@ -137,7 +160,10 @@ class MealsController {
           meal.findOne({
             include: [{ model: user, include: [{ model: profile }] }],
             where: { id: response.id },
-          }).then(returnedMeal => res.status(201).send(mealViewModel(returnedMeal)));
+          }).then(returnedMeal => res.status(201).send({
+            message: 'Meal successfully created',
+            meal: mealViewModel(returnedMeal),
+          }));
         });
       }
     });
@@ -160,7 +186,10 @@ class MealsController {
         meal.findOne({
           include: [{ model: user, include: [{ model: profile }] }],
           where: { id: update.id },
-        }).then(returnedMeal => res.status(200).send(mealViewModel(returnedMeal)));
+        }).then(returnedMeal => res.status(200).send({
+          message: 'Meal successfully updated',
+          meal: mealViewModel(returnedMeal),
+        }));
       } else {
         res.status(404).send({
           message: 'Meal not found',

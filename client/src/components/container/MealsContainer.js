@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getProfile } from '../../reducer/profile/actions';
-import { postMeal, getMeals, updateMeal, deleteMealById, putImage } from '../../reducer/meals/actions';
+import { postMeal, getMeals, updateMeal, deleteMealById } from '../../reducer/meals/actions';
 import Meals from '../presentation/Meals';
 
 const mapStateToProps = (state) => {
@@ -20,7 +20,6 @@ function mapDispatchToProps(dispatch) {
     getMeals,
     postMeal,
     getProfile,
-    putImage,
     updateMeal,
     deleteMealById,
   }, dispatch);

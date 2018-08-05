@@ -53,22 +53,6 @@ class ProfileController {
       }
     });
   }
-
-  putImage(req, res) {
-    profile.update(
-      {
-        banner: req.body.banner,
-      },
-      { where: { id: req.params.id }, returning: true },
-    ).then((updated) => {
-      const prf = updated[1][0];
-      if (prf) {
-        res.status(200).send(prf);
-      } else {
-        res.status(404).send({ message: 'Profile not found' });
-      }
-    });
-  }
 }
 
 export default new ProfileController();

@@ -82,10 +82,10 @@ export const addMenuModalStyle = {
   },
   content: {
     position: 'absolute',
-    top: '15%',
+    top: '10%',
     left: '15%',
     right: '15%',
-    bottom: '25%',
+    bottom: '20%',
     border: 'none',
     background: '#ffffff',
     overflow: 'auto',

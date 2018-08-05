@@ -77,6 +77,22 @@ export function getCurrentDate() {
   return `${yyyy}-${mm}-${dd}`;
 }
 
+export function getDateFromMoment(moment) {
+  let dd = moment.getDate();
+  let mm = moment.getMonth() + 1; // January is 0!
+  const yyyy = moment.getFullYear();
+
+  if (dd < 10) {
+    dd = `0${dd}`;
+  }
+
+  if (mm < 10) {
+    mm = `0${mm}`;
+  }
+
+  return `${yyyy}-${mm}-${dd}`;
+}
+
 export function compareAZ(a, b) {
   if (a.name < b.name) { return -1; }
   if (a.name > b.name) { return 1; }

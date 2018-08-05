@@ -34,23 +34,20 @@ const Card = (props) => {
 				</div>
 				<div className="name">
 					<span className="last">{props.meal.name}</span>
+					<p className=""><a>{props.meal.caterer} catering service</a></p>
 					<span>{empty(props.meal.menuName) ? '' : props.meal.menuName}</span>
 				</div>
 			</div>
 			<div className="card_container">
+
 				<div className="left">
-					<h3>Description</h3>
-					<p>{props.meal.description}</p>
-					{ todayDate > props.currentDate ? '' : button}
+					<div className="item">
+						<p className="num">&#8358;{numberWithCommas(props.meal.price)}</p>
+					</div>
 				</div>
-				<div className="right">
-					<div className="item">
-						<p className="num">&#8358;{numberWithCommas(props.meal.price)}</p><p className="word">{props.meal.category}</p>
-					</div>
-					<br />
-					<div className="item">
-						<p className="word"><a>{props.meal.caterer}</a></p>
-					</div>
+				<div>
+					{ todayDate > props.currentDate ? '' : button}
+					<a className="more-button" onClick={props.showMore}><i className="ion-ios-information-outline" /></a>
 				</div>
 			</div>
 		</div>
@@ -62,6 +59,7 @@ Card.propTypes = {
   cart: PropTypes.array.isRequired,
   currentDate: PropTypes.string.isRequired,
   addToCart: PropTypes.func.isRequired,
+  showMore: PropTypes.func.isRequired,
   removeFromCart: PropTypes.func.isRequired,
 };
 

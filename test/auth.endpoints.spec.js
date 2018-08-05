@@ -2,7 +2,7 @@ import request from 'request';
 import { expect } from 'chai';
 import { describe, it, after } from 'mocha';
 
-import TestUtil from '../testUtil/TestUtil';
+import { deleteUser } from '../testHelpers/main';
 
 const baseUrl = 'http://localhost:3001/api/v1';
 
@@ -18,7 +18,7 @@ describe('Handle Not Found', () => {
 
 describe('AuthController', () => {
   after((done) => {
-    TestUtil.deleteUser('onnassiz@gmail.com', done);
+    deleteUser('onnassiz@gmail.com', done);
   });
 
   describe('SignUp', () => {

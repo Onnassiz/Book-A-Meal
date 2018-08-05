@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
 
 import { getCatererToken } from '../../testHelpers/main';
-import { deleteMeals, insertOneMeal, insertMock, getMealId } from '../../testHelpers/meals/index';
+import { deleteMeals, insertOneMeal } from '../../testHelpers/meals/index';
 
 dotenv.config();
 const baseUrl = 'http://localhost:3001/api/v1';
@@ -144,21 +144,6 @@ describe('MealController - Edge Cases', () => {
       insertOneMeal(done).then(() => {
         request.put({ url: `${baseUrl}/meals/updating`, headers: { Authorization: `Bearer ${adminToken}` }, form: formData }, (error, response) => {
           expect(response.statusCode).to.equal(422);
-          done();
-        });
-      });
-    });
-
-    it('should return (200) and a meal object when updating meal Image URL', (done) => {
-      const formData = {
-        imageUrl: 'http://image.com',
-      };
-
-      insertOneMeal(done).then((data) => {
-        request.put({ url: `${baseUrl}/meals/${data.id}`, headers: { Authorization: `Bearer ${adminToken}` }, form: formData }, (error, response, body) => {
-          expect(response.statusCode).to.equal(200);
-          expect(typeof JSON.parse(body)).to.equal('object');
-          expect(JSON.parse(body).imageUrl).to.equal('http://image.com');
           done();
         });
       });

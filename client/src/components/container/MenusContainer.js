@@ -1,8 +1,9 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getMenusByUnixTime } from '../../reducer/menus/actions';
-import { addToCart, deleteFromCart } from '../../reducer/cart/actions';
+import { getMealsInDailyMenu } from '../../reducer/menus/actions';
+import { deleteFromCart, addToCart, updateCart, emptyCart } from '../../reducer/cart/actions';
+
 import Menus from '../presentation/Menus';
 
 const mapStateToProps = (state) => {
@@ -18,8 +19,10 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     addToCart,
+    updateCart,
+    emptyCart,
     deleteFromCart,
-    getMenusByUnixTime,
+    getMealsInDailyMenu,
   }, dispatch);
 }
 

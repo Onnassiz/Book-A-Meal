@@ -53,7 +53,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
   ],
   devServer: {
-    port: 3000,
+    port: 3002,
     open: true,
     overlay: true,
   },

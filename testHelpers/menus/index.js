@@ -1,5 +1,5 @@
 import { menu, meal } from '../../api/models';
-import { insertMock } from '../meals/index';
+import { insertMealMock } from '../meals/index';
 import { getCatererId } from '../main';
 
 const deleteMenus = (done) => {
@@ -15,7 +15,7 @@ const deleteMenus = (done) => {
 };
 
 const getMealIds = () => {
-  return insertMock().then((data) => {
+  return insertMealMock().then((data) => {
     const meals = data.map((item) => {
       return {
         mealId: item.id,

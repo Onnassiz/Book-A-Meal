@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import empty from 'is-empty';
 import swal from 'sweetalert';
+import Pagination from 'react-js-pagination';
 import { addProfileModalStyle, addProfileImageModalView } from './../../utilities/modalStyles';
 import { BasicInput, TextArea } from './form/BasicInput';
 import SubmitButton from '../presentation/form/SubmitButton';
@@ -11,7 +12,6 @@ import Alert from '../presentation/partials/Alert';
 import ImageUploader from '../presentation/partials/ImageUploader';
 import MealsTableRow from './partials/MealsTableRow';
 
-
 class Meals extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +19,9 @@ class Meals extends Component {
       id: '',
       name: '',
       price: '',
+      meals: [],
+      mealsCount: 0,
+      activePage: 1,
       category: '',
       description: '',
       updateMode: false,
@@ -33,16 +36,17 @@ class Meals extends Component {
     this.toggleDropZone = this.toggleDropZone.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.putImage = this.putImage.bind(this);
     this.pushToProfile = this.pushToProfile.bind(this);
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this);
     this.toggleShowDeleteModal = this.toggleShowDeleteModal.bind(this);
     this.toggleAddPhoto = this.toggleAddPhoto.bind(this);
     this.deleteMeal = this.deleteMeal.bind(this);
+    this.putImage = this.putImage.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
 
   componentWillMount() {
-    const { user, history, getProfile, profile, meals, getMeals } = this.props;
+    const { user, history, getProfile, profile, getMeals } = this.props;
     if (user.role !== 'caterer') {
       history.push('/');
     }
@@ -51,9 +55,11 @@ class Meals extends Component {
       getProfile();
     }
 
-    if (empty(meals.meals)) {
-      getMeals();
-    }
+    getMeals(10, 0).then((response) => {
+      if (response.status === 200) {
+        this.setState({ meals: response.data.meals, mealsCount: response.data.count });
+      }
+    });
   }
 
   onChange(e) {
@@ -65,14 +71,20 @@ class Meals extends Component {
   }
 
   putImage(image) {
-    const { putImage } = this.props;
+    const { updateMeal } = this.props;
     const field = {
       imageUrl: image,
+      id: this.state.currentMeal.id,
     };
 
-    putImage(this.state.currentMeal.id, field).then((response) => {
+    updateMeal(field).then((response) => {
       if (response.status === 200) {
-        this.toggleAddPhoto({});
+        const { meal } = response.data;
+        const { meals } = this.state;
+        const index = meals.findIndex(x => x.id === meal.id);
+        meals[index] = meal;
+        this.toggleAddPhoto();
+        this.setState({ meals });
       }
     });
   }
@@ -107,15 +119,20 @@ class Meals extends Component {
       if (!this.state.updateMode) {
         postMeal(formData).then((response) => {
           if (response.status === 201) {
-            this.resetFields();
+            const meals = [response.data.meal].concat(this.state.meals).splice(0, 10);
             this.handleAddButtonClick();
+            this.setState({ meals, mealsCount: this.state.mealsCount + 1 });
           }
         });
       } else {
         updateMeal(formData).then((response) => {
           if (response.status === 200) {
-            this.resetFields();
+            const { meal } = response.data;
+            const { meals } = this.state;
+            const index = meals.findIndex(x => x.id === meal.id);
+            meals[index] = meal;
             this.handleAddButtonClick();
+            this.setState({ meals });
           }
         });
       }
@@ -162,7 +179,8 @@ class Meals extends Component {
           const { deleteMealById } = this.props;
           deleteMealById(meal.id).then((response) => {
             if (response.status === 200) {
-              this.setState({ currentMeal: {} });
+              const meals = this.state.meals.filter(x => x.id !== meal.id);
+              this.setState({ currentMeal: {}, meals });
               swal('Deleted!', 'Your meal has been deleted', 'success');
             }
           });
@@ -184,11 +202,36 @@ class Meals extends Component {
     });
   }
 
+  handlePageChange(pageNumber) {
+    const { getMeals } = this.props;
+    const offset = (pageNumber - 1) * 10;
+    getMeals(10, offset).then((response) => {
+      if (response.status === 200) {
+        this.setState({ activePage: pageNumber, meals: response.data.meals, mealsCount: response.data.count });
+      }
+    });
+  }
+
   render() {
     const { formState, profile, meals, user } = this.props;
     const closeModalStyle = {
       float: 'right',
     };
+
+    const showPagination = (
+      <div>{ this.state.mealsCount > 10 ?
+        <div style={{ textAlign: 'center' }}>
+          <Pagination
+            hideDisabled
+            activePage={this.state.activePage}
+            itemsCountPerPage={10}
+            totalItemsCount={this.state.mealsCount}
+            pageRangeDisplayed={5}
+            onChange={this.handlePageChange}
+          />
+        </div> : '' }
+      </div>
+    );
 
     const SetupProfile = (
 			<div className="col-12" style={{ textAlign: 'center' }}>
@@ -201,7 +244,7 @@ class Meals extends Component {
 			<div id="content-body">
 				{empty(profile.businessName) ? SetupProfile :
 					<div className="col-12">
-						<button onClick={this.handleAddButtonClick} className="button">Add meal</button>
+						<button onClick={this.handleAddButtonClick} className="button"><i className="ion-android-add" /> Add Meal</button>
 						{empty(meals.alert) ? '' : <Alert alert={meals.alert} />}
 						<div>
 							<Modal
@@ -253,9 +296,10 @@ class Meals extends Component {
 						</div>
 
 						<div className="col-12">
-							{empty(meals.meals) ? '' :
+              {showPagination}
+							{empty(this.state.meals) ? '' :
 								<div>
-									<table>
+									<table className="meals-table">
 										<thead>
 											<tr>
 												<th>S/N</th>
@@ -269,11 +313,12 @@ class Meals extends Component {
 											</tr>
 										</thead>
 										<tbody>
-											{meals.meals.map((item, i) => <MealsTableRow toggleAddPhoto={() => this.toggleAddPhoto(item)} userId={user.id} toggleShowDeleteModal={() => this.toggleShowDeleteModal(item)} toggleUpdateModal={() => this.toggleUpdateModal(item)} item={item} key={item.id} i={i + 1} />)}
+											{this.state.meals.map((item, i) => <MealsTableRow toggleAddPhoto={() => this.toggleAddPhoto(item)} userId={user.id} toggleShowDeleteModal={() => this.toggleShowDeleteModal(item)} toggleUpdateModal={() => this.toggleUpdateModal(item)} item={item} key={item.id} i={i + 1} />)}
 										</tbody>
 									</table>
 								</div>
-							}
+              }
+              {showPagination}
 						</div>
 					</div>
 				}
@@ -292,7 +337,6 @@ Meals.propTypes = {
   updateMeal: PropTypes.func.isRequired,
   deleteMealById: PropTypes.func.isRequired,
   getMeals: PropTypes.func.isRequired,
-  putImage: PropTypes.func.isRequired,
   getProfile: PropTypes.func.isRequired,
 };
 

@@ -3,10 +3,10 @@ import empty from 'is-empty';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import Modal from 'react-modal';
+import Pagination from 'react-js-pagination';
 import {
   Accordion,
 } from 'react-accessible-accordion';
-
 
 import Alert from '../presentation/partials/Alert';
 import { addMenuModalStyle, deleteModalStyle } from './../../utilities/modalStyles';
@@ -19,7 +19,6 @@ import MenuAccordion from './partials/MenuAccordion';
 import loaderImage from '../../../assets/images/loader.gif';
 import { convertUnixToDate } from '../../utilities/functions';
 
-
 class AdminMenus extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +26,12 @@ class AdminMenus extends Component {
       startDate: new Date().toISOString().split('T')[0],
       endDate: '',
       name: '',
+      menuCount: 0,
+      mealsCount: 0,
+      meals: [],
+      thisPageMenus: [],
+      mealsActivePage: 1,
+      activePage: 1,
       updateMode: false,
       currentMenu: {},
       isShowingModal: false,
@@ -43,21 +48,29 @@ class AdminMenus extends Component {
     this.deleteMenu = this.deleteMenu.bind(this);
     this.isSelected = this.isSelected.bind(this);
     this.showOpsButtons = this.showOpsButtons.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleMealsPageChange = this.handleMealsPageChange.bind(this);
   }
 
   componentWillMount() {
-    const { user, history, getProfile, profile, getUserMenus, menus } = this.props;
+    const { user, history } = this.props;
     if (user.role !== 'caterer') {
       history.push('/');
     }
+  }
+
+  componentDidMount() {
+    const { getProfile, profile, getUserMenus } = this.props;
 
     if (empty(profile)) {
       getProfile();
     }
 
-    if (empty(menus.menus)) {
-      getUserMenus();
-    }
+    getUserMenus().then((response) => {
+      if (response.status === 200) {
+        this.setState({ thisPageMenus: response.data.menus, menuCount: response.data.count });
+      }
+    });
   }
 
   onCheckBoxChange(e, meal) {
@@ -109,13 +122,24 @@ class AdminMenus extends Component {
       if (this.state.updateMode) {
         updateMenu(formData).then((response) => {
           if (response.status === 200) {
-            this.resetFields();
-            this.toggleShowModal();
+            const { menu } = response.data;
+            const { thisPageMenus } = this.state;
+            const index = thisPageMenus.findIndex(x => x.id === menu.id);
+            thisPageMenus[index] = menu;
+            this.setState({ thisPageMenus: [] });
+            const $this = this;
+            setTimeout(() => {
+              $this.setState({ thisPageMenus });
+              $this.resetFields();
+              $this.toggleShowModal();
+            }, 300);
           }
         });
       } else {
         postMenu(formData).then((response) => {
           if (response.status === 201) {
+            const menus = response.data.menus.concat(this.state.thisPageMenus).splice(0, 10);
+            this.setState({ menusCount: this.state.menuCount + response.data.menus.length, thisPageMenus: menus });
             this.resetFields();
             this.toggleShowModal();
           }
@@ -144,14 +168,17 @@ class AdminMenus extends Component {
   }
 
   toggleShowModal() {
-    const { meals, getMeals } = this.props;
-    if (empty(meals.meals)) {
-      getMeals();
-    }
+    const { getMeals } = this.props;
     if (this.state.isShowingModal) {
       this.resetFields();
+      this.setState({ isShowingModal: !this.state.isShowingModal });
+    } else {
+      getMeals(9, 0).then((response) => {
+        if (response.status === 200) {
+          this.setState({ meals: response.data.meals, mealsCount: response.data.count, isShowingModal: !this.state.isShowingModal });
+        }
+      });
     }
-    this.setState({ isShowingModal: !this.state.isShowingModal });
   }
 
   toggleShowDeleteModal(menu) {
@@ -166,8 +193,8 @@ class AdminMenus extends Component {
           const { deleteMenuById } = this.props;
           deleteMenuById(menu.id).then((response) => {
             if (response.status === 200) {
-              this.setState({ currentMeal: {} });
-              swal('Deleted!', 'Your menu has been deleted', 'success');
+              const pageMenus = this.state.thisPageMenus.filter(x => x.id !== menu.id);
+              this.setState({ thisPageMenus: pageMenus, menuCount: this.state.menuCount - 1 });
             }
           });
         }
@@ -175,36 +202,94 @@ class AdminMenus extends Component {
   }
 
   toggleUpdateModal(menu) {
-    const { meals, getMeals } = this.props;
-    if (empty(meals.meals)) {
-      getMeals();
-    }
+    const { getMeals, getMealsInMenu } = this.props;
 
     const selectedMeals = [];
-    this.setState({
-      startDate: menu.date,
-      selectedMeals,
-      name: menu.name,
-      isShowingModal: true,
-      updateMode: true,
-      currentMenu: menu,
+
+    getMealsInMenu(menu, 0).then((res) => {
+      if (res.response.status === 200) {
+        res.response.data.map(item => selectedMeals.push({
+          mealId: item.id,
+          price: item.price,
+        }));
+
+        getMeals(9, 0).then((response) => {
+          if (response.status === 200) {
+            this.setState({
+              meals: response.data.meals,
+              mealsCount: response.data.count,
+              isShowingModal: true,
+              startDate: menu.date,
+              selectedMeals,
+              name: menu.name,
+              updateMode: true,
+              currentMenu: menu,
+            });
+          }
+        });
+      }
     });
-    // getMealsInMenu(menu.meals).then((menuMeals) => {
-    //   menuMeals.forEach((item) => {
-    //     selectedMeals.push({ mealId: item.id, price: item.price });
-    //   });
-    // });
   }
 
   isSelected(id) {
     return this.state.selectedMeals.findIndex(x => x.mealId === id) !== -1;
   }
 
+  handlePageChange(pageNumber) {
+    const { getUserMenus } = this.props;
+    const offset = (pageNumber - 1) * 10;
+    getUserMenus(offset).then((response) => {
+      if (response.status === 200) {
+        this.setState({ activePage: pageNumber, thisPageMenus: response.data.menus });
+      }
+    });
+  }
+
+  handleMealsPageChange(pageNumber) {
+    const { getMeals } = this.props;
+    const offset = (pageNumber - 1) * 10;
+    getMeals(9, offset).then((response) => {
+      if (response.status === 200) {
+        this.setState({ mealsActivePage: pageNumber, meals: response.data.meals, mealsCount: response.data.count });
+      }
+    });
+  }
+
   render() {
-    const { formState, profile, menus, meals } = this.props;
+    const { formState, profile, menus } = this.props;
     const closeModalStyle = {
       float: 'right',
     };
+
+    const showPagination = (
+      <div>{ this.state.menuCount > 10 ?
+        <div style={{ textAlign: 'center' }}>
+          <Pagination
+            hideDisabled
+            activePage={this.state.activePage}
+            itemsCountPerPage={9}
+            totalItemsCount={this.state.menuCount}
+            pageRangeDisplayed={5}
+            onChange={this.handlePageChange}
+          />
+        </div> : '' }
+      </div>
+    );
+
+    const showMealsPagination = (
+      <div>{ this.state.mealsCount > 10 ?
+        <div style={{ textAlign: 'center' }}>
+          <Pagination
+            hideDisabled
+            activePage={this.state.mealsActivePage}
+            itemsCountPerPage={10}
+            totalItemsCount={this.state.mealsCount}
+            pageRangeDisplayed={5}
+            onChange={this.handleMealsPageChange}
+          />
+        </div> : '' }
+      </div>
+    );
 
     const SetupProfile = (
 			<div className="col-12" style={{ textAlign: 'center' }}>
@@ -236,7 +321,7 @@ class AdminMenus extends Component {
 									<a title="close" onClick={this.toggleShowModal} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
 								</div>
 								<div>
-									{empty(meals.meals) ?
+									{empty(this.state.meals) ?
 										<div>
 											No meals found. You must add meals to be able to create a Menu.
 										</div> :
@@ -250,7 +335,15 @@ class AdminMenus extends Component {
 															{empty(menus.errors) ? '' : Object.keys(menus.errors).map(item => <li key={item}>{ menus.errors[item] }</li>)}
 														</ul>
 													</div>
-													<BasicInput name="startDate" type="date" min={today} label="Start Date" value={this.state.startDate} onChange={this.onChange} hasError={this.state.errors.date !== undefined} />
+                          <BasicInput
+                          name="startDate"
+                          type="date"
+                          min={today}
+                          label="Start Date"
+                          value={this.state.startDate}
+                          onChange={this.onChange}
+                          hasError={this.state.errors.date !== undefined}
+                          />
                           { this.state.updateMode ? '' :
                             <BasicInput
                               name="endDate"
@@ -263,13 +356,18 @@ class AdminMenus extends Component {
                             />
                           }
 													<BasicInput name="name" type="text" label="Menu Name (optional)" value={this.state.name} onChange={this.onChange} hasError={this.state.errors.name !== undefined} />
-													<div style={{ fontSize: 18, marginTop: 45 }}><b>{ this.state.selectedMeals.length } </b>meals selected</div>
-													<SubmitButton value={this.state.updateMode ? 'Update' : 'Submit'} isLoading={formState.isLoading} />
+													<div style={{ fontSize: 18, marginTop: 45 }}><span className="number-badge">{ this.state.selectedMeals.length }</span> meals selected</div>
 												</div>
-												<div id="meals-checkBox">
-													{meals.meals.map(item => <Checkbox isChecked={this.isSelected(item.id)} meal={item} key={item.id} onChange={e => this.onCheckBoxChange(e, item)} />)}
-												</div>
-												<span id="checkBox-label">Scroll to view more meals</span>
+                        <div id="meals-checkBox">
+                            {this.state.meals.map(item => <Checkbox isChecked={this.isSelected(item.id)} meal={item} key={item.id} onChange={e => this.onCheckBoxChange(e, item)} />)}
+                            <div style={{ textAlign: 'center' }}>
+                              {showMealsPagination}
+                            </div>
+                        </div>
+                        <div id="meals" style={{ textAlign: 'right' }}>
+                          <hr />
+                          <SubmitButton className="button" value={this.state.updateMode ? 'Update' : 'Submit'} isLoading={formState.isLoading} />
+                        </div>
 											</form>
 										</div>}
 								</div>
@@ -296,11 +394,15 @@ class AdminMenus extends Component {
 							</Modal>
 						</div>
 						<div className="col-12" style={{ marginTop: 20 }}>
-							{ empty(menus.menus) ? <div>You have not created any menu</div> :
+              { showPagination }
+
+							{ empty(this.state.thisPageMenus) ? <div>You have not created any menu</div> :
 								<Accordion>
-									{ menus.menus.map(menu => <MenuAccordion showOpsButtons={this.showOpsButtons(menu.date)} toggleUpdateModal={() => this.toggleUpdateModal(menu)} toggleShowDeleteModal={() => this.toggleShowDeleteModal(menu)} menu={menu} key={menu.id} />) }
+									{ this.state.thisPageMenus.map(menu => <MenuAccordion showOpsButtons={this.showOpsButtons(menu.date)} getMealsInMenu={this.props.getMealsInMenu} toggleUpdateModal={() => this.toggleUpdateModal(menu)} toggleShowDeleteModal={() => this.toggleShowDeleteModal(menu)} menu={menu} key={menu.id} />) }
 								</Accordion>
-							}
+              }
+
+              { showPagination }
 						</div>
 					</div>}
 			</div>
@@ -311,7 +413,6 @@ class AdminMenus extends Component {
 AdminMenus.propTypes = {
   user: PropTypes.object.isRequired,
   menus: PropTypes.object.isRequired,
-  meals: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   formState: PropTypes.object.isRequired,

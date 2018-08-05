@@ -12,21 +12,21 @@ function setAlert(alert) {
   });
 }
 
-function setMeal(storeMeals, meal) {
-  const meals = [meal].concat(storeMeals);
-  return dispatch => dispatch({
-    type: SET_MEAL,
-    meals,
-  });
-}
+// function setMeal(storeMeals, meal) {
+//   const meals = [meal].concat(storeMeals);
+//   return dispatch => dispatch({
+//     type: SET_MEAL,
+//     meals,
+//   });
+// }
 
-function setMealArray(storeMeals, meal) {
-  const meals = storeMeals.concat(meal);
-  return dispatch => dispatch({
-    type: SET_MEAL,
-    meals,
-  });
-}
+// function setMealArray(storeMeals, meal) {
+//   const meals = storeMeals.concat(meal);
+//   return dispatch => dispatch({
+//     type: SET_MEAL,
+//     meals,
+//   });
+// }
 
 export function updateMealState(storeMeals, meal) {
   const index = storeMeals.findIndex(x => x.id === meal.id);
@@ -54,11 +54,11 @@ function setMealErrors(errors) {
 }
 
 export function postMeal(meal) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(setLoading());
     return axios.post('api/v1/meals', meal).then((response) => {
       dispatch(unsetLoading());
-      dispatch(setMeal(getState().meals.meals, response.data));
+      // dispatch(setMeal(getState().meals.meals, response.data));
       dispatch(setAlert('Meal successfully created'));
       return response;
     }).catch((error) => {
@@ -70,11 +70,11 @@ export function postMeal(meal) {
 }
 
 export function updateMeal(meal) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(setLoading());
     return axios.put(`api/v1/meals/${meal.id}`, meal).then((response) => {
       dispatch(unsetLoading());
-      dispatch(updateMealState(getState().meals.meals, response.data));
+      // dispatch(updateMealState(getState().meals.meals, response.data));
       dispatch(setAlert('Meal successfully updated'));
       return response;
     }).catch((error) => {
@@ -86,12 +86,11 @@ export function updateMeal(meal) {
 }
 
 export function deleteMealById(id) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(setLoading());
     return axios.delete(`api/v1/meals/${id}`).then((response) => {
       dispatch(unsetLoading());
-      dispatch(updateMealAfterDelete(getState().meals.meals, id));
-      dispatch(setAlert('Meal successfully deleted'));
+      // dispatch(updateMealAfterDelete(getState().meals.meals, id));
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());
@@ -101,28 +100,12 @@ export function deleteMealById(id) {
   };
 }
 
-export function putImage(id, field) {
-  return (dispatch, getState) => {
+export function getMeals(limit = 10, offset = 0) {
+  return (dispatch) => {
     dispatch(setLoading());
-    return axios.put(`api/v1/meals/image/${id}`, field).then((response) => {
+    return axios.get(`api/v1/meals/?limit=${limit}&offset=${offset}`).then((response) => {
       dispatch(unsetLoading());
-      dispatch(updateMealState(getState().meals.meals, response.data));
-      dispatch(setAlert('Image successfully uploaded'));
-      return response;
-    }).catch((error) => {
-      dispatch(unsetLoading());
-      dispatch(setMealErrors(error.response.data));
-      return error;
-    });
-  };
-}
-
-export function getMeals() {
-  return (dispatch, getState) => {
-    dispatch(setLoading());
-    return axios.get('api/v1/meals').then((response) => {
-      dispatch(unsetLoading());
-      dispatch(setMealArray(getState().meals.meals, response.data));
+      // dispatch(setMealArray(getState().meals.meals, response.data));
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());
