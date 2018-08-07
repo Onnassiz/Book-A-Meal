@@ -4,7 +4,7 @@ import { describe, it, after } from 'mocha';
 
 import { deleteUser } from '../testHelpers/main';
 
-const baseUrl = 'http://localhost:3001/api/v1';
+const baseUrl = 'http://localhost:3009/api/v1';
 
 describe('Handle Not Found', () => {
   it('should return status (404) with message if route is not found', (done) => {

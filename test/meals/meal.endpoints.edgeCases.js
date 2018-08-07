@@ -8,7 +8,7 @@ import { getCatererToken } from '../../testHelpers/main';
 import { deleteMeals, insertOneMeal } from '../../testHelpers/meals/index';
 
 dotenv.config();
-const baseUrl = 'http://localhost:3001/api/v1';
+const baseUrl = 'http://localhost:3009/api/v1';
 
 let adminToken = '';
 
