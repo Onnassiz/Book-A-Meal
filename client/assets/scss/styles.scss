@@ -1013,6 +1013,12 @@ a{
   border: none !important;
 }
 
+.progress {
+  margin-top: 30px;
+  font-size: 26px;
+  color: $headerBackground;
+}
+
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}

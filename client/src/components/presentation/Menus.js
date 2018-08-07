@@ -72,11 +72,13 @@ class Menus extends Component {
 
   addToCart(meal) {
     const { addToCart } = this.props;
+    this.calculateTotalPrice();
     addToCart(meal);
   }
 
   removeFromCart(mealId) {
     const { deleteFromCart } = this.props;
+    this.calculateTotalPrice();
     deleteFromCart(mealId);
   }
 

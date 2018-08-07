@@ -10,6 +10,7 @@ class ImageUploader extends Component {
     super(props);
     this.state = {
       showLoader: false,
+      progress: 0,
       errors: {},
     };
     this.handleDrop = this.handleDrop.bind(this);
@@ -17,6 +18,11 @@ class ImageUploader extends Component {
 
   toggleLoader() {
     this.setState({ showLoader: !this.state.showLoader });
+  }
+
+  showProgress(progress) {
+    const ratio = (progress.loaded / progress.total) * 100;
+    this.setState({ progress: ratio.toFixed(0) });
   }
 
   handleDrop(files) {
@@ -33,7 +39,7 @@ class ImageUploader extends Component {
       delete axios.defaults.headers.common.Authorization;
       this.toggleLoader();
       axios.post(url, formData, {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }, onUploadProgress: (progressEvent) => { this.showProgress(progressEvent); },
       }).then((response) => {
         axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
         const { data } = response;
@@ -81,6 +87,9 @@ class ImageUploader extends Component {
 						<div>
 							<img src={loaderImage} alt="loader" hidden={!this.state.showLoader} />
 						</div>
+            <div className="progress">
+              {this.state.progress === 0 ? '' : `${this.state.progress}% Complete`}
+            </div>
 					</div>
 				</Dropzone>
 			</div>

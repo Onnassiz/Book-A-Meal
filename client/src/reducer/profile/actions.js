@@ -66,7 +66,7 @@ export function updateProfile(profile) {
 export function putImage(id, field) {
   return (dispatch) => {
     dispatch(setLoading());
-    return axios.put(`api/v1/profile/image/${id}`, field).then((response) => {
+    return axios.put(`api/v1/profile/${id}`, field).then((response) => {
       dispatch(unsetLoading());
       dispatch(setProfile(response.data));
       dispatch(setAlert('Banner successfully uploaded'));
