@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import empty from 'is-empty';
 import Footer from '../presentation/layout/Footer';
+import NoMatchComponent from '../presentation/partials/NoMatchComponent';
 import UserHomePage from '../pages/UserHomePage';
 import Profile from '../pages/Profile';
 import Auth from '../pages/Auth';
@@ -18,7 +18,6 @@ class App extends Component {
     super(props);
     this.state = {
       isSignedIn: false,
-      date: props.menus.currentDate,
     };
   }
 
@@ -40,17 +39,18 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    // this.setCart();
+  componentWillReceiveProps() {
+    const $this = this;
+    setTimeout(() => {
+      $this.setCart();
+    }, 500);
   }
 
   setCart() {
-    const { getMenusByUnixTime, emptyCart } = this.props;
-    getMenusByUnixTime(this.state.date).then((response) => {
-      if (empty(response.data)) {
-        emptyCart();
-      }
-    });
+    const { emptyCart, user, cart } = this.props;
+    if (cart.owner !== user.id) {
+      emptyCart();
+    }
   }
 
   setSignedIn() {
@@ -61,7 +61,8 @@ class App extends Component {
     const guestRoutes = (
       <Switch>
         <Route exact path="/" component={UserHomePage} />
-        <Route exact path="/auth" component={Auth} />
+        <Route exact path="/auth/:type" component={Auth} />
+        <Route component={NoMatchComponent} />
       </Switch>
     );
     const userRoutes = (
@@ -72,6 +73,7 @@ class App extends Component {
         <Route exact path="/caterer/menus" component={AdminMenus} />
         <Route exact path="/menus" component={Menus} />
         <Route exact path="/cart" component={Cart} />
+        <Route component={NoMatchComponent} />
       </Switch>
     );
     return (
@@ -88,8 +90,8 @@ class App extends Component {
 App.propTypes = {
   setUser: PropTypes.func.isRequired,
   emptyCart: PropTypes.func.isRequired,
-  getMenusByUnixTime: PropTypes.func.isRequired,
-  menus: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default App;

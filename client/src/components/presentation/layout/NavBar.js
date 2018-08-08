@@ -90,8 +90,8 @@ class NavBar extends Component {
 							</li>
 						</ul> :
 						<ul>
-							<li><Link to="/auth"><button className="auth-button">Sign Up</button></Link></li>
-							<li><Link to="/auth"><button className="auth-button" style={{ border: 'solid white 2px' }}>Login</button></Link></li>
+							<li><Link to="/auth/register"><button className="auth-button">Sign Up</button></Link></li>
+							<li><Link to="/auth/login"><button className="auth-button">Login</button></Link></li>
 						</ul>
 					}
 				</div>

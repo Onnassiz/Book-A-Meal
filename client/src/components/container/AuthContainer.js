@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { push } from 'react-router-redux';
+import { withRouter } from 'react-router-dom';
 import { setLoading } from '../../reducer/formState/actions';
 import { postUser, signInUser } from '../../reducer/user/actions';
 import Auth from '../presentation/Auth';
@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Auth);
+)(Auth));

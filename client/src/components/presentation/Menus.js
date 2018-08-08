@@ -48,6 +48,10 @@ class Menus extends Component {
     });
   }
 
+  componentDidMount() {
+    document.title = 'Menus - Just Eat';
+  }
+
   onChange(e) {
     const { getMealsInDailyMenu } = this.props;
     let date = new Date(e.target.value);
@@ -71,15 +75,15 @@ class Menus extends Component {
   }
 
   addToCart(meal) {
-    const { addToCart } = this.props;
+    const { addToCart, user } = this.props;
     this.calculateTotalPrice();
-    addToCart(meal);
+    addToCart(meal, user.id);
   }
 
   removeFromCart(mealId) {
-    const { deleteFromCart } = this.props;
+    const { deleteFromCart, user } = this.props;
     this.calculateTotalPrice();
-    deleteFromCart(mealId);
+    deleteFromCart(mealId, user.id);
   }
 
   showMore(meal) {
@@ -117,11 +121,11 @@ class Menus extends Component {
   updateUnits(e, currentMeal) {
     const { value } = e.target;
     if (value > 0) {
-      const { updateCart } = this.props;
+      const { updateCart, user } = this.props;
       const meal = currentMeal;
       meal.units = parseInt(value, 10);
       meal.totalPrice = value * meal.price;
-      updateCart(meal);
+      updateCart(meal, user.id);
       this.calculateTotalPrice();
     }
   }
@@ -244,6 +248,7 @@ Menus.propTypes = {
   orders: PropTypes.object.isRequired,
   menus: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   getMealsInDailyMenu: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired,
   emptyCart: PropTypes.func.isRequired,

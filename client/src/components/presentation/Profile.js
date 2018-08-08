@@ -10,7 +10,6 @@ import validateProfile from '../../utilities/validateProfileForm';
 import Alert from '../presentation/partials/Alert';
 import ImageUploader from '../presentation/partials/ImageUploader';
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -32,9 +31,14 @@ class Profile extends Component {
 
   componentWillMount() {
     const { user, history, getProfile, profile } = this.props;
-    if (user.role !== 'caterer') {
+    if (user.role !== 'caterer' || !user.role) {
       history.push('/');
     }
+  }
+
+  componentDidMount() {
+    const { getProfile, profile } = this.props;
+    document.title = 'Profile - Just Eat';
     if (empty(profile)) {
       getProfile();
     }

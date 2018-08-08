@@ -69,11 +69,12 @@ header {
   }
 
   .auth-button {
-    border: white solid 1px;;
+    border: none;
     background: none;
     color: white;
     width: 80px;
     padding: 12px;
+    font-size: 13px;
     border-radius: 4px;
     cursor: pointer;
 
@@ -139,6 +140,12 @@ a{
 
 .button {
   @include button;
+}
+
+.button-white {
+  @include button;
+  border: solid white 1px;
+  color: white;
 }
 
 .button-block {
@@ -604,7 +611,7 @@ a{
   position: relative;
   margin: auto;
   margin-top: 110px;
-  width: 75%;
+  width: 100%;
 }
 
 
@@ -615,7 +622,8 @@ a{
 .box-menu {
   @include box;
   width: 400px;
-  margin: 0 22px 0 22px;
+  float: none;
+  margin: auto;
 }
 
 .menu_item {
@@ -1019,6 +1027,27 @@ a{
   color: $headerBackground;
 }
 
+#not-found {
+  h1 {
+    font-size: 62px;
+    margin-top: 100px;
+    color: $headerBackground;
+    text-align: center;
+    font-weight: normal;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    text-decoration: underline;
+  }
+  
+  h3 {
+    font-size: 37px;
+    margin-top: 50px;
+    color: $headerBackground;
+    text-align: center;
+    font-weight: normal;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+  }
+}
+
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -1072,7 +1101,7 @@ a{
   }
 
   #content3 {
-  min-height: calc(100vh - 30px);
+    min-height: calc(100vh - 30px);
   }
 }
 

@@ -54,13 +54,15 @@ class AdminMenus extends Component {
 
   componentWillMount() {
     const { user, history } = this.props;
-    if (user.role !== 'caterer') {
+    if (user.role !== 'caterer' || !user.role) {
       history.push('/');
     }
   }
 
   componentDidMount() {
     const { getProfile, profile, getUserMenus } = this.props;
+
+    document.title = 'Admin Menus - Just Eat';
 
     if (empty(profile)) {
       getProfile();

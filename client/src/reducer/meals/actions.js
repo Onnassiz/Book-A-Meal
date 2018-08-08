@@ -103,7 +103,7 @@ export function deleteMealById(id) {
 export function getMeals(limit = 10, offset = 0) {
   return (dispatch) => {
     dispatch(setLoading());
-    return axios.get(`api/v1/meals/?limit=${limit}&offset=${offset}`).then((response) => {
+    return axios.get(`api/v1/meals/user/?limit=${limit}&offset=${offset}`).then((response) => {
       dispatch(unsetLoading());
       // dispatch(setMealArray(getState().meals.meals, response.data));
       return response;

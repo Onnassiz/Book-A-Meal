@@ -46,10 +46,15 @@ class Meals extends Component {
   }
 
   componentWillMount() {
-    const { user, history, getProfile, profile, getMeals } = this.props;
-    if (user.role !== 'caterer') {
+    const { user, history } = this.props;
+    if (user.role !== 'caterer' || !user.role) {
       history.push('/');
     }
+  }
+
+  componentDidMount() {
+    document.title = 'Meals - Just Eat';
+    const { getProfile, profile, getMeals } = this.props;
 
     if (empty(profile)) {
       getProfile();

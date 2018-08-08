@@ -127,16 +127,21 @@ class MealsController {
   }
 
   getUserMeals(req, res) {
-    const { offset, limit } = req.query;
+    meal.count({ where: { userId: req.user.id } }).then((count) => {
+      const { offset, limit } = req.query;
 
-    meal.findAll({ include: [{ model: user, include: [{ model: profile }] }],
-      order: sequelize.literal('name'),
-      offset: offset || 0,
-      limit: limit || 10,
-      where: { userId: req.user.id },
-    }).then((meals) => {
-      const viewModel = mealViewModelFromArray(meals);
-      res.status(200).send(viewModel);
+      meal.findAll({ include: [{ model: user, include: [{ model: profile }] }],
+        order: sequelize.literal('name'),
+        offset: offset || 0,
+        limit: limit || 10,
+        where: { userId: req.user.id },
+      }).then((meals) => {
+        const viewModel = mealViewModelFromArray(meals);
+        res.status(200).send({
+          count,
+          meals: viewModel,
+        });
+      });
     });
   }
 

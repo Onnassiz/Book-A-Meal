@@ -6,6 +6,9 @@ import homeImage3 from '../../../assets/images/home_3.jpg';
 
 
 class UserHomePage extends Component {
+  componentDidMount() {
+    document.title = 'Home - Just Eat';
+  }
   render() {
     return (
 			<div>

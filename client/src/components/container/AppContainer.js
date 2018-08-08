@@ -10,6 +10,7 @@ import { emptyCart } from '../../reducer/cart/actions';
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    cart: state.user,
     menus: state.menus,
   };
 };
