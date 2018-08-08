@@ -13,7 +13,7 @@
   
   .dropdown-content {
     margin-top: 2px;
-    background-color: $bodyBackGround;
+    background-color: $body-back-round;
     padding-top: 30px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border-radius: 3px;
@@ -90,7 +90,7 @@
   bottom: 50%;
   height: 80px;
   width: 20px;
-  color: $lightBlack;
+  color: $light-black;
 
   i {
     font-size: 40px;
@@ -200,7 +200,7 @@
       font-size: 16px;
       color: #474747;
       background: white;
-      border: solid $lightBlack 1px;
+      border: solid $light-black 1px;
       outline: none;
       margin-bottom: 10px;
       margin-top: 8px;
@@ -234,7 +234,7 @@
     float: right;
 
     input[type="submit"] {
-      border: solid $lightBlack 1px;;
+      border: solid $light-black 1px;;
       outline: none;
       background: none;
       // margin-right: 4px;
@@ -243,7 +243,7 @@
       font-size: 16px;
       font-family: "Trebuchet MS", Helvetica, sans-serif;
       border-radius: 3px;
-      color: $lightBlack;
+      color: $light-black;
       float: right;
 
       &:hover {

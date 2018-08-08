@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
+import Modal from 'react-modal';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { addProfileImageModalView } from './../../../utilities/modalStyles';
 import loaderImage from '../../../../assets/images/file-loader.gif';
 
 
@@ -17,7 +19,7 @@ class ImageUploader extends Component {
   }
 
   toggleLoader() {
-    this.setState({ showLoader: !this.state.showLoader });
+    this.setState({ showLoader: !this.state.showLoader, progress: 0 });
   }
 
   showProgress(progress) {
@@ -62,43 +64,61 @@ class ImageUploader extends Component {
       width: 350,
       height: 300,
       margin: 'auto',
+      marginTop: 70,
       padding: 20,
       border: 'solid #7a604a 1px',
       borderRadius: 3,
     };
 
     return (
-			<div className="col-12">
-				<div className="show-errors">
-					<ul>
-						{Object.keys(this.state.errors).map(item => <li key={item}>{ this.state.errors[item] }</li>)}
-					</ul>
-				</div>
-				<Dropzone
-					onDrop={this.handleDrop}
-					accept="image/*"
-          style={dropZoneStyle}
-          className="dropzone"
-				>
-					<div style={{ textAlign: 'center' }}>
-						<h2 id="dropzoneHeader">Drop Images Here</h2>
-						<br /><br /><br />
-						<button disabled={this.state.showLoader} className="button">Upload Image</button>
-						<div>
-							<img src={loaderImage} alt="loader" hidden={!this.state.showLoader} />
-						</div>
-            <div className="progress">
-              {this.state.progress === 0 ? '' : `${this.state.progress}% Complete`}
+      <div className="col-12">
+        <Modal
+          isOpen={this.props.isShowingAddPhoto}
+          closeTimeoutMS={1}
+          style={addProfileImageModalView}
+          ariaHideApp={false}
+          contentLabel="Modal"
+          className="image-upload"
+        >
+          <div className="col-12">
+            <div className="col-12">
+              <a onClick={this.props.toggleAddPhoto} style={{ float: 'right' }}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
             </div>
-					</div>
-				</Dropzone>
-			</div>
+            <div className="show-errors">
+              <ul>
+                {Object.keys(this.state.errors).map(item =>
+                  <li key={item}>{this.state.errors[item]}</li>)}
+              </ul>
+            </div>
+            <Dropzone
+              onDrop={this.handleDrop}
+              accept="image/*"
+              style={dropZoneStyle}
+              className="dropzone"
+            >
+              <div style={{ textAlign: 'center' }}>
+                <h2 id="dropzoneHeader">Drop Images Here</h2>
+                <br /><br /><br />
+                <button disabled={this.state.showLoader} className="button">Upload Image</button>
+                <div>
+                  <img src={loaderImage} alt="loader" hidden={!this.state.showLoader} />
+                </div>
+                <div className="progress">
+                  {this.state.progress === 0 ? '' : `${this.state.progress}% Complete`}
+                </div>
+              </div>
+            </Dropzone>
+          </div>
+        </Modal>
+      </div>
     );
   }
 }
 
 ImageUploader.propTypes = {
   putImage: PropTypes.func.isRequired,
+  isShowingAddPhoto: PropTypes.bool.isRequired,
+  toggleAddPhoto: PropTypes.func.isRequired,
 };
 
 export default ImageUploader;

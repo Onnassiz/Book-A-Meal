@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AdminMenusContainer from '../container/AdminMenusContainer';
 import NavBarContainer from '../container/NavBarContainer';
 
-class AdminMenus extends Component {
-  render() {
-    return (
-			<div>
-				<NavBarContainer page="caterer" />
-				<AdminMenusContainer />
-			</div>
-    );
-  }
-}
+const AdminMenus = () => (
+  <div>
+    <NavBarContainer page="caterer" />
+    <AdminMenusContainer />
+  </div>
+);
 
 export default AdminMenus;

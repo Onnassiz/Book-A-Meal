@@ -12,9 +12,7 @@ const menuFormConstraints = [
   check('date')
     .exists()
     .withMessage('the date field is required')
-    .custom((value) => {
-      return new Date(value).toDateString() !== 'Invalid Date';
-    })
+    .custom(value => new Date(value).toDateString() !== 'Invalid Date')
     .withMessage('the date supplied is not a valid date')
     .trim(),
 
@@ -22,9 +20,7 @@ const menuFormConstraints = [
     .optional({ nullable: true })
     .isInt()
     .withMessage('the extra day field must be an integer')
-    .custom((value) => {
-      return typeof value === 'number';
-    })
+    .custom(value => typeof value === 'number')
     .withMessage('the extra day field must be an integer')
     .trim(),
 
@@ -73,9 +69,7 @@ const menuUpdateFormConstraints = [
 
   check('date')
     .optional({ nullable: true })
-    .custom((value) => {
-      return new Date(value).toDateString() !== 'Invalid Date';
-    })
+    .custom(value => new Date(value).toDateString() !== 'Invalid Date')
     .withMessage('the date supplied is not a valid date')
     .trim(),
 

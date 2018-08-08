@@ -11,38 +11,26 @@ const deleteMeals = (done) => {
   });
 };
 
-const insertMealMock = (done) => {
-  return getCatererId(done, false).then((id) => {
-    const mocks = getMealsMock(id);
+const insertMealMock = done => getCatererId(done, false).then((id) => {
+  const mocks = getMealsMock(id);
 
-    return meal.bulkCreate(mocks).then((data) => {
-      return data;
-    });
+  return meal.bulkCreate(mocks).then(data => data);
+});
+
+const getMealId = () => meal.findOne({ where: { price: 80 } }).then(data => data.id);
+
+const insertOneMeal = done => getCatererId(done, false).then((id) => {
+  const newMeal = meal.build({
+    name: 'The Good Meal',
+    price: 2000,
+    userId: id,
+    description: null,
+    category: 'Hot meal',
+    imageUrl: 'http://bens.com',
   });
-};
 
-const getMealId = () => {
-  return meal.findOne({ where: { price: 857 } }).then((data) => {
-    return data.id;
-  });
-};
-
-const insertOneMeal = (done) => {
-  return getCatererId(done, false).then((id) => {
-    const newMeal = meal.build({
-      name: 'The Good Meal',
-      price: 2000,
-      userId: id,
-      description: null,
-      category: 'Hot meal',
-      imageUrl: 'http://bens.com',
-    });
-
-    return newMeal.save().then((data) => {
-      return data;
-    });
-  });
-};
+  return newMeal.save().then(data => data);
+});
 
 export {
   deleteMeals,

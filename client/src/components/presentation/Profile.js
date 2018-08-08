@@ -1,14 +1,12 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
 import empty from 'is-empty';
-import { addProfileModalStyle, addProfileImageModalView } from './../../utilities/modalStyles';
-import { BasicInput, TextArea } from '../presentation/form/BasicInput';
-import SubmitButton from '../presentation/form/SubmitButton';
 import validateProfile from '../../utilities/validateProfileForm';
 import Alert from '../presentation/partials/Alert';
 import ImageUploader from '../presentation/partials/ImageUploader';
+import ProfileModal from './partials/Profile.js/ProfileModal';
+import ProfileSection from './partials/Profile.js/ProfileSection';
 
 class Profile extends Component {
   constructor(props) {
@@ -26,7 +24,7 @@ class Profile extends Component {
     this.toggleDropZone = this.toggleDropZone.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.putImage = this.putImage.bind(this);  
+    this.putImage = this.putImage.bind(this);
   }
 
   componentWillMount() {
@@ -120,93 +118,29 @@ class Profile extends Component {
 
   render() {
     const { formState, profile } = this.props;
-    const closeModalStyle = {
-      float: 'right',
-    };
-
     return (
-			<div id="content-body">
-				<div className="col-12">
-					<button onClick={empty(profile.businessName) ? this.handleAddButtonClick.bind(this, false) : this.handleAddButtonClick.bind(this, true)} style={{ marginRight: 5 }} className="button">
-						{empty(profile.businessName) ? 'Add Profile' : 'Update Profile'}
-					</button>
-					<button disabled={empty(profile.id)} onClick={this.toggleDropZone} className="button">Upload Banner</button>
-				</div>
-				{empty(profile.alert) ? '' : <Alert alert={profile.alert} />}
-				<div>
-					<Modal
-						isOpen={this.state.isShowingModal}
-						closeTimeoutMS={1}
-						style={addProfileModalStyle}
-						ariaHideApp={false}
-            contentLabel="Modal"
-            className="create-profile"
-					>
-						<div>
-              <div className="col-12">
-                <a onClick={this.handleAddButtonClick} style={closeModalStyle}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
-              </div>
-              <div className="box">
-                <h3>Setup Business Profile</h3>
-                <div className="show-errors">
-                  <ul>
-                    {Object.keys(this.state.errors).map(item => <li key={item}>{ this.state.errors[item] }</li>)}
-                    {empty(profile.errors) ? '' : Object.keys(profile.errors).map(item => <li key={item}>{ profile.errors[item] }</li>)}
-                  </ul>
-                </div>
-                <form onSubmit={this.handleSubmit}>
-                  <BasicInput name="businessName" type="text" label="Business Name" value={this.state.businessName} onChange={this.onChange} hasError={this.state.errors.businessName !== undefined} />
-                  <BasicInput name="mission" type="text" label="Mission Statement" value={this.state.mission} onChange={this.onChange} hasError={this.state.errors.mission !== undefined} />
-                  <BasicInput name="email" type="text" label="Business Email" value={this.state.email} onChange={this.onChange} hasError={this.state.errors.email !== undefined} />
-                  <TextArea name="contact" type="text" label="Contact" value={this.state.contact} onChange={this.onChange} hasError={this.state.errors.contact !== undefined} />
-                  <SubmitButton value={empty(profile.businessName) ? 'Submit' : 'Update'} isLoading={formState.isLoading} />
-                </form>
-              </div>
-            </div>
-					</Modal>
-				</div>
-				<div>
-					<Modal
-						isOpen={this.state.isShowingDropZoneModal}
-						closeTimeoutMS={1}
-						style={addProfileImageModalView}
-						ariaHideApp={false}
-            contentLabel="Modal"
-            className="image-upload"
-					>
-						<div className="col-12">
-							<div className="col-12">
-								<a onClick={this.toggleDropZone} style={{ float: 'right' }}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
-							</div>
-							<ImageUploader putImage={this.putImage} />
-						</div>
-					</Modal>
-				</div>
-				<div className="col-12">
-					<div id="detail">
-						<h2>Business Name</h2>
-						<span>{profile.businessName}</span>
-					</div>
-					<div id="detail">
-						<h2>Mission</h2>
-						<span>{profile.mission}</span>
-					</div>
-					<div id="detail">
-						<h2>Business Email</h2>
-						<span>{profile.email}</span>
-					</div>
-					<div id="detail">
-						<h2>Contact</h2>
-						<span>{profile.contact}</span>
-					</div>
-					<div id="detail">
-						<h2>Banner</h2>
-						<span>
-							{ empty(profile.banner) ? <i className="material-icons">photo</i> : <img src={profile.banner} alt="banner" style={{ maxHeight: '600px', borderRadius: 4 }} />}
-						</span>
-					</div>
-				</div>
-			</div>
+      <div id="content-body">
+        <div className="col-12">
+          <button onClick={empty(profile.businessName) ? this.handleAddButtonClick.bind(this, false) : this.handleAddButtonClick.bind(this, true)} style={{ marginRight: 5 }} className="button">
+            {empty(profile.businessName) ? 'Add Profile' : 'Update Profile'}
+          </button>
+          <button disabled={empty(profile.id)} onClick={this.toggleDropZone} className="button">Upload Banner</button>
+        </div>
+        {empty(profile.alert) ? '' : <Alert alert={profile.alert} />}
+
+        <ProfileModal
+          state={this.state}
+          profile={profile}
+          handleSubmit={this.handleSubmit}
+          handleAddButtonClick={this.handleAddButtonClick}
+          formState={formState}
+          onChange={this.onChange}
+        />
+        <div>
+          <ImageUploader putImage={this.putImage} isShowingAddPhoto={this.state.isShowingDropZoneModal} toggleAddPhoto={this.toggleAddPhoto} />
+        </div>
+        <ProfileSection profile={profile} />
+      </div>
     );
   }
 }

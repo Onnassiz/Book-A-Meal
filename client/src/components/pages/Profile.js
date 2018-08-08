@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ProfileContainer from '../container/ProfileContainer';
 import NavBarContainer from '../container/NavBarContainer';
 
-class Profile extends Component {
-  render() {
-    return (
-			<div>
-				<NavBarContainer page="caterer" />
-				<ProfileContainer />
-			</div>
-    );
-  }
-}
+const Profile = () => (
+  <div>
+    <NavBarContainer page="caterer" />
+    <ProfileContainer />
+  </div>
+);
 
 export default Profile;

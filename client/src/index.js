@@ -15,14 +15,14 @@ import all from './store';
 const store = all();
 
 ReactDOM.render(
-	<Provider store={store.store}>
-		<PersistGate loading={null} persistor={store.persistor}>
-			<ConnectedRouter history={store.history}>
-				<HashRouter>
-					<App />
-				</HashRouter>
-			</ConnectedRouter>
-		</PersistGate>
-	</Provider>,
-	document.getElementById('index'),
+  <Provider store={store.store}>
+    <PersistGate loading={null} persistor={store.persistor}>
+      <ConnectedRouter history={store.history}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </ConnectedRouter>
+    </PersistGate>
+  </Provider>,
+  document.getElementById('index'),
 );

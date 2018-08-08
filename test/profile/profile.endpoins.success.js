@@ -110,19 +110,5 @@ describe('Profile Controller - Success Cases', () => {
         });
       });
     });
-
-    // it('should return status (200) and a profile when updating a profile with banner', (done) => {
-    //   insertProfile().then((data) => {
-    //     const formData = {
-    //       mission: 'Your mission',
-    //       banner: 'https://youcan.com',
-    //     };
-    //     request.put({ url: `${baseUrl}/profile/${data.id}`, headers: { Authorization: `Bearer ${adminToken}` }, json: formData }, (error, response, body) => {
-    //       expect(response.statusCode).to.equal(200);
-    //       expect(typeof body).to.equal('object');
-    //       done();
-    //     });
-    //   });
-    // });
   });
 });

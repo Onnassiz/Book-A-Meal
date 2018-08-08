@@ -34,6 +34,7 @@ class ProfileController {
   }
 
   putProfile(req, res) {
+    const userId = req.user.id;
     profile.update(
       {
         businessName: req.body.businessName,
@@ -41,7 +42,7 @@ class ProfileController {
         email: req.body.email,
         mission: req.body.mission,
         banner: req.body.banner,
-        userId: req.user.id,
+        userId,
       },
       { where: { id: req.params.id }, returning: true },
     ).then((updated) => {

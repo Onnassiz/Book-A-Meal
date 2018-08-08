@@ -1,13 +1,18 @@
+const overlay = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+};
 export const addProfileModalStyle = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-  },
+  overlay,
   content: {
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '6px',
+    outline: 'none',
     position: 'absolute',
     top: '10%',
     left: '33%',
@@ -15,23 +20,16 @@ export const addProfileModalStyle = {
     bottom: '15%',
     padding: '12px',
     background: '#ffffff',
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    borderRadius: '6px',
-    outline: 'none',
   },
 };
 
 export const deleteModalStyle = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-  },
+  overlay,
   content: {
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '6px',
+    outline: 'none',
     position: 'absolute',
     top: '38%',
     left: '37%',
@@ -39,22 +37,11 @@ export const deleteModalStyle = {
     bottom: '45%',
     border: 'none',
     background: '#ffffff',
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    borderRadius: '6px',
-    outline: 'none',
   },
 };
 
 export const addProfileImageModalView = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-  },
+  overlay,
   content: {
     position: 'absolute',
     top: '15%',
@@ -72,14 +59,7 @@ export const addProfileImageModalView = {
 };
 
 export const addMenuModalStyle = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-  },
+  overlay,
   content: {
     position: 'absolute',
     top: '10%',

@@ -23,7 +23,8 @@ class OrdersController {
       include: [{
         model: meal,
       }],
-      where: { userId: req.params.id } }).then((orders) => {
+      where: { userId: req.params.id },
+    }).then((orders) => {
       if (orders.length) {
         res.status(200).send(orders);
       } else {

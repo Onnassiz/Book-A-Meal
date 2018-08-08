@@ -6,7 +6,6 @@ import { validateFormData, validParamId, validateQueryString } from '../middlewa
 
 export default function mealRoutes(app) {
   app.get('/meals', verifyAuthToken, validateCatererToken, validateQueryString, validateFormData, MealController.getMeals);
-  app.get('/meals/user/', verifyAuthToken, validateCatererToken, validateQueryString, validateFormData, MealController.getUserMeals);
   app.get('/meals/menu/:id', verifyAuthToken, validateCatererToken, validParamId, validateFormData, MealController.getMealsInMenu);
   app.get('/meals/menus/', verifyAuthToken, validateToken, validateQueryString, validateFormData, MealController.getMealsInDailyMenu);
   app.get('/meals/:id', verifyAuthToken, validateCatererToken, validParamId, validateFormData, MealController.getMealById);

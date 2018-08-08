@@ -14,15 +14,17 @@ class NavBar extends Component {
     this.toggleShow = this.toggleShow.bind(this);
   }
 
+  setShowState(show) {
+    this.setState({ show: empty(this.state.show) ? show : '' });
+  }
+
   toggleShow() {
     const { user } = this.props;
-    let show = '';
     if (user.role === 'caterer') {
-      show = empty(this.state.show) ? 'showAdmin' : '';
+      this.setShowState('showAdmin');
     } else {
-      show = empty(this.state.show) ? 'show' : '';
+      this.setShowState('show');
     }
-    this.setState({ show });
   }
 
   signOut() {
@@ -37,98 +39,130 @@ class NavBar extends Component {
     }, 500);
   }
 
-  render() {
+  renderNavLeft() {
     const { user, page } = this.props;
+    return (
+      <div className="nav-left">
+        <ul>
+          {user.role === 'caterer' ?
+            <li>
+              <div className="dropdown">
+                <a className={page === 'caterer' ? 'active' : ''}>{'Caterer\'s Links'}</a>
+                <div className="dropdown-container">
+                  <div className="dropdown-content">
+                    <Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
+                    <hr />
+                    <Link to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link>
+                    <Link to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link>
+                    <hr />
+                    <a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> View Reports</a>
+                  </div>
+                </div>
+              </div>
+            </li> : ''}
+        </ul>
+      </div>
+    );
+  }
+
+  renderDropDown() {
+    const { user } = this.props;
     const initials = empty(user) ? '' : user.name.match(/\b(\w)/g).join('').toUpperCase();
     return (
-			<header>
-				<h1 className="logo"><Link to="/"><img src={Logo} alt="logo" /></Link></h1>
-				<div className="nav-left">
-					<ul>
-						{user.role === 'caterer' ?
-							<li>
-								<div className="dropdown">
-									<a className={page === 'caterer' ? 'active' : ''}>{'Caterer\'s Links'}</a>
-									<div className="dropdown-container">
-										<div className="dropdown-content">
-											<Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
-											<hr />
-											<Link to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link>
-											<Link to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link>
-											<hr />
-											<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> View Reports</a>
-										</div>
-									</div>
-								</div>
-							</li> : ''}
-					</ul>
-				</div>
+      <div className="dropdown">
+        <button className="user-button"><a href="#">{initials}<i id="caret" className="material-icons">arrow_drop_down</i></a></button>
+        <div className="dropdown-container">
+          <div className="dropdown-content">
+            <div className="avatar-circle">
+              <span className="initials">
+                {initials}
+              </span>
+            </div>
+            <hr />
+            <a href="pages/admin/manage-meal.html"><i className="material-icons">settings</i> Profile</a>
+            <a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Change Password</a>
+            <hr />
+            <a onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-				<div className="nav">
-					{ !empty(user) ?
-						<ul>
-							<li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
-							<li><Link to="/orders" className="main">Orders</Link></li>
-							<li>
-								<div className="dropdown">
-									<button className="user-button"><a href="#">{initials}<i id="caret" className="material-icons">arrow_drop_down</i></a></button>
-									<div className="dropdown-container">
-										<div className="dropdown-content">
-											<div className="avatar-circle">
-												<span className="initials">
-													{initials}
-												</span>
-											</div>
-											<hr />
-											<a href="pages/admin/manage-meal.html"><i className="material-icons">settings</i> Profile</a>
-											<a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Change Password</a>
-											<hr />
-											<a onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul> :
-						<ul>
-							<li><Link to="/auth/register"><button className="auth-button">Sign Up</button></Link></li>
-							<li><Link to="/auth/login"><button className="auth-button">Login</button></Link></li>
-						</ul>
-					}
-				</div>
+  renderMainNav() {
+    const { user, page } = this.props;
+    return (
+      <div className="nav">
+        {!empty(user) ?
+          <ul>
+            <li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
+            <li><Link to="/orders" className="main">Orders</Link></li>
+            <li>
+              {this.renderDropDown()}
+            </li>
+          </ul> :
+          <ul>
+            <li><Link to="/auth/register"><button className="auth-button">Sign Up</button></Link></li>
+            <li><Link to="/auth/login"><button className="auth-button">Login</button></Link></li>
+          </ul>}
+      </div>
+    );
+  }
 
-				<div className="menuIcon">
-					<ul>
-						<li>
-							<button onClick={this.toggleShow}>
-								<i style={{ fontSize: 30 }} className="material-icons">menu</i>
-							</button>
-						</li>
-					</ul>
-				</div>
-				<div>
-					{ empty(user) ?
-						<ul className={`responsive ${this.state.show}`}>
-							<li><Link className="main" to="/auth">Sign In</Link></li>
-							<li><Link className="main" to="/auth">Sign Up</Link></li>
-						</ul>
-						:
-						<ul className={`responsive ${this.state.show}`}>
-							<li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
-							<li><Link to="/orders" className="main">Orders</Link></li>
-							{this.state.show === 'showAdmin' ?
-							<div>
-								<hr />
-								<li><Link className="main" to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link></li>
-								<li><Link className="main" to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link></li>
-								<li><Link className="main" to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link></li>
-							</div> :
-							''}
-							<hr />
-							<a className="main" onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
-						</ul>
-					}
-				</div>
-			</header>
+  renderMobileMenuIcon() {
+    return (
+      <div className="menuIcon">
+        <ul>
+          <li>
+            <button onClick={this.toggleShow}>
+              <i style={{ fontSize: 30 }} className="material-icons">menu</i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
+  renderMobileAdmin() {
+    return (
+      <div>
+        <hr />
+        <li><Link className="main" to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link></li>
+        <li><Link className="main" to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link></li>
+        <li><Link className="main" to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link></li>
+      </div>
+    );
+  }
+
+  renderMobileNav() {
+    const { user, page } = this.props;
+    return (
+      <div>
+        {empty(user) ?
+          <ul className={`responsive ${this.state.show}`}>
+            <li><Link className="main" to="/auth">Sign In</Link></li>
+            <li><Link className="main" to="/auth">Sign Up</Link></li>
+          </ul> :
+          <ul className={`responsive ${this.state.show}`}>
+            <li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
+            <li><Link to="/orders" className="main">Orders</Link></li>
+            {this.state.show === 'showAdmin' ? this.renderMobileAdmin() : ''}
+            <hr />
+            <a className="main" onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
+          </ul>}
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <header>
+        <h1 className="logo"><Link to="/"><img src={Logo} alt="logo" /></Link></h1>
+        {this.renderNavLeft()}
+        {this.renderMainNav()}
+        {this.renderMobileMenuIcon()}
+        {this.renderMobileNav()}
+      </header>
     );
   }
 }

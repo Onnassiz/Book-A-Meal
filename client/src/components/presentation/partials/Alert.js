@@ -23,12 +23,12 @@ class Alert extends Component {
   render() {
     const { alert } = this.props;
     return (
-			<div>
-				{!this.state.showAlert ? '' :
-					<div className="col-12">
-						<div id="alert">{alert}</div>
-					</div>}
-			</div>
+      <div>
+        {!this.state.showAlert ? '' :
+        <div className="col-12">
+          <div id="alert">{alert}</div>
+        </div>}
+      </div>
     );
   }
 }

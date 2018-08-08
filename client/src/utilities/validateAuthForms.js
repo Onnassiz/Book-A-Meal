@@ -1,21 +1,8 @@
 import validator from 'validator';
 import empty from 'is-empty';
 
-export const validateSignUp = (data) => {
+const validateRequiredFields = (data) => {
   const errors = {};
-
-  if (!validator.isEmail(data.signUpEmail)) {
-    errors.signUpEmail = `${data.signUpEmail} is not a valid email address`;
-  }
-
-  if (data.password.length < 8) {
-    errors.password = 'Password must contain at least 8 characters';
-  }
-
-  if (data.password !== data.confirm_password) {
-    errors.confirm_password = 'Password confirmation must match password';
-  }
-
   if (validator.isEmpty(data.fullName)) {
     errors.fullName = 'The full name field is required';
   }
@@ -31,10 +18,29 @@ export const validateSignUp = (data) => {
   if (validator.isEmpty(data.confirm_password)) {
     errors.confirm_password = 'The password confirmation field is required';
   }
+  return errors;
+};
+
+export const validateSignUp = (data) => {
+  const errors = {};
+
+  if (!validator.isEmail(data.signUpEmail)) {
+    errors.signUpEmail = `${data.signUpEmail} is not a valid email address`;
+  }
+
+  if (data.password.length < 8) {
+    errors.password = 'Password must contain at least 8 characters';
+  }
+
+  if (data.password !== data.confirm_password) {
+    errors.confirm_password = 'Password confirmation must match password';
+  }
+
+  const allErrors = Object.assign(errors, validateRequiredFields(data));
 
   return {
-    errors,
-    isValid: empty(errors),
+    errors: allErrors,
+    isValid: empty(allErrors),
   };
 };
 

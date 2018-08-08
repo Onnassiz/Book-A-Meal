@@ -10,9 +10,9 @@ import Calendar from 'rc-calendar';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import 'rc-calendar/assets/index.css';
 import Alert from '../presentation/partials/Alert';
-import CartItem from './partials/CartItem';
 import { convertUnixToDateForUpdate, getDateFromMoment, numberWithCommas } from '../../utilities/functions';
 import Card from './partials/MealCard';
+import CartSidePane from './partials/CartSidePane';
 
 class Menus extends Component {
   constructor(props) {
@@ -36,6 +36,7 @@ class Menus extends Component {
     this.showCalender = this.showCalender.bind(this);
     this.handDateChange = this.handDateChange.bind(this);
     this.showCart = this.showCart.bind(this);
+    this.closeCartPane = this.closeCartPane.bind(this);
   }
 
   componentWillMount() {
@@ -69,7 +70,9 @@ class Menus extends Component {
     date = convertUnixToDateForUpdate(date.setDate(date.getDate() + number) / 1000);
     getMealsInDailyMenu(date).then((response) => {
       if (response.status === 200) {
-        this.setState({ date, mealsCount: response.data.count, meals: response.data.meals, activePage: 1 });
+        this.setState({
+          date, mealsCount: response.data.count, meals: response.data.meals, activePage: 1,
+        });
       }
     });
   }
@@ -101,7 +104,11 @@ class Menus extends Component {
     const offset = (pageNumber - 1) * 12;
     getMealsInDailyMenu(this.state.date, offset, 12).then((response) => {
       if (response.status === 200) {
-        this.setState({ activePage: pageNumber, meals: response.data.meals, mealsCount: response.data.count });
+        this.setState({
+          activePage: pageNumber,
+          meals: response.data.meals,
+          mealsCount: response.data.count,
+        });
       }
     });
   }
@@ -138,84 +145,119 @@ class Menus extends Component {
     this.setState({ isPaneOpenLeft: true });
   }
 
+  closeCartPane() {
+    this.setState({ isPaneOpenLeftCart: false });
+  }
+
   handDateChange(date) {
     const { getMealsInDailyMenu } = this.props;
     const selectedDate = getDateFromMoment(date._d);
     getMealsInDailyMenu(selectedDate).then((response) => {
       if (response.status === 200) {
-        this.setState({ date: selectedDate, mealsCount: response.data.count, meals: response.data.meals, activePage: 1 });
+        this.setState({
+          date: selectedDate,
+          mealsCount: response.data.count,
+          meals: response.data.meals,
+          activePage: 1,
+        });
       }
     });
   }
 
-  render() {
-    const { menus, cart, orders } = this.props;
+  renderCalender() {
+    return (
+      <SlidingPane
+        isOpen={this.state.isPaneOpenLeft}
+        title="Pick a Date"
+        from="left"
+        width="320px"
+        onRequestClose={() => this.setState({ isPaneOpenLeft: false })}
+      >
+        <div>
+          <Calendar
+            showDateInput={false}
+            value={moment(this.state.date)}
+            onChange={this.handDateChange}
+          />
+        </div>
+      </SlidingPane>
+    );
+  }
 
-    const showPagination = (
+  renderPagination() {
+    return (
       <div>{this.state.mealsCount > 12 ?
         <div style={{ textAlign: 'center' }}>
           <Pagination
             hideDisabled
             activePage={this.state.activePage}
-            itemsCountPerPage={12}
             totalItemsCount={this.state.mealsCount}
+            itemsCountPerPage={12}
             pageRangeDisplayed={5}
             onChange={this.handlePageChange}
           />
         </div> : ''}
       </div>
     );
+  }
+
+  renderCart() {
+    const { cart } = this.props;
+    return (
+      <CartSidePane
+        isOpen={this.state.isPaneOpenLeftCart}
+        closeCartPane={this.closeCartPane}
+        cart={cart.cart}
+        removeFromCart={this.removeFromCart}
+        totalPrice={numberWithCommas(this.state.totalPrice)}
+        emptyCart={this.props.emptyCart}
+      />
+    );
+  }
+
+  renderCard(meal) {
+    const { cart, menus } = this.props;
+    return (
+      <Card
+        showMore={() => this.showMore(meal)}
+        cart={cart.cart}
+        addToCart={() => this.addToCart(meal)}
+        meal={meal}
+        key={meal.id + meal.caterer}
+        currentDate={menus.currentDate}
+        removeFromCart={() => this.removeFromCart(meal.id)}
+      />
+    );
+  }
+
+  renderMeals() {
+    const { orders } = this.props;
+    return (
+      <div className="col-12">
+        {empty(orders.alert) ? '' : <Alert alert={orders.alert} />}
+        <div className="dateInput">
+          <a onClick={() => this.getMenuForDate(-1)} title="back"><i className="ion-ios-skipbackward" /> Previous</a>
+          <a onClick={() => this.getMenuForDate(1)} title="next day">Next Day <i className="ion-ios-skipforward" /></a>
+          <h2>{new Date(this.state.date).toDateString()}</h2>
+        </div>
+        <div id="card_container">
+          {empty(this.state.meals) ?
+            <div id="no-menu">
+              <h2>No menu has been set for this day</h2>
+            </div> : this.state.meals.map(meal => this.renderCard(meal))}
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const { cart } = this.props;
 
     return (
       <div id="content-body">
-        <SlidingPane
-          isOpen={this.state.isPaneOpenLeft}
-          title="Pick a Date"
-          from="left"
-          width="320px"
-          onRequestClose={() => this.setState({ isPaneOpenLeft: false })}
-        >
-          <div>
-            <Calendar
-              showDateInput={false}
-              value={moment(this.state.date)}
-              onChange={this.handDateChange}
-            />
-          </div>
-        </SlidingPane>
-
-        <SlidingPane
-          isOpen={this.state.isPaneOpenLeftCart}
-          title="Cart Info"
-          from="left"
-          width="320px"
-          onRequestClose={() => this.setState({ isPaneOpenLeftCart: false })}
-        >
-          <div>
-            <div>
-              {empty(cart.cart) ?
-                <div id="empty-cart">
-                  <h2>Your cart is empty</h2>
-                </div> : cart.cart.map(meal => <CartItem deleteFromCart={() => this.removeFromCart(meal.id)} meal={meal} key={meal.id + meal.caterer} updateUnits={e => this.updateUnits(e, meal)} />)}
-            </div>
-            <div className="checkout">
-              {empty(cart.cart) ? '' :
-                <div>
-                  <div className="cart_summary_body">
-                    <h2>Order Summary</h2>
-                    <p className="num">Number of Items: {cart.cart.length}</p>
-                    <p className="num">Delivery Fee: &#8358;0.00</p>
-                    <p className="num">Discount: &#8358;0.00</p>
-                    <br />
-                    <br />
-                    <p className="num">Total Amount: <b>&#8358;{numberWithCommas(this.state.totalPrice)}.00</b></p>
-                    <br />
-                    <p><button onClick={this.props.emptyCart}>Empty Cart</button><button onClick={this.toggleOrderModal}>Checkout</button></p>
-                  </div>
-                </div>}
-            </div>
-          </div>
-        </SlidingPane>
+        {this.renderCalender()}
+        {this.renderCart()}
+        {this.renderMeals()}
 
         <div className="control">
           <i className="ion-ios-calendar-outline" onClick={this.showCalender} />
@@ -223,22 +265,8 @@ class Menus extends Component {
         <div className={cart.cart.length ? 'dynamic-badge cart-control' : 'cart-control'} data-badge={cart.cart.length}>
           <i className="ion-ios-cart-outline" onClick={this.showCart} />
         </div>
-        <div className="col-12">
-          {empty(orders.alert) ? '' : <Alert alert={orders.alert} />}
-          <div className="dateInput">
-            <a onClick={() => this.getMenuForDate(-1)} title="back"><i className="ion-ios-skipbackward" /> Previous</a>
-            {/* <input autoComplete="off" type="date" name="date" onChange={this.onChange} value={this.state.date} required="" id="date" /> */}
-            <a onClick={() => this.getMenuForDate(1)} title="next day">Next Day <i className="ion-ios-skipforward" /></a>
-            <h2>{new Date(this.state.date).toDateString()}</h2>
-          </div>
-          <div id="card_container">
-            {empty(this.state.meals) ?
-              <div id="no-menu">
-                <h2>No menu has been set for this day</h2>
-              </div> : this.state.meals.map(meal => <Card showMore={() => this.showMore(meal)} cart={cart.cart} addToCart={() => this.addToCart(meal)} meal={meal} key={meal.id + meal.caterer} currentDate={menus.currentDate} removeFromCart={() => this.removeFromCart(meal.id)} />)}
-          </div>
-        </div>
-        {showPagination}
+
+        {this.renderPagination()}
       </div>
     );
   }

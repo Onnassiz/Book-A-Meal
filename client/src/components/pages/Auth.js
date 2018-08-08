@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AuthContainer from '../container/AuthContainer';
 
-class Home extends Component {
-  render() {
-    return (
-			<div>
-				<AuthContainer />
-			</div>
-    );
-  }
-}
+const Home = () => (
+  <div>
+    <AuthContainer />
+  </div>
+);
 
 export default Home;

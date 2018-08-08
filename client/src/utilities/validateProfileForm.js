@@ -9,7 +9,7 @@ const validateProfile = (data) => {
   }
 
   if (validator.isEmpty(data.businessName)) {
-    errors.fullName = 'The business name field is required';
+    errors.businessName = 'The business name field is required';
   }
 
   if (validator.isEmpty(data.mission)) {

@@ -44,17 +44,17 @@ class ImageSlider extends Component {
 
   render() {
     return (
-			<div id="imageSlider">
-				<ImageGallery
-					items={this.state.images}
-					slideInterval={6000}
-					showThumbnails={false}
-					autoPlay
+      <div id="imageSlider">
+        <ImageGallery
+          items={this.state.images}
+          slideInterval={6000}
+          showThumbnails={false}
+          autoPlay
           showPlayButton
           showNav={false}
           showBullets
-				/>
-			</div>
+        />
+      </div>
     );
   }
 }

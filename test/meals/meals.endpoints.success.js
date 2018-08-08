@@ -137,25 +137,8 @@ describe('MealController - Success', () => {
       });
     });
 
-    it('should return (200) and an array of 1 item when searchKey is passed', (done) => {
-      request.get({ url: `${baseUrl}/meals?searchKey=Aristolochiaceae`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
-        expect(response.statusCode).to.equal(200);
-        expect(JSON.parse(body).meals.length).to.equal(1);
-        expect(JSON.parse(body).meals[0].name).to.equal('Aristolochiaceae');
-        done();
-      });
-    });
-
-    it('should return (200) and an array of 40 when meals/user is referenced with the right limit and offset', (done) => {
-      request.get({ url: `${baseUrl}/meals/user?limit=40&offset=0`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
-        expect(response.statusCode).to.equal(200);
-        expect(JSON.parse(body).meals.length).to.equal(40);
-        done();
-      });
-    });
-
-    it('should return (200) and a an array of 10 when meals/user is referenced without limit and offset', (done) => {
-      request.get({ url: `${baseUrl}/meals/user`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
+    it('should return (200) and an array of 40 item when searchKey is passed', (done) => {
+      request.get({ url: `${baseUrl}/meals?searchKey=Maecenas`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
         expect(response.statusCode).to.equal(200);
         expect(JSON.parse(body).meals.length).to.equal(10);
         done();

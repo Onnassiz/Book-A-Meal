@@ -32,18 +32,16 @@ class MenusController {
   }
 
   getMenusViewModel(menus, mealsCount = 0) {
-    return menus.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        date: item.date,
-        mealsArray: [],
-        mealsCount: mealsCount || item.meals.length,
-        meals: `/api/v1/meals/menu/${item.id}`,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-      };
-    });
+    return menus.map(item => ({
+      id: item.id,
+      name: item.name,
+      date: item.date,
+      mealsArray: [],
+      mealsCount: mealsCount || item.meals.length,
+      meals: `/api/v1/meals/menu/${item.id}`,
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt,
+    }));
   }
 
   buildMenus(newMenu, times = 0) {
@@ -83,9 +81,7 @@ class MenusController {
         model: meal,
       }],
       where: { id },
-    }).then((responseData) => {
-      return responseData;
-    });
+    }).then(responseData => responseData);
   }
 
   getMenuByIdParam(req, res) {
@@ -126,9 +122,7 @@ class MenusController {
 
     const newMenus = this.buildMenus({ name, date, userId }, extraDays);
 
-    const dates = newMenus.map((item) => {
-      return item.date;
-    });
+    const dates = newMenus.map(item => item.date);
 
     menu.findOne({ where: { userId, date: dates } }).then((existingMenu) => {
       if (existingMenu) {

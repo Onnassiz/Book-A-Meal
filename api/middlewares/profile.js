@@ -42,9 +42,7 @@ export const profileFormConstraints = [
 
   check('banner')
     .optional({ nullable: true })
-    .custom((value) => {
-      return isUrl(value);
-    })
+    .custom(value => isUrl(value))
     .withMessage('image link must be a URL'),
 ];
 
@@ -76,8 +74,6 @@ export const profileUpdateFormConstraints = [
 
   check('banner')
     .optional({ nullable: true })
-    .custom((value) => {
-      return isUrl(value);
-    })
+    .custom(value => isUrl(value))
     .withMessage('image link must be a URL'),
 ];

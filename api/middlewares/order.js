@@ -31,11 +31,12 @@ const orderFormConstraints = [
     .custom((value) => {
       let noErrors = true;
       for (let i = 0; i < value.length; i += 1) {
-        if (value[i].mealId === undefined || value[i].menuId === undefined || value[i].profileId === undefined) {
+        if (!value[i].mealId || !value[i].menuId || !value[i].profileId) {
           noErrors = false;
           break;
         }
-        if (!validate(value[i].mealId, 4) || !validate(value[i].menuId, 4) || !validate(value[i].profileId, 4)) {
+        if (!validate(value[i].mealId, 4) ||
+          !validate(value[i].menuId, 4) || !validate(value[i].profileId, 4)) {
           noErrors = false;
           break;
         }

@@ -44,8 +44,9 @@ class MealsController {
   getMeals(req, res) {
     const { offset, limit, searchKey } = req.query;
     meal.count({
-      where: searchKey === undefined ? null :
+      where: searchKey === undefined ? { userId: req.user.id } :
         {
+          userId: req.user.id,
           [Op.or]: {
             name: { [Op.iLike]: `%${searchKey}%` },
             description: { [Op.iLike]: `%${searchKey}%` },
@@ -53,12 +54,14 @@ class MealsController {
           },
         },
     }).then((count) => {
-      meal.findAll({ include: [{ model: user, include: [{ model: profile }] }],
+      meal.findAll({
+        include: [{ model: user, include: [{ model: profile }] }],
         order: sequelize.literal('name'),
         offset: offset || 0,
         limit: limit || 10,
-        where: searchKey === undefined ? null :
+        where: searchKey === undefined ? { userId: req.user.id } :
           {
+            userId: req.user.id,
             [Op.or]: {
               name: { [Op.iLike]: `%${searchKey}%` },
               description: { [Op.iLike]: `%${searchKey}%` },
@@ -115,7 +118,7 @@ class MealsController {
   }
 
   getMealById(req, res) {
-    meal.findById(req.params.id).then((ml) => {
+    meal.findOne({ where: { id: req.params.id, userId: req.user.id } }).then((ml) => {
       if (ml) {
         res.status(200).send(ml);
       } else {
@@ -123,25 +126,6 @@ class MealsController {
           message: 'Meal not found',
         });
       }
-    });
-  }
-
-  getUserMeals(req, res) {
-    meal.count({ where: { userId: req.user.id } }).then((count) => {
-      const { offset, limit } = req.query;
-
-      meal.findAll({ include: [{ model: user, include: [{ model: profile }] }],
-        order: sequelize.literal('name'),
-        offset: offset || 0,
-        limit: limit || 10,
-        where: { userId: req.user.id },
-      }).then((meals) => {
-        const viewModel = mealViewModelFromArray(meals);
-        res.status(200).send({
-          count,
-          meals: viewModel,
-        });
-      });
     });
   }
 
@@ -204,8 +188,9 @@ class MealsController {
   }
 
   deleteMeal(req, res) {
+    const { id } = req.params;
     meal.destroy({
-      where: { id: req.params.id },
+      where: { id },
     }).then((deleted) => {
       if (deleted) {
         res.status(200).send({

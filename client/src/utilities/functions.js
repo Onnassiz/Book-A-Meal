@@ -56,9 +56,7 @@ export function convertUnixToDateForUpdate(unixTime) {
   return '----';
 }
 
-export const numberWithCommas = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-};
+export const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 export function getCurrentDate() {
   const today = new Date();
@@ -96,6 +94,14 @@ export function getDateFromMoment(moment) {
 export function compareAZ(a, b) {
   if (a.name < b.name) { return -1; }
   if (a.name > b.name) { return 1; }
+  return 0;
+}
+
+export function sortMenu(c, d) {
+  const a = c.date;
+  const b = d.date;
+  if (a > b) return -1;
+  if (a < b) return 1;
   return 0;
 }
 

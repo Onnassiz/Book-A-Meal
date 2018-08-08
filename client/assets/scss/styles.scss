@@ -4,7 +4,7 @@
 
 header {
   min-height: 80px;
-  background: $headerBackground;
+  background: $header-background-color;
   width: 100%;
   z-index: 10;
 
@@ -17,7 +17,7 @@ header {
     text-decoration: none;
     color: #fff;
     font-size: 18px;
-    font-family: $mainFont;
+    font-family: $main-font;
     cursor: pointer;
 
     i {
@@ -85,7 +85,7 @@ header {
   }
   
   .user-button {
-    border: white solid 1px;;
+    border: 0;
     background: none;
     color: white;
     width: 180px;
@@ -201,7 +201,7 @@ a{
   overflow: scroll;
 
   thead tr{
-    background: $headerBackground;
+    background: $header-background-color;
     height: 70px;;
   }
 
@@ -222,7 +222,7 @@ a{
   }
 
   tbody td a .material-icons {
-    color: $headerBackground;
+    color: $header-background-color;
   }
   
   tbody td {
@@ -242,7 +242,7 @@ a{
 .arrowBox {
   width: 200px;
   height: 120px;
-  background: $arrowBox;
+  background: $arrow-box;
   border-radius: 5px;
   position: absolute;
   top: -155px;
@@ -261,7 +261,7 @@ a{
     content: ' ';
     width: 0px;
     height: 0px;
-    border-top: 10px solid $arrowBox;
+    border-top: 10px solid $arrow-box;
     border-left: 10px solid transparent;
     border-bottom: 10px solid transparent;
     border-right: 10px solid transparent;
@@ -363,27 +363,35 @@ a{
   
   a:first-of-type {
     float: left;
-    color: $lightBlack;
+    color: $light-black;
   }
   
   a:last-of-type {
     float: right;
-    color: $lightBlack;
+    color: $light-black;
   }
 
   h2 {
-    color: $lightBlack;
+    color: $light-black;
     font-weight: normal;
     text-align: center;
   }
+}
+
+.swal-button {
+  background-color: $header-background-color;
+}
+
+.swal-button--cancel {
+  background-color: white;
 }
 
 .cart_summary_body{
   clear: both;
   padding-top: 20px;
   h2{
-    color: $headerBackground;
-    font-family: $headerLinkFont;
+    color: $header-background-color;
+    font-family: $header-link-font;
     font-size: 22px;
     text-align: center;
   }
@@ -401,7 +409,7 @@ a{
   button{
     width: 45%;
     margin: 5px;
-    background: $headerBackground;
+    background: $header-background-color;
     border-radius: 4px;
     color: white;
     font-size: 16px;
@@ -420,7 +428,7 @@ a{
 
   button:first-of-type {
     background: none;
-    color: $lightBlack;
+    color: $light-black;
   }
 }
 
@@ -513,7 +521,7 @@ a{
     }
 
     .add_button {
-      background-color: $headerBackground;
+      background-color: $header-background-color;
       border-radius: 2px;
       color: white;
       text-align: center;
@@ -562,7 +570,7 @@ a{
         float: left;
 
         h3 {
-          color: $headerBackground;
+          color: $header-background-color;
           font-size: 22px;
         }
       }
@@ -596,7 +604,7 @@ a{
   padding-top: 7px;
   position: relative;
   width: 100%;
-  background: $headerBackground;
+  background: $header-background-color;
   color: white;
   height: 35px;
   text-align: center;
@@ -620,6 +628,12 @@ a{
 }
 
 .box-menu {
+  @include box;
+  width: 400px;
+  margin: 0 22px 0 22px;
+}
+
+.box-auth {
   @include box;
   width: 400px;
   float: none;
@@ -671,12 +685,12 @@ a{
 }
 
 .checkbox:hover input ~ .check {
-  border: solid 2px $lightBlack;
+  border: solid 2px $light-black;
 }
 
 .checkbox input:checked ~ .check {
   border: none;
-  background: $lightBlack;
+  background: $light-black;
 }
 
 .checkbox input:checked ~ .check:after {
@@ -767,7 +781,7 @@ a{
 
 #alert {
   margin-top: 20px;
-  background:$headerBackground;
+  background:$header-background-color;
   padding: 15px;
   opacity: 0.8;
   color: white;
@@ -778,8 +792,8 @@ a{
   margin-top: 12px;
 
   h2 {
-    color: $headerBackground;
-    font-family: $headerLinkFont;
+    color: $header-background-color;
+    font-family: $header-link-font;
     font-size: 25px;
   }
 
@@ -798,8 +812,8 @@ a{
 }
 
 #dropzoneHeader {
-  color: $headerBackground;
-  font-family: $headerLinkFont;
+  color: $header-background-color;
+  font-family: $header-link-font;
 }
 
 #meals-checkBox {
@@ -811,7 +825,7 @@ a{
 }
 
 #checkBox-label {
-  color: $headerBackground;
+  color: $header-background-color;
   font-size: 12px;
   margin-left: 10px;
 }
@@ -835,7 +849,7 @@ a{
   text-align:center;
   line-height:23px;
 
-  background:$headerBackground;
+  background:$header-background-color;
   color: white;
 
   width:22px;
@@ -850,8 +864,8 @@ a{
   padding: 70px;
 
   h2{
-    color: $headerBackground;
-    font-family: $headerLinkFont;
+    color: $header-background-color;
+    font-family: $header-link-font;
     font-size: 30px;
   }
 }
@@ -860,8 +874,8 @@ a{
   text-align: center;
 
   h2{
-    color: $headerBackground;
-    font-family: $headerLinkFont;
+    color: $header-background-color;
+    font-family: $header-link-font;
     font-size: 25px;
   }
 }
@@ -900,16 +914,16 @@ a{
       padding: 6px 12px;
       line-height: 1.5;
       text-decoration: none;
-      color: $lightBlack;
+      color: $light-black;
       background-color: white;
-      border: 1px solid $lightBlack;
+      border: 1px solid $light-black;
       margin-left: -1px;
     }
   }
 
   li.active {
     a {
-      background-color: $lightBlack;
+      background-color: $light-black;
       color: white;
     }
   }
@@ -931,8 +945,8 @@ a{
   margin-bottom: 50px;
 
   button {
-    border: solid 1px $headerBackground;
-    color: $headerBackground;
+    border: solid 1px $header-background-color;
+    color: $header-background-color;
   }
 }
 
@@ -941,7 +955,7 @@ a{
   float: right;
 
   input[type="submit"] {
-    border: solid $lightBlack 1px;;
+    border: solid $light-black 1px;;
     outline: none;
     background: none;
     // margin-right: 4px;
@@ -950,7 +964,7 @@ a{
     font-size: 16px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     border-radius: 3px;
-    color: $lightBlack;
+    color: $light-black;
     float: right;
 
     &:hover {
@@ -983,7 +997,7 @@ a{
     div {
       width: 100px;
       height: 100px;
-      background-color: $lightBlack;
+      background-color: $light-black;
       border-radius: 4px;
     }
   }
@@ -1013,7 +1027,7 @@ a{
 }
 
 .rc-calendar-selected-day .rc-calendar-date {
-  background: $lightBlack !important;
+  background: $light-black !important;
   color: white;
 }
 
@@ -1024,14 +1038,14 @@ a{
 .progress {
   margin-top: 30px;
   font-size: 26px;
-  color: $headerBackground;
+  color: $header-background-color;
 }
 
 #not-found {
   h1 {
     font-size: 62px;
     margin-top: 100px;
-    color: $headerBackground;
+    color: $header-background-color;
     text-align: center;
     font-weight: normal;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -1041,7 +1055,7 @@ a{
   h3 {
     font-size: 37px;
     margin-top: 50px;
-    color: $headerBackground;
+    color: $header-background-color;
     text-align: center;
     font-weight: normal;
     font-family: "Trebuchet MS", Helvetica, sans-serif;

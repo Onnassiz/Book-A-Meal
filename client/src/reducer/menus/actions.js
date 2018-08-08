@@ -15,14 +15,6 @@ function setAlert(alert) {
   });
 }
 
-// function sortMenu(c, d) {
-//   const a = c.date;
-//   const b = d.date;
-//   if (a > b) return -1;
-//   if (a < b) return 1;
-//   return 0;
-// }
-
 export function setMenus(storeMenus, newMenus) {
   const menus = newMenus.concat(storeMenus);
   return dispatch => dispatch({
@@ -149,19 +141,20 @@ export function deleteMenuById(id) {
   };
 }
 
-export function updateMenu(meal) {
+export function updateMenu(menu) {
   return (dispatch) => {
     dispatch(setLoading());
-    return axios.put(`api/v1/menus/${meal.id}`, meal).then((response) => {
-      dispatch(unsetLoading());
-      // dispatch(updateMenuState(getState().menus.menus, response.data.menu));
-      dispatch(setAlert('Menu successfully updated'));
-      return response;
-    }).catch((error) => {
-      dispatch(unsetLoading());
-      dispatch(setMenusErrors(error.response.data));
-      return error;
-    });
+    return axios.put(`api/v1/menus/${menu.id}`, menu)
+      .then((response) => {
+        // dispatch(updateMenuState(getState().menus.menus, response.data.menu));
+        dispatch(setAlert('Menu successfully updated'));
+        dispatch(unsetLoading());
+        return response;
+      }).catch((error) => {
+        dispatch(setMenusErrors(error.response.data));
+        dispatch(unsetLoading());
+        return error;
+      });
   };
 }
 

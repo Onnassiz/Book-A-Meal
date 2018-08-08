@@ -31,9 +31,7 @@ export const mealFormConstraints = [
 
   check('imageUrl')
     .optional({ nullable: true })
-    .custom((value) => {
-      return isUrl(value);
-    })
+    .custom(value => isUrl(value))
     .withMessage('image link must be a URL'),
 ];
 
@@ -58,8 +56,6 @@ export const mealUpdateFormConstraints = [
 
   check('imageUrl')
     .optional({ nullable: true })
-    .custom((value) => {
-      return isUrl(value);
-    })
+    .custom(value => isUrl(value))
     .withMessage('image link must be a URL'),
 ];

@@ -58,55 +58,53 @@ class MenuAccordion extends Component {
       <div>{ this.state.menu.mealsCount > 5 ?
         <div style={{ textAlign: 'center' }}>
           <Pagination
-						hideDisabled
+            hideDisabled
             activePage={this.state.activePage}
             itemsCountPerPage={5}
             totalItemsCount={this.state.menu.mealsCount}
             pageRangeDisplayed={5}
             onChange={this.handlePageChange}
           />
-					<hr />
+          <hr />
         </div> : '' }
       </div>
     );
 
     return (
-			<AccordionItem>
-				<AccordionItemTitle>
-					<h3 className="u-position-relative">
-						{ new Date(this.state.menu.date).toDateString() }
-						<div className="accordion__arrow" role="presentation" />
-					</h3>
-					<div style={{ fontSize: 13, marginTop: 5 }}>{this.state.menu.mealsCount}{ this.state.menu.mealsCount > 1 ? ' meals' : ' meal' }</div>
-				</AccordionItemTitle>
-				<AccordionItemBody>
-					{ this.state.showMeals ?
-					<div>
-						{ this.state.thisPageMeals.length > 0 ? this.state.thisPageMeals.map(meal => (
-							<div className="menu_item" key={meal.id}>
-								<h3>{ meal.name }</h3>
-								<div>
-									<p><b>Description:</b> {meal.description}</p>
-									<p><b>Category: </b>{ meal.category }</p>
-									<p><b>Price: </b>{ meal.price }</p>
-								</div>
-							</div>)) : ''
-						}
-						{ showPagination }
-					</div> :
-					<div className="show-meals">
-						<button className="button" onClick={this.showMeals}><i className="ion-ios-eye" /> Show Meals</button>
-					</div> }
-					{!this.props.showOpsButtons ? '' :
-						<div>
-							<div style={{ textAlign: 'center' }}>
-								<button style={{ width: 110 }} onClick={this.props.toggleShowDeleteModal} className="button-error"><i className="ion-ios-trash" /> Delete</button>
-								<button style={{ width: 110 }} onClick={this.props.toggleUpdateModal} className="button"><i className="ion-ios-compose-outline" /> Edit</button>
-							</div>
-						</div>
-					}
-				</AccordionItemBody>
-			</AccordionItem>
+      <AccordionItem>
+        <AccordionItemTitle>
+          <h3 className="u-position-relative">
+            { new Date(this.state.menu.date).toDateString() }
+            <div className="accordion__arrow" role="presentation" />
+          </h3>
+          <div style={{ fontSize: 13, marginTop: 5 }}>{this.state.menu.mealsCount}{ this.state.menu.mealsCount > 1 ? ' meals' : ' meal' }</div>
+        </AccordionItemTitle>
+        <AccordionItemBody>
+          { this.state.showMeals ?
+            <div>
+              { this.state.thisPageMeals.length > 0 ? this.state.thisPageMeals.map(meal => (
+                <div className="menu_item" key={meal.id}>
+                  <h3>{ meal.name }</h3>
+                  <div>
+                    <p><b>Description:</b> {meal.description}</p>
+                    <p><b>Category: </b>{ meal.category }</p>
+                    <p><b>Price: </b>{ meal.price }</p>
+                  </div>
+                </div>)) : ''}
+              { showPagination }
+            </div> :
+            <div className="show-meals">
+              <button className="button" onClick={this.showMeals}><i className="ion-ios-eye" /> Show Meals</button>
+            </div> }
+          {!this.props.showOpsButtons ? '' :
+          <div>
+            <div style={{ textAlign: 'center' }}>
+              <button style={{ width: 110 }} onClick={this.props.toggleShowDeleteModal} className="button-error"><i className="ion-ios-trash" /> Delete</button>
+              <button style={{ width: 110 }} onClick={this.props.toggleUpdateModal} className="button"><i className="ion-ios-compose-outline" /> Edit</button>
+            </div>
+          </div>}
+        </AccordionItemBody>
+      </AccordionItem>
     );
   }
 }
