@@ -3,7 +3,6 @@ import orderFormConstraints from '../middlewares/order';
 import { verifyAuthToken, validateCatererToken, validateToken } from '../middlewares/auth';
 import { validateFormData, validParamId } from '../middlewares/validate';
 
-
 export default function menuRoutes(app) {
   app.get('/orders', verifyAuthToken, validateCatererToken, OrderController.getAllOrders);
   app.get('/orders/:id', verifyAuthToken, validateToken, validParamId, validateFormData, OrderController.getOrderById);

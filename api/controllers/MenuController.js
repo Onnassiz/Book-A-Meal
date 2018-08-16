@@ -1,6 +1,6 @@
 /* eslint no-param-reassign: 0 */
-import moment from 'moment';
 import { menu, meal, menuMeal, user, profile } from '../models';
+import { menuViewModelFromArray, getMenusViewModel, buildMenus } from './Util';
 
 class MenusController {
   constructor() {
@@ -10,50 +10,6 @@ class MenusController {
     this.getMenus = this.getMenus.bind(this);
     this.getMenuByIdParam = this.getMenuByIdParam.bind(this);
     this.mapMenusToMeals = this.mapMenusToMeals.bind(this);
-  }
-
-  menuViewModelFromArray(meals) {
-    const viewModel = [];
-    meals.forEach((item) => {
-      viewModel.push({
-        id: item.id,
-        name: item.name,
-        mealsCount: item.meals.length,
-        mealsArray: [],
-        meals: `/api/v1/meals/menu/${item.id}`,
-        date: item.date,
-        caterer: item.user.profile === null ? null : item.user.profile.businessName,
-        profileId: item.user.profile === null ? null : item.user.profile.id,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-      });
-    });
-    return viewModel;
-  }
-
-  getMenusViewModel(menus, mealsCount = 0) {
-    return menus.map(item => ({
-      id: item.id,
-      name: item.name,
-      date: item.date,
-      mealsArray: [],
-      mealsCount: mealsCount || item.meals.length,
-      meals: `/api/v1/meals/menu/${item.id}`,
-      createdAt: item.createdAt,
-      updatedAt: item.updatedAt,
-    }));
-  }
-
-  buildMenus(newMenu, times = 0) {
-    const menus = [];
-    for (let i = 0; i <= times; i += 1) {
-      menus.push({
-        name: newMenu.name,
-        date: moment(newMenu.date).add(i, 'days'),
-        userId: newMenu.userId,
-      });
-    }
-    return menus;
   }
 
   getMenusByUserId(req, res) {
@@ -69,7 +25,7 @@ class MenusController {
       }).then((menus) => {
         res.status(200).send({
           count,
-          menus: this.getMenusViewModel(menus),
+          menus: getMenusViewModel(menus),
         });
       });
     });
@@ -92,7 +48,7 @@ class MenusController {
       where: { id: req.params.id, userId: req.user.id },
     }).then((responseData) => {
       if (responseData) {
-        res.status(200).send(this.getMenusViewModel([responseData])[0]);
+        res.status(200).send(getMenusViewModel([responseData])[0]);
       } else {
         res.status(404).send({ message: 'Menu not found' });
       }
@@ -116,30 +72,36 @@ class MenusController {
       order: [['date', 'DESC']],
       where: date ? { date } : null,
     }).then((responseData) => {
-      res.status(200).send(this.menuViewModelFromArray(responseData));
+      res.status(200).send(menuViewModelFromArray(responseData));
     });
   }
 
   verifyMealsInMenu(req, res, next) {
     const { meals } = req.body;
-    meals.forEach((item, i) => {
-      meal.findOne({ where: { id: item.mealId } }).then((foundMeal) => {
-        if (foundMeal.userId !== req.user.id) {
-          res.status(401).send({
-            message: `This meal, ${foundMeal.name}, was added by another user. You can only use meals created by you.`,
-          });
-        } else if (i === meals.length - 1) {
-          next();
-        }
+    if (meals) {
+      meals.forEach((item, i) => {
+        meal.findOne({ where: { id: item.mealId } }).then((foundMeal) => {
+          if (!foundMeal) {
+            next();
+          } else if (foundMeal.userId !== req.user.id) {
+            res.status(401).send({
+              message: `This meal, ${foundMeal.name}, was added by another user. You can only use meals created by you.`,
+            });
+          } else if (i === meals.length - 1) {
+            next();
+          }
+        });
       });
-    });
+    } else {
+      next();
+    }
   }
 
   postMenu(req, res, next) {
     const { date, name, extraDays } = req.body;
     const userId = req.user.id;
 
-    const newMenus = this.buildMenus({ name, date, userId }, extraDays);
+    const newMenus = buildMenus({ name, date, userId }, extraDays);
 
     const dates = newMenus.map(item => item.date);
 
@@ -176,7 +138,7 @@ class MenusController {
     menuMeal.bulkCreate(newMealMenus).then(() => {
       res.status(201).send({
         message: 'Menu(s) successfully created',
-        menus: this.getMenusViewModel(menus, meals.length),
+        menus: getMenusViewModel(menus, meals.length),
         meals,
       });
     }).catch((error) => {
@@ -222,34 +184,38 @@ class MenusController {
       const update = updated[1][0];
       if (update) {
         if (meals) {
-          menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
-            const newMealMenus = [];
-            meals.forEach((ml) => {
-              newMealMenus.push({
-                menuId: req.params.id,
-                mealId: ml.mealId,
-              });
-            });
-
-            menuMeal.bulkCreate(newMealMenus).then(() => {
-              this.getMenuById(update.id).then((responseData) => {
-                res.status(200).send({
-                  message: 'Menu successfully updated',
-                  menu: this.getMenusViewModel([responseData])[0],
-                  meals,
-                });
-              });
-            });
-          });
+          this.updateMealsInMenu(req, res, meals, update);
         } else {
           this.getMenuById(update.id).then((responseData) => {
             res.status(200).send({
               message: 'Menu successfully updated',
-              menu: this.getMenusViewModel([responseData])[0],
+              menu: getMenusViewModel([responseData])[0],
             });
           });
         }
       }
+    });
+  }
+
+  updateMealsInMenu(req, res, meals, update) {
+    menuMeal.destroy({ where: { menuId: req.params.id } }).then(() => {
+      const newMealMenus = [];
+      meals.forEach((ml) => {
+        newMealMenus.push({
+          menuId: req.params.id,
+          mealId: ml.mealId,
+        });
+      });
+
+      menuMeal.bulkCreate(newMealMenus).then(() => {
+        this.getMenuById(update.id).then((responseData) => {
+          res.status(200).send({
+            message: 'Menu successfully updated',
+            menu: getMenusViewModel([responseData])[0],
+            meals,
+          });
+        });
+      });
     });
   }
 

@@ -10,7 +10,8 @@ import Calendar from 'rc-calendar';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import 'rc-calendar/assets/index.css';
 import Alert from '../presentation/partials/Alert';
-import { convertUnixToDateForUpdate, getDateFromMoment, numberWithCommas } from '../../utilities/functions';
+import { convertUnixToDateForUpdate, numberWithCommas } from '../../utilities/functions';
+import { getMenuForDate, registerMethods, handlePageChange, handleDateChange } from '../../utilities/menusHelpers';
 import Card from './partials/MealCard';
 import CartSidePane from './partials/CartSidePane';
 
@@ -26,17 +27,7 @@ class Menus extends Component {
       meals: [],
       date: props.menus.currentDate,
     };
-    this.onChange = this.onChange.bind(this);
-    this.updateUnits = this.updateUnits.bind(this);
-    this.getMenuForDate = this.getMenuForDate.bind(this);
-    this.addToCart = this.addToCart.bind(this);
-    this.removeFromCart = this.removeFromCart.bind(this);
-    this.showMore = this.showMore.bind(this);
-    this.handlePageChange = this.handlePageChange.bind(this);
-    this.showCalender = this.showCalender.bind(this);
-    this.handDateChange = this.handDateChange.bind(this);
-    this.showCart = this.showCart.bind(this);
-    this.closeCartPane = this.closeCartPane.bind(this);
+    registerMethods(this);
   }
 
   componentWillMount() {
@@ -64,19 +55,6 @@ class Menus extends Component {
     });
   }
 
-  getMenuForDate(number) {
-    const { getMealsInDailyMenu } = this.props;
-    let date = new Date(this.state.date);
-    date = convertUnixToDateForUpdate(date.setDate(date.getDate() + number) / 1000);
-    getMealsInDailyMenu(date).then((response) => {
-      if (response.status === 200) {
-        this.setState({
-          date, mealsCount: response.data.count, meals: response.data.meals, activePage: 1,
-        });
-      }
-    });
-  }
-
   addToCart(meal) {
     const { addToCart, user } = this.props;
     this.calculateTotalPrice();
@@ -96,20 +74,6 @@ class Menus extends Component {
     swal({
       title: 'Details',
       content: details,
-    });
-  }
-
-  handlePageChange(pageNumber) {
-    const { getMealsInDailyMenu } = this.props;
-    const offset = (pageNumber - 1) * 12;
-    getMealsInDailyMenu(this.state.date, offset, 12).then((response) => {
-      if (response.status === 200) {
-        this.setState({
-          activePage: pageNumber,
-          meals: response.data.meals,
-          mealsCount: response.data.count,
-        });
-      }
     });
   }
 
@@ -149,21 +113,6 @@ class Menus extends Component {
     this.setState({ isPaneOpenLeftCart: false });
   }
 
-  handDateChange(date) {
-    const { getMealsInDailyMenu } = this.props;
-    const selectedDate = getDateFromMoment(date._d);
-    getMealsInDailyMenu(selectedDate).then((response) => {
-      if (response.status === 200) {
-        this.setState({
-          date: selectedDate,
-          mealsCount: response.data.count,
-          meals: response.data.meals,
-          activePage: 1,
-        });
-      }
-    });
-  }
-
   renderCalender() {
     return (
       <SlidingPane
@@ -177,7 +126,7 @@ class Menus extends Component {
           <Calendar
             showDateInput={false}
             value={moment(this.state.date)}
-            onChange={this.handDateChange}
+            onChange={date => handleDateChange(date, this)}
           />
         </div>
       </SlidingPane>
@@ -194,7 +143,7 @@ class Menus extends Component {
             totalItemsCount={this.state.mealsCount}
             itemsCountPerPage={12}
             pageRangeDisplayed={5}
-            onChange={this.handlePageChange}
+            onChange={number => handlePageChange(number, this)}
           />
         </div> : ''}
       </div>
@@ -208,6 +157,7 @@ class Menus extends Component {
         isOpen={this.state.isPaneOpenLeftCart}
         closeCartPane={this.closeCartPane}
         cart={cart.cart}
+        updateUnits={this.updateUnits}
         removeFromCart={this.removeFromCart}
         totalPrice={numberWithCommas(this.state.totalPrice)}
         emptyCart={this.props.emptyCart}
@@ -236,8 +186,8 @@ class Menus extends Component {
       <div className="col-12">
         {empty(orders.alert) ? '' : <Alert alert={orders.alert} />}
         <div className="dateInput">
-          <a onClick={() => this.getMenuForDate(-1)} title="back"><i className="ion-ios-skipbackward" /> Previous</a>
-          <a onClick={() => this.getMenuForDate(1)} title="next day">Next Day <i className="ion-ios-skipforward" /></a>
+          <a onClick={() => getMenuForDate(-1, this)} title="back"><i className="ion-ios-skipbackward" /> Previous</a>
+          <a onClick={() => getMenuForDate(1, this)} title="next day">Next Day <i className="ion-ios-skipforward" /></a>
           <h2>{new Date(this.state.date).toDateString()}</h2>
         </div>
         <div id="card_container">
@@ -250,22 +200,27 @@ class Menus extends Component {
     );
   }
 
-  render() {
+  renderFixedControls() {
     const { cart } = this.props;
-
     return (
-      <div id="content-body">
-        {this.renderCalender()}
-        {this.renderCart()}
-        {this.renderMeals()}
-
+      <div>
         <div className="control">
           <i className="ion-ios-calendar-outline" onClick={this.showCalender} />
         </div>
         <div className={cart.cart.length ? 'dynamic-badge cart-control' : 'cart-control'} data-badge={cart.cart.length}>
           <i className="ion-ios-cart-outline" onClick={this.showCart} />
         </div>
+      </div>
+    );
+  }
 
+  render() {
+    return (
+      <div id="content-body">
+        {this.renderCalender()}
+        {this.renderCart()}
+        {this.renderMeals()}
+        {this.renderFixedControls()}
         {this.renderPagination()}
       </div>
     );

@@ -4,6 +4,10 @@ import moment from 'moment';
 import { order, meal, mealOrder } from '../models';
 
 class OrdersController {
+  constructor() {
+    this.postOrder = this.postOrder.bind(this);
+    this.putOrder = this.putOrder.bind(this);
+  }
   getAllOrders(req, res) {
     order.findAll({
       include: [{
@@ -48,19 +52,8 @@ class OrdersController {
     });
   }
 
-  postOrder(req, res) {
-    const { address, contact } = req.body;
-    const userId = req.user.id;
-
-    const newOrder = order.build({
-      contact,
-      address,
-      userId,
-    });
-
+  getMealOrders(meals, newOrder) {
     const newMealOrders = [];
-    const { meals } = req.body;
-
     meals.forEach((ml) => {
       newMealOrders.push({
         orderId: newOrder.id,
@@ -70,6 +63,20 @@ class OrdersController {
         units: ml.units,
       });
     });
+    return newMealOrders;
+  }
+
+  postOrder(req, res) {
+    const { address, contact, meals } = req.body;
+    const userId = req.user.id;
+
+    const newOrder = order.build({
+      contact,
+      address,
+      userId,
+    });
+
+    const newMealOrders = this.getMealOrders(meals, newOrder);
 
     newOrder.save().then((ord) => {
       mealOrder.bulkCreate(newMealOrders).then(() => {
@@ -97,30 +104,24 @@ class OrdersController {
             },
             { where: { id: req.params.id }, returning: true },
           ).then((updated) => {
-            const update = updated[1][0];
-            mealOrder.destroy({ where: { orderId: req.params.id } }).then(() => {
-              const newMealOrders = [];
-              const { meals } = req.body;
-
-              meals.forEach((ml) => {
-                newMealOrders.push({
-                  orderId: req.params.id,
-                  mealId: ml.mealId,
-                  menuId: ml.menuId,
-                  profileId: ml.profileId,
-                  units: ml.units,
-                });
-              });
-
-              mealOrder.bulkCreate(newMealOrders).then(() => {
-                res.status(200).send(update);
-              });
-            });
+            this.updateOrderMeals(req, res, updated);
           });
         }
       } else {
         res.status(404).send({ message: 'Order not found' });
       }
+    });
+  }
+
+  updateOrderMeals(req, res, updated) {
+    const update = updated[1][0];
+    mealOrder.destroy({ where: { orderId: req.params.id } }).then(() => {
+      const { meals } = req.body;
+      const newMealOrders = this.getMealOrders(meals, req.params);
+
+      mealOrder.bulkCreate(newMealOrders).then(() => {
+        res.status(200).send(update);
+      });
     });
   }
 }

@@ -2,6 +2,32 @@ import validate from 'uuid-validate';
 
 const { check } = require('express-validator/check');
 
+function checkMealObjects(value) {
+  let noErrors = true;
+  for (let i = 0; i < value.length; i += 1) {
+    if (value[i].mealId === undefined) {
+      noErrors = false;
+      break;
+    }
+    if (!validate(value[i].mealId, 4)) {
+      noErrors = false;
+      break;
+    }
+  }
+  return noErrors;
+}
+
+function checkMealsPrice(value) {
+  let noErrors = true;
+  for (let i = 0; i < value.length; i += 1) {
+    if (value[i].price === undefined || typeof value[i].price !== 'number') {
+      noErrors = false;
+      break;
+    }
+  }
+  return noErrors;
+}
+
 const menuFormConstraints = [
   check('name')
     .optional({ nullable: true })
@@ -31,20 +57,7 @@ const menuFormConstraints = [
     .withMessage('the meals field must an array')
     .isLength({ min: 1 })
     .withMessage('at least on meal is needed')
-    .custom((value) => {
-      let noErrors = true;
-      for (let i = 0; i < value.length; i += 1) {
-        if (value[i].mealId === undefined) {
-          noErrors = false;
-          break;
-        }
-        if (!validate(value[i].mealId, 4)) {
-          noErrors = false;
-          break;
-        }
-      }
-      return noErrors;
-    })
+    .custom(value => checkMealObjects(value))
     .withMessage('at least one of the objects in the array does not have the \'mealId\' or the id is not a valid UUID4 id')
     .custom((value) => {
       let noErrors = true;
@@ -79,31 +92,9 @@ const menuUpdateFormConstraints = [
     .withMessage('the meals field must an array')
     .isLength({ min: 1 })
     .withMessage('at least on meal is needed')
-    .custom((value) => {
-      let noErrors = true;
-      for (let i = 0; i < value.length; i += 1) {
-        if (value[i].mealId === undefined) {
-          noErrors = false;
-          break;
-        }
-        if (!validate(value[i].mealId, 4)) {
-          noErrors = false;
-          break;
-        }
-      }
-      return noErrors;
-    })
+    .custom(value => checkMealObjects(value))
     .withMessage('at least one of the objects in the array does not have the \'mealId\' or the id is not a valid UUID4 id')
-    .custom((value) => {
-      let noErrors = true;
-      for (let i = 0; i < value.length; i += 1) {
-        if (value[i].price === undefined || typeof value[i].price !== 'number') {
-          noErrors = false;
-          break;
-        }
-      }
-      return noErrors;
-    })
+    .custom(value => checkMealsPrice(value))
     .withMessage('at least one of the meals in the supplied does not have a price. It is also possible you have supplied a price that is not a number.')
     .trim(),
 ];

@@ -100,58 +100,74 @@ class Home extends Component {
     history.push(`/auth/${type}`);
   }
 
-  render() {
+  showRegisterLoginLinks() {
+    return (
+      <div style={{ clear: 'both', marginTop: 50, textAlign: 'center' }}>
+        <hr />
+        {this.state.type === 'login' ?
+          <a style={{ fontSize: 17 }} onClick={() => this.changeAuthType('register')}><i className="ion-person-add" /> Register</a> :
+          <a style={{ fontSize: 17 }} onClick={() => this.changeAuthType('login')}><i className="ion-log-in" /> Login</a>
+        }
+      </div>
+    );
+  }
+
+  renderSignUp() {
     const { user, formState } = this.props;
+    return (
+      <div className="box-auth">
+        <h3>Sign Up</h3>
+        <ShowErrors
+          clientErrors={this.state.signUpErrors}
+          serverErrors={user.signUpErrors}
+        />
+        <form onSubmit={this.handleSubmit}>
+          <BasicInput name="fullName" type="text" label="Full Name" value={this.state.fullName} onChange={this.onChange} hasError={this.state.signUpErrors.fullName !== undefined} />
+          <BasicInput name="signUpEmail" type="text" label="Email" value={this.state.signUpEmail} onChange={this.onChange} hasError={this.state.signUpErrors.signUpEmail !== undefined} />
+          <BasicInput name="password" type="password" label="Password" value={this.state.password} onChange={this.onChange} hasError={this.state.signUpErrors.password !== undefined} />
+          <BasicInput name="confirm_password" type="password" label="Confirm Password" value={this.state.confirm_password} onChange={this.onChange} hasError={this.state.signUpErrors.confirm_password !== undefined} />
+          <div id="signUpAsAdmin">
+            <label className="checkbox" htmlFor="signUpAsAdmin">
+              Sign up as Caterer
+              <input id="signUpAsAdmin" value={this.state.checked ? 'customer' : 'caterer'} onChange={this.onCheckBoxChange} checked={this.state.checked} type="checkbox" /><span className="check" />
+            </label>
+          </div>
+          <SubmitButton value="Sign Up" isLoading={formState.isLoading && this.state.isSignIn} />
+        </form>
+      </div>
+    );
+  }
+
+  renderLogin() {
+    const { user, formState } = this.props;
+    return (
+      <div className="box-auth">
+        <h3>Sign In</h3>
+        <ShowErrors
+          clientErrors={this.state.signInErrors}
+          serverErrors={user.signInErrors}
+        />
+        <form onSubmit={this.handleSignInSubmit}>
+          <BasicInput name="signInEmail" type="text" label="Email" value={this.state.signInEmail} onChange={this.onChange} hasError={this.state.signInErrors.signInEmail !== undefined} />
+          <BasicInput name="signInPassword" type="password" label="Password" value={this.state.signInPassword} onChange={this.onChange} hasError={this.state.signInErrors.signInPassword !== undefined} />
+          <div id="forgotPassword">
+            <Link to="/" href="/">Forgot Password?</Link>
+          </div>
+          <SubmitButton value="Sign In" isLoading={formState.isLoading} />
+        </form>
+      </div>
+    );
+  }
+
+  render() {
     return (
       <div>
         <div id="content3">
           <div className="col-12">
             <Link className="main" to="/" href="/"><button className="button-white">Home</button></Link>
             <div id="authSection">
-              {this.state.type === 'login' ?
-                <div className="box-auth">
-                  <h3>Sign In</h3>
-                  <ShowErrors
-                    clientErrors={this.state.signInErrors}
-                    serverErrors={user.signInErrors}
-                  />
-                  <form onSubmit={this.handleSignInSubmit}>
-                    <BasicInput name="signInEmail" type="text" label="Email" value={this.state.signInEmail} onChange={this.onChange} hasError={this.state.signInErrors.signInEmail !== undefined} />
-                    <BasicInput name="signInPassword" type="password" label="Password" value={this.state.signInPassword} onChange={this.onChange} hasError={this.state.signInErrors.signInPassword !== undefined} />
-                    <div id="forgotPassword">
-                      <Link to="/" href="/">Forgot Password?</Link>
-                    </div>
-                    <SubmitButton value="Sign In" isLoading={formState.isLoading} />
-                  </form>
-                </div> :
-                <div className="box-auth">
-                  <h3>Sign Up</h3>
-                  <ShowErrors
-                    clientErrors={this.state.signUpErrors}
-                    serverErrors={user.signUpErrors}
-                  />
-                  <form onSubmit={this.handleSubmit}>
-                    <BasicInput name="fullName" type="text" label="Full Name" value={this.state.fullName} onChange={this.onChange} hasError={this.state.signUpErrors.fullName !== undefined} />
-                    <BasicInput name="signUpEmail" type="text" label="Email" value={this.state.signUpEmail} onChange={this.onChange} hasError={this.state.signUpErrors.signUpEmail !== undefined} />
-                    <BasicInput name="password" type="password" label="Password" value={this.state.password} onChange={this.onChange} hasError={this.state.signUpErrors.password !== undefined} />
-                    <BasicInput name="confirm_password" type="password" label="Confirm Password" value={this.state.confirm_password} onChange={this.onChange} hasError={this.state.signUpErrors.confirm_password !== undefined} />
-                    <div id="signUpAsAdmin">
-                      <label className="checkbox" htmlFor="signUpAsAdmin">
-                        Sign up as Caterer
-                        <input id="signUpAsAdmin" value={this.state.checked ? 'customer' : 'caterer'} onChange={this.onCheckBoxChange} checked={this.state.checked} type="checkbox" /><span className="check" />
-                      </label>
-                    </div>
-                    <SubmitButton value="Sign Up" isLoading={formState.isLoading && this.state.isSignIn} />
-                  </form>
-                </div>}
-
-              <div style={{ clear: 'both', marginTop: 50, textAlign: 'center' }}>
-                <hr />
-                {this.state.type === 'login' ?
-                  <a href="#" style={{ fontSize: 17 }} onClick={() => this.changeAuthType('register')}><i className="ion-person-add" /> Register</a> :
-                  <a style={{ fontSize: 17 }} onClick={() => this.changeAuthType('login')}><i className="ion-log-in" /> Login</a>
-                }
-              </div>
+              {this.state.type === 'login' ? this.renderLogin() : this.renderSignUp()}
+              {this.showRegisterLoginLinks()}
             </div>
           </div>
         </div>

@@ -3,7 +3,6 @@ import AuthController from './controllers/AuthController';
 import { signInConstraints, signUpConstraints } from './middlewares/auth';
 import { validateFormData } from './middlewares/validate';
 
-
 import mealRoutes from './routes/meal.routes';
 import menuRoutes from './routes/menu.routes';
 import orderRoutes from './routes/order.routes';

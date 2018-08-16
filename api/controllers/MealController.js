@@ -41,8 +41,13 @@ const mealViewModel = (item) => {
 };
 
 class MealsController {
+  constructor() {
+    this.getMeals = this.getMeals.bind(this);
+    this.putMeal = this.putMeal.bind(this);
+  }
+
   getMeals(req, res) {
-    const { offset, limit, searchKey } = req.query;
+    const { searchKey } = req.query;
     meal.count({
       where: searchKey === undefined ? { userId: req.user.id } :
         {
@@ -54,24 +59,29 @@ class MealsController {
           },
         },
     }).then((count) => {
-      meal.findAll({
-        include: [{ model: user, include: [{ model: profile }] }],
-        order: sequelize.literal('name'),
-        offset: offset || 0,
-        limit: limit || 10,
-        where: searchKey === undefined ? { userId: req.user.id } :
-          {
-            userId: req.user.id,
-            [Op.or]: {
-              name: { [Op.iLike]: `%${searchKey}%` },
-              description: { [Op.iLike]: `%${searchKey}%` },
-              category: { [Op.iLike]: `%${searchKey}%` },
-            },
+      this.findAllMeals(req, res, count);
+    });
+  }
+
+  findAllMeals(req, res, count) {
+    const { offset, limit, searchKey } = req.query;
+    meal.findAll({
+      include: [{ model: user, include: [{ model: profile }] }],
+      order: sequelize.literal('name'),
+      offset: offset || 0,
+      limit: limit || 10,
+      where: searchKey === undefined ? { userId: req.user.id } :
+        {
+          userId: req.user.id,
+          [Op.or]: {
+            name: { [Op.iLike]: `%${searchKey}%` },
+            description: { [Op.iLike]: `%${searchKey}%` },
+            category: { [Op.iLike]: `%${searchKey}%` },
           },
-      }).then((meals) => {
-        const viewModel = mealViewModelFromArray(meals);
-        res.status(200).send({ meals: viewModel, count });
-      });
+        },
+    }).then((meals) => {
+      const viewModel = mealViewModelFromArray(meals);
+      res.status(200).send({ meals: viewModel, count });
     });
   }
 
@@ -158,6 +168,16 @@ class MealsController {
     });
   }
 
+  fetchUpdatedMeal(res, update) {
+    meal.findOne({
+      include: [{ model: user, include: [{ model: profile }] }],
+      where: { id: update.id },
+    }).then(returnedMeal => res.status(200).send({
+      message: 'Meal successfully updated',
+      meal: mealViewModel(returnedMeal),
+    }));
+  }
+
   putMeal(req, res) {
     meal.update(
       {
@@ -172,13 +192,7 @@ class MealsController {
     ).then((updated) => {
       const update = updated[1][0];
       if (update) {
-        meal.findOne({
-          include: [{ model: user, include: [{ model: profile }] }],
-          where: { id: update.id },
-        }).then(returnedMeal => res.status(200).send({
-          message: 'Meal successfully updated',
-          meal: mealViewModel(returnedMeal),
-        }));
+        this.fetchUpdatedMeal(res, update);
       } else {
         res.status(404).send({
           message: 'Meal not found',

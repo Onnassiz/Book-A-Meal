@@ -76,21 +76,21 @@ describe('MenuController - Success', () => {
       adminToken = '';
     });
 
-    // it('should return status (200) when updating a menu', (done) => {
-    //   insertOneMenu(done).then((data) => {
-    //     const formData = {
-    //       name: 'Fire Rice',
-    //       date: '2018-08-10',
-    //     };
-    //     request.put({ url: `${baseUrl}/menus/${data.id}`, headers: { Authorization: `Bearer ${adminToken}` }, json: formData }, (error, response, body) => {
-    //       expect(response.statusCode).to.equal(200);
-    //       expect(typeof body).to.equal('object');
-    //       expect(body.message).to.equal('Menu successfully updated');
-    //       expect(body.menu.name).to.equal('Fire Rice');
-    //       done();
-    //     });
-    //   });
-    // });
+    it('should return status (200) when updating a menu', (done) => {
+      insertOneMenu(done).then((data) => {
+        const formData = {
+          name: 'Fire Rice',
+          date: '2018-08-10',
+        };
+        request.put({ url: `${baseUrl}/menus/${data.id}`, headers: { Authorization: `Bearer ${adminToken}` }, json: formData }, (error, response, body) => {
+          expect(response.statusCode).to.equal(200);
+          expect(typeof body).to.equal('object');
+          expect(body.message).to.equal('Menu successfully updated');
+          expect(body.menu.name).to.equal('Fire Rice');
+          done();
+        });
+      });
+    });
 
     it('should return status (200) when  updating menu meals', (done) => {
       insertOneMenu(done).then((data) => {

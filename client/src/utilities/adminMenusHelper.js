@@ -47,6 +47,14 @@ export function handlePageChange(pageNumber, mealsPagination, $this) {
   }
 }
 
+function processSubmit(state, $this, formData) {
+  if (!state.updateMode) {
+    $this.createNewMenu(formData);
+  } else {
+    $this.updateExistingMenu(formData);
+  }
+}
+
 export function handleSubmit(e, $this) {
   e.preventDefault();
   const { state } = $this.props;
@@ -59,11 +67,7 @@ export function handleSubmit(e, $this) {
   };
 
   if ($this.isValid(formData)) {
-    if (!state.updateMode) {
-      $this.createNewMenu(formData);
-    } else {
-      $this.updateExistingMenu(formData);
-    }
+    processSubmit(state, $this, formData);
   }
 }
 

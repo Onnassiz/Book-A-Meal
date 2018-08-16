@@ -166,23 +166,12 @@ class MealModal extends Component {
     );
   }
 
-  renderMealsModal() {
+  renderModalBody() {
     const {
       meals, formState, state, handleAddButtonClick,
     } = this.props;
     return (
-      <Modal
-        isOpen={state.isShowingModal}
-        closeTimeoutMS={1}
-        shouldCloseOnEsc
-        shouldCloseOnOverlayClick
-        onRequestClose={handleAddButtonClick}
-        onAfterOpen={this.afterOpenModal}
-        style={addProfileModalStyle}
-        ariaHideApp={false}
-        contentLabel="Modal"
-        className="create-profile"
-      >
+      <div>
         <div className="col-12">
           <a onClick={handleAddButtonClick} style={this.state.closeModalStyle}>
             <i style={{ fontSize: 25 }} className="material-icons">close</i>
@@ -200,6 +189,26 @@ class MealModal extends Component {
             <SubmitButton value={state.updateMode ? 'Update' : 'Submit'} isLoading={formState.isLoading} />
           </form>
         </div>
+      </div>
+    );
+  }
+
+  renderMealsModal() {
+    const { state, handleAddButtonClick } = this.props;
+    return (
+      <Modal
+        isOpen={state.isShowingModal}
+        closeTimeoutMS={1}
+        shouldCloseOnEsc
+        shouldCloseOnOverlayClick
+        onRequestClose={handleAddButtonClick}
+        onAfterOpen={this.afterOpenModal}
+        style={addProfileModalStyle}
+        ariaHideApp={false}
+        contentLabel="Modal"
+        className="create-profile"
+      >
+        {this.renderModalBody()}
       </Modal>
     );
   }

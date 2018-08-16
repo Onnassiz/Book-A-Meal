@@ -6,7 +6,15 @@ import PropTypes from 'prop-types';
 import { addProfileImageModalView } from './../../../utilities/modalStyles';
 import loaderImage from '../../../../assets/images/file-loader.gif';
 
-
+const dropZoneStyle = {
+  width: 350,
+  height: 300,
+  margin: 'auto',
+  marginTop: 70,
+  padding: 20,
+  border: 'solid #7a604a 1px',
+  borderRadius: 3,
+};
 class ImageUploader extends Component {
   constructor(props) {
     super(props);
@@ -59,17 +67,47 @@ class ImageUploader extends Component {
     this.setState({ errors });
   }
 
-  render() {
-    const dropZoneStyle = {
-      width: 350,
-      height: 300,
-      margin: 'auto',
-      marginTop: 70,
-      padding: 20,
-      border: 'solid #7a604a 1px',
-      borderRadius: 3,
-    };
+  renderDropZone() {
+    return (
+      <Dropzone
+        onDrop={this.handleDrop}
+        accept="image/*"
+        style={dropZoneStyle}
+        className="dropzone"
+      >
+        <div style={{ textAlign: 'center' }}>
+          <h2 id="dropzoneHeader">Drop Images Here</h2>
+          <br /><br /><br />
+          <button disabled={this.state.showLoader} className="button">Upload Image</button>
+          <div>
+            <img src={loaderImage} alt="loader" hidden={!this.state.showLoader} />
+          </div>
+          <div className="progress">
+            {this.state.progress === 0 ? '' : `${this.state.progress}% Complete`}
+          </div>
+        </div>
+      </Dropzone>
+    );
+  }
 
+  renderModalBody() {
+    return (
+      <div className="col-12">
+        <div className="col-12">
+          <a onClick={this.props.toggleAddPhoto} style={{ float: 'right' }}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
+        </div>
+        <div className="show-errors">
+          <ul>
+            {Object.keys(this.state.errors).map(item =>
+              <li key={item}>{this.state.errors[item]}</li>)}
+          </ul>
+        </div>
+        { this.renderDropZone() }
+      </div>
+    );
+  }
+
+  render() {
     return (
       <div className="col-12">
         <Modal
@@ -80,35 +118,7 @@ class ImageUploader extends Component {
           contentLabel="Modal"
           className="image-upload"
         >
-          <div className="col-12">
-            <div className="col-12">
-              <a onClick={this.props.toggleAddPhoto} style={{ float: 'right' }}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
-            </div>
-            <div className="show-errors">
-              <ul>
-                {Object.keys(this.state.errors).map(item =>
-                  <li key={item}>{this.state.errors[item]}</li>)}
-              </ul>
-            </div>
-            <Dropzone
-              onDrop={this.handleDrop}
-              accept="image/*"
-              style={dropZoneStyle}
-              className="dropzone"
-            >
-              <div style={{ textAlign: 'center' }}>
-                <h2 id="dropzoneHeader">Drop Images Here</h2>
-                <br /><br /><br />
-                <button disabled={this.state.showLoader} className="button">Upload Image</button>
-                <div>
-                  <img src={loaderImage} alt="loader" hidden={!this.state.showLoader} />
-                </div>
-                <div className="progress">
-                  {this.state.progress === 0 ? '' : `${this.state.progress}% Complete`}
-                </div>
-              </div>
-            </Dropzone>
-          </div>
+          { this.renderModalBody() }
         </Modal>
       </div>
     );

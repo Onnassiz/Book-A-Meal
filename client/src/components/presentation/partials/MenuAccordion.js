@@ -53,9 +53,21 @@ class MenuAccordion extends Component {
     });
   }
 
-  render() {
-    const showPagination = (
-      <div>{ this.state.menu.mealsCount > 5 ?
+  renderAccordionTitle() {
+    return (
+      <AccordionItemTitle>
+        <h3 className="u-position-relative">
+          {new Date(this.state.menu.date).toDateString()}
+          <div className="accordion__arrow" role="presentation" />
+        </h3>
+        <div style={{ fontSize: 13, marginTop: 5 }}>{this.state.menu.mealsCount}{this.state.menu.mealsCount > 1 ? ' meals' : ' meal'}</div>
+      </AccordionItemTitle>
+    );
+  }
+
+  renderPagination() {
+    return (
+      <div>{this.state.menu.mealsCount > 5 ?
         <div style={{ textAlign: 'center' }}>
           <Pagination
             hideDisabled
@@ -66,36 +78,38 @@ class MenuAccordion extends Component {
             onChange={this.handlePageChange}
           />
           <hr />
-        </div> : '' }
+        </div> : ''}
       </div>
     );
+  }
 
+  renderMeals() {
+    return (
+      <div>
+        { this.state.thisPageMeals.length > 0 ? this.state.thisPageMeals.map(meal => (
+          <div className="menu_item" key={meal.id}>
+            <h3>{ meal.name }</h3>
+            <div>
+              <p><b>Description:</b> {meal.description}</p>
+              <p><b>Category: </b>{ meal.category }</p>
+              <p><b>Price: </b>{ meal.price }</p>
+            </div>
+          </div>)) : ''}
+        { this.renderPagination() }
+      </div>
+    );
+  }
+
+  render() {
     return (
       <AccordionItem>
-        <AccordionItemTitle>
-          <h3 className="u-position-relative">
-            { new Date(this.state.menu.date).toDateString() }
-            <div className="accordion__arrow" role="presentation" />
-          </h3>
-          <div style={{ fontSize: 13, marginTop: 5 }}>{this.state.menu.mealsCount}{ this.state.menu.mealsCount > 1 ? ' meals' : ' meal' }</div>
-        </AccordionItemTitle>
+        {this.renderAccordionTitle()}
         <AccordionItemBody>
-          { this.state.showMeals ?
-            <div>
-              { this.state.thisPageMeals.length > 0 ? this.state.thisPageMeals.map(meal => (
-                <div className="menu_item" key={meal.id}>
-                  <h3>{ meal.name }</h3>
-                  <div>
-                    <p><b>Description:</b> {meal.description}</p>
-                    <p><b>Category: </b>{ meal.category }</p>
-                    <p><b>Price: </b>{ meal.price }</p>
-                  </div>
-                </div>)) : ''}
-              { showPagination }
-            </div> :
+          {this.state.showMeals ?
+            this.renderMeals() :
             <div className="show-meals">
               <button className="button" onClick={this.showMeals}><i className="ion-ios-eye" /> Show Meals</button>
-            </div> }
+            </div>}
           {!this.props.showOpsButtons ? '' :
           <div>
             <div style={{ textAlign: 'center' }}>
