@@ -89,9 +89,13 @@ class MenusController {
       include: [{
         model: meal,
       }],
-      where: { id: req.params.id },
+      where: { id: req.params.id, userId: req.user.id },
     }).then((responseData) => {
-      res.status(200).send(this.getMenusViewModel([responseData])[0]);
+      if (responseData) {
+        res.status(200).send(this.getMenusViewModel([responseData])[0]);
+      } else {
+        res.status(404).send({ message: 'Menu not found' });
+      }
     });
   }
 
@@ -113,6 +117,21 @@ class MenusController {
       where: date ? { date } : null,
     }).then((responseData) => {
       res.status(200).send(this.menuViewModelFromArray(responseData));
+    });
+  }
+
+  verifyMealsInMenu(req, res, next) {
+    const { meals } = req.body;
+    meals.forEach((item, i) => {
+      meal.findOne({ where: { id: item.mealId } }).then((foundMeal) => {
+        if (foundMeal.userId !== req.user.id) {
+          res.status(401).send({
+            message: `This meal, ${foundMeal.name}, was added by another user. You can only use meals created by you.`,
+          });
+        } else if (i === meals.length - 1) {
+          next();
+        }
+      });
     });
   }
 
@@ -158,6 +177,7 @@ class MenusController {
       res.status(201).send({
         message: 'Menu(s) successfully created',
         menus: this.getMenusViewModel(menus, meals.length),
+        meals,
       });
     }).catch((error) => {
       res.status(400).send({ message: error.name });
@@ -197,7 +217,7 @@ class MenusController {
         date,
         userId,
       },
-      { where: { id: req.params.id }, returning: true },
+      { where: { id: req.params.id, userId: req.user.id }, returning: true },
     ).then((updated) => {
       const update = updated[1][0];
       if (update) {
@@ -216,6 +236,7 @@ class MenusController {
                 res.status(200).send({
                   message: 'Menu successfully updated',
                   menu: this.getMenusViewModel([responseData])[0],
+                  meals,
                 });
               });
             });
@@ -234,11 +255,12 @@ class MenusController {
 
   deleteMenu(req, res) {
     menu.destroy({
-      where: { id: req.params.id },
+      where: { id: req.params.id, userId: req.user.id },
     }).then((deleted) => {
       if (deleted) {
         res.status(200).send({
           message: 'Menu successfully deleted',
+          menu: deleted,
         });
       } else {
         res.status(404).send({

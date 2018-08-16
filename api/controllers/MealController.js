@@ -168,7 +168,7 @@ class MealsController {
         category: req.body.category,
         imageUrl: req.body.imageUrl,
       },
-      { where: { id: req.params.id }, returning: true },
+      { where: { id: req.params.id, userId: req.user.id }, returning: true },
     ).then((updated) => {
       const update = updated[1][0];
       if (update) {
@@ -190,7 +190,7 @@ class MealsController {
   deleteMeal(req, res) {
     const { id } = req.params;
     meal.destroy({
-      where: { id },
+      where: { id, userId: req.user.id },
     }).then((deleted) => {
       if (deleted) {
         res.status(200).send({
