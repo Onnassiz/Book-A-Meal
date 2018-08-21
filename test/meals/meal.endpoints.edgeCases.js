@@ -22,11 +22,13 @@ describe('MealController - Edge Cases', () => {
     });
 
     after((done) => {
-      deleteMeals(done);
+      deleteMeals(done, false).then(() => {
+        deleteProfile(done);
+      });
       adminToken = '';
     });
 
-    it('should return (400) if request is made without a token', (done) => {
+    it('should return (400) if request is without setting up token', (done) => {
       const formData = {
         name: 'Fire bons',
         price: 2000,

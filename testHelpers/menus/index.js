@@ -22,7 +22,7 @@ const getMealIds = () => insertMealMock().then((data) => {
   return meals.splice(20, 20);
 });
 
-const insertOneMenu = done => getCatererId().then((id) => {
+const insertOneMenu = () => getCatererId().then((id) => {
   const newMenu = menu.build({
     userId: id,
     name: 'Fire bons',

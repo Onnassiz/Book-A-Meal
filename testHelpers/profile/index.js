@@ -10,7 +10,7 @@ const deleteProfile = (done) => {
   });
 };
 
-const insertProfile = done => getCatererId().then((id) => {
+const insertProfile = () => getCatererId().then((id) => {
   const newProfile = profile.build({
     businessName: 'Your name',
     mission: 'Your mission',
