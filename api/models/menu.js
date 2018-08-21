@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Menu.associate = (models) => {
-    Menu.hasMany(models.mealOrder);
     Menu.belongsTo(models.user);
     Menu.belongsToMany(models.meal, { through: 'menuMeals' });
   };

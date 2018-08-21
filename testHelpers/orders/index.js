@@ -1,8 +1,8 @@
-import { menu, meal } from '../../api/models';
+import { order, meal } from '../../api/models';
 import { insertMealMock } from '../meals/index';
-import { getCatererId } from '../main';
+import { getCustomerId } from '../main';
 
-const deleteMenus = (done, callDone = true) => menu.destroy({
+const deleteOrders = (done, callDone = true) => order.destroy({
   where: {},
 }).then(() => meal.destroy({
   where: {},
@@ -17,23 +17,24 @@ const getMealIds = () => insertMealMock().then((data) => {
   const meals = data.map(item => ({
     mealId: item.id,
     price: 1000,
+    units: 1,
   }));
 
-  return meals.splice(20, 20);
+  return meals.splice(30, 10);
 });
 
-const insertOneMenu = done => getCatererId(done, false).then((id) => {
-  const newMenu = menu.build({
+const insertOneOrder = done => getCustomerId(done, false).then((id) => {
+  const newMenu = order.build({
     userId: id,
-    name: 'Fire bons',
-    date: '2018-08-08',
+    contact: 'Fire bons',
+    address: 'This is the real address',
   });
 
   return newMenu.save().then(data => data);
 });
 
 export {
-  deleteMenus,
+  deleteOrders,
   getMealIds,
-  insertOneMenu,
+  insertOneOrder,
 };

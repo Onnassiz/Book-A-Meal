@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 import { setUser } from '../../reducer/user/actions';
 import App from '../presentation/App';
 import { getMenusByUnixTime } from '../../reducer/menus/actions';
-import { emptyCart } from '../../reducer/cart/actions';
+import { deleteFromCart, addToCart, updateCart, emptyCart } from '../../reducer/cart/actions';
 
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    cart: state.user,
-    menus: state.menus,
-  };
-};
+const mapStateToProps = state => ({
+  user: state.user,
+  cart: state.cart,
+  menus: state.menus,
+});
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setUser,
+    addToCart,
+    updateCart,
+    deleteFromCart,
     emptyCart,
     getMenusByUnixTime,
   }, dispatch);

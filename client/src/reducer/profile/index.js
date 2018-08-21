@@ -1,4 +1,4 @@
-import { SET_PROFILE, SET_PROFILE_ALERT, SET_PROFILE_SERVER_ERRORS } from './actions';
+import { SET_PROFILE, SET_PROFILE_SERVER_ERRORS } from './actions';
 
 const initialState = {};
 
@@ -15,8 +15,6 @@ export default (state = initialState, action) => {
       };
     case SET_PROFILE_SERVER_ERRORS:
       return { ...state, errors: action.errors };
-    case SET_PROFILE_ALERT:
-      return { ...state, alert: action.alert };
     default:
       return state;
   }

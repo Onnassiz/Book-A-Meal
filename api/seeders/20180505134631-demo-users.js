@@ -16,6 +16,15 @@ module.exports = {
     },
     {
       id: uuidv4(),
+      fullName: 'Caterer2',
+      email: 'caterer2@bookmeal.com',
+      role: 'caterer',
+      passwordHash: passwordHash.generate('password'),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      id: uuidv4(),
       fullName: 'Customer',
       email: 'customer@bookmeal.com',
       role: 'customer',

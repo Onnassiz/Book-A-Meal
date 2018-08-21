@@ -178,6 +178,12 @@ a{
   position: relative;
   top: -15px;
   min-height: calc(100vh - 200px);
+
+  h1 {
+    font-weight: normal;
+    font-size: 35px;
+    margin-bottom: 12px;
+  }
 }
 
 #content3 {
@@ -640,6 +646,43 @@ a{
   margin: auto;
 }
 
+.Toastify__toast--default {
+  background: $header-background-color !important; 
+}
+
+.Toastify__toast-body {
+  color: white !important;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.Toastify__close-button--default {
+  color: white;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.order-content {
+  h2 {
+    font-weight: normal;
+    color: $light-black;
+    text-decoration: underline;
+    margin-bottom: 12px;
+    text-align: center;
+    clear: both;
+  }
+
+  p {
+    line-height: 25px;
+    b {
+      color: $light-black;
+    }
+  }
+}
+
 .menu_item {
   width: 90%;
   margin-top: 12px;
@@ -651,8 +694,9 @@ a{
   }
 
   p{
-    margin:12px 15px 12px 15px;
+    margin:2px 15px 2px 15px;
     font-size: 13px;
+    line-height: 20px;
   }
 
   b{
@@ -1003,21 +1047,27 @@ a{
   }
 
   .details {
-    margin-top: 20px;
     margin-left: 12px;
     width: 170px;
     float: left;
+    font-size: 14px;
 
     input {
       width: 60px;
-
+      height: 20px;
+      padding-left: 5px;
       &:focus {
         outline: none;
       }
     }
 
     button {
+      background-color: none;
+      display: inline-block;
+      margin-top: 20px;
       cursor: pointer;
+      font-size: 13px;
+      width: 120px;
 
       &:hover {
         transform: scale(1.05);        
@@ -1059,6 +1109,36 @@ a{
     text-align: center;
     font-weight: normal;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
+  }
+}
+
+.more-info {
+  text-align: center;
+  margin: 4px;
+  background-color: white;
+  padding: 4px 0;
+  margin: 4px;
+  width: 100px;
+  border-radius: 2px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.swal-image {
+  text-align: center;
+  img {
+    width: 70%;
+    border-radius: 3px;
+    &:hover {
+      transform: scale(1.01);
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import UserHomePage from '../presentation/UserHomePage';
+import UserProfile from '../presentation/UserProfile';
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -14,4 +14,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(UserHomePage);
+)(UserProfile);

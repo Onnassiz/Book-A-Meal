@@ -4,8 +4,9 @@ import { describe, it, after, before, afterEach } from 'mocha';
 import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
 
-import { getCatererToken } from '../../testHelpers/main';
+import { getCatererToken, createAdminProfile, getCatererId } from '../../testHelpers/main';
 import { deleteMeals, insertOneMeal } from '../../testHelpers/meals/index';
+import { deleteProfile } from '../../testHelpers/profile/index';
 
 dotenv.config();
 const baseUrl = 'http://localhost:3009/api/v1';
@@ -15,13 +16,19 @@ let adminToken = '';
 describe('MealController - Edge Cases', () => {
   describe('Post Meal', () => {
     before((done) => {
-      getCatererToken(done).then(((token) => {
-        adminToken = token;
-      }));
+      getCatererId(done, false).then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
+      });
     });
 
     after((done) => {
-      deleteMeals(done);
+      deleteMeals(done, false).then(() => {
+        deleteProfile(done);
+      });
       adminToken = '';
     });
 
@@ -102,17 +109,24 @@ describe('MealController - Edge Cases', () => {
 
   describe('Put Meal', () => {
     before((done) => {
-      getCatererToken(done).then((token) => {
-        adminToken = token;
+      getCatererId(done, false).then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
       });
+    });
+
+    after((done) => {
+      deleteMeals(done, false).then(() => {
+        deleteProfile(done);
+      });
+      adminToken = '';
     });
 
     afterEach((done) => {
       deleteMeals(done);
-    });
-
-    after(() => {
-      adminToken = '';
     });
 
     it('should return (404) when updating a meal with wrong uuid', (done) => {
@@ -177,6 +191,29 @@ describe('MealController - Edge Cases', () => {
         request.delete({ url: `${baseUrl}/meals/wrong`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
           expect(response.statusCode).to.equal(422);
           expect(JSON.parse(body).id).to.equal('wrong id format in params. id must be a valid UUID4');
+          done();
+        });
+      });
+    });
+  });
+
+  describe('Get Meal', () => {
+    before((done) => {
+      getCatererToken(done).then(((token) => {
+        adminToken = token;
+      }));
+    });
+
+    after((done) => {
+      deleteMeals(done);
+      adminToken = '';
+    });
+
+    it('should return (404) when fetching a meal with the wrong meal Id', (done) => {
+      insertOneMeal().then(() => {
+        request.get({ url: `${baseUrl}/meals/${uuidv4()}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
+          expect(response.statusCode).to.equal(404);
+          expect(JSON.parse(body).message).to.equal('Meal not found');
           done();
         });
       });

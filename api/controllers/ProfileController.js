@@ -11,6 +11,16 @@ class ProfileController {
     });
   }
 
+  verifyProfile(req, res, next) {
+    profile.findOne({ where: { userId: req.user.id } }).then((prf) => {
+      if (prf) {
+        next();
+      } else {
+        res.status(400).send('You must setup a profile before performing this operation');
+      }
+    });
+  }
+
   postProfile(req, res) {
     profile.findOne({ where: { userId: req.user.id } }).then((prof) => {
       if (prof) {

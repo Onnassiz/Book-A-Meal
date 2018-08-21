@@ -1,4 +1,4 @@
-import { SET_MEAL, SET_MEAL_ALERT, SET_MEAL_SERVER_ERRORS } from './actions';
+import { SET_MEAL, SET_MEAL_SERVER_ERRORS } from './actions';
 
 const initialState = {
   meals: [],
@@ -10,8 +10,6 @@ export default (state = initialState, action) => {
       return { ...state, meals: action.meals };
     case SET_MEAL_SERVER_ERRORS:
       return { ...state, errors: action.errors };
-    case SET_MEAL_ALERT:
-      return { ...state, alert: action.alert };
     default:
       return state;
   }

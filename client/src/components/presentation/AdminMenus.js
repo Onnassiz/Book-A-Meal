@@ -4,7 +4,6 @@ import empty from 'is-empty';
 import PropTypes from 'prop-types';
 import Pagination from 'react-js-pagination';
 import { Accordion } from 'react-accessible-accordion';
-import Alert from '../presentation/partials/Alert';
 import '../../../assets/css/fancy.css';
 import MenuAccordion from './partials/MenuAccordion';
 import { sortMenu } from '../../utilities/functions';
@@ -86,7 +85,7 @@ class AdminMenus extends Component {
     const { getMeals, getMealsInMenu } = this.props;
     const selectedMeals = [];
 
-    getMealsInMenu(menu, 0).then((res) => {
+    getMealsInMenu(menu, 0, true).then((res) => {
       if (res.response.status === 200) {
         res.response.data.map(item => selectedMeals.push({
           mealId: item.id,
@@ -157,12 +156,10 @@ class AdminMenus extends Component {
     );
   }
 
-  renderAddButtonAndAlert() {
-    const { menus } = this.props;
+  renderAddButton() {
     return (
       <div className="col-12">
         <button onClick={this.toggleShowModal} className="button"><i className="ion-android-add" /> Add Menu</button>
-        {empty(menus.alert) ? '' : <Alert alert={menus.alert} />}
       </div>
     );
   }
@@ -208,12 +205,15 @@ class AdminMenus extends Component {
       <div id="content-body">
         {empty(profile.businessName) ? this.setupProfile :
         <div>
-          {this.renderAddButtonAndAlert()}
+          {this.renderAddButton()}
           {this.renderModal()}
 
           <div className="col-12" style={{ marginTop: 20 }}>
             {this.renderPagination()}
-            {empty(this.state.thisPageMenus) ? <div>You have not created any menu</div> :
+            {empty(this.state.thisPageMenus) ?
+              <div id="no-menu">
+                <h2>You have not created any menu</h2>
+              </div> :
                 this.renderAccordion()
               }
             {this.renderPagination()}

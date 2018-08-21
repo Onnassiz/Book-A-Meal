@@ -1,25 +1,34 @@
 import sequelize from 'sequelize';
-import { meal, user, profile, menu } from '../models';
+import { meal, user, profile, menu, order } from '../models';
 
 const { Op } = sequelize;
 
 const mealViewModelFromArray = (meals) => {
   const viewModel = [];
   meals.forEach((item) => {
-    viewModel.push({
+    const thisModel = {
       id: item.id,
       name: item.name,
       price: item.price,
-      units: 1,
       totalPrice: item.price,
+      units: 1,
       userId: item.userId,
       category: item.category,
       description: item.description,
       createdAt: item.createdAt,
       updatedAt: item.updatedAt,
-      caterer: item.user.profile === null ? null : item.user.profile.businessName,
       imageUrl: item.imageUrl,
-    });
+    };
+    if (item.user.profile !== null) {
+      thisModel.profileId = item.user.profile.id;
+      thisModel.caterer = item.user.profile.businessName;
+    }
+    if (item.mealOrder) {
+      thisModel.originalPrice = item.mealOrder.price;
+      thisModel.units = item.mealOrder.units;
+      thisModel.totalPrice = item.mealOrder.units * item.mealOrder.price;
+    }
+    viewModel.push(thisModel);
   });
   return viewModel;
 };
@@ -92,7 +101,7 @@ class MealsController {
     menu.findOne({
       where: { id },
       include: [{ model: meal }],
-      limit: limit || 10,
+      limit: limit || null,
       offset: offset || 0,
       attributes: ['name', 'date'],
       subQuery: false,
@@ -101,28 +110,45 @@ class MealsController {
     });
   }
 
+  getMealsInOrder(req, res) {
+    const { id } = req.params;
+    const { limit, offset } = req.query;
+
+    order.findOne({
+      where: { id },
+      include: [
+        {
+          model: meal,
+          include: [{ model: user, include: [{ model: profile }] }],
+        },
+      ],
+      limit: limit || null,
+      offset: offset || 0,
+      subQuery: false,
+    }).then((data) => {
+      res.status(200).send(mealViewModelFromArray(data.meals));
+    });
+  }
+
   getMealsInDailyMenu(req, res) {
     const { date, limit, offset } = req.query;
-    meal.count({
-      include: [{ model: menu, where: { date } }],
-    }).then((count) => {
-      meal.findAll({
-        include: [
-          {
-            model: menu,
-            where: { date },
-            attributes: [],
-            order: sequelize.literal('createdAt'),
-          },
-          { model: user, include: [{ model: profile }] },
-        ],
-        limit: limit || 10,
-        offset: offset || 0,
-      }).then((meals) => {
-        res.status(200).send({
-          count,
-          meals: mealViewModelFromArray(meals),
-        });
+    meal.findAndCountAll({
+      distinct: true,
+      include: [
+        {
+          model: menu,
+          where: { date },
+          attributes: [],
+          order: sequelize.literal('createdAt'),
+        },
+        { model: user, include: [{ model: profile }] },
+      ],
+      limit: limit || 10,
+      offset: offset || 0,
+    }).then((meals) => {
+      res.status(200).send({
+        count: meals.count,
+        meals: mealViewModelFromArray(meals.rows),
       });
     });
   }

@@ -15,8 +15,8 @@ const ShowErrors = props => (
 );
 
 ShowErrors.propTypes = {
-  serverErrors: PropTypes.array.isRequired,
-  clientErrors: PropTypes.array.isRequired,
+  serverErrors: PropTypes.object.isRequired,
+  clientErrors: PropTypes.object.isRequired,
 };
 
 export default ShowErrors;

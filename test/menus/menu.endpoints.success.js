@@ -3,8 +3,9 @@ import { expect } from 'chai';
 import { describe, it, after, before, afterEach } from 'mocha';
 import dotenv from 'dotenv';
 
-import { getCatererToken, getCustomerToken } from '../../testHelpers/main';
+import { getCatererToken, getCustomerToken, getCatererId, createAdminProfile } from '../../testHelpers/main';
 import { deleteMenus, getMealIds, insertOneMenu } from '../../testHelpers/menus/index';
+import { deleteProfile } from '../../testHelpers/profile/index';
 
 dotenv.config();
 const baseUrl = 'http://localhost:3009/api/v1';
@@ -14,21 +15,27 @@ let adminToken = '';
 describe('MenuController - Success', () => {
   describe('Post Menu', () => {
     before((done) => {
-      getCatererToken(done).then(((token) => {
-        adminToken = token;
-      }));
+      getCatererId(done, false).then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
+      });
+    });
+
+    after((done) => {
+      deleteMenus(done, false).then(() => {
+        deleteProfile(done);
+      });
+      adminToken = '';
     });
 
     afterEach((done) => {
       deleteMenus(done);
     });
 
-    after((done) => {
-      deleteMenus(done);
-      adminToken = '';
-    });
-
-    it('should return status (201) and an array object of length 5 when creating a new meal', (done) => {
+    it('should return status (201) and an array object of length 5 when creating a new menu', (done) => {
       getMealIds().then((ids) => {
         const formData = {
           meals: ids,
@@ -66,13 +73,19 @@ describe('MenuController - Success', () => {
 
   describe('Put Menu', () => {
     before((done) => {
-      getCatererToken(done).then(((token) => {
-        adminToken = token;
-      }));
+      getCatererId(done, false).then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
+      });
     });
 
     after((done) => {
-      deleteMenus(done);
+      deleteMenus(done, false).then(() => {
+        deleteProfile(done);
+      });
       adminToken = '';
     });
 
@@ -115,21 +128,27 @@ describe('MenuController - Success', () => {
   describe('Get Menu', () => {
     let customerToken = '';
     before((done) => {
-      getCustomerToken(done, false).then(((cToken) => {
-        customerToken = cToken;
-        getCatererToken(done).then(((token) => {
-          adminToken = token;
-        }));
-      }));
+      getCatererId(done, false).then((id) => {
+        createAdminProfile(id).then(() => {
+          getCustomerToken(done, false).then(((cToken) => {
+            customerToken = cToken;
+            getCatererToken(done).then(((token) => {
+              adminToken = token;
+            }));
+          }));
+        });
+      });
+    });
+
+    after((done) => {
+      deleteMenus(done, false).then(() => {
+        deleteProfile(done);
+      });
+      adminToken = '';
     });
 
     afterEach((done) => {
       deleteMenus(done);
-    });
-
-    after((done) => {
-      deleteMenus(done);
-      adminToken = '';
     });
 
     it('should return status (200) and 11 menus on GET api/v1/menus', (done) => {
@@ -260,7 +279,7 @@ describe('MenuController - Success', () => {
           request.get({ url: `${baseUrl}/meals/menu/${postBody.menus[0].id}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
             expect(response.statusCode).to.equal(200);
             expect(typeof JSON.parse(body)).to.equal('object');
-            expect(JSON.parse(body).length).to.equal(10);
+            expect(JSON.parse(body).length).to.equal(20);
             done();
           });
         });

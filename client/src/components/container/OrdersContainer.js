@@ -1,29 +1,30 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { deleteFromCart, updateCart, emptyCart, setCartState } from '../../reducer/cart/actions';
-import { postOrder, updateOrder } from '../../reducer/orders/actions';
-import Cart from '../presentation/Cart';
+import Orders from '../presentation/Orders';
+import { getUserOrders, getMealsInOrder, setUpdatedOrder } from '../../reducer/orders/actions';
+import { addArrayToCart } from '../../reducer/cart/actions';
+
 
 const mapStateToProps = state => ({
   orders: state.orders,
-  cart: state.cart,
   user: state.user,
+  profile: state.profile,
   formState: state.formState,
 });
 
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    postOrder,
-    updateOrder,
-    emptyCart,
-    updateCart,
-    setCartState,
-    deleteFromCart,
+    getUserOrders,
+    getMealsInOrder,
+    setUpdatedOrder,
+    addArrayToCart,
   }, dispatch);
 }
+
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Cart));
+)(Orders));

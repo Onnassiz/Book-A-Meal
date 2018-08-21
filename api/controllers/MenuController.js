@@ -1,6 +1,9 @@
 /* eslint no-param-reassign: 0 */
+import sequelize from 'sequelize';
 import { menu, meal, menuMeal, user, profile } from '../models';
 import { menuViewModelFromArray, getMenusViewModel, buildMenus } from './Util';
+
+const { Op } = sequelize;
 
 class MenusController {
   constructor() {
@@ -77,20 +80,18 @@ class MenusController {
   }
 
   verifyMealsInMenu(req, res, next) {
-    const { meals } = req.body;
+    let { meals } = req.body;
     if (meals) {
-      meals.forEach((item, i) => {
-        meal.findOne({ where: { id: item.mealId } }).then((foundMeal) => {
-          if (!foundMeal) {
-            next();
-          } else if (foundMeal.userId !== req.user.id) {
-            res.status(401).send({
-              message: `This meal, ${foundMeal.name}, was added by another user. You can only use meals created by you.`,
-            });
-          } else if (i === meals.length - 1) {
-            next();
-          }
-        });
+      meals = meals.map(item => item.mealId);
+      meal.findAll({ where: { id: meals, userId: { [Op.ne]: req.user.id } } }).then((data) => {
+        if (data.length) {
+          res.status(401).send({
+            message: `The meal, ${data[0].name}, was not created by you. 
+            You can not create a menu with another user's meal.`,
+          });
+        } else {
+          next();
+        }
       });
     } else {
       next();

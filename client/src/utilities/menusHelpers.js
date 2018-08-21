@@ -5,13 +5,13 @@ import { convertUnixToDateForUpdate, getDateFromMoment } from './functions';
 export function registerMethods($thisBind) {
   const $this = $thisBind;
   $this.onChange = $this.onChange.bind($this);
-  $this.updateUnits = $this.updateUnits.bind($this);
+  // $this.updateUnits = $this.updateUnits.bind($this);
   $this.addToCart = $this.addToCart.bind($this);
   $this.removeFromCart = $this.removeFromCart.bind($this);
   $this.showMore = $this.showMore.bind($this);
   $this.showCalender = $this.showCalender.bind($this);
-  $this.showCart = $this.showCart.bind($this);
-  $this.closeCartPane = $this.closeCartPane.bind($this);
+  // $this.showCart = $this.showCart.bind($this);
+  // $this.closeCartPane = $this.closeCartPane.bind($this);
 }
 
 export function getMenuForDate(number, $this) {

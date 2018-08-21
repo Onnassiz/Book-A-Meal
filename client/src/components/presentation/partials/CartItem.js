@@ -14,9 +14,9 @@ const CartItem = (props) => {
         {empty(props.meal.imageUrl) ? <div /> : <img src={image} alt={props.meal.name} />}
       </div>
       <div className="details">
+        <p>Quantity: <input type="number" min="1" value={props.meal.units} onChange={props.updateUnits} /></p>
         <p>Price: &#8358;{numberWithCommas(props.meal.price)}</p>
         <p>Total Price: &#8358;{numberWithCommas(props.meal.totalPrice)}</p>
-        <p>Quantity: <input type="number" min="1" value={props.meal.units} onChange={props.updateUnits} /></p>
         <p><button onClick={props.deleteFromCart}><i className="ion-trash-b" /> Remove</button></p>
       </div>
       <div style={{ clear: 'both', paddingTop: 1, width: 250 }}>

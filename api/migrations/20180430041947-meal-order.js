@@ -24,24 +24,6 @@ module.exports = {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
-    profileId: {
-      type: Sequelize.UUID,
-      references: {
-        model: 'profiles',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    },
-    menuId: {
-      type: Sequelize.UUID,
-      references: {
-        model: 'menus',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    },
     units: {
       type: Sequelize.INTEGER,
     },

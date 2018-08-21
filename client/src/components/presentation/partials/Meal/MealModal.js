@@ -1,6 +1,7 @@
 /* eslint react/no-unused-state: 0 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 import Modal from 'react-modal';
 import { BasicInput, TextArea } from './../../form/BasicInput';
 import SubmitButton from '../../../presentation/form/SubmitButton';
@@ -51,6 +52,7 @@ class MealModal extends Component {
       if (response.status === 200) {
         const { meal } = response.data;
         this.resetFields();
+        toast(response.data.message);
         updateComponentMeals(meal);
       } else {
         this.setState({ hasServerErrors: true });
@@ -85,6 +87,7 @@ class MealModal extends Component {
       if (response.status === 201) {
         this.resetFields();
         addToMeals(response.data.meal);
+        toast(response.data.message);
       } else {
         this.setState({ hasServerErrors: true });
       }
@@ -181,7 +184,7 @@ class MealModal extends Component {
           <h3>{state.updateMode ? 'Update Meal' : 'Add Meal'}</h3>
           <ShowErrors
             clientErrors={this.state.errors}
-            serverErrors={this.state.hasServerErrors ? meals.errors : []}
+            serverErrors={this.state.hasServerErrors ? meals.errors : {}}
           />
           <form onSubmit={this.handleSubmit}>
             {this.renderBasicInputs()}

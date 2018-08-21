@@ -47,7 +47,7 @@ const renderModalBody = props => (
     </div>
     <div className="box">
       <h3>Setup Business Profile</h3>
-      <ShowErrors clientErrors={props.state.errors} serverErrors={props.profile.errors} />
+      <ShowErrors clientErrors={props.state.errors} serverErrors={props.profile.errors || {}} />
       <form onSubmit={props.handleSubmit}>
         {renderInputFields(props)}
         <TextArea

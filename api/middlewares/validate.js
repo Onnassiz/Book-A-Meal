@@ -24,11 +24,15 @@ export const validateQueryString = [
   checkBodyAndQuery('limit')
     .optional({ nullable: true })
     .isInt()
-    .withMessage('the limit field must be an integer'),
+    .withMessage('the limit field must be an integer')
+    .custom(value => value > 0)
+    .withMessage('the limit field must be a positive integer'),
   checkBodyAndQuery('offset')
     .optional({ nullable: true })
     .isInt()
-    .withMessage('the offset field must be an integer'),
+    .withMessage('the offset field must be an integer')
+    .custom(value => value > -1)
+    .withMessage('the offset field must be a positive integer'),
   checkBodyAndQuery('date')
     .optional({ nullable: true })
     .custom(value => new Date(value).toDateString() !== 'Invalid Date')

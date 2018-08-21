@@ -7,6 +7,8 @@
     "test": "sequelize db:migrate:undo:all --env test&& sequelize db:migrate --env test&& sequelize db:seed:all --env test&& NODE_ENV=test nyc mocha --compilers js:babel-register --recursive ./test/ --exit",
     "start": "nodemon server.js --exec babel-node server.js --presets env --ignore 'client'",
     "lint": "eslint api",
+    "server": "npm start",
+    "starter": "concurrently --kill-others-on-fail \"npm run server\" \"cd client && npm start\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
@@ -31,6 +33,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
+    "concurrently": "^3.6.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "eslint": "^4.19.1",

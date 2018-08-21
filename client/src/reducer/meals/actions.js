@@ -3,14 +3,6 @@ import { setLoading, unsetLoading } from '../formState/actions';
 
 export const SET_MEAL = 'SET_MEAL';
 export const SET_MEAL_SERVER_ERRORS = 'SET_MEAL_SERVER_ERRORS';
-export const SET_MEAL_ALERT = 'SET_MEAL_ALERT';
-
-function setAlert(alert) {
-  return dispatch => dispatch({
-    type: SET_MEAL_ALERT,
-    alert,
-  });
-}
 
 // function setMeal(storeMeals, meal) {
 //   const meals = [meal].concat(storeMeals);
@@ -59,7 +51,6 @@ export function postMeal(meal) {
     return axios.post('api/v1/meals', meal).then((response) => {
       dispatch(unsetLoading());
       // dispatch(setMeal(getState().meals.meals, response.data));
-      dispatch(setAlert('Meal successfully created'));
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());
@@ -75,7 +66,6 @@ export function updateMeal(meal) {
     return axios.put(`api/v1/meals/${meal.id}`, meal).then((response) => {
       dispatch(unsetLoading());
       // dispatch(updateMealState(getState().meals.meals, response.data));
-      dispatch(setAlert('Meal successfully updated'));
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());

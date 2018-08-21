@@ -3,13 +3,14 @@ import { meal } from '../../api/models';
 import { getCatererId } from '../main';
 import getMealsMock from './mock';
 
-const deleteMeals = (done) => {
-  meal.destroy({
-    where: {},
-  }).then(() => {
+const deleteMeals = (done, callDone = true) => meal.destroy({
+  where: {},
+}).then((deleted) => {
+  if (callDone) {
     done();
-  });
-};
+  }
+  return deleted;
+});
 
 const insertMealMock = done => getCatererId(done, false).then((id) => {
   const mocks = getMealsMock(id);
