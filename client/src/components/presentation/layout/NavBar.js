@@ -47,7 +47,7 @@ class NavBar extends Component {
           {user.role === 'caterer' ?
             <li>
               <div className="dropdown">
-                <a className={page === 'caterer' ? 'active' : ''}>{'Caterer\'s Links'}</a>
+                <a className={page === 'caterer' ? 'active' : ''}>{'Caterer\'s Workshop'}<i id="caret" className="material-icons">arrow_drop_down</i></a>
                 <div className="dropdown-container">
                   <div className="dropdown-content">
                     <Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
@@ -70,7 +70,7 @@ class NavBar extends Component {
     const initials = empty(user) ? '' : user.name.match(/\b(\w)/g).join('').toUpperCase();
     return (
       <div className="dropdown">
-        <button className="user-button"><a href="#">{initials}<i id="caret" className="material-icons">arrow_drop_down</i></a></button>
+        <button className="user-button"><a>{initials}<i id="caret" className="material-icons">arrow_drop_down</i></a></button>
         <div className="dropdown-container">
           <div className="dropdown-content">
             <div className="avatar-circle">
@@ -79,8 +79,7 @@ class NavBar extends Component {
               </span>
             </div>
             <hr />
-            <a href="pages/admin/manage-meal.html"><i className="material-icons">settings</i> Profile</a>
-            <a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> Change Password</a>
+            <Link to="/profile"><i className="material-icons">settings</i> Profile</Link>
             <hr />
             <a onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
           </div>
@@ -96,7 +95,7 @@ class NavBar extends Component {
         {!empty(user) ?
           <ul>
             <li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
-            <li><Link to="/orders" className="main">Orders</Link></li>
+            <li className={page === 'orders' ? 'active' : ''}><Link to="/orders" className="main">Orders</Link></li>
             <li>
               {this.renderDropDown()}
             </li>
@@ -140,8 +139,8 @@ class NavBar extends Component {
       <div>
         {empty(user) ?
           <ul className={`responsive ${this.state.show}`}>
-            <li><Link className="main" to="/auth">Sign In</Link></li>
-            <li><Link className="main" to="/auth">Sign Up</Link></li>
+            <li><Link className="main" to="/auth/login">Sign In</Link></li>
+            <li><Link className="main" to="/auth/register">Sign Up</Link></li>
           </ul> :
           <ul className={`responsive ${this.state.show}`}>
             <li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>

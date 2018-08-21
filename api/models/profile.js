@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Profile.associate = (models) => {
     Profile.belongsTo(models.user);
-    Profile.hasMany(models.mealOrder);
   };
   return Profile;
 };

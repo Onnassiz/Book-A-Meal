@@ -6,15 +6,13 @@ import { getMeals } from '../../reducer/meals/actions';
 import { postMenu, getUserMenus, deleteMenuById, updateMenu, getMealsInMenu } from '../../reducer/menus/actions';
 import AdminMenus from '../presentation/AdminMenus';
 
-const mapStateToProps = (state) => {
-  return {
-    menus: state.menus,
-    meals: state.meals,
-    user: state.user,
-    profile: state.profile,
-    formState: state.formState,
-  };
-};
+const mapStateToProps = state => ({
+  menus: state.menus,
+  meals: state.meals,
+  user: state.user,
+  profile: state.profile,
+  formState: state.formState,
+});
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({

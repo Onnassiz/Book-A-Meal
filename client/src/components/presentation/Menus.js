@@ -10,10 +10,9 @@ import Calendar from 'rc-calendar';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import 'rc-calendar/assets/index.css';
 import Alert from '../presentation/partials/Alert';
-import { convertUnixToDateForUpdate, numberWithCommas } from '../../utilities/functions';
+import { convertUnixToDateForUpdate } from '../../utilities/functions';
 import { getMenuForDate, registerMethods, handlePageChange, handleDateChange } from '../../utilities/menusHelpers';
 import Card from './partials/MealCard';
-import CartSidePane from './partials/CartSidePane';
 
 class Menus extends Component {
   constructor(props) {
@@ -21,27 +20,21 @@ class Menus extends Component {
     this.state = {
       mealsCount: 0,
       activePage: 1,
-      totalPrice: 0,
       isPaneOpenLeft: false,
-      isPaneOpenLeftCart: false,
       meals: [],
       date: props.menus.currentDate,
     };
     registerMethods(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    document.title = 'Menus - Just Eat';
     const { getMealsInDailyMenu } = this.props;
     getMealsInDailyMenu(this.state.date).then((response) => {
       if (response.status === 200) {
         this.setState({ mealsCount: response.data.count, meals: response.data.meals });
-        this.calculateTotalPrice();
       }
     });
-  }
-
-  componentDidMount() {
-    document.title = 'Menus - Just Eat';
   }
 
   onChange(e) {
@@ -55,18 +48,6 @@ class Menus extends Component {
     });
   }
 
-  addToCart(meal) {
-    const { addToCart, user } = this.props;
-    this.calculateTotalPrice();
-    addToCart(meal, user.id);
-  }
-
-  removeFromCart(mealId) {
-    const { deleteFromCart, user } = this.props;
-    this.calculateTotalPrice();
-    deleteFromCart(mealId, user.id);
-  }
-
   showMore(meal) {
     const details = document.createElement('div');
     details.className = 'meal-details';
@@ -77,40 +58,18 @@ class Menus extends Component {
     });
   }
 
-  calculateTotalPrice() {
-    const $this = this;
-    setTimeout(() => {
-      const { cart } = this.props;
-      let totalPrice = 0;
-      cart.cart.forEach((meal) => {
-        totalPrice += meal.totalPrice;
-      });
-      $this.setState({ totalPrice });
-    }, 300);
-  }
-
-  updateUnits(e, currentMeal) {
-    const { value } = e.target;
-    if (value > 0) {
-      const { updateCart, user } = this.props;
-      const meal = currentMeal;
-      meal.units = parseInt(value, 10);
-      meal.totalPrice = value * meal.price;
-      updateCart(meal, user.id);
-      this.calculateTotalPrice();
-    }
-  }
-
-  showCart() {
-    this.setState({ isPaneOpenLeftCart: true });
-  }
-
   showCalender() {
     this.setState({ isPaneOpenLeft: true });
   }
 
-  closeCartPane() {
-    this.setState({ isPaneOpenLeftCart: false });
+  addToCart(meal) {
+    const { addToCart, user } = this.props;
+    addToCart(meal, user.id);
+  }
+
+  removeFromCart(mealId) {
+    const { deleteFromCart, user } = this.props;
+    deleteFromCart(mealId, user.id);
   }
 
   renderCalender() {
@@ -150,21 +109,6 @@ class Menus extends Component {
     );
   }
 
-  renderCart() {
-    const { cart } = this.props;
-    return (
-      <CartSidePane
-        isOpen={this.state.isPaneOpenLeftCart}
-        closeCartPane={this.closeCartPane}
-        cart={cart.cart}
-        updateUnits={this.updateUnits}
-        removeFromCart={this.removeFromCart}
-        totalPrice={numberWithCommas(this.state.totalPrice)}
-        emptyCart={this.props.emptyCart}
-      />
-    );
-  }
-
   renderCard(meal) {
     const { cart, menus } = this.props;
     return (
@@ -200,15 +144,11 @@ class Menus extends Component {
     );
   }
 
-  renderFixedControls() {
-    const { cart } = this.props;
+  renderFixedCalender() {
     return (
       <div>
         <div className="control">
           <i className="ion-ios-calendar-outline" onClick={this.showCalender} />
-        </div>
-        <div className={cart.cart.length ? 'dynamic-badge cart-control' : 'cart-control'} data-badge={cart.cart.length}>
-          <i className="ion-ios-cart-outline" onClick={this.showCart} />
         </div>
       </div>
     );
@@ -217,10 +157,10 @@ class Menus extends Component {
   render() {
     return (
       <div id="content-body">
+        {this.renderFixedCalender()}
         {this.renderCalender()}
-        {this.renderCart()}
         {this.renderMeals()}
-        {this.renderFixedControls()}
+        {this.renderCalender()}
         {this.renderPagination()}
       </div>
     );
@@ -230,12 +170,10 @@ class Menus extends Component {
 Menus.propTypes = {
   orders: PropTypes.object.isRequired,
   menus: PropTypes.object.isRequired,
-  cart: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
   getMealsInDailyMenu: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired,
-  emptyCart: PropTypes.func.isRequired,
-  updateCart: PropTypes.func.isRequired,
   deleteFromCart: PropTypes.func.isRequired,
 };
 export default Menus;

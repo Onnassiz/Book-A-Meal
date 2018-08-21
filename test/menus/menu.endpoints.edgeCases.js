@@ -4,29 +4,37 @@ import { describe, it, after, before, afterEach } from 'mocha';
 import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
 
-import { getCatererToken } from '../../testHelpers/main';
+import { getCatererToken, createAdminProfile, getCatererId, getSecondCatererToken } from '../../testHelpers/main';
 import { deleteMenus, getMealIds, insertOneMenu } from '../../testHelpers/menus/index';
+import { deleteProfile } from '../../testHelpers/profile/index';
 
 dotenv.config();
 const baseUrl = 'http://localhost:3009/api/v1';
 
 let adminToken = '';
+let adminToken2 = '';
 
 describe('MenuController - Edge Cases', () => {
   describe('Post Menu', () => {
     before((done) => {
-      getCatererToken(done).then(((token) => {
-        adminToken = token;
-      }));
+      getCatererId().then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
+      });
+    });
+
+    after((done) => {
+      deleteMenus(done, false).then(() => {
+        deleteProfile(done);
+      });
+      adminToken = '';
     });
 
     afterEach((done) => {
       deleteMenus(done);
-    });
-
-    after((done) => {
-      deleteMenus(done);
-      adminToken = '';
     });
 
     it('should return status (401) when request is done without token', (done) => {
@@ -169,7 +177,7 @@ describe('MenuController - Edge Cases', () => {
       });
     });
 
-    it('should return status (400) when daily menu has already been created', (done) => {
+    it('should return status (400) when wrong meal id is used', (done) => {
       getMealIds().then((ids) => {
         const formData = {
           meals: ids.concat([{
@@ -190,13 +198,19 @@ describe('MenuController - Edge Cases', () => {
 
   describe('Put Menu', () => {
     before((done) => {
-      getCatererToken(done).then(((token) => {
-        adminToken = token;
-      }));
+      getCatererId().then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
+      });
     });
 
     after((done) => {
-      deleteMenus(done);
+      deleteMenus(done, false).then(() => {
+        deleteProfile(done);
+      });
       adminToken = '';
     });
 
@@ -316,12 +330,73 @@ describe('MenuController - Edge Cases', () => {
       adminToken = '';
     });
 
-    it('should return status (404) when deleting a meal that does not exist', (done) => {
+    it('should return status (404) when deleting a menu that does not exist', (done) => {
       request.delete({ url: `${baseUrl}/menus/${uuidv4()}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
         expect(response.statusCode).to.equal(404);
         expect(typeof JSON.parse(body)).to.equal('object');
         expect(JSON.parse(body).message).to.equal('Menu not found');
         done();
+      });
+    });
+  });
+
+  describe('Get Menu', () => {
+    before((done) => {
+      getCatererId().then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done, false).then(((token) => {
+            adminToken = token;
+            getSecondCatererToken(done).then((token2) => {
+              adminToken2 = token2;
+            });
+          }));
+        });
+      });
+    });
+
+    afterEach((done) => {
+      deleteMenus(done);
+    });
+
+    after((done) => {
+      deleteMenus(done, false).then(() => {
+        deleteProfile(done);
+      });
+      adminToken = '';
+      adminToken2 = '';
+    });
+
+    it('should return status (404) when fetching a menu that does not exist', (done) => {
+      request.get({ url: `${baseUrl}/menus/${uuidv4()}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
+        expect(response.statusCode).to.equal(404);
+        expect(typeof JSON.parse(body)).to.equal('object');
+        expect(JSON.parse(body).message).to.equal('Menu not found');
+        done();
+      });
+    });
+
+    it('should 401 when using meals created by another admin user in a menu', (done) => {
+      getMealIds().then((ids) => {
+        const formData = {
+          meals: ids,
+          name: 'Fire bons',
+          date: '2018-08-08',
+          extraDays: 4,
+        };
+        const profileFormData = {
+          businessName: 'Your name',
+          mission: 'Your mission',
+          contact: 'Your this is your contact',
+          email: 'benjamin@gmail.com',
+          banner: 'https://youcan.com',
+        };
+        request.post({ url: `${baseUrl}/profile`, headers: { Authorization: `Bearer ${adminToken2}` }, json: profileFormData }, () => {
+          request.post({ url: `${baseUrl}/menus`, headers: { Authorization: `Bearer ${adminToken2}` }, json: formData }, (error, response, body) => {
+            expect(response.statusCode).to.equal(401);
+            expect(typeof body).to.equal('object');
+            done();
+          });
+        });
       });
     });
   });

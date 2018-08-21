@@ -31,19 +31,18 @@ const orderFormConstraints = [
     .custom((value) => {
       let noErrors = true;
       for (let i = 0; i < value.length; i += 1) {
-        if (!value[i].mealId || !value[i].menuId || !value[i].profileId) {
+        if (!value[i].mealId) {
           noErrors = false;
           break;
         }
-        if (!validate(value[i].mealId, 4) ||
-          !validate(value[i].menuId, 4) || !validate(value[i].profileId, 4)) {
+        if (!validate(value[i].mealId, 4)) {
           noErrors = false;
           break;
         }
       }
       return noErrors;
     })
-    .withMessage('at least one of the objects in the array does not have the \'mealId\', \'menuId\', or, \'profileId\' that is a contain a valid UUID4 value.')
+    .withMessage('a meal object must have a meal Id, and the ids must be valid UUID4.')
     .custom((value) => {
       let noErrors = true;
       for (let i = 0; i < value.length; i += 1) {

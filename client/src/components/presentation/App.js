@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import empty from 'is-empty';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../presentation/layout/Footer';
 import NoMatchComponent from '../presentation/partials/NoMatchComponent';
 import UserHomePage from '../pages/UserHomePage';
 import Profile from '../pages/Profile';
+import UserProfile from '../pages/UserProfile';
 import Auth from '../pages/Auth';
 import Meals from '../pages/Meals';
 import AdminMenus from '../pages/AdminMenus';
 import Menus from '../pages/Menus';
-// import Cart from '../pages/Cart';
-
+import Cart from '../pages/Cart';
+import Orders from '../pages/Orders';
 
 class App extends Component {
   constructor(props) {
@@ -41,11 +45,13 @@ class App extends Component {
     }
   }
 
-  componentWillReceiveProps() {
-    const $this = this;
+  componentDidMount() {
     setTimeout(() => {
-      $this.setCart();
-    }, 500);
+      const { cart } = this.props;
+      if (this.state.isSignedIn && !empty(cart.cart)) {
+        this.setCart();
+      }
+    }, 1000);
   }
 
   setCart() {
@@ -74,14 +80,28 @@ class App extends Component {
         <Route exact path="/caterer/meals" component={Meals} />
         <Route exact path="/caterer/menus" component={AdminMenus} />
         <Route exact path="/menus" component={Menus} />
+        <Route exact path="/orders" component={Orders} />
+        <Route exact path="/profile" component={UserProfile} />
         <Route component={NoMatchComponent} />
       </Switch>
     );
     return (
       <div>
         <main>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={3000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnVisibilityChange
+            draggable
+            pauseOnHover
+          />
           {this.state.isSignedIn ? userRoutes : guestRoutes}
         </main>
+        {this.state.isSignedIn ? <Cart /> : ''}
         <Footer />
       </div>
     );

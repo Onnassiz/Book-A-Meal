@@ -4,16 +4,8 @@ import { setLoading, unsetLoading } from '../formState/actions';
 export const SET_MENUS = 'SET_MENUS';
 export const SET_USER_MENUS = 'SET_USER_MENUS';
 export const SET_MENUS_SERVER_ERRORS = 'SET_MENUS_SERVER_ERRORS';
-export const SET_MENUS_ALERT = 'SET_MENUS_ALERT';
 export const SET_MENUS_COUNT = 'SET_MENUS_COUNT';
 export const SET_MENUS_AND_COUNT = 'SET_MENUS_AND_COUNT';
-
-function setAlert(alert) {
-  return dispatch => dispatch({
-    type: SET_MENUS_ALERT,
-    alert,
-  });
-}
 
 export function setMenus(storeMenus, newMenus) {
   const menus = newMenus.concat(storeMenus);
@@ -91,11 +83,12 @@ export function getUserMenus(offset = 0) {
   };
 }
 
-export function getMealsInMenu(data, offset = 0) {
+export function getMealsInMenu(data, offset = 0, getAll = false) {
   const menu = data;
+  const url = getAll ? `${menu.meals}?offset=${offset}` : `${menu.meals}?offset=${offset}&limit=5`;
   return (dispatch) => {
     dispatch(setLoading());
-    return axios.get(`${menu.meals}?offset=${offset}&limit=5`).then((response) => {
+    return axios.get(url).then((response) => {
       dispatch(unsetLoading());
       menu.mealsArray = menu.mealsArray.concat(response.data);
       // dispatch(updateMenuState(getState().menus.menus, menu));
@@ -115,7 +108,6 @@ export function postMenu(menu) {
       dispatch(unsetLoading());
       // dispatch(setMenus(getState().menus.menus, response.data.menus));
       // dispatch(setMenusCount(getState().menus.count + response.data.menus.length));
-      dispatch(setAlert('Menu successfully created'));
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());
@@ -131,7 +123,6 @@ export function deleteMenuById(id) {
     return axios.delete(`api/v1/menus/${id}`).then((response) => {
       dispatch(unsetLoading());
       // dispatch(updateMenuAfterDelete(getState().menus.menus, id));
-      dispatch(setAlert('Meal successfully deleted'));
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());
@@ -147,7 +138,6 @@ export function updateMenu(menu) {
     return axios.put(`api/v1/menus/${menu.id}`, menu)
       .then((response) => {
         // dispatch(updateMenuState(getState().menus.menus, response.data.menu));
-        dispatch(setAlert('Menu successfully updated'));
         dispatch(unsetLoading());
         return response;
       }).catch((error) => {

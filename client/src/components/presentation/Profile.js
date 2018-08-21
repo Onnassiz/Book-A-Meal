@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import empty from 'is-empty';
+import { toast } from 'react-toastify';
 import validateProfile from '../../utilities/validateProfileForm';
-import Alert from '../presentation/partials/Alert';
 import ImageUploader from '../presentation/partials/ImageUploader';
-import ProfileModal from './partials/Profile.js/ProfileModal';
-import ProfileSection from './partials/Profile.js/ProfileSection';
+import ProfileModal from './partials/Profile/ProfileModal';
+import ProfileSection from './partials/Profile/ProfileSection';
 
 class Profile extends Component {
   constructor(props) {
@@ -57,6 +57,7 @@ class Profile extends Component {
     };
     putImage(profile.id, field).then((response) => {
       if (response.status === 200) {
+        toast('Your profile banner has been updated');
         this.toggleDropZone(false);
       }
     });
@@ -86,10 +87,30 @@ class Profile extends Component {
     }
   }
 
+  createProfile(formData) {
+    const { postProfile } = this.props;
+    postProfile(formData).then((response) => {
+      if (response.status === 201) {
+        toast('Your have successfully created a profile');
+        this.handleAddButtonClick(false);
+      }
+    });
+  }
+
+  updateProfile(formData) {
+    const { updateProfile } = this.props;
+    updateProfile(formData).then((response) => {
+      if (response.status === 200) {
+        toast('Your profile has been updated');
+        this.handleAddButtonClick(false);
+      }
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      const { postProfile, updateProfile, profile } = this.props;
+      const { profile } = this.props;
 
       const formData = {
         id: profile.id,
@@ -100,17 +121,9 @@ class Profile extends Component {
       };
 
       if (empty(profile.businessName)) {
-        postProfile(formData).then((response) => {
-          if (response.status === 201) {
-            this.handleAddButtonClick(false);
-          }
-        });
+        this.createProfile(formData);
       } else {
-        updateProfile(formData).then((response) => {
-          if (response.status === 200) {
-            this.handleAddButtonClick(false);
-          }
-        });
+        this.updateProfile(formData);
       }
     }
   }
@@ -126,7 +139,6 @@ class Profile extends Component {
           </button>
           <button disabled={empty(profile.id)} onClick={this.toggleDropZone} className="button">Upload Banner</button>
         </div>
-        {empty(profile.alert) ? '' : <Alert alert={profile.alert} />}
 
         <ProfileModal
           state={this.state}
@@ -137,7 +149,7 @@ class Profile extends Component {
           onChange={this.onChange}
         />
         <div>
-          <ImageUploader putImage={this.putImage} isShowingAddPhoto={this.state.isShowingDropZoneModal} toggleAddPhoto={this.toggleAddPhoto} />
+          <ImageUploader putImage={this.putImage} isShowingAddPhoto={this.state.isShowingDropZoneModal} toggleAddPhoto={this.toggleDropZone} />
         </div>
         <ProfileSection profile={profile} />
       </div>

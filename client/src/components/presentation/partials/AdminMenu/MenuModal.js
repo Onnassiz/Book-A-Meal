@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import Pagination from 'react-js-pagination';
 import empty from 'is-empty';
+import { toast } from 'react-toastify';
 import { addMenuModalStyle } from './../../../../utilities/modalStyles';
 import { Checkbox, BasicInput } from './../../form/BasicInput';
 import ShowErrors from './../../partials/ShowErrors';
@@ -46,7 +47,7 @@ class MenuModal extends Component {
   getMenuExtraDays() {
     const endDate = (new Date(this.state.endDate).getTime() / 1000);
     const startDate = (new Date(this.state.startDate).getTime() / 1000);
-    const unixTimeDiff = -endDate - startDate;
+    const unixTimeDiff = endDate - startDate;
     return unixTimeDiff > 0 ? unixTimeDiff / 86400 : 0;
   }
 
@@ -85,6 +86,7 @@ class MenuModal extends Component {
     const { postMenu, addToViewMenus } = this.props;
     postMenu(formData).then((response) => {
       if (response.status === 201) {
+        toast('Menu(s) successfully created');
         addToViewMenus(response.data.menus);
       }
     });
@@ -94,6 +96,7 @@ class MenuModal extends Component {
     const { updateMenu, updateViewMenus } = this.props;
     updateMenu(formData).then((response) => {
       if (response.status === 200) {
+        toast('Menu successfully updated');
         updateViewMenus(response.data.menu);
       }
     });
@@ -142,6 +145,7 @@ class MenuModal extends Component {
   }
 
   renderDatesAndName() {
+    const today = new Date().toISOString().split('T')[0];
     const { state } = this.props;
     return (
       <div>
@@ -150,7 +154,7 @@ class MenuModal extends Component {
           name="endDate"
           onChange={this.onChange}
           type="date"
-          min={this.state.startDate}
+          min={this.state.startDate === '' ? today : this.state.startDate}
           label="End Date (optional)"
           value={this.state.endDate}
           hasError={this.state.errors.endDate !== undefined}
@@ -207,7 +211,7 @@ class MenuModal extends Component {
         <form onSubmit={e => handleSubmit(e, this)}>
           <div className="box-menu">
             <h3>{this.state.updateMode ? 'Update' : 'Set Daily'} Menu</h3>
-            <ShowErrors clientErrors={this.state.errors} serverErrors={menus.errors} />
+            <ShowErrors clientErrors={this.state.errors} serverErrors={menus.errors || {}} />
             {this.renderStartDate()}
             {this.renderDatesAndName()}
             <div style={{ fontSize: 18, marginTop: 45 }}>

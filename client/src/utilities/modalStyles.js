@@ -45,8 +45,8 @@ export const addProfileImageModalView = {
   content: {
     position: 'absolute',
     top: '15%',
-    left: '35%',
-    right: '35%',
+    left: '33%',
+    right: '33%',
     bottom: '30%',
     padding: '15px',
     border: 'none',

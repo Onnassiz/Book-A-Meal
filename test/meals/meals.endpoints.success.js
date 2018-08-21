@@ -3,8 +3,9 @@ import { expect } from 'chai';
 import { describe, it, after, before, afterEach } from 'mocha';
 import dotenv from 'dotenv';
 
-import { getCatererToken } from '../../testHelpers/main';
+import { getCatererToken, createAdminProfile, getCatererId } from '../../testHelpers/main';
 import { deleteMeals, insertOneMeal, insertMealMock, getMealId } from '../../testHelpers/meals/index';
+import { deleteProfile } from '../../testHelpers/profile/index';
 
 dotenv.config();
 const baseUrl = 'http://localhost:3009/api/v1';
@@ -14,13 +15,19 @@ let adminToken = '';
 describe('MealController - Success', () => {
   describe('Post Meal', () => {
     before((done) => {
-      getCatererToken(done).then(((token) => {
-        adminToken = token;
-      }));
+      getCatererId().then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
+      });
     });
 
     after((done) => {
-      deleteMeals(done);
+      deleteMeals(done, false).then(() => {
+        deleteProfile(done);
+      });
       adminToken = '';
     });
 
@@ -42,17 +49,24 @@ describe('MealController - Success', () => {
 
   describe('Put Meal', () => {
     before((done) => {
-      getCatererToken(done).then((token) => {
-        adminToken = token;
+      getCatererId().then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
       });
+    });
+
+    after((done) => {
+      deleteMeals(done, false).then(() => {
+        deleteProfile(done);
+      });
+      adminToken = '';
     });
 
     afterEach((done) => {
       deleteMeals(done);
-    });
-
-    after(() => {
-      adminToken = '';
     });
 
     it('should return (200) and a meal object when a meal is updated', (done) => {

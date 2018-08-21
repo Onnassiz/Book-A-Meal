@@ -35,7 +35,7 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(jpe?g|png|gif|svg|ttf|eot|svg|woff2?)$/i,
         use: ['url-loader?limit=10000', 'img-loader'],
       },
     ],
@@ -45,7 +45,7 @@ module.exports = {
     dotenv,
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
       },
     }),
     new webpack.optimize.AggressiveMergingPlugin(),

@@ -10,22 +10,18 @@ const deleteProfile = (done) => {
   });
 };
 
-const insertProfile = (done) => {
-  return getCatererId(done, false).then((id) => {
-    const newProfile = profile.build({
-      businessName: 'Your name',
-      mission: 'Your mission',
-      contact: 'Your this is your contact',
-      banner: 'https://banner.com',
-      email: 'benjamin@gmail.com',
-      userId: id,
-    });
-
-    return newProfile.save().then((data) => {
-      return data;
-    });
+const insertProfile = done => getCatererId().then((id) => {
+  const newProfile = profile.build({
+    businessName: 'Your name',
+    mission: 'Your mission',
+    contact: 'Your this is your contact',
+    banner: 'https://banner.com',
+    email: 'benjamin@gmail.com',
+    userId: id,
   });
-};
+
+  return newProfile.save().then(data => data);
+});
 
 export {
   deleteProfile,

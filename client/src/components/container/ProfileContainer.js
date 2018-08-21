@@ -4,13 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { postProfile, getProfile, updateProfile, putImage } from '../../reducer/profile/actions';
 import Profile from '../presentation/Profile';
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    profile: state.profile,
-    formState: state.formState,
-  };
-};
+const mapStateToProps = state => ({
+  user: state.user,
+  profile: state.profile,
+  formState: state.formState,
+});
 
 
 function mapDispatchToProps(dispatch) {

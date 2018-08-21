@@ -18,10 +18,11 @@ const renderThead = () => (
 
 const MealsTable = props => (
   <div>
-    <table className="meals-table">
-      {renderThead()}
-      <tbody>
-        {props.state.meals.map((item, i) =>
+    {props.state.meals.length > 0 ?
+      <table className="meals-table">
+        {renderThead()}
+        <tbody>
+          {props.state.meals.map((item, i) =>
             (
               <MealsTableRow
                 toggleAddPhoto={() => props.toggleAddPhoto(item)}
@@ -32,8 +33,12 @@ const MealsTable = props => (
                 i={i + 1}
               />
             ))}
-      </tbody>
-    </table>
+        </tbody>
+      </table> :
+      <div id="no-menu">
+        <h2>You do not have any meals</h2>
+      </div>
+    }
   </div>
 );
 

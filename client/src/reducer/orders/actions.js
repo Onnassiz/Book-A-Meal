@@ -1,17 +1,10 @@
 import axios from 'axios';
 import { setLoading, unsetLoading } from '../formState/actions';
 
-export const SET_ORDERS = 'SET_ORDERS';
+export const SET_UPDATED_ORDER = 'SET_UPDATED_ORDER';
 export const SET_USER_ORDERS = 'SET_USER_ORDERS';
 export const SET_ORDER_SERVER_ERRORS = 'SET_ORDER_SERVER_ERRORS';
 export const SET_ORDERS_ALERT = 'SET_ORDERS_ALERT';
-
-function setAlert(alert) {
-  return dispatch => dispatch({
-    type: SET_ORDERS_ALERT,
-    alert,
-  });
-}
 
 function setOrdersErrors(errors) {
   return dispatch => dispatch({
@@ -20,21 +13,61 @@ function setOrdersErrors(errors) {
   });
 }
 
-export function setOrders(storeOrders, menu) {
-  const orders = [menu].concat(storeOrders);
+export function setUpdatedOrder(order) {
   return dispatch => dispatch({
-    type: SET_ORDERS,
-    orders,
+    type: SET_UPDATED_ORDER,
+    order,
   });
 }
 
 export function postOrder(order) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(setLoading());
     return axios.post('api/v1/orders', order).then((response) => {
       dispatch(unsetLoading());
-      dispatch(setOrders(getState().orders.orders, response.data.order));
-      dispatch(setAlert('Your order have been placed. Expect delivery shortly.'));
+      return response;
+    }).catch((error) => {
+      dispatch(unsetLoading());
+      dispatch(setOrdersErrors(error.response.data));
+      return error;
+    });
+  };
+}
+
+export function updateOrder(order) {
+  return (dispatch) => {
+    dispatch(setLoading());
+    return axios.put(`api/v1/orders/${order.id}`, order).then((response) => {
+      dispatch(unsetLoading());
+      dispatch(setUpdatedOrder(response.data.order));
+      return response;
+    }).catch((error) => {
+      dispatch(unsetLoading());
+      dispatch(setOrdersErrors(error.response.data));
+      return error;
+    });
+  };
+}
+
+export function getUserOrders(limit = 10, offset = 0) {
+  return (dispatch) => {
+    dispatch(setLoading());
+    return axios.get(`api/v1/orders?limit=${limit}&offset=${offset}`).then((response) => {
+      dispatch(unsetLoading());
+      return response;
+    }).catch((error) => {
+      dispatch(unsetLoading());
+      return error;
+    });
+  };
+}
+
+export function getMealsInOrder(orderId, limit = 5, offset = 0, getAll = false) {
+  return (dispatch) => {
+    dispatch(setLoading());
+    const url = getAll ? `api/v1/meals/order/${orderId}?offset=${offset}` : `api/v1/meals/order/${orderId}?limit=${limit}&offset=${offset}`;
+    return axios.get(url).then((response) => {
+      dispatch(unsetLoading());
       return response;
     }).catch((error) => {
       dispatch(unsetLoading());

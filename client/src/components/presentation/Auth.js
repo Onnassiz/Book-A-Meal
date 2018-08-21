@@ -119,7 +119,7 @@ class Home extends Component {
         <h3>Sign Up</h3>
         <ShowErrors
           clientErrors={this.state.signUpErrors}
-          serverErrors={user.signUpErrors}
+          serverErrors={user.signUpErrors || {}}
         />
         <form onSubmit={this.handleSubmit}>
           <BasicInput name="fullName" type="text" label="Full Name" value={this.state.fullName} onChange={this.onChange} hasError={this.state.signUpErrors.fullName !== undefined} />
@@ -145,7 +145,7 @@ class Home extends Component {
         <h3>Sign In</h3>
         <ShowErrors
           clientErrors={this.state.signInErrors}
-          serverErrors={user.signInErrors}
+          serverErrors={user.signInErrors || {}}
         />
         <form onSubmit={this.handleSignInSubmit}>
           <BasicInput name="signInEmail" type="text" label="Email" value={this.state.signInEmail} onChange={this.onChange} hasError={this.state.signInErrors.signInEmail !== undefined} />
@@ -179,7 +179,7 @@ class Home extends Component {
 Home.propTypes = {
   signInUser: PropTypes.func.isRequired,
   postUser: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   formState: PropTypes.object.isRequired,

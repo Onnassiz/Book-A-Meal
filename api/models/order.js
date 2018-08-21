@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Order.associate = (models) => {
     Order.belongsTo(models.user);
-    Order.belongsToMany(models.meal, { through: 'mealOrders' });
+    Order.belongsToMany(models.meal, { through: models.mealOrder });
   };
   return Order;
 };

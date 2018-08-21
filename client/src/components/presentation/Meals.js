@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import empty from 'is-empty';
 import swal from 'sweetalert';
+import { toast } from 'react-toastify';
 import Pagination from 'react-js-pagination';
-import Alert from '../presentation/partials/Alert';
 import ImageUploader from '../presentation/partials/ImageUploader';
 import MealModal from './partials/Meal/MealModal';
 import MealsTable from './partials/Meal/MealTable';
+
 
 class Meals extends Component {
   constructor(props) {
@@ -54,12 +55,18 @@ class Meals extends Component {
   }
 
   putImage(image) {
+    const { updateMeal } = this.props;
     const field = {
       imageUrl: image,
       id: this.state.currentMeal.id,
     };
 
-    this.updateMeal(field);
+    updateMeal(field).then((response) => {
+      if (response.status === 200) {
+        this.updateComponentMeals(response.data.meal);
+        toast('Image successfully uploaded.');
+      }
+    });
   }
 
   handleAddButtonClick() {
@@ -126,7 +133,10 @@ class Meals extends Component {
   }
 
   toggleAddPhoto(meal) {
-    this.setState({ isShowingAddPhoto: !this.state.isShowingAddPhoto, currentMeal: meal });
+    this.setState({
+      isShowingAddPhoto: !this.state.isShowingAddPhoto,
+      currentMeal: empty(this.state.currentMeal) ? meal : {},
+    });
   }
 
   handlePageChange(pageNumber) {
@@ -216,14 +226,13 @@ class Meals extends Component {
   }
 
   render() {
-    const { profile, meals } = this.props;
+    const { profile } = this.props;
 
     return (
       <div id="content-body">
         {empty(profile.businessName) ? this.renderSetupProfile() :
         <div className="col-12">
           <button onClick={this.handleAddButtonClick} className="button"><i className="ion-android-add" /> Add Meal</button>
-          {empty(meals.alert) ? '' : <Alert alert={meals.alert} />}
           <div>
             {this.renderPagination()}
             {this.renderMealModalAndTable()}

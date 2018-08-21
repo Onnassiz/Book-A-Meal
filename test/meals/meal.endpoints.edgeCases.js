@@ -4,8 +4,9 @@ import { describe, it, after, before, afterEach } from 'mocha';
 import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
 
-import { getCatererToken } from '../../testHelpers/main';
+import { getCatererToken, createAdminProfile, getCatererId, getCustomerToken } from '../../testHelpers/main';
 import { deleteMeals, insertOneMeal } from '../../testHelpers/meals/index';
+import { deleteProfile } from '../../testHelpers/profile/index';
 
 dotenv.config();
 const baseUrl = 'http://localhost:3009/api/v1';
@@ -13,7 +14,7 @@ const baseUrl = 'http://localhost:3009/api/v1';
 let adminToken = '';
 
 describe('MealController - Edge Cases', () => {
-  describe('Post Meal', () => {
+  describe('Verify profile', () => {
     before((done) => {
       getCatererToken(done).then(((token) => {
         adminToken = token;
@@ -22,6 +23,39 @@ describe('MealController - Edge Cases', () => {
 
     after((done) => {
       deleteMeals(done);
+      adminToken = '';
+    });
+
+    it('should return (400) if request is made without a token', (done) => {
+      const formData = {
+        name: 'Fire bons',
+        price: 2000,
+        category: 'Hot meal',
+        imageUrl: 'http://bens.com',
+      };
+      request.post({ url: `${baseUrl}/meals`, headers: { Authorization: `Bearer ${adminToken}` }, json: formData }, (error, response, body) => {
+        expect(response.statusCode).to.equal(400);
+        expect(body.message).to.equal('You must setup a profile before performing this operation');
+        done();
+      });
+    });
+  });
+
+  describe('Post Meal', () => {
+    before((done) => {
+      getCatererId().then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
+      });
+    });
+
+    after((done) => {
+      deleteMeals(done, false).then(() => {
+        deleteProfile(done);
+      });
       adminToken = '';
     });
 
@@ -36,6 +70,22 @@ describe('MealController - Edge Cases', () => {
         expect(response.statusCode).to.equal(401);
         expect(JSON.parse(body).message).to.equal('You are not authorized to consume this resource. Please sign in');
         done();
+      });
+    });
+
+    it('should return (401) if request is made customer token', (done) => {
+      getCustomerToken(done, false).then((customerToken) => {
+        const formData = {
+          name: 'Fire bons',
+          price: 2000,
+          category: 'Hot meal',
+          imageUrl: 'http://bens.com',
+        };
+        request.post({ url: `${baseUrl}/meals`, headers: { Authorization: `Bearer ${customerToken}` }, form: formData }, (error, response, body) => {
+          expect(response.statusCode).to.equal(401);
+          expect(JSON.parse(body).message).to.equal('You are not authorized to consume this resource. Please sign in');
+          done();
+        });
       });
     });
 
@@ -102,17 +152,24 @@ describe('MealController - Edge Cases', () => {
 
   describe('Put Meal', () => {
     before((done) => {
-      getCatererToken(done).then((token) => {
-        adminToken = token;
+      getCatererId().then((id) => {
+        createAdminProfile(id).then(() => {
+          getCatererToken(done).then(((token) => {
+            adminToken = token;
+          }));
+        });
       });
+    });
+
+    after((done) => {
+      deleteMeals(done, false).then(() => {
+        deleteProfile(done);
+      });
+      adminToken = '';
     });
 
     afterEach((done) => {
       deleteMeals(done);
-    });
-
-    after(() => {
-      adminToken = '';
     });
 
     it('should return (404) when updating a meal with wrong uuid', (done) => {
@@ -177,6 +234,29 @@ describe('MealController - Edge Cases', () => {
         request.delete({ url: `${baseUrl}/meals/wrong`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
           expect(response.statusCode).to.equal(422);
           expect(JSON.parse(body).id).to.equal('wrong id format in params. id must be a valid UUID4');
+          done();
+        });
+      });
+    });
+  });
+
+  describe('Get Meal', () => {
+    before((done) => {
+      getCatererToken(done).then(((token) => {
+        adminToken = token;
+      }));
+    });
+
+    after((done) => {
+      deleteMeals(done);
+      adminToken = '';
+    });
+
+    it('should return (404) when fetching a meal with the wrong meal Id', (done) => {
+      insertOneMeal().then(() => {
+        request.get({ url: `${baseUrl}/meals/${uuidv4()}`, headers: { Authorization: `Bearer ${adminToken}` } }, (error, response, body) => {
+          expect(response.statusCode).to.equal(404);
+          expect(JSON.parse(body).message).to.equal('Meal not found');
           done();
         });
       });

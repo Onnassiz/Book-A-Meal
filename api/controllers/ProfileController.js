@@ -6,7 +6,17 @@ class ProfileController {
       if (prf) {
         res.status(200).send(prf);
       } else {
-        res.status(404).send('Profile not found');
+        res.status(404).send({ message: 'Profile not found' });
+      }
+    });
+  }
+
+  verifyProfile(req, res, next) {
+    profile.findOne({ where: { userId: req.user.id } }).then((prf) => {
+      if (prf) {
+        next();
+      } else {
+        res.status(400).send({ message: 'You must setup a profile before performing this operation' });
       }
     });
   }
@@ -24,8 +34,6 @@ class ProfileController {
           banner: req.body.banner,
           userId: req.user.id,
         });
-
-
         newProfile.save().then((prf) => {
           res.status(201).send(prf);
         });
@@ -50,7 +58,7 @@ class ProfileController {
       if (prf) {
         res.status(200).send(prf);
       } else {
-        res.status(404).send('Profile not found');
+        res.status(404).send({ message: 'Profile not found' });
       }
     });
   }

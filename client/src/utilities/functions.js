@@ -105,3 +105,15 @@ export function sortMenu(c, d) {
   return 0;
 }
 
+export function getDateTime(dateTime) {
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dateAndTime = new Date(Date.parse(dateTime));
+  const getDay = days[dateAndTime.getDay()];
+  const date = addZ(dateAndTime.getDate());
+  const getMonth = months[dateAndTime.getMonth()];
+  const getYear = dateAndTime.getFullYear();
+  const timeCreated = `${addZ(dateAndTime.getHours() + 1)}:${addZ(dateAndTime.getMinutes())}`;
+  return (`${getDay} ${getMonth} ${date} ${getYear}, ${timeCreated}`);
+}
+

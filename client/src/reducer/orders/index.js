@@ -1,13 +1,13 @@
-import { SET_ORDERS, SET_ORDER_SERVER_ERRORS, SET_ORDERS_ALERT } from './actions';
+import { SET_UPDATED_ORDER, SET_ORDER_SERVER_ERRORS, SET_ORDERS_ALERT } from './actions';
 
 const initialState = {
-  orders: [],
+  updatedOrder: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_ORDERS:
-      return { ...state, orders: action.orders };
+    case SET_UPDATED_ORDER:
+      return { ...state, updatedOrder: action.order };
     case SET_ORDER_SERVER_ERRORS:
       return { ...state, errors: action.errors };
     case SET_ORDERS_ALERT:
