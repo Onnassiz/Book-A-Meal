@@ -1,8 +1,8 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getMealsInDailyMenu } from '../../reducer/menus/actions';
-import { deleteFromCart, addToCart, updateCart, emptyCart } from '../../reducer/cart/actions';
+import { getMealsInDailyMenu } from '../../reducer/menus/actionsDispatcher';
+import { deleteFromCart, addToCart, updateCart, emptyCart } from '../../reducer/cart/actionsDispatcher';
 
 import Menus from '../presentation/Menus';
 
