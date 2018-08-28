@@ -7,6 +7,7 @@
     "test": "sequelize db:migrate:undo:all --env test&& sequelize db:migrate --env test&& sequelize db:seed:all --env test&& NODE_ENV=test nyc mocha --compilers js:babel-register --recursive ./test/ --exit",
     "start": "nodemon server.js --exec babel-node server.js --presets env --ignore 'client'",
     "lint": "eslint api",
+    "tests": "concurrently --kill-others-on-fail \"npm run test\" \"cd client && npm run test\"",
     "server": "npm start",
     "starter": "concurrently --kill-others-on-fail \"npm run server\" \"cd client && npm start\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

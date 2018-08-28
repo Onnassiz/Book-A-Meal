@@ -1,8 +1,6 @@
 import { SET_MEAL_SERVER_ERRORS } from './actions';
 
-const initialState = {
-  meals: [],
-};
+const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
