@@ -4,7 +4,8 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { addProfileImageModalView } from './../../../utilities/modalStyles';
-import loaderImage from '../../../../assets/images/file-loader.gif';
+
+const loaderImage = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468238/file-loader_msna34.gif';
 
 const dropZoneStyle = {
   width: 350,

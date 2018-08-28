@@ -1,9 +1,10 @@
 /* eslint no-tabs: 0 */
 import React, { Component } from 'react';
 import ImageSlider from './partials/ImageSlider';
-import homeImage1 from '../../../assets/images/home_1.jpg';
-import homeImage2 from '../../../assets/images/home_2.jpg';
-import homeImage3 from '../../../assets/images/home_3.jpg';
+
+const homeImage1 = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468207/home_1_pysv3e.jpg';
+const homeImage2 = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468208/home_2_fw02ma.jpg';
+const homeImage3 = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468208/home_3_b882pj.jpg';
 
 
 class UserHomePage extends Component {

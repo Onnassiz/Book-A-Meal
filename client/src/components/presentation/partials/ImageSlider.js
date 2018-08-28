@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
-import image1 from '../../../../assets/images/homeSlider/image_1.jpg';
-import image2 from '../../../../assets/images/homeSlider/image_2.jpg';
-import image3 from '../../../../assets/images/homeSlider/image_3.jpg';
-import image4 from '../../../../assets/images/homeSlider/image_4.jpg';
-import image5 from '../../../../assets/images/homeSlider/image_5.jpg';
+const image1 = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468243/image_1_owy23d.jpg';
+const image2 = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468242/image_2_dmtjye.jpg';
+const image3 = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468242/image_3_qiux12.jpg';
+const image4 = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468243/image_4_ogto3u.jpg';
+const image5 = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468244/image_5_ln3fgi.jpg';
 
 class ImageSlider extends Component {
   constructor(props) {

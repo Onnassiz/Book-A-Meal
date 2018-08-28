@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import loaderImage from '../../../../assets/images/loader.gif';
+
+const loaderImage = 'https://res.cloudinary.com/onnassiz/image/upload/v1535468238/loader_awatao.gif';
 
 const SubmitButton = props => (
   <div id="submit">
