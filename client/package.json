@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config './webpack.config.js' --mode development --hot",
-    "test": "jest --coverage",
+    "test": "jest --coverage --collectCoverageFrom=src/**/*.js",
     "test:watch": "jest --watch",
     "client": "npm start",
     "server": "nodemon server.js --exec babel-node server.js --presets env",
@@ -52,6 +52,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "coveralls": "^3.0.2",
     "css-loader": "^1.0.0",
     "dotenv": "^5.0.1",
     "dotenv-webpack": "^1.5.5",

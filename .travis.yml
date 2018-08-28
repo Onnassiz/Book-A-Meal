@@ -12,6 +12,9 @@ before_script:
   - psql -c "CREATE USER ben WITH PASSWORD 'ben';" -U postgres
 script:
   - npm run test
+  - cd client
+  - npm install
+  - npm run test
 
 after_success: npm run coverage
  
