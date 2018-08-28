@@ -127,9 +127,9 @@ class Home extends Component {
           <BasicInput name="password" type="password" label="Password" value={this.state.password} onChange={this.onChange} hasError={this.state.signUpErrors.password !== undefined} />
           <BasicInput name="confirm_password" type="password" label="Confirm Password" value={this.state.confirm_password} onChange={this.onChange} hasError={this.state.signUpErrors.confirm_password !== undefined} />
           <div id="signUpAsAdmin">
-            <label className="checkbox" htmlFor="signUpAsAdmin">
-              Sign up as Caterer
-              <input id="signUpAsAdmin" value={this.state.checked ? 'customer' : 'caterer'} onChange={this.onCheckBoxChange} checked={this.state.checked} type="checkbox" /><span className="check" />
+            <label className="checkbox" htmlFor="signUp">
+            Sign up as Caterer
+              <input id="signUp" value={this.state.checked ? 'customer' : 'caterer'} onChange={this.onCheckBoxChange} checked={this.state.checked} type="checkbox" /><span className="check" />
             </label>
           </div>
           <SubmitButton value="Sign Up" isLoading={formState.isLoading && this.state.isSignIn} />
