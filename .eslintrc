@@ -1,6 +1,7 @@
 {
 	"extends": "airbnb",
 	"rules": {
+		"import/no-extraneous-dependencies": ["off"],
 		"class-methods-use-this": ["off"],
 		"import/extensions": ["off"],
 		"consistent-return": ["off"],
@@ -13,6 +14,13 @@
 	"globals": {
     "document": true,
 		"window": true,
+		"describe": true,
+		"it": true,
+		"should": true,
+		"before": true,
+		"expect": true,
+		"beforeEach": true,
+		"test": true,
 		"localStorage": true,
 		"FormData": true
   }

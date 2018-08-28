@@ -1,8 +1,8 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { deleteFromCart, updateCart, emptyCart, setCartState } from '../../reducer/cart/actions';
-import { postOrder, updateOrder } from '../../reducer/orders/actions';
+import { deleteFromCart, updateCart, emptyCart, setCartState } from '../../reducer/cart/actionsDispatcher';
+import { postOrder, updateOrder } from '../../reducer/orders/actionsDispatcher';
 import Cart from '../presentation/Cart';
 
 const mapStateToProps = state => ({

@@ -9,7 +9,6 @@ import moment from 'moment';
 import Calendar from 'rc-calendar';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import 'rc-calendar/assets/index.css';
-import Alert from '../presentation/partials/Alert';
 import { convertUnixToDateForUpdate } from '../../utilities/functions';
 import { getMenuForDate, registerMethods, handlePageChange, handleDateChange } from '../../utilities/menusHelpers';
 import Card from './partials/MealCard';
@@ -125,10 +124,8 @@ class Menus extends Component {
   }
 
   renderMeals() {
-    const { orders } = this.props;
     return (
       <div className="col-12">
-        {empty(orders.alert) ? '' : <Alert alert={orders.alert} />}
         <div className="dateInput">
           <a onClick={() => getMenuForDate(-1, this)} title="back"><i className="ion-ios-skipbackward" /> Previous</a>
           <a onClick={() => getMenuForDate(1, this)} title="next day">Next Day <i className="ion-ios-skipforward" /></a>

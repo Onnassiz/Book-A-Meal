@@ -63,7 +63,11 @@ class AdminMenus extends Component {
   toggleShowModal() {
     const { getMeals } = this.props;
     if (this.state.isShowingModal) {
-      this.setState({ isShowingModal: !this.state.isShowingModal, updateMode: false });
+      this.setState({
+        isShowingModal: !this.state.isShowingModal,
+        updateMode: false,
+        mealsActivePage: 1,
+      });
     } else {
       getMeals(9, 0).then((response) => {
         if (response.status === 200) {

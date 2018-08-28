@@ -2,8 +2,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Orders from '../presentation/Orders';
-import { getUserOrders, getMealsInOrder, setUpdatedOrder } from '../../reducer/orders/actions';
-import { addArrayToCart } from '../../reducer/cart/actions';
+import { getUserOrders, getMealsInOrder, setUpdatedOrder } from '../../reducer/orders/actionsDispatcher';
+import { addArrayToCart } from '../../reducer/cart/actionsDispatcher';
 
 
 const mapStateToProps = state => ({
