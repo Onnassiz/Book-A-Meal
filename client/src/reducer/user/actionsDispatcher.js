@@ -20,7 +20,8 @@ const processSignIn = (data) => {
 
 export const postUser = user => (dispatch) => {
   dispatch(setLoading());
-  axios.post('api/v1/auth/signUp', user).then((response) => {
+  return axios.post('api/v1/auth/signUp', user).then((response) => {
+    dispatch(unsetLoading());
     processSignIn(response.data);
   }).catch((error) => {
     dispatch(setSignUpErrors(error.response.data));
@@ -31,10 +32,11 @@ export const postUser = user => (dispatch) => {
 
 export const signInUser = user => (dispatch) => {
   dispatch(setLoading());
-  axios.post('api/v1/auth/signIn', user).then((response) => {
+  return axios.post('api/v1/auth/signIn', user).then((response) => {
+    dispatch(unsetLoading());
     processSignIn(response.data);
   }).catch((error) => {
-    dispatch(unsetLoading());
     dispatch(setSignInErrors(error.response.data));
+    dispatch(unsetLoading());
   });
 };

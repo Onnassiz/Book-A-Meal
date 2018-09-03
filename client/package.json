@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config './webpack.config.js' --mode development --hot",
-    "test": "jest --coverage --collectCoverageFrom=src/**/*.js",
+    "test": "jest --coverage",
     "test:watch": "jest --watch",
     "client": "npm start",
     "server": "nodemon server.js --exec babel-node server.js --presets env",
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Onnassiz/Book-A-Meal#readme",
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.2.0",
     "babel-loader": "^7.1.4",

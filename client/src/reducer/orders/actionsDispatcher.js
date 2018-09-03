@@ -41,13 +41,14 @@ export const getUserOrders = (limit = 10, offset = 0) => (dispatch) => {
     return response;
   }).catch((error) => {
     dispatch(unsetLoading());
+    dispatch(setOrdersErrors(error.response.data));
     return error;
   });
 };
 
 export const getMealsInOrder = (orderId, limit = 5, offset = 0, getAll = false) => (dispatch) => {
   dispatch(setLoading());
-  const url = getAll ? `api/v1/meals/order/${orderId}?offset=${offset}` : `api/v1/meals/order/${orderId}?limit=${limit}&offset=${offset}`;
+  const url = getAll ? `api/v1/meals/order/${orderId}?offset=${offset}` : `api/v1/meals/order/${orderId}?offset=${offset}&limit=${limit}`;
   return axios.get(url).then((response) => {
     dispatch(unsetLoading());
     return response;
