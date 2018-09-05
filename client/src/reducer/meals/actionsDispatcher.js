@@ -2,8 +2,6 @@ import axios from 'axios';
 import { setLoading, unsetLoading } from '../formState/actionsDispatcher';
 import { setMealErrorsAction } from './actions';
 
-export const SET_MEAL_SERVER_ERRORS = 'SET_MEAL_SERVER_ERRORS';
-
 const setMealErrors = errors => dispatch => dispatch(setMealErrorsAction(errors));
 
 export const postMeal = meal => (dispatch) => {

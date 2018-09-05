@@ -14,7 +14,9 @@
 	"globals": {
     "document": true,
 		"window": true,
+		"jest": true,
 		"describe": true,
+		"afterEach": true,
 		"it": true,
 		"should": true,
 		"before": true,

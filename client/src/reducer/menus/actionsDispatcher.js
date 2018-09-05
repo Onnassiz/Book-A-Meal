@@ -65,8 +65,8 @@ export const updateMenu = menu => (dispatch) => {
       dispatch(unsetLoading());
       return response;
     }).catch((error) => {
-      dispatch(setMenusErrors(error.response.data));
       dispatch(unsetLoading());
+      dispatch(setMenusErrors(error.response.data));
       return error;
     });
 };
