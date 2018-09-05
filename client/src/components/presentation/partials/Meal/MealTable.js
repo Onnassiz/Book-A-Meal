@@ -25,9 +25,9 @@ const MealsTable = props => (
           {props.state.meals.map((item, i) =>
             (
               <MealsTableRow
-                toggleAddPhoto={() => props.toggleAddPhoto(item)}
-                toggleShowDeleteModal={() => props.toggleShowDeleteModal(item)}
-                toggleUpdateModal={() => props.toggleUpdateModal(item)}
+                toggleAddPhoto={props.toggleAddPhoto}
+                toggleShowDeleteModal={props.toggleShowDeleteModal}
+                toggleUpdateModal={props.toggleUpdateModal}
                 item={item}
                 key={item.id}
                 i={i + 1}
@@ -44,6 +44,9 @@ const MealsTable = props => (
 
 MealsTable.propTypes = {
   state: PropTypes.object.isRequired,
+  toggleAddPhoto: PropTypes.func.isRequired,
+  toggleUpdateModal: PropTypes.func.isRequired,
+  toggleShowDeleteModal: PropTypes.func.isRequired,
 };
 
 export default MealsTable;

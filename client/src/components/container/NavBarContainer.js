@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import NavBar from '../presentation/layout/NavBar';
 
 const mapStateToProps = state => ({
-  formState: state.formState,
-  cart: state.cart,
   user: state.user,
 });
 

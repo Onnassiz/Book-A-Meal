@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MealsTableRow /> Should it should call function when update modal is clicked 1`] = `
+<tr>
+  <td
+    style={
+      Object {
+        "width": 10,
+      }
+    }
+  >
+    1
+  </td>
+  <td>
+    Malvaceae
+  </td>
+  <td>
+    ₦
+    400
+  </td>
+  <td>
+    dolor sit
+  </td>
+  <td>
+    undefined, undefined NaN, NaN NaN:NaN
+  </td>
+  <td>
+    <span>
+      <a
+        className="tooltips"
+      >
+        <i
+          className="material-icons"
+        >
+          info_outline
+        </i>
+        <div
+          className="arrowBox"
+        >
+          <div>
+            <p>
+              <img
+                alt="banner"
+                src="http://thisImage.jpeg"
+                style={
+                  Object {
+                    "borderRadius": 4,
+                    "maxHeight": "600px",
+                  }
+                }
+              />
+            </p>
+            Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.
+          </div>
+        </div>
+      </a>
+    </span>
+  </td>
+  <td>
+    <span>
+      <span>
+        <a
+          id="updateModal"
+          onClick={[Function]}
+          title="edit"
+        >
+          <i
+            className="material-icons"
+          >
+            mode_edit
+          </i>
+        </a>
+      </span>
+      <span>
+        <a
+          id="addPhotoModal"
+          onClick={[Function]}
+          title="add photo"
+        >
+          <i
+            className="material-icons"
+          >
+            add_a_photo
+          </i>
+        </a>
+      </span>
+      <span>
+        <a
+          id="deleteModal"
+          onClick={[Function]}
+          title="delete"
+        >
+          <i
+            className="material-icons"
+          >
+            delete_sweep
+          </i>
+        </a>
+      </span>
+    </span>
+  </td>
+</tr>
+`;
+
+exports[`<MealsTableRow /> Should render table row component successfully 1`] = `
+<tr>
+  <td
+    style={
+      Object {
+        "width": 10,
+      }
+    }
+  >
+    1
+  </td>
+  <td>
+    Malvaceae
+  </td>
+  <td>
+    ₦
+    400
+  </td>
+  <td>
+    dolor sit
+  </td>
+  <td>
+    undefined, undefined NaN, NaN NaN:NaN
+  </td>
+  <td>
+    <span>
+      <a
+        className="tooltips"
+      >
+        <i
+          className="material-icons"
+        >
+          info_outline
+        </i>
+        <div
+          className="arrowBox"
+        >
+          <div>
+            <p>
+              <img
+                alt="banner"
+                src="http://thisImage.jpeg"
+                style={
+                  Object {
+                    "borderRadius": 4,
+                    "maxHeight": "600px",
+                  }
+                }
+              />
+            </p>
+            Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.
+          </div>
+        </div>
+      </a>
+    </span>
+  </td>
+  <td>
+    <span>
+      <span>
+        <a
+          id="updateModal"
+          onClick={[Function]}
+          title="edit"
+        >
+          <i
+            className="material-icons"
+          >
+            mode_edit
+          </i>
+        </a>
+      </span>
+      <span>
+        <a
+          id="addPhotoModal"
+          onClick={[Function]}
+          title="add photo"
+        >
+          <i
+            className="material-icons"
+          >
+            add_a_photo
+          </i>
+        </a>
+      </span>
+      <span>
+        <a
+          id="deleteModal"
+          onClick={[Function]}
+          title="delete"
+        >
+          <i
+            className="material-icons"
+          >
+            delete_sweep
+          </i>
+        </a>
+      </span>
+    </span>
+  </td>
+</tr>
+`;

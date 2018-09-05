@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ShowErrors /> Should render error component successfully 1`] = `
+<div
+  className="show-errors"
+>
+  <ul>
+    <li
+      key="email"
+    >
+      Email is invalid
+    </li>
+    <li
+      key="message"
+    >
+      Request failed
+    </li>
+  </ul>
+</div>
+`;

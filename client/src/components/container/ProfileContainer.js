@@ -4,14 +4,14 @@ import { withRouter } from 'react-router-dom';
 import { postProfile, getProfile, updateProfile, putImage } from '../../reducer/profile/actionsDispatcher';
 import Profile from '../presentation/Profile';
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   user: state.user,
   profile: state.profile,
   formState: state.formState,
 });
 
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     updateProfile,
     postProfile,

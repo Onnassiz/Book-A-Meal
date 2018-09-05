@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MenuAccordion /> Should render MenuAccordion  component successfully 1`] = `
+<AccordionItemWrapper
+  accordionStore={
+    AccordionContainer {
+      "_listeners": Array [],
+      "state": Object {
+        "accordion": true,
+        "items": Array [],
+        "onChange": [Function],
+      },
+    }
+  }
+  className="accordion__item"
+  disabled={false}
+  expanded={false}
+  hideBodyClassName=""
+>
+  <AccordionItemTitleWrapper
+    className="accordion__title"
+    hideBodyClassName=""
+  >
+    <h3
+      className="u-position-relative"
+    >
+      Tue Sep 11 2018
+      <div
+        className="accordion__arrow"
+        role="presentation"
+      />
+    </h3>
+    <div
+      style={
+        Object {
+          "fontSize": 13,
+          "marginTop": 5,
+        }
+      }
+    >
+      8
+       meals
+    </div>
+  </AccordionItemTitleWrapper>
+  <AccordionItemBodyWrapper
+    className="accordion__body"
+    hideBodyClassName="accordion__body--hidden"
+  >
+    <div
+      className="show-meals"
+    >
+      <button
+        className="button"
+        id="showMeals"
+        onClick={[Function]}
+      >
+        <i
+          className="ion-ios-eye"
+        />
+         Show Meals
+      </button>
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "textAlign": "center",
+          }
+        }
+      >
+        <button
+          className="button-error"
+          onClick={[MockFunction]}
+          style={
+            Object {
+              "width": 110,
+            }
+          }
+        >
+          <i
+            className="ion-ios-trash"
+          />
+           Delete
+        </button>
+        <button
+          className="button"
+          onClick={[MockFunction]}
+          style={
+            Object {
+              "width": 110,
+            }
+          }
+        >
+          <i
+            className="ion-ios-compose-outline"
+          />
+           Edit
+        </button>
+      </div>
+    </div>
+  </AccordionItemBodyWrapper>
+</AccordionItemWrapper>
+`;

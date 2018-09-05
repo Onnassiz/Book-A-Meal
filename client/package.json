@@ -16,7 +16,11 @@
     "setupTestFrameworkScriptFile": "<rootDir>/_tests_/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
       "<rootDir>/__tests__/setup/"
-    ]
+    ],
+    "testURL": "http://localhost/login",
+    "moduleNameMapper": {
+      "^.+\\.(css|less)$": "<rootDir>/_tests_/setup/CSSStub.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -46,6 +50,7 @@
     "l": "^0.6.0",
     "react-addons-test-utils": "^15.6.2",
     "redux-mock-store": "^1.5.3",
+    "uuid": "^3.3.2",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4"

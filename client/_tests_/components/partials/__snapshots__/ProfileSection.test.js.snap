@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileSection /> Should render ProfileSection  component successfully 1`] = `
+<div
+  className="col-12"
+>
+  <div
+    id="detail"
+  >
+    <h2>
+      Business Name
+    </h2>
+    <span>
+      The blast
+    </span>
+  </div>
+  <div
+    id="detail"
+  >
+    <h2>
+      Mission
+    </h2>
+    <span>
+      Feeding the world
+    </span>
+  </div>
+  <div
+    id="detail"
+  >
+    <h2>
+      Business Email
+    </h2>
+    <span>
+      onnassiz@andela.com
+    </span>
+  </div>
+  <div
+    id="detail"
+  >
+    <h2>
+      Contact
+    </h2>
+    <span>
+      12 Benny Road Lagos
+    </span>
+  </div>
+  <div
+    id="detail"
+  >
+    <h2>
+      Banner
+    </h2>
+    <span>
+      <img
+        alt="banner"
+        src="See me coming"
+        style={
+          Object {
+            "borderRadius": 4,
+            "maxHeight": "600px",
+          }
+        }
+      />
+    </span>
+  </div>
+</div>
+`;
