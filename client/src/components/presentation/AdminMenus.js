@@ -19,6 +19,7 @@ class AdminMenus extends Component {
       activePage: 1,
       meals: [],
       mealsCount: 0,
+      updateMenu: false,
       mealsActivePage: 1,
       selectedMeals: [],
       currentMenu: {},
@@ -69,34 +70,35 @@ class AdminMenus extends Component {
         mealsActivePage: 1,
       });
     } else {
-      getMeals(9, 0).then((response) => {
+      return getMeals(9, 0).then((response) => {
         if (response.status === 200) {
           this.setState({
             meals: response.data.meals,
             mealsCount: response.data.count,
             isShowingModal: !this.state.isShowingModal,
           });
+          return response;
         }
       });
     }
   }
 
   handlePageChange(number) {
-    handlePageChange(number, true, this);
+    return handlePageChange(number, true, this);
   }
 
   toggleUpdateModal(menu) {
     const { getMeals, getMealsInMenu } = this.props;
     const selectedMeals = [];
 
-    getMealsInMenu(menu, 0, true).then((res) => {
+    return getMealsInMenu(menu, 0, true).then((res) => {
       if (res.response.status === 200) {
         res.response.data.map(item => selectedMeals.push({
           mealId: item.id,
           price: item.price,
         }));
 
-        getMeals(9, 0).then((response) => {
+        return getMeals(9, 0).then((response) => {
           if (response.status === 200) {
             this.setState({
               meals: response.data.meals,
@@ -106,6 +108,7 @@ class AdminMenus extends Component {
               updateMode: true,
               currentMenu: menu,
             });
+            return response;
           }
         });
       }
@@ -155,15 +158,19 @@ class AdminMenus extends Component {
           You need a business profile before managing menus.
           Create a business profile first by clicking the link below.
         </h2>
-        <button className="button" onClick={this.pushToProfile}>Setup Profile</button>
+        <button id="setupProfile" className="button" onClick={this.pushToProfile}>Setup Profile</button>
       </div>
     );
+  }
+
+  toggleShowDeleteModal(menu) {
+    toggleShowDeleteModal(menu, this);
   }
 
   renderAddButton() {
     return (
       <div className="col-12">
-        <button onClick={this.toggleShowModal} className="button"><i className="ion-android-add" /> Add Menu</button>
+        <button id="showModal" onClick={this.toggleShowModal} className="button"><i className="ion-android-add" /> Add Menu</button>
       </div>
     );
   }
@@ -195,7 +202,7 @@ class AdminMenus extends Component {
             showOpsButtons={showOpsButtons(menu.date)}
             getMealsInMenu={this.props.getMealsInMenu}
             toggleUpdateModal={() => this.toggleUpdateModal(menu)}
-            toggleShowDeleteModal={() => toggleShowDeleteModal(menu, this)}
+            toggleShowDeleteModal={() => this.toggleShowDeleteModal(menu)}
             menu={menu}
             key={menu.id}
           />))}
@@ -207,7 +214,7 @@ class AdminMenus extends Component {
     const { profile } = this.props;
     return (
       <div id="content-body">
-        {empty(profile.businessName) ? this.setupProfile :
+        {empty(profile.businessName) ? this.renderSetupProfile() :
         <div>
           {this.renderAddButton()}
           {this.renderModal()}

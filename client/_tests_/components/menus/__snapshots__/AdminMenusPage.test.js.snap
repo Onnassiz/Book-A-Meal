@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AdminMenus /> Should render Admin Menu page successfully 1`] = `
+<div>
+  <Connect(NavBar)
+    page="caterer"
+  />
+  <withRouter(Connect(AdminMenus)) />
+</div>
+`;

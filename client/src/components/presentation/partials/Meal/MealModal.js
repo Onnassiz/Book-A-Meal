@@ -35,12 +35,13 @@ class MealModal extends Component {
   afterOpenModal() {
     const { state } = this.props;
     this.resetFields();
+
     if (state.updateMode) {
       this.setState({
         id: state.currentMeal.id,
         name: state.currentMeal.name,
         category: state.currentMeal.category,
-        price: state.currentMeal.price,
+        price: state.currentMeal.price.toString(),
         description: state.currentMeal.description,
       });
     }
@@ -48,14 +49,13 @@ class MealModal extends Component {
 
   updateMeal(formData) {
     const { updateMeal, updateComponentMeals } = this.props;
-    updateMeal(formData).then((response) => {
+    return updateMeal(formData).then((response) => {
       if (response.status === 200) {
         const { meal } = response.data;
         this.resetFields();
         toast(response.data.message);
         updateComponentMeals(meal);
-      } else {
-        this.setState({ hasServerErrors: true });
+        return response;
       }
     });
   }
@@ -83,13 +83,12 @@ class MealModal extends Component {
 
   addMeal(formData) {
     const { postMeal, addToMeals } = this.props;
-    postMeal(formData).then((response) => {
+    return postMeal(formData).then((response) => {
       if (response.status === 201) {
         this.resetFields();
         addToMeals(response.data.meal);
         toast(response.data.message);
-      } else {
-        this.setState({ hasServerErrors: true });
+        return response;
       }
     });
   }

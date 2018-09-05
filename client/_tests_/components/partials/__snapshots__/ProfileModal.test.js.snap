@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileModal /> Should render Profile Modal component successfully 1`] = `
+<div>
+  <Modal
+    ariaHideApp={false}
+    bodyOpenClassName="ReactModal__Body--open"
+    className="create-profile"
+    closeTimeoutMS={1}
+    contentLabel="Modal"
+    isOpen={false}
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+    style={
+      Object {
+        "content": Object {
+          "WebkitOverflowScrolling": "touch",
+          "background": "#ffffff",
+          "borderRadius": "6px",
+          "bottom": "15%",
+          "left": "33%",
+          "outline": "none",
+          "overflow": "auto",
+          "padding": "12px",
+          "position": "absolute",
+          "right": "34%",
+          "top": "10%",
+        },
+        "overlay": Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.4)",
+          "bottom": 0,
+          "left": 0,
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        },
+      }
+    }
+  >
+    <div>
+      <div
+        className="col-12"
+      >
+        <a
+          onClick={[MockFunction]}
+          style={
+            Object {
+              "float": "right",
+            }
+          }
+        >
+          <i
+            className="material-icons"
+            style={
+              Object {
+                "fontSize": 25,
+              }
+            }
+          >
+            close
+          </i>
+        </a>
+      </div>
+      <div
+        className="box"
+      >
+        <h3>
+          Setup Business Profile
+        </h3>
+        <ShowErrors
+          clientErrors={Object {}}
+          serverErrors={Object {}}
+        />
+        <form
+          onSubmit={[MockFunction]}
+        >
+          <div>
+            <BasicInput
+              hasError={false}
+              label="Business Name"
+              min=""
+              name="businessName"
+              onChange={[MockFunction]}
+              type="text"
+              value="The blast"
+            />
+            <BasicInput
+              hasError={false}
+              label="Mission Statement"
+              min=""
+              name="mission"
+              onChange={[MockFunction]}
+              type="text"
+              value="Feeding the world"
+            />
+            <BasicInput
+              hasError={false}
+              label="Business Email"
+              min=""
+              name="email"
+              onChange={[MockFunction]}
+              type="text"
+              value="onnassiz@andela.com"
+            />
+          </div>
+          <TextArea
+            hasError={false}
+            label="Contact"
+            name="contact"
+            onChange={[MockFunction]}
+            type="text"
+            value="12 Benny Road Lagos"
+          />
+          <SubmitButton
+            isLoading={true}
+            value="Update"
+          />
+        </form>
+      </div>
+    </div>
+  </Modal>
+</div>
+`;

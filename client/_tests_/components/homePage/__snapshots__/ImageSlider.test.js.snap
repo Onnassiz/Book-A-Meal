@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ImageSlider /> Render User Home Page Image Slider component 1`] = `
+<div
+  id="imageSlider"
+>
+  <ImageGallery
+    autoPlay={true}
+    disableArrowKeys={false}
+    disableSwipe={false}
+    disableThumbnailScroll={false}
+    flickThreshold={0.4}
+    indexSeparator=" / "
+    infinite={true}
+    items={
+      Array [
+        Object {
+          "description": "We ensure that better food is accessible to everyone.",
+          "original": "https://res.cloudinary.com/onnassiz/image/upload/v1535468243/image_1_owy23d.jpg",
+        },
+        Object {
+          "description": "We bring warm catering service to your doorstep.",
+          "original": "https://res.cloudinary.com/onnassiz/image/upload/v1535468242/image_2_dmtjye.jpg",
+        },
+        Object {
+          "description": "Let us worry about your diet.",
+          "original": "https://res.cloudinary.com/onnassiz/image/upload/v1535468242/image_3_qiux12.jpg",
+        },
+        Object {
+          "description": "Our caterers are willing to work on your recipe.",
+          "original": "https://res.cloudinary.com/onnassiz/image/upload/v1535468243/image_4_ogto3u.jpg",
+        },
+        Object {
+          "description": "Many caterers to give you diverse experiences.",
+          "original": "https://res.cloudinary.com/onnassiz/image/upload/v1535468244/image_5_ln3fgi.jpg",
+        },
+      ]
+    }
+    lazyLoad={false}
+    preventDefaultTouchmoveEvent={false}
+    renderFullscreenButton={[Function]}
+    renderLeftNav={[Function]}
+    renderPlayPauseButton={[Function]}
+    renderRightNav={[Function]}
+    showBullets={true}
+    showFullscreenButton={true}
+    showIndex={false}
+    showNav={false}
+    showPlayButton={true}
+    showThumbnails={false}
+    slideDuration={450}
+    slideInterval={6000}
+    startIndex={0}
+    stopPropagation={false}
+    swipeThreshold={30}
+    swipingTransitionDuration={0}
+    thumbnailPosition="bottom"
+    useBrowserFullscreen={true}
+    useTranslate3D={true}
+  />
+</div>
+`;

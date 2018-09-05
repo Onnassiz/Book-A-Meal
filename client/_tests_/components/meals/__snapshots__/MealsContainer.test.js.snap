@@ -1,0 +1,559 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MealsContainer /> Should render the Meals container successfully 1`] = `
+<MemoryRouter
+  keyLength={0}
+>
+  <Router
+    history={
+      Object {
+        "action": "PUSH",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 1,
+        "length": 2,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <withRouter(Connect(Meals))
+      store={
+        Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        }
+      }
+    >
+      <Route
+        render={[Function]}
+      >
+        <Connect(Meals)
+          history={
+            Object {
+              "action": "PUSH",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+                Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 1,
+              "length": 2,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": true,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+          store={
+            Object {
+              "clearActions": [Function],
+              "dispatch": [Function],
+              "getActions": [Function],
+              "getState": [Function],
+              "replaceReducer": [Function],
+              "subscribe": [Function],
+            }
+          }
+        >
+          <Meals
+            deleteMealById={[Function]}
+            formState={
+              Object {
+                "isLoading": false,
+              }
+            }
+            getMeals={[Function]}
+            getProfile={[Function]}
+            history={
+              Object {
+                "action": "PUSH",
+                "block": [Function],
+                "canGo": [Function],
+                "createHref": [Function],
+                "entries": Array [
+                  Object {
+                    "hash": "",
+                    "pathname": "/",
+                    "search": "",
+                    "state": undefined,
+                  },
+                  Object {
+                    "hash": "",
+                    "pathname": "/",
+                    "search": "",
+                    "state": undefined,
+                  },
+                ],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "index": 1,
+                "length": 2,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+            location={
+              Object {
+                "hash": "",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              }
+            }
+            match={
+              Object {
+                "isExact": true,
+                "params": Object {},
+                "path": "/",
+                "url": "/",
+              }
+            }
+            meals={Object {}}
+            postMeal={[Function]}
+            profile={
+              Object {
+                "banner": "See me coming",
+                "businessName": "The blast",
+                "contact": "12 Benny Road Lagos",
+                "email": "onnassiz@andela.com",
+                "id": "3a3c499f-803a-4e06-a328-307daff22243",
+                "mission": "Feeding the world",
+              }
+            }
+            store={
+              Object {
+                "clearActions": [Function],
+                "dispatch": [Function],
+                "getActions": [Function],
+                "getState": [Function],
+                "replaceReducer": [Function],
+                "subscribe": [Function],
+              }
+            }
+            storeSubscription={
+              Subscription {
+                "listeners": Object {
+                  "clear": [Function],
+                  "get": [Function],
+                  "notify": [Function],
+                  "subscribe": [Function],
+                },
+                "onStateChange": [Function],
+                "parentSub": undefined,
+                "store": Object {
+                  "clearActions": [Function],
+                  "dispatch": [Function],
+                  "getActions": [Function],
+                  "getState": [Function],
+                  "replaceReducer": [Function],
+                  "subscribe": [Function],
+                },
+                "unsubscribe": [Function],
+              }
+            }
+            updateMeal={[Function]}
+            user={Object {}}
+          >
+            <div
+              id="content-body"
+            >
+              <div
+                className="col-12"
+              >
+                <button
+                  className="button"
+                  id="addMeal"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="ion-android-add"
+                  />
+                   Add Meal
+                </button>
+                <div>
+                  <div />
+                  <div>
+                    <MealModal
+                      addToMeals={[Function]}
+                      formState={
+                        Object {
+                          "isLoading": false,
+                        }
+                      }
+                      handleAddButtonClick={[Function]}
+                      isShowingModal={false}
+                      meals={Object {}}
+                      postMeal={[Function]}
+                      state={
+                        Object {
+                          "activePage": 1,
+                          "currentMeal": Object {},
+                          "isShowingAddPhoto": false,
+                          "isShowingDropZoneModal": false,
+                          "isShowingModal": false,
+                          "meals": Array [],
+                          "mealsCount": 0,
+                          "updateMode": false,
+                        }
+                      }
+                      updateComponentMeals={[Function]}
+                      updateMeal={[Function]}
+                    >
+                      <div>
+                        <Modal
+                          ariaHideApp={false}
+                          bodyOpenClassName="ReactModal__Body--open"
+                          className="create-profile"
+                          closeTimeoutMS={1}
+                          contentLabel="Modal"
+                          isOpen={false}
+                          onAfterOpen={[Function]}
+                          onRequestClose={[Function]}
+                          parentSelector={[Function]}
+                          portalClassName="ReactModalPortal"
+                          shouldCloseOnEsc={true}
+                          shouldCloseOnOverlayClick={true}
+                          shouldFocusAfterRender={true}
+                          shouldReturnFocusAfterClose={true}
+                          style={
+                            Object {
+                              "content": Object {
+                                "WebkitOverflowScrolling": "touch",
+                                "background": "#ffffff",
+                                "borderRadius": "6px",
+                                "bottom": "15%",
+                                "left": "33%",
+                                "outline": "none",
+                                "overflow": "auto",
+                                "padding": "12px",
+                                "position": "absolute",
+                                "right": "34%",
+                                "top": "10%",
+                              },
+                              "overlay": Object {
+                                "backgroundColor": "rgba(0, 0, 0, 0.4)",
+                                "bottom": 0,
+                                "left": 0,
+                                "position": "fixed",
+                                "right": 0,
+                                "top": 0,
+                              },
+                            }
+                          }
+                        >
+                          <Portal
+                            containerInfo={
+                              <div
+                                class="ReactModalPortal"
+                              />
+                            }
+                          >
+                            <ModalPortal
+                              ariaHideApp={false}
+                              bodyOpenClassName="ReactModal__Body--open"
+                              className="create-profile"
+                              closeTimeoutMS={1}
+                              contentLabel="Modal"
+                              defaultStyles={
+                                Object {
+                                  "content": Object {
+                                    "WebkitOverflowScrolling": "touch",
+                                    "background": "#fff",
+                                    "border": "1px solid #ccc",
+                                    "borderRadius": "4px",
+                                    "bottom": "40px",
+                                    "left": "40px",
+                                    "outline": "none",
+                                    "overflow": "auto",
+                                    "padding": "20px",
+                                    "position": "absolute",
+                                    "right": "40px",
+                                    "top": "40px",
+                                  },
+                                  "overlay": Object {
+                                    "backgroundColor": "rgba(255, 255, 255, 0.75)",
+                                    "bottom": 0,
+                                    "left": 0,
+                                    "position": "fixed",
+                                    "right": 0,
+                                    "top": 0,
+                                  },
+                                }
+                              }
+                              isOpen={false}
+                              onAfterOpen={[Function]}
+                              onRequestClose={[Function]}
+                              parentSelector={[Function]}
+                              portalClassName="ReactModalPortal"
+                              shouldCloseOnEsc={true}
+                              shouldCloseOnOverlayClick={true}
+                              shouldFocusAfterRender={true}
+                              shouldReturnFocusAfterClose={true}
+                              style={
+                                Object {
+                                  "content": Object {
+                                    "WebkitOverflowScrolling": "touch",
+                                    "background": "#ffffff",
+                                    "borderRadius": "6px",
+                                    "bottom": "15%",
+                                    "left": "33%",
+                                    "outline": "none",
+                                    "overflow": "auto",
+                                    "padding": "12px",
+                                    "position": "absolute",
+                                    "right": "34%",
+                                    "top": "10%",
+                                  },
+                                  "overlay": Object {
+                                    "backgroundColor": "rgba(0, 0, 0, 0.4)",
+                                    "bottom": 0,
+                                    "left": 0,
+                                    "position": "fixed",
+                                    "right": 0,
+                                    "top": 0,
+                                  },
+                                }
+                              }
+                            />
+                          </Portal>
+                        </Modal>
+                      </div>
+                    </MealModal>
+                    <MealsTable
+                      state={
+                        Object {
+                          "activePage": 1,
+                          "currentMeal": Object {},
+                          "isShowingAddPhoto": false,
+                          "isShowingDropZoneModal": false,
+                          "isShowingModal": false,
+                          "meals": Array [],
+                          "mealsCount": 0,
+                          "updateMode": false,
+                        }
+                      }
+                      toggleAddPhoto={[Function]}
+                      toggleShowDeleteModal={[Function]}
+                      toggleUpdateModal={[Function]}
+                    >
+                      <div>
+                        <div
+                          id="no-menu"
+                        >
+                          <h2>
+                            You do not have any meals
+                          </h2>
+                        </div>
+                      </div>
+                    </MealsTable>
+                  </div>
+                  <div />
+                  <ImageUploader
+                    isShowingAddPhoto={false}
+                    putImage={[Function]}
+                    toggleAddPhoto={[Function]}
+                  >
+                    <div
+                      className="col-12"
+                    >
+                      <Modal
+                        ariaHideApp={false}
+                        bodyOpenClassName="ReactModal__Body--open"
+                        className="image-upload"
+                        closeTimeoutMS={1}
+                        contentLabel="Modal"
+                        isOpen={false}
+                        parentSelector={[Function]}
+                        portalClassName="ReactModalPortal"
+                        shouldCloseOnEsc={true}
+                        shouldCloseOnOverlayClick={true}
+                        shouldFocusAfterRender={true}
+                        shouldReturnFocusAfterClose={true}
+                        style={
+                          Object {
+                            "content": Object {
+                              "WebkitOverflowScrolling": "touch",
+                              "background": "#ffffff",
+                              "border": "none",
+                              "borderRadius": "6px",
+                              "bottom": "30%",
+                              "left": "33%",
+                              "outline": "none",
+                              "overflow": "auto",
+                              "padding": "15px",
+                              "position": "absolute",
+                              "right": "33%",
+                              "top": "15%",
+                            },
+                            "overlay": Object {
+                              "backgroundColor": "rgba(0, 0, 0, 0.4)",
+                              "bottom": 0,
+                              "left": 0,
+                              "position": "fixed",
+                              "right": 0,
+                              "top": 0,
+                            },
+                          }
+                        }
+                      >
+                        <Portal
+                          containerInfo={
+                            <div
+                              class="ReactModalPortal"
+                            />
+                          }
+                        >
+                          <ModalPortal
+                            ariaHideApp={false}
+                            bodyOpenClassName="ReactModal__Body--open"
+                            className="image-upload"
+                            closeTimeoutMS={1}
+                            contentLabel="Modal"
+                            defaultStyles={
+                              Object {
+                                "content": Object {
+                                  "WebkitOverflowScrolling": "touch",
+                                  "background": "#fff",
+                                  "border": "1px solid #ccc",
+                                  "borderRadius": "4px",
+                                  "bottom": "40px",
+                                  "left": "40px",
+                                  "outline": "none",
+                                  "overflow": "auto",
+                                  "padding": "20px",
+                                  "position": "absolute",
+                                  "right": "40px",
+                                  "top": "40px",
+                                },
+                                "overlay": Object {
+                                  "backgroundColor": "rgba(255, 255, 255, 0.75)",
+                                  "bottom": 0,
+                                  "left": 0,
+                                  "position": "fixed",
+                                  "right": 0,
+                                  "top": 0,
+                                },
+                              }
+                            }
+                            isOpen={false}
+                            parentSelector={[Function]}
+                            portalClassName="ReactModalPortal"
+                            shouldCloseOnEsc={true}
+                            shouldCloseOnOverlayClick={true}
+                            shouldFocusAfterRender={true}
+                            shouldReturnFocusAfterClose={true}
+                            style={
+                              Object {
+                                "content": Object {
+                                  "WebkitOverflowScrolling": "touch",
+                                  "background": "#ffffff",
+                                  "border": "none",
+                                  "borderRadius": "6px",
+                                  "bottom": "30%",
+                                  "left": "33%",
+                                  "outline": "none",
+                                  "overflow": "auto",
+                                  "padding": "15px",
+                                  "position": "absolute",
+                                  "right": "33%",
+                                  "top": "15%",
+                                },
+                                "overlay": Object {
+                                  "backgroundColor": "rgba(0, 0, 0, 0.4)",
+                                  "bottom": 0,
+                                  "left": 0,
+                                  "position": "fixed",
+                                  "right": 0,
+                                  "top": 0,
+                                },
+                              }
+                            }
+                          />
+                        </Portal>
+                      </Modal>
+                    </div>
+                  </ImageUploader>
+                </div>
+              </div>
+            </div>
+          </Meals>
+        </Connect(Meals)>
+      </Route>
+    </withRouter(Connect(Meals))>
+  </Router>
+</MemoryRouter>
+`;

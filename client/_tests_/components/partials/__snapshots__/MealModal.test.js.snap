@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MealTable /> Should render meal modal component successfully 1`] = `
+<div>
+  <Modal
+    ariaHideApp={false}
+    bodyOpenClassName="ReactModal__Body--open"
+    className="create-profile"
+    closeTimeoutMS={1}
+    contentLabel="Modal"
+    isOpen={true}
+    onAfterOpen={[Function]}
+    onRequestClose={[MockFunction]}
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+    style={
+      Object {
+        "content": Object {
+          "WebkitOverflowScrolling": "touch",
+          "background": "#ffffff",
+          "borderRadius": "6px",
+          "bottom": "15%",
+          "left": "33%",
+          "outline": "none",
+          "overflow": "auto",
+          "padding": "12px",
+          "position": "absolute",
+          "right": "34%",
+          "top": "10%",
+        },
+        "overlay": Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.4)",
+          "bottom": 0,
+          "left": 0,
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        },
+      }
+    }
+  >
+    <div>
+      <div
+        className="col-12"
+      >
+        <a
+          onClick={[MockFunction]}
+          style={
+            Object {
+              "float": "right",
+            }
+          }
+        >
+          <i
+            className="material-icons"
+            style={
+              Object {
+                "fontSize": 25,
+              }
+            }
+          >
+            close
+          </i>
+        </a>
+      </div>
+      <div
+        className="box"
+      >
+        <h3>
+          Update Meal
+        </h3>
+        <ShowErrors
+          clientErrors={Object {}}
+          serverErrors={Object {}}
+        />
+        <form
+          onSubmit={[Function]}
+        >
+          <div>
+            <div>
+              <BasicInput
+                hasError={false}
+                label="Meal's Name"
+                min=""
+                name="name"
+                onChange={[Function]}
+                type="text"
+                value=""
+              />
+            </div>
+            <div>
+              <BasicInput
+                hasError={false}
+                label="Unit Price"
+                min=""
+                name="price"
+                onChange={[Function]}
+                type="number"
+                value=""
+              />
+            </div>
+            <div>
+              <BasicInput
+                hasError={false}
+                label="Category"
+                min=""
+                name="category"
+                onChange={[Function]}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <TextArea
+            hasError={false}
+            label="Description"
+            name="description"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <SubmitButton
+            isLoading={false}
+            value="Update"
+          />
+        </form>
+      </div>
+    </div>
+  </Modal>
+</div>
+`;

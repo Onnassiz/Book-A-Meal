@@ -6,13 +6,13 @@ import { getDate, numberWithCommas } from '../../../utilities/functions';
 const renderActionButtons = props => (
   <span>
     <span>
-      <a title="edit" onClick={props.toggleUpdateModal}><i className="material-icons">mode_edit</i></a>
+      <a title="edit" id="updateModal" onClick={() => props.toggleUpdateModal(props.item)}><i className="material-icons">mode_edit</i></a>
     </span>
     <span>
-      <a title="add photo" onClick={props.toggleAddPhoto}><i className="material-icons">add_a_photo</i></a>
+      <a title="add photo" id="addPhotoModal" onClick={() => props.toggleAddPhoto(props.item)}><i className="material-icons">add_a_photo</i></a>
     </span>
     <span>
-      <a title="delete" onClick={props.toggleShowDeleteModal}><i className="material-icons">delete_sweep</i></a>
+      <a title="delete" id="deleteModal" onClick={() => props.toggleShowDeleteModal(props.item)}><i className="material-icons">delete_sweep</i></a>
     </span>
   </span>
 );
@@ -65,6 +65,7 @@ renderActionButtons.propTypes = {
   toggleUpdateModal: PropTypes.func.isRequired,
   toggleShowDeleteModal: PropTypes.func.isRequired,
   toggleAddPhoto: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired,
 };
 
 

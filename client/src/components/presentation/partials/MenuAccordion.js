@@ -30,25 +30,27 @@ class MenuAccordion extends Component {
     const { getMealsInMenu } = this.props;
     const offset = (pageNumber - 1) * 5;
 
-    getMealsInMenu(this.state.menu, offset).then((response) => {
+    return getMealsInMenu(this.state.menu, offset).then((response) => {
       if (response.response.status === 200) {
         this.setState({
           activePage: pageNumber,
           thisPageMeals: response.response.data,
         });
+        return response;
       }
     });
   }
 
   showMeals() {
     const { getMealsInMenu } = this.props;
-    getMealsInMenu(this.state.menu, 0).then((response) => {
+    return getMealsInMenu(this.state.menu, 0).then((response) => {
       if (response.response.status === 200) {
         this.setState({
           activePage: 1,
           thisPageMeals: response.response.data,
           showMeals: true,
         });
+        return response;
       }
     });
   }
@@ -108,7 +110,7 @@ class MenuAccordion extends Component {
           {this.state.showMeals ?
             this.renderMeals() :
             <div className="show-meals">
-              <button className="button" onClick={this.showMeals}><i className="ion-ios-eye" /> Show Meals</button>
+              <button id="showMeals" className="button" onClick={this.showMeals}><i className="ion-ios-eye" /> Show Meals</button>
             </div>}
           {!this.props.showOpsButtons ? '' :
           <div>

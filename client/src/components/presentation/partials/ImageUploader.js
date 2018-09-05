@@ -39,29 +39,30 @@ class ImageUploader extends Component {
   handleDrop(files) {
     const { putImage } = this.props;
     const url = 'https://api.cloudinary.com/v1_1/onnassiz/image/upload';
-    const uploader = () => {
-      const formData = new FormData();
-      formData.append('file', files[0]);
-      formData.append('tags', 'book-a-meal');
-      formData.append('upload_preset', 'nbo5oyfm');
-      formData.append('api_key', '258613626473737');
-      formData.append('timestamp', (Date.now() / 1000));
+    const formData = new FormData();
+    formData.append('file', files[0]);
+    formData.append('tags', 'book-a-meal');
+    formData.append('upload_preset', 'nbo5oyfm');
+    formData.append('api_key', '258613626473737');
+    formData.append('timestamp', (Date.now() / 1000));
 
-      delete axios.defaults.headers.common.Authorization;
+    delete axios.defaults.headers.common.Authorization;
+    this.toggleLoader();
+
+    return axios.post(url, formData, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }, onUploadProgress: (progressEvent) => { this.showProgress(progressEvent); },
+    }).then((response) => {
+      axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
+      const { data } = response;
+      const fileURL = data.secure_url;
       this.toggleLoader();
-      axios.post(url, formData, {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }, onUploadProgress: (progressEvent) => { this.showProgress(progressEvent); },
-      }).then((response) => {
-        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
-        const { data } = response;
-        const fileURL = data.secure_url;
-        this.toggleLoader();
-        putImage(fileURL);
-      }).catch((error) => {
-        this.showErrors(error.response);
-      });
-    };
-    uploader();
+      putImage(fileURL);
+      return response;
+    }).catch((error) => {
+      this.toggleLoader();
+      this.showErrors(error.response.data);
+      return error;
+    });
   }
 
   showErrors(errors) {
@@ -103,7 +104,7 @@ class ImageUploader extends Component {
               <li key={item}>{this.state.errors[item]}</li>)}
           </ul>
         </div>
-        { this.renderDropZone() }
+        {this.renderDropZone()}
       </div>
     );
   }
@@ -119,7 +120,7 @@ class ImageUploader extends Component {
           contentLabel="Modal"
           className="image-upload"
         >
-          { this.renderModalBody() }
+          {this.renderModalBody()}
         </Modal>
       </div>
     );

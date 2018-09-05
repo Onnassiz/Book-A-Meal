@@ -1,0 +1,344 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavBar /> Should render presentation component 1`] = `
+<header>
+  <h1
+    className="logo"
+  >
+    <Link
+      replace={false}
+      to="/"
+    >
+      <img
+        alt="logo"
+        src="https://res.cloudinary.com/onnassiz/image/upload/v1535988132/logo_madffu.png"
+      />
+    </Link>
+  </h1>
+  <div
+    className="nav-left"
+  >
+    <ul>
+      <li>
+        <div
+          className="dropdown"
+        >
+          <a
+            className=""
+          >
+            Caterer's Workshop
+            <i
+              className="material-icons"
+              id="caret"
+            >
+              arrow_drop_down
+            </i>
+          </a>
+          <div
+            className="dropdown-container"
+          >
+            <div
+              className="dropdown-content"
+            >
+              <Link
+                replace={false}
+                to="/caterer/business_profile"
+              >
+                <i
+                  className="material-icons"
+                >
+                  dashboard
+                </i>
+                 Setup Profile
+              </Link>
+              <hr />
+              <Link
+                replace={false}
+                to="/caterer/meals"
+              >
+                <i
+                  className="material-icons"
+                >
+                  donut_small
+                </i>
+                 Manage Meals
+              </Link>
+              <Link
+                replace={false}
+                to="/caterer/menus"
+              >
+                <i
+                  className="material-icons"
+                >
+                  menu
+                </i>
+                 Manage Menus
+              </Link>
+              <hr />
+              <a
+                href="pages/admin/manage-menu.html"
+              >
+                <i
+                  className="material-icons"
+                >
+                  developer_board
+                </i>
+                 View Reports
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="nav"
+  >
+    <ul>
+      <li
+        className=""
+      >
+        <Link
+          className="main"
+          replace={false}
+          to="/menus"
+        >
+          Menu
+        </Link>
+      </li>
+      <li
+        className=""
+      >
+        <Link
+          className="main"
+          replace={false}
+          to="/orders"
+        >
+          Orders
+        </Link>
+      </li>
+      <li>
+        <div
+          className="dropdown"
+        >
+          <button
+            className="user-button"
+          >
+            <a>
+              BO
+              <i
+                className="material-icons"
+                id="caret"
+              >
+                arrow_drop_down
+              </i>
+            </a>
+          </button>
+          <div
+            className="dropdown-container"
+          >
+            <div
+              className="dropdown-content"
+            >
+              <div
+                className="avatar-circle"
+              >
+                <span
+                  className="initials"
+                >
+                  BO
+                </span>
+              </div>
+              <hr />
+              <Link
+                replace={false}
+                to="/profile"
+              >
+                <i
+                  className="material-icons"
+                >
+                  settings
+                </i>
+                 Profile
+              </Link>
+              <hr />
+              <a
+                id="signOut"
+                onClick={[Function]}
+              >
+                <i
+                  className="material-icons"
+                >
+                  power_settings_new
+                </i>
+                 Sign Out
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="menuIcon"
+  >
+    <ul>
+      <li>
+        <button
+          id="menuIcon"
+          onClick={[Function]}
+        >
+          <i
+            className="material-icons"
+            style={
+              Object {
+                "fontSize": 30,
+              }
+            }
+          >
+            menu
+          </i>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <ul
+      className="responsive "
+    >
+      <li
+        className=""
+      >
+        <Link
+          className="main"
+          replace={false}
+          to="/menus"
+        >
+          Menu
+        </Link>
+      </li>
+      <li>
+        <Link
+          className="main"
+          replace={false}
+          to="/orders"
+        >
+          Orders
+        </Link>
+      </li>
+      <hr />
+      <a
+        className="main"
+        onClick={[Function]}
+      >
+        <i
+          className="material-icons"
+        >
+          power_settings_new
+        </i>
+         Sign Out
+      </a>
+    </ul>
+  </div>
+</header>
+`;
+
+exports[`<NavBar /> Should render presentation component when user is empty 1`] = `
+<header>
+  <h1
+    className="logo"
+  >
+    <Link
+      replace={false}
+      to="/"
+    >
+      <img
+        alt="logo"
+        src="https://res.cloudinary.com/onnassiz/image/upload/v1535988132/logo_madffu.png"
+      />
+    </Link>
+  </h1>
+  <div
+    className="nav-left"
+  >
+    <ul />
+  </div>
+  <div
+    className="nav"
+  >
+    <ul>
+      <li>
+        <Link
+          replace={false}
+          to="/auth/register"
+        >
+          <button
+            className="auth-button"
+          >
+            Sign Up
+          </button>
+        </Link>
+      </li>
+      <li>
+        <Link
+          replace={false}
+          to="/auth/login"
+        >
+          <button
+            className="auth-button"
+          >
+            Login
+          </button>
+        </Link>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="menuIcon"
+  >
+    <ul>
+      <li>
+        <button
+          id="menuIcon"
+          onClick={[Function]}
+        >
+          <i
+            className="material-icons"
+            style={
+              Object {
+                "fontSize": 30,
+              }
+            }
+          >
+            menu
+          </i>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <ul
+      className="responsive "
+    >
+      <li>
+        <Link
+          className="main"
+          replace={false}
+          to="/auth/login"
+        >
+          Sign In
+        </Link>
+      </li>
+      <li>
+        <Link
+          className="main"
+          replace={false}
+          to="/auth/register"
+        >
+          Sign Up
+        </Link>
+      </li>
+    </ul>
+  </div>
+</header>
+`;

@@ -29,22 +29,23 @@ export function handlePageChange(pageNumber, mealsPagination, $this) {
   const offset = (pageNumber - 1) * 10;
   if (mealsPagination) {
     const mealOffset = (pageNumber - 1) * 9;
-    getMeals(9, mealOffset).then((response) => {
+    return getMeals(9, mealOffset).then((response) => {
       if (response.status === 200) {
         $this.setState({
           mealsActivePage: pageNumber,
           meals: response.data.meals,
           mealsCount: response.data.count,
         });
-      }
-    });
-  } else {
-    getUserMenus(offset).then((response) => {
-      if (response.status === 200) {
-        $this.setState({ activePage: pageNumber, thisPageMenus: response.data.menus });
+        return response;
       }
     });
   }
+  return getUserMenus(offset).then((response) => {
+    if (response.status === 200) {
+      $this.setState({ activePage: pageNumber, thisPageMenus: response.data.menus });
+      return response;
+    }
+  });
 }
 
 function processSubmit(state, $this, formData) {
