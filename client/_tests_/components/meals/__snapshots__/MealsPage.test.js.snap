@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Meals /> Should render Meals page successfully 1`] = `
+<div>
+  <Connect(NavBar)
+    page="caterer"
+  />
+  <withRouter(Connect(Meals)) />
+</div>
+`;

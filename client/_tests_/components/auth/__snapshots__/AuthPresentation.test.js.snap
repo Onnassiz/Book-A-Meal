@@ -1,0 +1,232 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Auth /> Should render Auth presentation components successfully 1`] = `
+<div>
+  <div
+    id="content3"
+  >
+    <div
+      className="col-12"
+    >
+      <Link
+        className="main"
+        href="/"
+        replace={false}
+        to="/"
+      >
+        <button
+          className="button-white"
+        >
+          Home
+        </button>
+      </Link>
+      <div
+        id="authSection"
+      >
+        <div
+          className="box-auth"
+        >
+          <h3>
+            Sign In
+          </h3>
+          <ShowErrors
+            clientErrors={Object {}}
+            serverErrors={Object {}}
+          />
+          <form
+            onSubmit={[Function]}
+          >
+            <BasicInput
+              hasError={false}
+              label="Email"
+              min=""
+              name="signInEmail"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+            <BasicInput
+              hasError={false}
+              label="Password"
+              min=""
+              name="signInPassword"
+              onChange={[Function]}
+              type="password"
+              value=""
+            />
+            <div
+              id="forgotPassword"
+            >
+              <Link
+                href="/"
+                replace={false}
+                to="/"
+              >
+                Forgot Password?
+              </Link>
+            </div>
+            <SubmitButton
+              isLoading={false}
+              value="Sign In"
+            />
+          </form>
+        </div>
+        <div
+          style={
+            Object {
+              "clear": "both",
+              "marginTop": 50,
+              "textAlign": "center",
+            }
+          }
+        >
+          <hr />
+          <a
+            id="register"
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 17,
+              }
+            }
+          >
+            <i
+              className="ion-person-add"
+            />
+             Register
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Auth /> Should render Auth presentation components successfully with signUp form 1`] = `
+<div>
+  <div
+    id="content3"
+  >
+    <div
+      className="col-12"
+    >
+      <Link
+        className="main"
+        href="/"
+        replace={false}
+        to="/"
+      >
+        <button
+          className="button-white"
+        >
+          Home
+        </button>
+      </Link>
+      <div
+        id="authSection"
+      >
+        <div
+          className="box-auth"
+        >
+          <h3>
+            Sign Up
+          </h3>
+          <ShowErrors
+            clientErrors={Object {}}
+            serverErrors={Object {}}
+          />
+          <form
+            onSubmit={[Function]}
+          >
+            <BasicInput
+              hasError={false}
+              label="Full Name"
+              min=""
+              name="fullName"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+            <BasicInput
+              hasError={false}
+              label="Email"
+              min=""
+              name="signUpEmail"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+            <BasicInput
+              hasError={false}
+              label="Password"
+              min=""
+              name="password"
+              onChange={[Function]}
+              type="password"
+              value=""
+            />
+            <BasicInput
+              hasError={false}
+              label="Confirm Password"
+              min=""
+              name="confirm_password"
+              onChange={[Function]}
+              type="password"
+              value=""
+            />
+            <div
+              id="signUpAsAdmin"
+            >
+              <label
+                className="checkbox"
+                htmlFor="signUp"
+              >
+                Sign up as Caterer
+                <input
+                  checked={false}
+                  id="signUp"
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="caterer"
+                />
+                <span
+                  className="check"
+                />
+              </label>
+            </div>
+            <SubmitButton
+              isLoading={false}
+              value="Sign Up"
+            />
+          </form>
+        </div>
+        <div
+          style={
+            Object {
+              "clear": "both",
+              "marginTop": 50,
+              "textAlign": "center",
+            }
+          }
+        >
+          <hr />
+          <a
+            id="signIn"
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 17,
+              }
+            }
+          >
+            <i
+              className="ion-log-in"
+            />
+             Login
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

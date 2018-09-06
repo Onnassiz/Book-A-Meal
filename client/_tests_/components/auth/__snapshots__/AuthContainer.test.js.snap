@@ -1,0 +1,450 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AuthContainer /> Should render the Auth container successfully 1`] = `
+<MemoryRouter
+  initialEntries={
+    Array [
+      Object {
+        "key": "testKey",
+        "pathname": "/",
+      },
+    ]
+  }
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "testKey",
+            "pathname": "/",
+            "search": "",
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "testKey",
+          "pathname": "/",
+          "search": "",
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <withRouter(Connect(Home))
+      store={
+        Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        }
+      }
+    >
+      <Route
+        render={[Function]}
+      >
+        <Connect(Home)
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "canGo": [Function],
+              "createHref": [Function],
+              "entries": Array [
+                Object {
+                  "hash": "",
+                  "key": "testKey",
+                  "pathname": "/",
+                  "search": "",
+                },
+              ],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "index": 0,
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "key": "testKey",
+                "pathname": "/",
+                "search": "",
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "key": "testKey",
+              "pathname": "/",
+              "search": "",
+            }
+          }
+          match={
+            Object {
+              "isExact": true,
+              "params": Object {},
+              "path": "/",
+              "url": "/",
+            }
+          }
+          store={
+            Object {
+              "clearActions": [Function],
+              "dispatch": [Function],
+              "getActions": [Function],
+              "getState": [Function],
+              "replaceReducer": [Function],
+              "subscribe": [Function],
+            }
+          }
+        >
+          <Home
+            formState={
+              Object {
+                "isLoading": false,
+              }
+            }
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "canGo": [Function],
+                "createHref": [Function],
+                "entries": Array [
+                  Object {
+                    "hash": "",
+                    "key": "testKey",
+                    "pathname": "/",
+                    "search": "",
+                  },
+                ],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "index": 0,
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "key": "testKey",
+                  "pathname": "/",
+                  "search": "",
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+            location={
+              Object {
+                "hash": "",
+                "key": "testKey",
+                "pathname": "/",
+                "search": "",
+              }
+            }
+            match={
+              Object {
+                "isExact": true,
+                "params": Object {},
+                "path": "/",
+                "url": "/",
+              }
+            }
+            postUser={[Function]}
+            signInUser={[Function]}
+            store={
+              Object {
+                "clearActions": [Function],
+                "dispatch": [Function],
+                "getActions": [Function],
+                "getState": [Function],
+                "replaceReducer": [Function],
+                "subscribe": [Function],
+              }
+            }
+            storeSubscription={
+              Subscription {
+                "listeners": Object {
+                  "clear": [Function],
+                  "get": [Function],
+                  "notify": [Function],
+                  "subscribe": [Function],
+                },
+                "onStateChange": [Function],
+                "parentSub": undefined,
+                "store": Object {
+                  "clearActions": [Function],
+                  "dispatch": [Function],
+                  "getActions": [Function],
+                  "getState": [Function],
+                  "replaceReducer": [Function],
+                  "subscribe": [Function],
+                },
+                "unsubscribe": [Function],
+              }
+            }
+            user={
+              Object {
+                "signInErrors": Object {},
+                "signUpErrors": Object {},
+              }
+            }
+          >
+            <div>
+              <div
+                id="content3"
+              >
+                <div
+                  className="col-12"
+                >
+                  <Link
+                    className="main"
+                    href="/"
+                    replace={false}
+                    to="/"
+                  >
+                    <a
+                      className="main"
+                      href="/"
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="button-white"
+                      >
+                        Home
+                      </button>
+                    </a>
+                  </Link>
+                  <div
+                    id="authSection"
+                  >
+                    <div
+                      className="box-auth"
+                    >
+                      <h3>
+                        Sign Up
+                      </h3>
+                      <ShowErrors
+                        clientErrors={Object {}}
+                        serverErrors={Object {}}
+                      >
+                        <div
+                          className="show-errors"
+                        >
+                          <ul />
+                        </div>
+                      </ShowErrors>
+                      <form
+                        onSubmit={[Function]}
+                      >
+                        <BasicInput
+                          hasError={false}
+                          label="Full Name"
+                          min=""
+                          name="fullName"
+                          onChange={[Function]}
+                          type="text"
+                          value=""
+                        >
+                          <div
+                            className="inputBox"
+                          >
+                            <label
+                              htmlFor="fullName"
+                            >
+                              Full Name
+                            </label>
+                            <input
+                              autoComplete="fullName"
+                              className=""
+                              id="fullName"
+                              min=""
+                              name="fullName"
+                              onChange={[Function]}
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </BasicInput>
+                        <BasicInput
+                          hasError={false}
+                          label="Email"
+                          min=""
+                          name="signUpEmail"
+                          onChange={[Function]}
+                          type="text"
+                          value=""
+                        >
+                          <div
+                            className="inputBox"
+                          >
+                            <label
+                              htmlFor="signUpEmail"
+                            >
+                              Email
+                            </label>
+                            <input
+                              autoComplete="signUpEmail"
+                              className=""
+                              id="signUpEmail"
+                              min=""
+                              name="signUpEmail"
+                              onChange={[Function]}
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </BasicInput>
+                        <BasicInput
+                          hasError={false}
+                          label="Password"
+                          min=""
+                          name="password"
+                          onChange={[Function]}
+                          type="password"
+                          value=""
+                        >
+                          <div
+                            className="inputBox"
+                          >
+                            <label
+                              htmlFor="password"
+                            >
+                              Password
+                            </label>
+                            <input
+                              autoComplete="password"
+                              className=""
+                              id="password"
+                              min=""
+                              name="password"
+                              onChange={[Function]}
+                              type="password"
+                              value=""
+                            />
+                          </div>
+                        </BasicInput>
+                        <BasicInput
+                          hasError={false}
+                          label="Confirm Password"
+                          min=""
+                          name="confirm_password"
+                          onChange={[Function]}
+                          type="password"
+                          value=""
+                        >
+                          <div
+                            className="inputBox"
+                          >
+                            <label
+                              htmlFor="confirm_password"
+                            >
+                              Confirm Password
+                            </label>
+                            <input
+                              autoComplete="confirm_password"
+                              className=""
+                              id="confirm_password"
+                              min=""
+                              name="confirm_password"
+                              onChange={[Function]}
+                              type="password"
+                              value=""
+                            />
+                          </div>
+                        </BasicInput>
+                        <div
+                          id="signUpAsAdmin"
+                        >
+                          <label
+                            className="checkbox"
+                            htmlFor="signUp"
+                          >
+                            Sign up as Caterer
+                            <input
+                              checked={false}
+                              id="signUp"
+                              onChange={[Function]}
+                              type="checkbox"
+                              value="caterer"
+                            />
+                            <span
+                              className="check"
+                            />
+                          </label>
+                        </div>
+                        <SubmitButton
+                          isLoading={false}
+                          value="Sign Up"
+                        >
+                          <div
+                            id="submit"
+                          >
+                            <input
+                              disabled={false}
+                              type="submit"
+                              value="Sign Up"
+                            />
+                            <img
+                              alt="loader"
+                              hidden={true}
+                              src="https://res.cloudinary.com/onnassiz/image/upload/v1535468238/loader_awatao.gif"
+                            />
+                          </div>
+                        </SubmitButton>
+                      </form>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "clear": "both",
+                          "marginTop": 50,
+                          "textAlign": "center",
+                        }
+                      }
+                    >
+                      <hr />
+                      <a
+                        id="signIn"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 17,
+                          }
+                        }
+                      >
+                        <i
+                          className="ion-log-in"
+                        />
+                         Login
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Home>
+        </Connect(Home)>
+      </Route>
+    </withRouter(Connect(Home))>
+  </Router>
+</MemoryRouter>
+`;

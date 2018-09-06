@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserHomePage /> Render User Home page 1`] = `
+<div>
+  <Connect(NavBar)
+    page="home"
+  />
+  <Connect(UserHomePage) />
+</div>
+`;

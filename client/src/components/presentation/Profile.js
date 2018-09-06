@@ -28,7 +28,7 @@ class Profile extends Component {
   }
 
   componentWillMount() {
-    const { user, history, getProfile, profile } = this.props;
+    const { user, history } = this.props;
     if (user.role !== 'caterer' || !user.role) {
       history.push('/');
     }
@@ -55,10 +55,11 @@ class Profile extends Component {
     const field = {
       banner: imageURL,
     };
-    putImage(profile.id, field).then((response) => {
+    return putImage(profile.id, field).then((response) => {
       if (response.status === 200) {
         toast('Your profile banner has been updated');
         this.toggleDropZone(false);
+        return false;
       }
     });
   }
@@ -137,7 +138,7 @@ class Profile extends Component {
           <button onClick={empty(profile.businessName) ? this.handleAddButtonClick.bind(this, false) : this.handleAddButtonClick.bind(this, true)} style={{ marginRight: 5 }} className="button">
             {empty(profile.businessName) ? 'Add Profile' : 'Update Profile'}
           </button>
-          <button disabled={empty(profile.id)} onClick={this.toggleDropZone} className="button">Upload Banner</button>
+          <button id="toggleDropZone" disabled={empty(profile.id)} onClick={this.toggleDropZone} className="button">Upload Banner</button>
         </div>
 
         <ProfileModal

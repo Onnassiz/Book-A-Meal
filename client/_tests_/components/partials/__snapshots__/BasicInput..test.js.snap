@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ShowErrors /> Should render basic input component successfully 1`] = `
+<div
+  className="inputBox"
+>
+  <label
+    htmlFor="Ben"
+  >
+    Name
+  </label>
+  <input
+    autoComplete="Ben"
+    className="has-error"
+    id="Ben"
+    min="100"
+    name="Ben"
+    onChange={[MockFunction]}
+    type="text"
+    value="Ben"
+  />
+</div>
+`;
+
+exports[`<ShowErrors /> Should render checkbox component successfully 1`] = `
+<label
+  className="checkbox"
+>
+   
+  Fried Rice
+   
+  <span
+    style={
+      Object {
+        "color": "#7a604a",
+        "float": "right",
+        "fontSize": 10,
+      }
+    }
+  >
+    Added by 
+  </span>
+  <input
+    checked={true}
+    onChange={[MockFunction]}
+    type="checkbox"
+    value="123"
+  />
+  <span
+    className="check"
+  />
+</label>
+`;
+
+exports[`<ShowErrors /> Should render textarea component successfully 1`] = `
+<div
+  className="inputBox"
+>
+  <label
+    htmlFor="Ben"
+  >
+    Name
+  </label>
+  <textarea
+    className="has-error"
+    cols="30"
+    id="Ben"
+    name="Ben"
+    onChange={[MockFunction]}
+    rows="6"
+    value="Ben"
+  />
+</div>
+`;

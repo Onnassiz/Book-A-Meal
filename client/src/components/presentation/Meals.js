@@ -46,10 +46,6 @@ class Meals extends Component {
     }
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
   toggleDropZone() {
     this.setState({ isShowingDropZoneModal: !this.state.isShowingDropZoneModal });
   }
@@ -84,7 +80,6 @@ class Meals extends Component {
   bindFunctions() {
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
     this.toggleDropZone = this.toggleDropZone.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.pushToProfile = this.pushToProfile.bind(this);
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this);
     this.toggleShowDeleteModal = this.toggleShowDeleteModal.bind(this);
@@ -109,24 +104,26 @@ class Meals extends Component {
       icon: 'warning',
       dangerMode: true,
       buttons: ['Cancel', 'Delete'],
-    })
-      .then((willDelete) => {
-        this.deleteMeal(willDelete, meal);
-      });
+    }).then((willDelete) => {
+      this.deleteMeal(willDelete, meal);
+    });
   }
 
   deleteMeal(willDelete, meal) {
     if (willDelete) {
       const { deleteMealById } = this.props;
-      deleteMealById(meal.id).then((response) => {
+      return deleteMealById(meal.id).then((response) => {
         if (response.status === 200) {
           const meals = this.state.meals.filter(x => x.id !== meal.id);
           swal('Deleted!', 'Your meal has been deleted', 'success');
           if (meals.length) {
-            this.setState({ currentMeal: {}, meals, mealsCount: this.state.mealsCount - 1 });
+            this.setState({
+              currentMeal: {}, meals, mealsCount: this.state.mealsCount - 1,
+            });
           } else {
             this.handlePageChange(1);
           }
+          return response;
         }
       });
     }
@@ -193,7 +190,7 @@ class Meals extends Component {
           You need a business profile before managing meals.
           Create a business profile first by clicking the link below.
         </h2>
-        <button className="button" onClick={this.pushToProfile}>Setup Profile</button>
+        <button id="gotoProfile" className="button" onClick={this.pushToProfile}>Setup Profile</button>
       </div>
     );
   }
@@ -232,7 +229,7 @@ class Meals extends Component {
       <div id="content-body">
         {empty(profile.businessName) ? this.renderSetupProfile() :
         <div className="col-12">
-          <button onClick={this.handleAddButtonClick} className="button"><i className="ion-android-add" /> Add Meal</button>
+          <button id="addMeal" onClick={this.handleAddButtonClick} className="button"><i className="ion-android-add" /> Add Meal</button>
           <div>
             {this.renderPagination()}
             {this.renderMealModalAndTable()}

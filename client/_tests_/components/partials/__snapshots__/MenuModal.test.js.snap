@@ -1,0 +1,228 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MenuModal /> Should render Menu Modal page successfully 1`] = `
+<div>
+  <Modal
+    ariaHideApp={false}
+    bodyOpenClassName="ReactModal__Body--open"
+    closeTimeoutMS={1}
+    contentLabel="Modal"
+    isOpen={false}
+    onAfterOpen={[Function]}
+    onRequestClose={[MockFunction]}
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+    style={
+      Object {
+        "content": Object {
+          "WebkitOverflowScrolling": "touch",
+          "background": "#ffffff",
+          "border": "none",
+          "borderRadius": "6px",
+          "bottom": "20%",
+          "left": "15%",
+          "outline": "none",
+          "overflow": "auto",
+          "position": "absolute",
+          "right": "15%",
+          "top": "10%",
+        },
+        "overlay": Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.4)",
+          "bottom": 0,
+          "left": 0,
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        },
+      }
+    }
+  >
+    <div
+      className="col-12"
+    >
+      <a
+        onClick={[MockFunction]}
+        style={
+          Object {
+            "float": "right",
+          }
+        }
+        title="close"
+      >
+        <i
+          className="material-icons"
+          style={
+            Object {
+              "fontSize": 25,
+            }
+          }
+        >
+          close
+        </i>
+      </a>
+    </div>
+    <div>
+      <form
+        onSubmit={[Function]}
+      >
+        <div
+          className="box-menu"
+        >
+          <h3>
+            Set Daily
+             Menu
+          </h3>
+          <ShowErrors
+            clientErrors={Object {}}
+            serverErrors={Object {}}
+          />
+          <div>
+            <BasicInput
+              hasError={false}
+              label="Start Date"
+              min="2018-09-06"
+              name="startDate"
+              onChange={[Function]}
+              type="date"
+              value="2018-09-06"
+            />
+          </div>
+          <div>
+            <BasicInput
+              hasError={false}
+              label="Menu Name (optional)"
+              min=""
+              name="name"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 45,
+              }
+            }
+          >
+            <span
+              className="number-badge"
+            >
+              0
+            </span>
+             meals selected
+          </div>
+        </div>
+        <div
+          id="meals-checkBox"
+        >
+          <Checkbox
+            isChecked={false}
+            key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+            meal={
+              Object {
+                "category": "dolor sit",
+                "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+                "name": "Malvaceae",
+                "price": 0,
+                "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+              }
+            }
+            onChange={[Function]}
+          />
+          <Checkbox
+            isChecked={false}
+            key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+            meal={
+              Object {
+                "category": "dolor sit",
+                "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+                "name": "Malvaceae",
+                "price": 40,
+                "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+              }
+            }
+            onChange={[Function]}
+          />
+          <Checkbox
+            isChecked={false}
+            key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+            meal={
+              Object {
+                "category": "dolor sit",
+                "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+                "name": "Malvaceae",
+                "price": 80,
+                "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+              }
+            }
+            onChange={[Function]}
+          />
+          <Checkbox
+            isChecked={false}
+            key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+            meal={
+              Object {
+                "category": "dolor sit",
+                "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+                "name": "Malvaceae",
+                "price": 120,
+                "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+              }
+            }
+            onChange={[Function]}
+          />
+          <Checkbox
+            isChecked={false}
+            key="84c6d80c-3d4a-4772-856c-0b3825bc5333"
+            meal={
+              Object {
+                "category": "dolor sit",
+                "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5333",
+                "imageUrl": "http://thisImage.jpeg",
+                "name": "Malvaceae",
+                "price": 400,
+                "userId": "2794fddd-14f3-4ec9-a1dc-88ad2bc649da",
+              }
+            }
+            onChange={[Function]}
+          />
+          <div
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          id="meals"
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+        >
+          <hr />
+          <SubmitButton
+            className="button"
+            isLoading={false}
+            value="Update"
+          />
+        </div>
+      </form>
+    </div>
+  </Modal>
+</div>
+`;

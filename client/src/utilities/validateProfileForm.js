@@ -13,7 +13,7 @@ const validateProfile = (data) => {
   }
 
   if (validator.isEmpty(data.mission)) {
-    errors.mission = 'The mission name field is required';
+    errors.mission = 'The mission field is required';
   }
 
   if (validator.isEmpty(data.email)) {

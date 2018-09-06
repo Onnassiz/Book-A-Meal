@@ -105,8 +105,8 @@ class Home extends Component {
       <div style={{ clear: 'both', marginTop: 50, textAlign: 'center' }}>
         <hr />
         {this.state.type === 'login' ?
-          <a style={{ fontSize: 17 }} onClick={() => this.changeAuthType('register')}><i className="ion-person-add" /> Register</a> :
-          <a style={{ fontSize: 17 }} onClick={() => this.changeAuthType('login')}><i className="ion-log-in" /> Login</a>
+          <a id="register" style={{ fontSize: 17 }} onClick={() => this.changeAuthType('register')}><i className="ion-person-add" /> Register</a> :
+          <a id="signIn" style={{ fontSize: 17 }} onClick={() => this.changeAuthType('login')}><i className="ion-log-in" /> Login</a>
         }
       </div>
     );

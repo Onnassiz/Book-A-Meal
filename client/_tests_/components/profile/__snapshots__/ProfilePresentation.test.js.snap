@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Profile /> Should render Profile page successfully 1`] = `
+<div
+  id="content-body"
+>
+  <div
+    className="col-12"
+  >
+    <button
+      className="button"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginRight": 5,
+        }
+      }
+    >
+      Add Profile
+    </button>
+    <button
+      className="button"
+      disabled={true}
+      id="toggleDropZone"
+      onClick={[Function]}
+    >
+      Upload Banner
+    </button>
+  </div>
+  <ProfileModal
+    formState={Object {}}
+    handleAddButtonClick={[Function]}
+    handleSubmit={[Function]}
+    onChange={[Function]}
+    profile={Object {}}
+    state={
+      Object {
+        "businessName": "",
+        "contact": "",
+        "email": "onnassiz@gmail",
+        "errors": Object {},
+        "isShowingDropZoneModal": false,
+        "isShowingModal": false,
+        "mission": "",
+      }
+    }
+  />
+  <div>
+    <ImageUploader
+      isShowingAddPhoto={false}
+      putImage={[Function]}
+      toggleAddPhoto={[Function]}
+    />
+  </div>
+  <ProfileSection
+    profile={Object {}}
+  />
+</div>
+`;

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import empty from 'is-empty';
-import Logo from '../../../../assets/images/logo.png';
+
+const logo = 'https://res.cloudinary.com/onnassiz/image/upload/v1535988132/logo_madffu.png';
 
 class NavBar extends Component {
   constructor(props) {
@@ -81,7 +82,7 @@ class NavBar extends Component {
             <hr />
             <Link to="/profile"><i className="material-icons">settings</i> Profile</Link>
             <hr />
-            <a onClick={this.signOut}><i className="material-icons">power_settings_new</i> Sign Out</a>
+            <a onClick={this.signOut} id="signOut"><i className="material-icons">power_settings_new</i> Sign Out</a>
           </div>
         </div>
       </div>
@@ -113,7 +114,7 @@ class NavBar extends Component {
       <div className="menuIcon">
         <ul>
           <li>
-            <button onClick={this.toggleShow}>
+            <button id="menuIcon" onClick={this.toggleShow}>
               <i style={{ fontSize: 30 }} className="material-icons">menu</i>
             </button>
           </li>
@@ -156,7 +157,7 @@ class NavBar extends Component {
   render() {
     return (
       <header>
-        <h1 className="logo"><Link to="/"><img src={Logo} alt="logo" /></Link></h1>
+        <h1 className="logo"><Link to="/"><img src={logo} alt="logo" /></Link></h1>
         {this.renderNavLeft()}
         {this.renderMainNav()}
         {this.renderMobileMenuIcon()}

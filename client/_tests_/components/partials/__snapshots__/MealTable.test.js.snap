@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MealTable /> Should render table  component successfully 1`] = `
+<div>
+  <table
+    className="meals-table"
+  >
+    <thead>
+      <tr>
+        <th>
+          S/N
+        </th>
+        <th>
+          Meal Name
+        </th>
+        <th>
+          Price
+        </th>
+        <th>
+          Category
+        </th>
+        <th>
+          Date Created
+        </th>
+        <th>
+          More
+        </th>
+        <th>
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <MealsTableRow
+        i={1}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 0,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={2}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 40,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={3}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 80,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={4}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 120,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={5}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 160,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={6}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 200,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={7}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 240,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={8}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 280,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={9}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "name": "Malvaceae",
+            "price": 320,
+            "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+      <MealsTableRow
+        i={10}
+        item={
+          Object {
+            "category": "dolor sit",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5333",
+            "imageUrl": "http://thisImage.jpeg",
+            "name": "Malvaceae",
+            "price": 400,
+            "userId": "2794fddd-14f3-4ec9-a1dc-88ad2bc649da",
+          }
+        }
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5333"
+        toggleAddPhoto={[MockFunction]}
+        toggleShowDeleteModal={[MockFunction]}
+        toggleUpdateModal={[MockFunction]}
+      />
+    </tbody>
+  </table>
+</div>
+`;
