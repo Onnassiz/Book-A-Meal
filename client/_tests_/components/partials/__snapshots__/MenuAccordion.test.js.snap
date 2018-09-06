@@ -70,6 +70,7 @@ exports[`<MenuAccordion /> Should render MenuAccordion  component successfully 1
       >
         <button
           className="button-error"
+          id="show-delete"
           onClick={[MockFunction]}
           style={
             Object {
@@ -84,6 +85,7 @@ exports[`<MenuAccordion /> Should render MenuAccordion  component successfully 1
         </button>
         <button
           className="button"
+          id="show-update"
           onClick={[MockFunction]}
           style={
             Object {

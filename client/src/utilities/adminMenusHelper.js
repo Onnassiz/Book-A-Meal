@@ -3,24 +3,25 @@ import swal from 'sweetalert';
 function deleteMenu(willDelete, menu, $this) {
   if (willDelete) {
     const { deleteMenuById } = $this.props;
-    deleteMenuById(menu.id).then((response) => {
+    return deleteMenuById(menu.id).then((response) => {
       if (response.status === 200) {
         const pageMenus = $this.state.thisPageMenus.filter(x => x.id !== menu.id);
         $this.setState({ thisPageMenus: pageMenus, menuCount: $this.state.menuCount - 1 });
+        return response;
       }
     });
   }
 }
 
 export function toggleShowDeleteModal(menu, $this) {
-  swal({
+  return swal({
     text: 'Are you sure want to delete this menu?',
     icon: 'warning',
     dangerMode: true,
     buttons: ['Cancel', 'Delete'],
   })
     .then((willDelete) => {
-      deleteMenu(willDelete, menu, $this);
+      return deleteMenu(willDelete, menu, $this);
     });
 }
 

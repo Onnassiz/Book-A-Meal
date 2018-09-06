@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import empty from 'is-empty';
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
 import { addProfileImageModalView } from './../../utilities/modalStyles';
@@ -8,6 +7,7 @@ import { BasicInput, TextArea } from './form/BasicInput';
 import SubmitButton from '../presentation/form/SubmitButton';
 import CartSidePane from './partials/CartSidePane';
 import { numberWithCommas } from '../../utilities/functions';
+import ShowErrors from '../presentation/partials/ShowErrors';
 import validateOrder from '../../utilities/validateOrder';
 
 
@@ -176,14 +176,7 @@ class Cart extends Component {
           <a onClick={this.closeCheckoutForm} style={{ float: 'right' }}><i style={{ fontSize: 25 }} className="material-icons">close</i></a>
         </div>
         <div className="box">
-          <div className="show-errors">
-            <ul>
-              {Object.keys(this.state.errors)
-                .map(item => <li key={item}>{this.state.errors[item]}</li>)}
-              {empty(orders.errors) ? '' :
-                Object.keys(orders.errors).map(item => <li key={item}>{orders.errors[item]}</li>)}
-            </ul>
-          </div>
+          <ShowErrors clientErrors={this.state.errors} serverErrors={orders.errors || {}} />
           <form onSubmit={this.placeOrder}>
             <BasicInput type="text" label="Phone Number" name="telephone" value={this.state.telephone} onChange={this.onChange} hasError={this.state.errors.telephone !== undefined} />
             <TextArea name="address" type="text" label="Address" value={this.state.address} onChange={this.onChange} hasError={this.state.errors.address !== undefined} />

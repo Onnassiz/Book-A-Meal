@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config './webpack.config.js' --mode development --hot",
-    "test": "jest --coverage",
+    "test": "jest --coverage -u  --collectCoverageFrom=**/src/**/*.js",
     "test:watch": "jest --watch",
     "client": "npm start",
     "server": "nodemon server.js --exec babel-node server.js --presets env",
@@ -49,6 +49,8 @@
     "jest": "^23.2.0",
     "l": "^0.6.0",
     "react-addons-test-utils": "^15.6.2",
+    "react-hot-loader": "^4.3.6",
+    "react-test-renderer": "^16.5.0",
     "redux-mock-store": "^1.5.3",
     "uuid": "^3.3.2",
     "webpack": "^4.8.3",

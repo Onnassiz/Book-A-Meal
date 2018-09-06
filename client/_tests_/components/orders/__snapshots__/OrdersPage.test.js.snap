@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Orders /> Should render Orders page successfully 1`] = `
+<div>
+  <Connect(NavBar)
+    page="orders"
+  />
+  <Connect(Orders) />
+</div>
+`;

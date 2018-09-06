@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import sweetalert from 'sweetalert';
 import Meals from '../../../src/components/presentation/Meals';
 import userMock from '../../objectProps/user.props';
 import { singleMeal, getMealsMock } from '../../objectProps/meals.props';
@@ -27,8 +28,9 @@ const wrapper = shallow(<Meals {...props} />);
 props.profile = {};
 const wrapperWithoutProfile = shallow(<Meals {...props} />);
 
-
 jest.useFakeTimers();
+jest.mock('sweetalert');
+
 describe('<Meals />', () => {
   it('Should render Meals presentation components successfully', () => {
     expect(toJson(wrapper)).toMatchSnapshot();
@@ -96,6 +98,7 @@ describe('<Meals />', () => {
 
   it('Should trigger toggleShowDeleteModal when it is called', () => {
     const toggleShowDeleteModalSpy = jest.spyOn(wrapper.instance(), 'toggleShowDeleteModal');
+    sweetalert.mockResolvedValue(Promise.resolve(true));
     wrapper.instance().toggleShowDeleteModal(singleMeal);
     expect(toggleShowDeleteModalSpy).toHaveBeenCalled();
   });

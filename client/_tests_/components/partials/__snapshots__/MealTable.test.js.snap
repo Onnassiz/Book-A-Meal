@@ -36,14 +36,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id0",
             "name": "Malvaceae",
             "price": 0,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id0"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -53,14 +56,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id1",
             "name": "Malvaceae",
             "price": 40,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id1"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -70,14 +76,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id2",
             "name": "Malvaceae",
             "price": 80,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id2"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -87,14 +96,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id3",
             "name": "Malvaceae",
             "price": 120,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id3"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -104,14 +116,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id4",
             "name": "Malvaceae",
             "price": 160,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id4"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -121,14 +136,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id5",
             "name": "Malvaceae",
             "price": 200,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id5"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -138,14 +156,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id6",
             "name": "Malvaceae",
             "price": 240,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id6"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -155,14 +176,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id7",
             "name": "Malvaceae",
             "price": 280,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id7"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -172,14 +196,17 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+            "id": "id8",
             "name": "Malvaceae",
             "price": 320,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
           }
         }
-        key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+        key="id8"
         toggleAddPhoto={[MockFunction]}
         toggleShowDeleteModal={[MockFunction]}
         toggleUpdateModal={[MockFunction]}
@@ -189,11 +216,14 @@ exports[`<MealTable /> Should render table  component successfully 1`] = `
         item={
           Object {
             "category": "dolor sit",
+            "caterer": "Ben",
             "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
             "id": "84c6d80c-3d4a-4772-856c-0b3825bc5333",
             "imageUrl": "http://thisImage.jpeg",
             "name": "Malvaceae",
             "price": 400,
+            "totalPrice": 2000,
+            "units": 2,
             "userId": "2794fddd-14f3-4ec9-a1dc-88ad2bc649da",
           }
         }

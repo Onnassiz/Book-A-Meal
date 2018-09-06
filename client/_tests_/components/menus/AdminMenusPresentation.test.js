@@ -1,14 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-// import swal from 'sweetalert';
+import sweetalert from 'sweetalert';
+import Pagination from 'react-js-pagination';
 import toJson from 'enzyme-to-json';
 import AdminMenus from '../../../src/components/presentation/AdminMenus';
 import user from '../../objectProps/user.props';
 import profile from '../../objectProps/profile.props';
-import { postMenu, getMenus, updateMenu, getMealsInMenu } from '../../promiseProps/menus.props';
+import { postMenu, getMenus, updateMenu, getMealsInMenu, deleteMenuById } from '../../promiseProps/menus.props';
 import { getMeals } from '../../promiseProps/meals.props';
 import { getProfile } from '../../promiseProps/profile.props';
 import { singleMenu } from '../../objectProps/menus.props';
+import MenuAccordion from '../../../src/components/presentation/partials/MenuAccordion';
 
 user.role = 'customer';
 const props = {
@@ -23,6 +25,7 @@ const props = {
   getUserMenus: getMenus,
   updateMenu,
   getMealsInMenu,
+  deleteMenuById,
 };
 
 const wrapper = shallow(<AdminMenus {...props} />);
@@ -32,7 +35,7 @@ props.profile = {};
 const wrapperWithoutProfile = shallow(<AdminMenus {...props} />);
 
 jest.useFakeTimers();
-// jest.mock('sweetalert');
+jest.mock('sweetalert');
 describe('<AdminMenus />', () => {
   it('Should render Admin Menu presentation component successfully', () => {
     expect(toJson(wrapper)).toMatchSnapshot();
@@ -89,6 +92,15 @@ describe('<AdminMenus />', () => {
     });
   });
 
+  it('Should trigger handMenuPageChange when it is called and update page number', () => {
+    const handMenuPageChangeSpy = jest.spyOn(wrapper.instance(), 'handMenuPageChange');
+
+    wrapper.instance().handMenuPageChange(4).then(() => {
+      expect(wrapper.state().activePage).toBe(4);
+      expect(handMenuPageChangeSpy).toHaveBeenCalled();
+    });
+  });
+
   it('Should trigger toggleUpdateModal when it is called and update component state for menu update', () => {
     const toggleUpdateModalSpy = jest.spyOn(wrapper.instance(), 'toggleUpdateModal');
 
@@ -124,11 +136,38 @@ describe('<AdminMenus />', () => {
     expect(updateViewMenusSpy).toHaveBeenCalled();
   });
 
-  // it('Should trigger toggleShowDeleteModal when it is called', () => {
-  //   const toggleShowDeleteModalSpy = jest.spyOn(wrapper.instance(), 'toggleShowDeleteModal');
+  it('Should trigger toggleShowDeleteModal when it is called', () => {
+    const toggleShowDeleteModalSpy = jest.spyOn(wrapper.instance(), 'toggleShowDeleteModal');
+    sweetalert.mockResolvedValue(Promise.resolve(true));
+    wrapper.instance().toggleShowDeleteModal(singleMenu);
+    expect(toggleShowDeleteModalSpy).toHaveBeenCalled();
+  });
 
-  //   wrapper.instance().toggleShowDeleteModal(singleMenu);
-  //   swal.mockResolvedValue(Promise.resolve(true));
-  //   expect(toggleShowDeleteModalSpy).toHaveBeenCalled();
-  // });
+  it('Should trigger handMenuPageChange page number button is clicked', () => {
+    const handMenuPageChangeSpy = jest.spyOn(wrapper.instance(), 'handMenuPageChange');
+
+    wrapper.setState({ menuCount: 14 });
+
+    wrapper.find(Pagination).first().simulate('change', 4);
+
+    expect(handMenuPageChangeSpy).toHaveBeenCalled();
+  });
+
+  it('Should trigger toggleUpdateModal when called', () => {
+    const toggleUpdateModalSpy = jest.spyOn(wrapper.instance(), 'toggleUpdateModal');
+
+    wrapper.find(MenuAccordion).first().dive().find('#show-update')
+      .simulate('click');
+
+    expect(toggleUpdateModalSpy).toHaveBeenCalled();
+  });
+
+  it('Should trigger toggleShowDeleteModal when called', () => {
+    const toggleShowDeleteModalSpy = jest.spyOn(wrapper.instance(), 'toggleShowDeleteModal');
+
+    wrapper.find(MenuAccordion).first().dive().find('#show-delete')
+      .simulate('click');
+
+    expect(toggleShowDeleteModalSpy).toHaveBeenCalled();
+  });
 });

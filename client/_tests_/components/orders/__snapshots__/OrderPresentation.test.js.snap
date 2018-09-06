@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Orders /> Should render Orders presentation components successfully 1`] = `
+<div
+  id="content-body"
+>
+  <h1>
+    Your Orders
+  </h1>
+  <div />
+  <div>
+    <div
+      id="no-menu"
+    >
+      <h2>
+        You order history is empty
+      </h2>
+    </div>
+  </div>
+  <div />
+</div>
+`;

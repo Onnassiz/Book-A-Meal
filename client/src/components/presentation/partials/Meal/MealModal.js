@@ -1,4 +1,4 @@
-/* eslint react/no-unused-state: 0 */
+/* eslint react/no-unused-state: 0, no-else-return: 0 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
@@ -56,6 +56,8 @@ class MealModal extends Component {
         toast(response.data.message);
         updateComponentMeals(meal);
         return response;
+      } else {
+        this.setState({ hasServerErrors: true });
       }
     });
   }
@@ -89,6 +91,8 @@ class MealModal extends Component {
         addToMeals(response.data.meal);
         toast(response.data.message);
         return response;
+      } else {
+        this.setState({ hasServerErrors: true });
       }
     });
   }

@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Menus /> Should render the Menus container successfully 1`] = `
+<div
+  id="content-body"
+>
+  <div>
+    <div
+      className="control"
+    >
+      <i
+        className="ion-ios-calendar-outline"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+  <ReactSlidingPane
+    from="left"
+    isOpen={false}
+    onRequestClose={[Function]}
+    title="Pick a Date"
+    width="320px"
+  >
+    <div>
+      <Calendar
+        className=""
+        locale={
+          Object {
+            "backToToday": "Back to today",
+            "clear": "Clear",
+            "dateFormat": "M/D/YYYY",
+            "dateSelect": "select date",
+            "dateTimeFormat": "M/D/YYYY HH:mm:ss",
+            "dayFormat": "D",
+            "decadeSelect": "Choose a decade",
+            "month": "Month",
+            "monthBeforeYear": true,
+            "monthSelect": "Choose a month",
+            "nextCentury": "Next century",
+            "nextDecade": "Next decade",
+            "nextMonth": "Next month (PageDown)",
+            "nextYear": "Next year (Control + right)",
+            "now": "Now",
+            "ok": "Ok",
+            "previousCentury": "Last century",
+            "previousDecade": "Last decade",
+            "previousMonth": "Previous month (PageUp)",
+            "previousYear": "Last year (Control + left)",
+            "timeSelect": "select time",
+            "today": "Today",
+            "weekSelect": "Choose a week",
+            "year": "Year",
+            "yearFormat": "YYYY",
+            "yearSelect": "Choose a year",
+          }
+        }
+        onChange={[Function]}
+        onClear={[Function]}
+        onKeyDown={[Function]}
+        onOk={[Function]}
+        onPanelChange={[Function]}
+        onSelect={[Function]}
+        prefixCls="rc-calendar"
+        renderFooter={[Function]}
+        renderSidebar={[Function]}
+        showDateInput={false}
+        showToday={true}
+        style={Object {}}
+        timePicker={null}
+        value={"2018-09-08T23:00:00.000Z"}
+        visible={true}
+      />
+    </div>
+  </ReactSlidingPane>
+  <div
+    className="col-12"
+  >
+    <div
+      className="dateInput"
+    >
+      <a
+        onClick={[Function]}
+        title="back"
+      >
+        <i
+          className="ion-ios-skipbackward"
+        />
+         Previous
+      </a>
+      <a
+        onClick={[Function]}
+        title="next day"
+      >
+        Next Day 
+        <i
+          className="ion-ios-skipforward"
+        />
+      </a>
+      <h2>
+        Sun Sep 09 2018
+      </h2>
+    </div>
+    <div
+      id="card_container"
+    >
+      <Card
+        addToCart={[Function]}
+        cart={
+          Array [
+            Object {
+              "category": "dolor sit",
+              "caterer": "Ben",
+              "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+              "id": "84c6d80c-3d4a-4772-856c-0b3825bc5333",
+              "imageUrl": "http://thisImage.jpeg",
+              "name": "Malvaceae",
+              "price": 400,
+              "totalPrice": 2000,
+              "units": 2,
+              "userId": "2794fddd-14f3-4ec9-a1dc-88ad2bc649da",
+            },
+          ]
+        }
+        currentDate="2018-09-09"
+        key="84c6d80c-3d4a-4772-856c-0b3825bc5333Ben"
+        meal={
+          Object {
+            "category": "dolor sit",
+            "caterer": "Ben",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5333",
+            "imageUrl": "http://thisImage.jpeg",
+            "name": "Malvaceae",
+            "price": 400,
+            "totalPrice": 2000,
+            "units": 2,
+            "userId": "2794fddd-14f3-4ec9-a1dc-88ad2bc649da",
+          }
+        }
+        removeFromCart={[Function]}
+        showMore={[Function]}
+      />
+    </div>
+  </div>
+  <div />
+</div>
+`;

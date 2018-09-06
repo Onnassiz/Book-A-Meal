@@ -1,0 +1,350 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CartContainer /> Should render the CartContainer container successfully 1`] = `
+<Cart
+  cart={
+    Object {
+      "address": "",
+      "cart": Array [
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 0,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 40,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 80,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 120,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 160,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 200,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 240,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 280,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 320,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 360,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 400,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 440,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 480,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 520,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 560,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 600,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 640,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 680,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 720,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 760,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 800,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 840,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 880,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 920,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 960,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1000,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1040,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1080,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1120,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1160,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1200,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1240,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1280,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1320,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1360,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1400,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1440,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1480,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1520,
+          "userId": 1,
+        },
+        Object {
+          "category": "dolor sit",
+          "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+          "name": "Malvaceae",
+          "price": 1560,
+          "userId": 1,
+        },
+      ],
+      "contact": "",
+      "isOpen": false,
+      "orderId": "",
+      "owner": "",
+      "totalPrice": 0,
+      "updateMode": false,
+    }
+  }
+  deleteFromCart={[Function]}
+  emptyCart={[Function]}
+  formState={
+    Object {
+      "isLoading": false,
+    }
+  }
+  orders={Object {}}
+  postOrder={[Function]}
+  setCartState={[Function]}
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "clear": [Function],
+        "get": [Function],
+        "notify": [Function],
+        "subscribe": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": [Function],
+    }
+  }
+  updateCart={[Function]}
+  updateOrder={[Function]}
+  user={
+    Object {
+      "email": "onnassiz@gmail",
+      "id": "3a3c499f-803a-4e06-a328-307daff22243",
+      "name": "Ben Onah",
+      "role": "caterer",
+    }
+  }
+/>
+`;

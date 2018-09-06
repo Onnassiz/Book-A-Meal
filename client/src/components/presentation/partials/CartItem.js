@@ -18,7 +18,7 @@ const CartItem = (props) => {
         {empty(props.meal.imageUrl) ? <div /> : <img src={image} alt={props.meal.name} />}
       </div>
       <div className="details">
-        <NumberPicker containerClassName="plusminus" min={1} defaultValue={props.meal.units} onChange={props.updateUnits} />
+        <NumberPicker containerClassName="plusminus" min={1} defaultValue={props.meal.units} onChange={props.onUpdateUnits} />
         <p>Price: &#8358;{numberWithCommas(props.meal.price)}</p>
         <p>Total Price: &#8358;{numberWithCommas(props.meal.totalPrice)}</p>
         <p><button className="cart-button" onClick={props.deleteFromCart}><i className="ion-trash-b" /> Remove</button></p>
@@ -32,7 +32,7 @@ const CartItem = (props) => {
 
 CartItem.propTypes = {
   meal: PropTypes.object.isRequired,
-  updateUnits: PropTypes.func.isRequired,
+  onUpdateUnits: PropTypes.func.isRequired,
   deleteFromCart: PropTypes.func.isRequired,
 };
 
