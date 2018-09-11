@@ -1,7 +1,6 @@
 import React from 'react';
 import empty from 'is-empty';
 import PropTypes from 'prop-types';
-import { getCurrentDate } from '../../../utilities/functions';
 
 const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
@@ -39,14 +38,13 @@ const renderCard = props => (
   <div>
     {renderCardHeader(props)}
     <div className="card_container">
-
       <div className="left">
         <div className="item">
           <p className="num">&#8358;{numberWithCommas(props.meal.price)}</p>
         </div>
       </div>
       <div>
-        {getCurrentDate() > props.currentDate ? '' : renderCardButtons(props)}
+        {props.currentDate > props.meal.menuDate ? '' : renderCardButtons(props)}
         <a className="more-button" onClick={props.showMore}><i className="ion-ios-information-outline" /></a>
       </div>
     </div>

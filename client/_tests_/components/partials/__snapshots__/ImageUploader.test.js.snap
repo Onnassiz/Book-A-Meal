@@ -108,7 +108,7 @@ exports[`<ImageUploader /> Should render Image Uploader component successfully 1
           <h2
             id="dropzoneHeader"
           >
-            Drop Images Here
+            Drop Image Here
           </h2>
           <br />
           <br />
@@ -116,6 +116,7 @@ exports[`<ImageUploader /> Should render Image Uploader component successfully 1
           <button
             className="button"
             disabled={false}
+            id="upload_image"
           >
             Upload Image
           </button>

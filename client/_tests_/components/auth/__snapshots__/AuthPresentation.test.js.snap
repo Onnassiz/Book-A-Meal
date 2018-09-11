@@ -179,12 +179,12 @@ exports[`<Auth /> Should render Auth presentation components successfully with s
             >
               <label
                 className="checkbox"
-                htmlFor="signUp"
+                htmlFor="signUpAsCaterer"
               >
                 Sign up as Caterer
                 <input
                   checked={false}
-                  id="signUp"
+                  id="signUpAsCaterer"
                   onChange={[Function]}
                   type="checkbox"
                   value="caterer"

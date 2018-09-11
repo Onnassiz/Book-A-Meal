@@ -9,6 +9,7 @@ exports[`<Profile /> Should render Profile page successfully 1`] = `
   >
     <button
       className="button"
+      id="profile_button"
       onClick={[Function]}
       style={
         Object {

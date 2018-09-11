@@ -26,7 +26,8 @@ class App extends Component {
   }
 
   componentWillMount() {
-    axios.defaults.baseURL = process.env.API_URL;
+    const url = process.env.NODE_ENV === 'test' ? process.env.TEST_API_URL : process.env.API_URL;
+    axios.defaults.baseURL = url;
     axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
     const token = localStorage.getItem('token');
     if (token !== '' && token !== null) {
