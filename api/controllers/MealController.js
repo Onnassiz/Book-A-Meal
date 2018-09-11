@@ -3,7 +3,7 @@ import { meal, user, profile, menu, order } from '../models';
 
 const { Op } = sequelize;
 
-const mealViewModelFromArray = (meals) => {
+const mealViewModelFromArray = (meals, menuDate = '') => {
   const viewModel = [];
   meals.forEach((item) => {
     const thisModel = {
@@ -12,6 +12,7 @@ const mealViewModelFromArray = (meals) => {
       price: item.price,
       totalPrice: item.price,
       units: 1,
+      menuDate,
       userId: item.userId,
       category: item.category,
       description: item.description,
@@ -138,7 +139,7 @@ class MealsController {
         {
           model: menu,
           where: { date },
-          attributes: [],
+          attributes: ['date'],
           order: sequelize.literal('createdAt'),
         },
         { model: user, include: [{ model: profile }] },
@@ -148,7 +149,7 @@ class MealsController {
     }).then((meals) => {
       res.status(200).send({
         count: meals.count,
-        meals: mealViewModelFromArray(meals.rows),
+        meals: mealViewModelFromArray(meals.rows, date),
       });
     });
   }

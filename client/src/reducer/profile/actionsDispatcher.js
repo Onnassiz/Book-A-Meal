@@ -54,7 +54,6 @@ export const getProfile = () => (dispatch) => {
     return response;
   }).catch((error) => {
     dispatch(unsetLoading());
-    dispatch(setProfileErrors(error.response.data));
     return error;
   });
 };

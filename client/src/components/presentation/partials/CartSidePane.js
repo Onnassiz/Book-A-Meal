@@ -42,7 +42,7 @@ const CartSidePane = props => (
             <br />
             <p>
               <button onClick={props.emptyCart}>Empty Cart</button>
-              <button onClick={props.checkout}>{props.cart.updateMode ? 'Next' : 'Checkout'}</button>
+              <button id="checkout" onClick={props.checkout}>{props.cart.updateMode ? 'Next' : 'Checkout'}</button>
             </p>
           </div>
         </div>}

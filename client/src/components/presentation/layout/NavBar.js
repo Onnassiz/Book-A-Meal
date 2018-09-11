@@ -47,14 +47,14 @@ class NavBar extends Component {
         <ul>
           {user.role === 'caterer' ?
             <li>
-              <div className="dropdown">
+              <div id="caterer_dropdown" className="dropdown">
                 <a className={page === 'caterer' ? 'active' : ''}>{'Caterer\'s Workshop'}<i id="caret" className="material-icons">arrow_drop_down</i></a>
                 <div className="dropdown-container">
                   <div className="dropdown-content">
-                    <Link to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
+                    <Link id="admin_profile" to="/caterer/business_profile"><i className="material-icons">dashboard</i> Setup Profile</Link>
                     <hr />
-                    <Link to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link>
-                    <Link to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link>
+                    <Link id="admin_meals" to="/caterer/meals"><i className="material-icons">donut_small</i> Manage Meals</Link>
+                    <Link id="admin_menus" to="/caterer/menus"><i className="material-icons">menu</i> Manage Menus</Link>
                     <hr />
                     <a href="pages/admin/manage-menu.html"><i className="material-icons">developer_board</i> View Reports</a>
                   </div>
@@ -70,7 +70,7 @@ class NavBar extends Component {
     const { user } = this.props;
     const initials = empty(user) ? '' : user.name.match(/\b(\w)/g).join('').toUpperCase();
     return (
-      <div className="dropdown">
+      <div id="user_dropdown" className="dropdown">
         <button className="user-button"><a>{initials}<i id="caret" className="material-icons">arrow_drop_down</i></a></button>
         <div className="dropdown-container">
           <div className="dropdown-content">
@@ -95,15 +95,15 @@ class NavBar extends Component {
       <div className="nav">
         {!empty(user) ?
           <ul>
-            <li className={page === 'menus' ? 'active' : ''}><Link className="main" to="/menus">Menu</Link></li>
-            <li className={page === 'orders' ? 'active' : ''}><Link to="/orders" className="main">Orders</Link></li>
+            <li className={page === 'menus' ? 'active' : ''}><Link id="user_menus" className="main" to="/menus">Menu</Link></li>
+            <li className={page === 'orders' ? 'active' : ''}><Link id="user_orders" to="/orders" className="main">Orders</Link></li>
             <li>
               {this.renderDropDown()}
             </li>
           </ul> :
           <ul>
-            <li><Link to="/auth/register"><button className="auth-button">Sign Up</button></Link></li>
-            <li><Link to="/auth/login"><button className="auth-button">Login</button></Link></li>
+            <li><Link id="register" to="/auth/register"><button className="auth-button">Sign Up</button></Link></li>
+            <li><Link id="login" to="/auth/login"><button className="auth-button">Login</button></Link></li>
           </ul>}
       </div>
     );

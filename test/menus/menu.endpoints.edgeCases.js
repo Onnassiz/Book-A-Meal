@@ -9,7 +9,7 @@ import { deleteMenus, getMealIds, insertOneMenu } from '../../testHelpers/menus/
 import { deleteProfile } from '../../testHelpers/profile/index';
 
 dotenv.config();
-const baseUrl = 'http://localhost:3009/api/v1';
+const baseUrl = 'http://localhost:3008/api/v1';
 
 let adminToken = '';
 let adminToken2 = '';

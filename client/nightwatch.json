@@ -1,0 +1,59 @@
+{
+  "src_folders": [
+    "e2e-tests/auth",
+    "e2e-tests/adminProfile",
+    "e2e-tests/adminMeals",
+    "e2e-tests/adminMenus",
+    "e2e-tests/customerMenus",
+    "e2e-tests/orders"
+  ],
+  "output_folder": "reports",
+  "custom_commands_path": "",
+  "custom_assertions_path": "",
+  "page_objects_path": "",
+  "globals_path": "globals.js",
+  "selenium": {
+    "start_process": true,
+    "server_path": "node_modules/selenium-standalone/.selenium/selenium-server/",
+    "log_path": "./reports",
+    "host": "127.0.0.1",
+    "port": 4444,
+    "cli_args": {
+      "webdriver.chrome.driver": "/usr/local/bin/chromedriver",
+      "webdriver.gecko.driver": "",
+      "webdriver.edge.driver": ""
+    }
+  },
+  "test_settings": {
+    "default": {
+      "selenium_port": 4444,
+      "selenium_host": "localhost",
+      "silent": true,
+      "screenshots": {
+        "enabled": true,
+        "path": ""
+      },
+      "desiredCapabilities": {
+        "browserName": "chrome",
+        "marionette": true,
+        "javascriptEnabled": true,
+        "acceptSslCerts": true,
+        "chromeOptions": {
+          "args": [
+            "window-size=1280,1000"
+          ]
+        }
+      }
+    },
+    "chrome": {
+      "desiredCapabilities": {
+        "browserName": "chrome"
+      }
+    },
+    "edge": {
+      "desiredCapabilities": {
+        "browserName": "MicrosoftEdge"
+      }
+    }
+  }
+}

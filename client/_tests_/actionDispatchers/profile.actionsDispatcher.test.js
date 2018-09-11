@@ -265,10 +265,6 @@ describe('Profile Action Dispatchers', () => {
       {
         type: 'UNSET_LOADING',
       },
-      {
-        type: 'SET_PROFILE_SERVER_ERRORS',
-        errors: response,
-      },
     ];
     store.dispatch(profileActionsDispatcher.getProfile()).then((error) => {
       expect(error.response.status).toEqual(400);

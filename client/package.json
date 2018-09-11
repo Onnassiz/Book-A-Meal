@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config './webpack.config.js' --mode development --hot",
+    "start-test": "NODE_ENV=test webpack-dev-server --config './webpack.config.js' --mode development --hot --open false",
     "test": "jest --coverage -u  --collectCoverageFrom=**/src/**/*.js",
     "test:watch": "jest --watch",
     "client": "npm start",
     "server": "nodemon server.js --exec babel-node server.js --presets env",
     "starter": "concurrently --kill-others-on-fail \"cd ../ && npm start\" \"npm run client\"",
+    "e2e-test": "concurrently --kill-others-on-fail \"cd ../ && npm run start-e2e\" \"nightwatch\"",
+    "e2e-setup": "selenium-standalone install",
     "build": "webpack --mode production"
   },
   "jest": {
@@ -52,6 +55,7 @@
     "react-hot-loader": "^4.3.6",
     "react-test-renderer": "^16.5.0",
     "redux-mock-store": "^1.5.3",
+    "selenium-standalone": "^6.15.2",
     "uuid": "^3.3.2",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3",

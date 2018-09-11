@@ -85,11 +85,11 @@ exports[`<MenuModal /> Should render Menu Modal page successfully 1`] = `
             <BasicInput
               hasError={false}
               label="Start Date"
-              min="2018-09-07"
+              min="2018-09-11"
               name="startDate"
               onChange={[Function]}
               type="date"
-              value="2018-09-07"
+              value="2018-09-11"
             />
           </div>
           <div>
