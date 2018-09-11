@@ -28,7 +28,7 @@ This is a simple UI design for Book-A-Meal application. This UI has the followin
 </ul>
 
 
-<h1>API Setup</h1>
+<h1>API</h1>
 This app's uses and node express api with the following testing kits:
 <ul>
   <li>Mocha</li>
@@ -39,33 +39,42 @@ This app's uses and node express api with the following testing kits:
 </ul>
 All api files (models, controllers) goes in the <b>api</b> directory and all test files goes in the <b>test</b> directory.
 
-This app will at this stage use json mock data for api endpoint testing.
-
-This app also have CI badges obtained from <b>Travis, Coveralls, and Code Climate</b> as shown above.
-<h1>UI Features</h1>
+This app also has CI badges obtained from <b>Travis, Coveralls, Code Climate, and Hound</b> as shown above.
+<h1>UI</h1>
+The UI of this application is written in react. React app has the following major components
 <ul>
-  <li><b>Top Nav:</b> contains links basic client pages (menu, orders, cart) and a signIn button</li>
-  <li><b>Homepage:</b> contains a fixed banner, a description of <b>Just Eat</b> objectives, and 'hot deals' cards</li>
-  <li><b>Admin Panel:</b> with the assumption that the signed user is an admin, every page (except signIn/signUp) has an Admin panel floated to the right. These panels contain links to admin pages</li>
-  <li><b>SignIn/SignUp Pages:</b> contains sign in and sign up forms respectively. SignUp page can only be accessed through the SignIn page</li>
-  <li><b>Menu page:</b> Contains menu for the current day, a datepicker input box to let users choose a date, and a next and prev button to let user navigate through dates.</li>
-  <li><b>Manage meals:</b> contains a table of all meals and a form to allow an admin add new meal. This form is handle in a js file and adds meals to the table.</li>
-  <li><b>Manage menu:</b> contains menu for all days and a form through which an admin can add menu</li>
-  <li><b>Report:</b> contains applications daily reports</li>
+  <li><b>Home Page:</b> This component has a carousel of meals and contains text and images about the app.</li>
+  <li><b>Auth Page:</b> This page contains the sign up and sign in form for authentication.</li>
+  <li><b>Admin Profile Page:</b> This is the page where a potential caterers visits in order to setup a business profile.</li>
+  <li><b>Admin Meal Management Page:</b> This is the page where a caterer visits to add and modify meals to his/her kitchen.</li>
+  <li><b>Admin Menu Management Page:</b> This is page where an caterer can add and manage daily menus.</li>
+  <li><b>User Menu Page:</b> This is the page where users/customers visit to see menus for a particular day and add meals from these menus to the cart.</li>
+  <li><b>Cart:</b> This Component slides out the left of the UI for a user to modify a cart and checkout.</li>
+  <li><b>Orders:</b> This is the page where customers visit to see their order history.</li>
 </ul>
 
-<h1>Empty UI Pages</h1>
-The following pages could not be designed because of time and are thereby left empty
+<h1>Installation</h1>
+Follow the guideline below for how to setup this app locally.
+<hr />
+<h2>API</h2>
 <ul>
-  <li>Manage Users</li>
-  <li>Orders</li>
-  <li>Cart</li>
+<li>Install Postgres SQL.</li>
+<li>Install Node.js and NPM.</li>
+<li>Run <code>npm install</code></li>
+<li>Setup a <code>.env</code> file using the guide in .env-example in the root directory.</li>
+<li>Create two databases <code>book_a_meal_test</code> and <code>book_a_meal_development</code>.</li>
+<li>Add a USER <code>ben</code> and PASSWORD <code>ben</code> to the databases created.</li>
+<li>Install sequelize npm package globally.</li>
+<li>Navigate to the project root folder on terminal and run <code>sequelize db:migrate</code>.</li>
+<li>Now run <code>npm start</code> to start the express server.</li>
+</ul>
+<br />
+<h2>React Client</h2>
+<ul>
+<li>Navigate to the <code>client</code> directory on terminal.</li>
+<li>Run <code>npm install</code>.</li>
+<li>Setup a <code>.env</code> file using the guide in .env-example in the root directory.</li>
+<li>Run <code>npm start</code> to start the React.js client</li>
 </ul>
 
-<h1>Missing UI features</h1>
-The following features could not be designed because of time constraint
-<ul>
-  <li>Site is not completely mobile responsive</li>
-  <li>No footer design</li>
-  <li>Etc</li>
-</ul>
+`Note`: You can start both the client and server by running `npm run starter` from either the client directory or the main directory
