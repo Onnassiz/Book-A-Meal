@@ -22,6 +22,7 @@ exports[`<NavBar /> Should render presentation component 1`] = `
       <li>
         <div
           className="dropdown"
+          id="caterer_dropdown"
         >
           <a
             className=""
@@ -41,6 +42,7 @@ exports[`<NavBar /> Should render presentation component 1`] = `
               className="dropdown-content"
             >
               <Link
+                id="admin_profile"
                 replace={false}
                 to="/caterer/business_profile"
               >
@@ -53,6 +55,7 @@ exports[`<NavBar /> Should render presentation component 1`] = `
               </Link>
               <hr />
               <Link
+                id="admin_meals"
                 replace={false}
                 to="/caterer/meals"
               >
@@ -64,6 +67,7 @@ exports[`<NavBar /> Should render presentation component 1`] = `
                  Manage Meals
               </Link>
               <Link
+                id="admin_menus"
                 replace={false}
                 to="/caterer/menus"
               >
@@ -100,6 +104,7 @@ exports[`<NavBar /> Should render presentation component 1`] = `
       >
         <Link
           className="main"
+          id="user_menus"
           replace={false}
           to="/menus"
         >
@@ -111,6 +116,7 @@ exports[`<NavBar /> Should render presentation component 1`] = `
       >
         <Link
           className="main"
+          id="user_orders"
           replace={false}
           to="/orders"
         >
@@ -120,6 +126,7 @@ exports[`<NavBar /> Should render presentation component 1`] = `
       <li>
         <div
           className="dropdown"
+          id="user_dropdown"
         >
           <button
             className="user-button"
@@ -269,6 +276,7 @@ exports[`<NavBar /> Should render presentation component when user is empty 1`] 
     <ul>
       <li>
         <Link
+          id="register"
           replace={false}
           to="/auth/register"
         >
@@ -281,6 +289,7 @@ exports[`<NavBar /> Should render presentation component when user is empty 1`] 
       </li>
       <li>
         <Link
+          id="login"
           replace={false}
           to="/auth/login"
         >

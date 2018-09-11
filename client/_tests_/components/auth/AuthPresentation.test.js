@@ -46,7 +46,7 @@ describe('<Auth />', () => {
     const event = {
       target: { value: 'caterer' },
     };
-    registerWrapper.find('#signUp').simulate('change', event);
+    registerWrapper.find('#signUpAsCaterer').simulate('change', event);
     expect(registerWrapper.state().checked).toBe(true);
     expect(registerWrapper.state().role).toBe('caterer');
   });

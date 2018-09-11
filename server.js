@@ -17,7 +17,9 @@ app.use(express.static(path.join(__dirname, 'client/dist')));
 const cors = require('cors');
 app.use(cors());
 
-app.set('port', process.env.PORT);
+const port = process.env.NODE_ENV === 'test' ?process.env.TEST_PORT : process.env.PORT;
+
+app.set('port', port || 3008);
 
 app.use(bodyParser.urlencoded({
 	extended: false,

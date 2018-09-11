@@ -4,6 +4,7 @@ node_modules/
 npm-debug.log
 client/node_modules/
 client/coverage/
+client/reports/
 client/.env
 client/npm-debug.log
 .DS_Store

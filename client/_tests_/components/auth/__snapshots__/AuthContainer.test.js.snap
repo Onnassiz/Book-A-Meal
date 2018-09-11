@@ -376,12 +376,12 @@ exports[`<AuthContainer /> Should render the Auth container successfully 1`] = `
                         >
                           <label
                             className="checkbox"
-                            htmlFor="signUp"
+                            htmlFor="signUpAsCaterer"
                           >
                             Sign up as Caterer
                             <input
                               checked={false}
-                              id="signUp"
+                              id="signUpAsCaterer"
                               onChange={[Function]}
                               type="checkbox"
                               value="caterer"

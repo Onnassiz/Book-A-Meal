@@ -8,7 +8,7 @@ import { getCustomerToken } from '../../testHelpers/main';
 import { deleteOrders, getMealIds, insertOutdatedOrder } from '../../testHelpers/orders';
 
 dotenv.config();
-const baseUrl = 'http://localhost:3009/api/v1';
+const baseUrl = 'http://localhost:3008/api/v1';
 
 let customerToken = '';
 

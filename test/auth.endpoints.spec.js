@@ -4,7 +4,7 @@ import { describe, it, after } from 'mocha';
 
 import { deleteUser } from '../testHelpers/main';
 
-const baseUrl = 'http://localhost:3009/api/v1';
+const baseUrl = 'http://localhost:3008/api/v1';
 
 describe('Handle Not Found', () => {
   it('should return status (404) with message if route is not found', (done) => {
@@ -22,7 +22,7 @@ describe('AuthController', () => {
   });
 
   describe('SignUp', () => {
-    it('should return status (400) if form is empty', (done) => {
+    it('should return status (422) if form is empty', (done) => {
       const formData = {
         fullName: '',
         email: '',
@@ -35,7 +35,7 @@ describe('AuthController', () => {
       });
     });
 
-    it('should return status (400) if wrong email', (done) => {
+    it('should return status (422) if wrong email', (done) => {
       const formData = {
         fullName: '',
         email: 'something.co',
@@ -48,7 +48,7 @@ describe('AuthController', () => {
       });
     });
 
-    it('should return status (400) if password is too short', (done) => {
+    it('should return status (422) if password is too short', (done) => {
       const formData = {
         fullName: '',
         email: '',
@@ -93,7 +93,7 @@ describe('AuthController', () => {
 
 
   describe('SignIn', () => {
-    it('should return status (400) if form is empty', (done) => {
+    it('should return status (422) if form is empty', (done) => {
       const formData = {
         email: '',
         password: '',
@@ -105,7 +105,7 @@ describe('AuthController', () => {
       });
     });
 
-    it('should return status (400) if wrong email', (done) => {
+    it('should return status (422) if wrong email', (done) => {
       const formData = {
         email: 'sass.co',
         password: '',
