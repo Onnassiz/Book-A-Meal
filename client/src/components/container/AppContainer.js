@@ -5,13 +5,12 @@ import { setUser } from '../../reducer/user/actionsDispatcher';
 import App from '../presentation/App';
 import { deleteFromCart, addToCart, updateCart, emptyCart } from '../../reducer/cart/actionsDispatcher';
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   user: state.user,
   cart: state.cart,
-  menus: state.menus,
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setUser,
     addToCart,

@@ -1,14 +1,14 @@
 
-export const hasError = (errors, field) => {
-  let fieldHasError = false;
-  errors.forEach((item) => {
-    const key = Object.keys(item)[0];
-    if (key === field) {
-      fieldHasError = true;
-    }
-  });
-  return fieldHasError;
-};
+// export const hasError = (errors, field) => {
+//   let fieldHasError = false;
+//   errors.forEach((item) => {
+//     const key = Object.keys(item)[0];
+//     if (key === field) {
+//       fieldHasError = true;
+//     }
+//   });
+//   return fieldHasError;
+// };
 
 function addZ(n) {
   return n < 10 ? `0${n}` : n;
@@ -26,14 +26,14 @@ export function getDate(dateTime) {
     const timeCreated = `${addZ(dateAndTimeCreated.getHours() + 1)}:${addZ(dateAndTimeCreated.getMinutes())}`;
     return (`${getDay}, ${getMonth} ${fetchDate}, ${getYear} ${timeCreated}`);
   }
-  return '----';
 }
 
-export function convertUnixToDate(unixTime) {
+/** export function convertUnixToDate(unixTime) {
   const dateTime = parseInt(unixTime, 10);
   if (dateTime !== null) {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May',
+    'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const dateAndTime = new Date(dateTime * 1000);
     const getDay = days[dateAndTime.getDay()];
     const getThisDate = addZ(dateAndTime.getDate());
@@ -42,7 +42,7 @@ export function convertUnixToDate(unixTime) {
     return (`${getDay}, ${getMonth} ${getThisDate}, ${getYear}`);
   }
   return '----';
-}
+} */
 
 export function convertUnixToDateForUpdate(unixTime) {
   const dateTime = parseInt(unixTime, 10);
@@ -53,7 +53,6 @@ export function convertUnixToDateForUpdate(unixTime) {
     const getYear = dateAndTime.getFullYear();
     return (`${getYear}-${getMonth}-${getThisDate}`);
   }
-  return '----';
 }
 
 export const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -91,11 +90,11 @@ export function getDateFromMoment(moment) {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-export function compareAZ(a, b) {
-  if (a.name < b.name) { return -1; }
-  if (a.name > b.name) { return 1; }
-  return 0;
-}
+// export function compareAZ(a, b) {
+//   if (a.name < b.name) { return -1; }
+//   if (a.name > b.name) { return 1; }
+//   return 0;
+// }
 
 export function sortMenu(c, d) {
   const a = c.date;

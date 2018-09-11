@@ -26,7 +26,7 @@ const CartSidePane = props => (
               deleteFromCart={() => props.removeFromCart(meal.id)}
               meal={meal}
               key={meal.id + meal.caterer}
-              updateUnits={e => props.updateUnits(e, meal)}
+              onUpdateUnits={e => props.updateUnits(e || 1, meal)}
             />))}
       </div>
       <div className="checkout">

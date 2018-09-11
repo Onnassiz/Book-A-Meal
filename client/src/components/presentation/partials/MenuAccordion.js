@@ -115,8 +115,8 @@ class MenuAccordion extends Component {
           {!this.props.showOpsButtons ? '' :
           <div>
             <div style={{ textAlign: 'center' }}>
-              <button style={{ width: 110 }} onClick={this.props.toggleShowDeleteModal} className="button-error"><i className="ion-ios-trash" /> Delete</button>
-              <button style={{ width: 110 }} onClick={this.props.toggleUpdateModal} className="button"><i className="ion-ios-compose-outline" /> Edit</button>
+              <button id="show-delete" style={{ width: 110 }} onClick={this.props.toggleShowDeleteModal} className="button-error"><i className="ion-ios-trash" /> Delete</button>
+              <button id="show-update" style={{ width: 110 }} onClick={this.props.toggleUpdateModal} className="button"><i className="ion-ios-compose-outline" /> Edit</button>
             </div>
           </div>}
         </AccordionItemBody>

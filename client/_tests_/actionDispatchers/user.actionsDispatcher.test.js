@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import * as userActionsDispatcher from '../../src/reducer/user/actionsDispatcher';
-import LocalStorageMock from '../mocks/localStorage';
+// import LocalStorageMock from '../mocks/localStorage';
 
 const middleware = [thunk];
 
@@ -12,7 +12,7 @@ const store = mockStore({});
 const mock = new MockAdapter(axios);
 axios.defaults.baseURL = 'http://localhost:3009/';
 
-global.localStorage = new LocalStorageMock();
+// global.localStorage = new LocalStorageMock();
 jest.useFakeTimers();
 
 describe('Set User Actions', () => {

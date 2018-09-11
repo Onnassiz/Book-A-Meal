@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Cart /> Should render the Cart container successfully 1`] = `
+<div>
+  <Modal
+    ariaHideApp={true}
+    bodyOpenClassName="ReactModal__Body--open"
+    closeTimeoutMS={1}
+    contentLabel="Modal"
+    isOpen={false}
+    onAfterOpen={[Function]}
+    onRequestClose={[Function]}
+    parentSelector={[Function]}
+    portalClassName="ReactModalPortal"
+    shouldCloseOnEsc={true}
+    shouldCloseOnOverlayClick={true}
+    shouldFocusAfterRender={true}
+    shouldReturnFocusAfterClose={true}
+    style={
+      Object {
+        "content": Object {
+          "WebkitOverflowScrolling": "touch",
+          "background": "#ffffff",
+          "border": "none",
+          "borderRadius": "6px",
+          "bottom": "30%",
+          "left": "33%",
+          "outline": "none",
+          "overflow": "auto",
+          "padding": "15px",
+          "position": "absolute",
+          "right": "33%",
+          "top": "15%",
+        },
+        "overlay": Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.4)",
+          "bottom": 0,
+          "left": 0,
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        },
+      }
+    }
+  >
+    <div>
+      <div
+        className="col-12"
+      >
+        <a
+          onClick={[Function]}
+          style={
+            Object {
+              "float": "right",
+            }
+          }
+        >
+          <i
+            className="material-icons"
+            style={
+              Object {
+                "fontSize": 25,
+              }
+            }
+          >
+            close
+          </i>
+        </a>
+      </div>
+      <div
+        className="box"
+      >
+        <ShowErrors
+          clientErrors={Object {}}
+          serverErrors={Object {}}
+        />
+        <form
+          onSubmit={[Function]}
+        >
+          <BasicInput
+            hasError={false}
+            label="Phone Number"
+            min=""
+            name="telephone"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <TextArea
+            hasError={false}
+            label="Address"
+            name="address"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <SubmitButton
+            isLoading={false}
+            value="Submit"
+          />
+        </form>
+      </div>
+    </div>
+  </Modal>
+  <div
+    className="dynamic-badge cart-control"
+    data-badge={1}
+  >
+    <i
+      className="ion-ios-cart-outline"
+      onClick={[Function]}
+    />
+  </div>
+  <CartSidePane
+    cart={
+      Object {
+        "address": "",
+        "cart": Array [
+          Object {
+            "category": "dolor sit",
+            "caterer": "Ben",
+            "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+            "id": "84c6d80c-3d4a-4772-856c-0b3825bc5333",
+            "imageUrl": "http://thisImage.jpeg",
+            "name": "Malvaceae",
+            "price": 400,
+            "totalPrice": 2000,
+            "units": 2,
+            "userId": "2794fddd-14f3-4ec9-a1dc-88ad2bc649da",
+          },
+        ],
+        "contact": "",
+        "isOpen": false,
+        "orderId": "",
+        "owner": "",
+        "totalPrice": 0,
+        "updateMode": false,
+      }
+    }
+    checkout={[Function]}
+    closeCartPane={[Function]}
+    emptyCart={[MockFunction]}
+    isOpen={false}
+    removeFromCart={[Function]}
+    totalPrice="0"
+    updateUnits={[Function]}
+  />
+</div>
+`;

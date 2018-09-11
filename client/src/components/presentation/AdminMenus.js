@@ -87,6 +87,15 @@ class AdminMenus extends Component {
     return handlePageChange(number, true, this);
   }
 
+  handMenuPageChange(number) {
+    return handlePageChange(number, false, this);
+  }
+
+  toggleShowDeleteModal(menu) {
+    toggleShowDeleteModal(menu, this);
+  }
+
+
   toggleUpdateModal(menu) {
     const { getMeals, getMealsInMenu } = this.props;
     const selectedMeals = [];
@@ -143,7 +152,7 @@ class AdminMenus extends Component {
             pageRangeDisplayed={5}
             hideDisabled
             activePage={this.state.activePage}
-            onChange={number => handlePageChange(number, false, this)}
+            onChange={number => this.handMenuPageChange(number)}
           />
         </div> : ''}
       </div>
@@ -161,10 +170,6 @@ class AdminMenus extends Component {
         <button id="setupProfile" className="button" onClick={this.pushToProfile}>Setup Profile</button>
       </div>
     );
-  }
-
-  toggleShowDeleteModal(menu) {
-    toggleShowDeleteModal(menu, this);
   }
 
   renderAddButton() {

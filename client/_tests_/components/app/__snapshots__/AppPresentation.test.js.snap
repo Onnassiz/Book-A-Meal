@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> Should render App presentation components successfully 1`] = `
+<div>
+  <main>
+    <ToastContainer
+      autoClose={3000}
+      bodyClassName={null}
+      className={null}
+      closeButton={
+        <CloseButton
+          ariaLabel="close"
+        />
+      }
+      closeOnClick={true}
+      draggable={true}
+      draggablePercent={80}
+      hideProgressBar={true}
+      newestOnTop={false}
+      pauseOnFocusLoss={true}
+      pauseOnHover={true}
+      pauseOnVisibilityChange={true}
+      position="bottom-center"
+      progressClassName={null}
+      rtl={false}
+      style={null}
+      toastClassName={null}
+      transition={[Function]}
+    />
+    <Switch>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/auth/:type"
+      />
+      <Route
+        component={[Function]}
+      />
+    </Switch>
+  </main>
+  <Component />
+</div>
+`;

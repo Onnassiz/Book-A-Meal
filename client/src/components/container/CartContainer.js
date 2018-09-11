@@ -1,6 +1,5 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { deleteFromCart, updateCart, emptyCart, setCartState } from '../../reducer/cart/actionsDispatcher';
 import { postOrder, updateOrder } from '../../reducer/orders/actionsDispatcher';
 import Cart from '../presentation/Cart';
@@ -23,7 +22,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Cart));
+)(Cart);

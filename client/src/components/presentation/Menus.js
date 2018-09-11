@@ -40,11 +40,17 @@ class Menus extends Component {
     const { getMealsInDailyMenu } = this.props;
     let date = new Date(e.target.value);
     date = convertUnixToDateForUpdate(date.setDate(date.getDate()) / 1000);
-    getMealsInDailyMenu(date).then(() => {
-      this.setState({ date });
-    }).catch(() => {
+    return getMealsInDailyMenu(date).then(() => {
       this.setState({ date });
     });
+  }
+
+  handleDateChange(date) {
+    handleDateChange(date || moment(new Date()), this);
+  }
+
+  handlePageChange(number) {
+    handlePageChange(number, this);
   }
 
   showMore(meal) {
@@ -84,7 +90,7 @@ class Menus extends Component {
           <Calendar
             showDateInput={false}
             value={moment(this.state.date)}
-            onChange={date => handleDateChange(date, this)}
+            onChange={date => this.handleDateChange(date)}
           />
         </div>
       </SlidingPane>
@@ -101,7 +107,7 @@ class Menus extends Component {
             totalItemsCount={this.state.mealsCount}
             itemsCountPerPage={12}
             pageRangeDisplayed={5}
-            onChange={number => handlePageChange(number, this)}
+            onChange={number => this.handlePageChange(number)}
           />
         </div> : ''}
       </div>
@@ -157,7 +163,6 @@ class Menus extends Component {
         {this.renderFixedCalender()}
         {this.renderCalender()}
         {this.renderMeals()}
-        {this.renderCalender()}
         {this.renderPagination()}
       </div>
     );
@@ -165,7 +170,6 @@ class Menus extends Component {
 }
 
 Menus.propTypes = {
-  orders: PropTypes.object.isRequired,
   menus: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,

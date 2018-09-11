@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import NavBar from '../../../src/components/presentation/layout/NavBar';
 import userInfo from '../../objectProps/user.props';
-import LocalStorageMock from '../../mocks/localStorage';
+// import LocalStorageMock from '../../mocks/localStorage';
 
 const props = {
   user: userInfo,
@@ -15,7 +15,7 @@ const emptyUserProps = {
   page: 'home',
 };
 
-global.localStorage = new LocalStorageMock();
+// global.localStorage = new LocalStorageMock();
 
 const wrapper = shallow(<NavBar {...props} />);
 const wrapperForEmptyUser = shallow(<NavBar {...emptyUserProps} />);

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import LocalStorageMock from '../../mocks/localStorage';
+// import LocalStorageMock from '../../mocks/localStorage';
 import ImageUploader from '../../../src/components/presentation/partials/ImageUploader';
 
 const props = {
@@ -18,7 +18,7 @@ const url = 'https://api.cloudinary.com/v1_1/onnassiz/image/upload';
 
 const wrapper = shallow(<ImageUploader {...props} />);
 
-global.localStorage = new LocalStorageMock();
+// global.localStorage = new LocalStorageMock();
 
 describe('<ImageUploader />', () => {
   it('Should render Image Uploader component successfully', () => {

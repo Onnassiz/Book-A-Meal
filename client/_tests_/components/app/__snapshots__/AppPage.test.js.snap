@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> Should render App page successfully 1`] = `
+<div>
+  <withRouter(Connect(App)) />
+</div>
+`;

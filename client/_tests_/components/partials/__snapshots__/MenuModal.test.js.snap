@@ -85,11 +85,11 @@ exports[`<MenuModal /> Should render Menu Modal page successfully 1`] = `
             <BasicInput
               hasError={false}
               label="Start Date"
-              min="2018-09-06"
+              min="2018-09-07"
               name="startDate"
               onChange={[Function]}
               type="date"
-              value="2018-09-06"
+              value="2018-09-07"
             />
           </div>
           <div>
@@ -124,14 +124,17 @@ exports[`<MenuModal /> Should render Menu Modal page successfully 1`] = `
         >
           <Checkbox
             isChecked={false}
-            key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+            key="id0"
             meal={
               Object {
                 "category": "dolor sit",
+                "caterer": "Ben",
                 "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+                "id": "id0",
                 "name": "Malvaceae",
                 "price": 0,
+                "totalPrice": 2000,
+                "units": 2,
                 "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
               }
             }
@@ -139,14 +142,17 @@ exports[`<MenuModal /> Should render Menu Modal page successfully 1`] = `
           />
           <Checkbox
             isChecked={false}
-            key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+            key="id1"
             meal={
               Object {
                 "category": "dolor sit",
+                "caterer": "Ben",
                 "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+                "id": "id1",
                 "name": "Malvaceae",
                 "price": 40,
+                "totalPrice": 2000,
+                "units": 2,
                 "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
               }
             }
@@ -154,14 +160,17 @@ exports[`<MenuModal /> Should render Menu Modal page successfully 1`] = `
           />
           <Checkbox
             isChecked={false}
-            key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+            key="id2"
             meal={
               Object {
                 "category": "dolor sit",
+                "caterer": "Ben",
                 "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+                "id": "id2",
                 "name": "Malvaceae",
                 "price": 80,
+                "totalPrice": 2000,
+                "units": 2,
                 "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
               }
             }
@@ -169,14 +178,17 @@ exports[`<MenuModal /> Should render Menu Modal page successfully 1`] = `
           />
           <Checkbox
             isChecked={false}
-            key="84c6d80c-3d4a-4772-856c-0b3825bc5444"
+            key="id3"
             meal={
               Object {
                 "category": "dolor sit",
+                "caterer": "Ben",
                 "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
-                "id": "84c6d80c-3d4a-4772-856c-0b3825bc5444",
+                "id": "id3",
                 "name": "Malvaceae",
                 "price": 120,
+                "totalPrice": 2000,
+                "units": 2,
                 "userId": "84c6d80c-3d4a-4772-856c-0b3825bc537e",
               }
             }
@@ -188,11 +200,14 @@ exports[`<MenuModal /> Should render Menu Modal page successfully 1`] = `
             meal={
               Object {
                 "category": "dolor sit",
+                "caterer": "Ben",
                 "description": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
                 "id": "84c6d80c-3d4a-4772-856c-0b3825bc5333",
                 "imageUrl": "http://thisImage.jpeg",
                 "name": "Malvaceae",
                 "price": 400,
+                "totalPrice": 2000,
+                "units": 2,
                 "userId": "2794fddd-14f3-4ec9-a1dc-88ad2bc649da",
               }
             }

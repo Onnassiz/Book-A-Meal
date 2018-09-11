@@ -38,7 +38,7 @@ export const postMenu = () => new Promise((resolve) => {
   });
 });
 
-export const deleteMenu = () => new Promise((resolve) => {
+export const deleteMenuById = () => new Promise((resolve) => {
   resolve({
     status: 200,
   });

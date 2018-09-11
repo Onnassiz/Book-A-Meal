@@ -6,7 +6,7 @@ import { deleteFromCart, addToCart, updateCart, emptyCart } from '../../reducer/
 
 import Menus from '../presentation/Menus';
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   menus: state.menus,
   cart: state.cart,
   orders: state.orders,
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
   formState: state.formState,
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     addToCart,
     updateCart,
