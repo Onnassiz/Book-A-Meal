@@ -5,7 +5,7 @@ services:
   - postgresql
 
 env:
-  - JWT_SECRET=secrett DB_USERNAME_TEST=ben DB_PASSWORD_TEST=ben DB_NAME_TEST=book_a_meal_test PORT=3009
+  - JWT_SECRET=secrett DB_USERNAME_TEST=ben DB_PASSWORD_TEST=ben DB_NAME_TEST=book_a_meal_test PORT=3008
 
 before_script:
   - psql -c 'create database book_a_meal_test;' -U postgres

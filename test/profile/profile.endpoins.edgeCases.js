@@ -8,7 +8,7 @@ import { getCatererToken } from '../../testHelpers/main';
 import { deleteProfile, insertProfile } from '../../testHelpers/profile/index';
 
 dotenv.config();
-const baseUrl = 'http://localhost:3009/api/v1';
+const baseUrl = 'http://localhost:3008/api/v1';
 
 let adminToken = '';
 

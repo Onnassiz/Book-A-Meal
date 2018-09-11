@@ -9,7 +9,10 @@
     "lint": "eslint api",
     "tests": "concurrently --kill-others-on-fail \"npm run test\" \"cd client && npm run test\"",
     "server": "npm start",
+    "test-server": "NODE_ENV=test babel-node server.js --presets env",
+    "migrate-seed": "sequelize db:migrate:undo:all --env test&& sequelize db:migrate --env test&& sequelize db:seed:all --env test",
     "starter": "concurrently --kill-others-on-fail \"npm run server\" \"cd client && npm start\"",
+    "start-e2e": "concurrently --kill-others-on-fail \"npm run migrate-seed && npm run test-server\" \"cd client && npm run start-test\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },

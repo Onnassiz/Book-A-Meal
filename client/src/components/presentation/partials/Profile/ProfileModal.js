@@ -65,7 +65,7 @@ const renderModalBody = props => (
 );
 
 const ProfileModal = props => (
-  <div>
+  <div id="profile_modal">
     <Modal
       isOpen={props.state.isShowingModal}
       closeTimeoutMS={1}

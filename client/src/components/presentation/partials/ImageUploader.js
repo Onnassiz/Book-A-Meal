@@ -78,9 +78,9 @@ class ImageUploader extends Component {
         className="dropzone"
       >
         <div style={{ textAlign: 'center' }}>
-          <h2 id="dropzoneHeader">Drop Images Here</h2>
+          <h2 id="dropzoneHeader">Drop Image Here</h2>
           <br /><br /><br />
-          <button disabled={this.state.showLoader} className="button">Upload Image</button>
+          <button id="upload_image" disabled={this.state.showLoader} className="button">Upload Image</button>
           <div>
             <img src={loaderImage} alt="loader" hidden={!this.state.showLoader} />
           </div>

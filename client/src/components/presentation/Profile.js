@@ -135,7 +135,7 @@ class Profile extends Component {
     return (
       <div id="content-body">
         <div className="col-12">
-          <button onClick={empty(profile.businessName) ? this.handleAddButtonClick.bind(this, false) : this.handleAddButtonClick.bind(this, true)} style={{ marginRight: 5 }} className="button">
+          <button id="profile_button" onClick={empty(profile.businessName) ? this.handleAddButtonClick.bind(this, false) : this.handleAddButtonClick.bind(this, true)} style={{ marginRight: 5 }} className="button">
             {empty(profile.businessName) ? 'Add Profile' : 'Update Profile'}
           </button>
           <button id="toggleDropZone" disabled={empty(profile.id)} onClick={this.toggleDropZone} className="button">Upload Banner</button>
